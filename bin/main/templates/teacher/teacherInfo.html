@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+<link href="/css/main.css" rel="stylesheet" type="text/css">
+<meta th:include="/include/meta.html">
+</head>
+<body>
+<div th:include="/include/topbar.html"></div>
+<div th:include="/include/navbar.html"></div>
+	<div class="page-wrapper">
+		<div class="page-content-tab">
+			<div class="container">
+				<!-- 강사정보  -->
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="page-title-box">
+							<h4 class="page-title">강사정보</h4>
+						</div>
+						<!--end page-title-box-->
+					</div>
+					<!--end col-->
+				</div>
+				<!-- 강사정보 텍스트 끝  -->
+
+				<!-- 강사 정보 시작 -->
+				<div class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="met-profile">
+									<div class="row">
+										<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
+											<div class="met-profile-main">
+												<div class="met-profile-main-pic">
+													<img src="img/human.png" alt="" height="100"
+														class="rounded-circle"> <span
+														class="fro-profile_main-pic-change"><i
+														class="fas fa-camera" aria-hidden="true"></i></span>
+												</div>
+												<div class="met-profile_user-detail">
+													<h5 class="met-user-name">고재현</h5>
+													<p class="mb-0 met-user-name-post">영어선생</p>
+												</div>
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-8 ml-auto">
+											<ul class="list-unstyled personal-detail">
+												<li>
+													<div class="col-lg-6" style="display: inline-block;">
+														<i class="fas fa-file-signature" aria-hidden="true"></i> <b>이름
+														</b>: 고재현
+													</div>
+													<div class="col-lg-5" style="display: inline-block;">
+														<i class="fas fa-school" aria-hidden="true"></i> <b>나이</b>:
+														28세
+													</div>
+
+												</li>
+												<li>
+													<div class="col-lg-6" style="display: inline-block;">
+														<i class="fas fa-birthday-cake" aria-hidden="true"></i> <b>생년월일
+														</b>: 1995-06-23 (26세)
+													</div>
+													<div class="col-lg-5" style="display: inline-block;">
+														<i class="fas fa-home" aria-hidden="true"></i> <b>담당강의
+														</b>: 고등영어 종합A
+													</div>
+												</li>
+												<li>
+													<div class="col-lg-6" style="display: inline-block;">
+														<i class="fas fa-phone" aria-hidden="true"></i> <b>연락처
+														</b>: 010-1234-5678
+													</div>
+													<div class="col-lg-5" style="display: inline-block;">
+														<i class="fas fa-user-friends" aria-hidden="true"></i> <b>입사일</b>:
+														2020-01-20
+													</div>
+												</li>
+
+
+												<li>
+													<div class="col-lg-6" style="display: inline-block;">
+														<i class="fas fa-calendar-day" aria-hidden="true"></i> <b>주소</b>:
+														서울시 서초구 방배동
+													</div>
+
+												</li>
+
+
+											</ul>
+										</div>
+										<!--end col-->
+									</div>
+									<!--end row-->
+								</div>
+								<!--end f_profile-->
+							</div>
+							<!--end card-body-->
+						</div>
+						<!--end card-->
+					</div>
+					<!--end col-->
+				</div>
+
+				<!-- 강사 정보 끝 -->
+
+				<!-- 경력 시작 -->
+
+				<div class="row mg-top10">
+					<div class="col-lg-12">
+						<div class="form-group mb-0">
+							<label for="exampleFormControlTextarea1">경력</label>
+							<textarea class="form-control" id="exampleFormControlTextarea1"
+								rows="3"
+								style="margin-top: 0px; margin-bottom: 0px; height: 157px;"
+								disabled="false">에듀윌 단기강사 전문 (2006.07.23~2010.10.11)
+비트캠프 자바 풀스택 웹개발자 강사 (2010.12.10~2019.03.03)
+								</textarea>
+						</div>
+					</div>
+				</div>
+
+				<!--  경력 끝 -->
+
+
+
+				<!-- 출석, 지각, 결석       시작-->
+				<div class="row mg-top50">
+					<div class="col-lg-4">
+						<div class="card text-white bg-soft-primary">
+							<div class="card-body">
+								<blockquote class="card-bodyquote mb-0">
+									<p>출석</p>
+									<footer class="blockquote-footer font-14">
+										26일
+									</footer>
+								</blockquote>
+							</div>
+							<!--end card-body-->
+						</div>
+						<!--end card-->
+					</div>
+					<!--end col-->
+					<div class="col-lg-4">
+						<div class="card text-white bg-soft-warning">
+							<div class="card-body">
+								<blockquote class="card-bodyquote mb-0">
+									<p>지각</p>
+									<footer class="blockquote-footer font-14">
+										2일
+									</footer>
+								</blockquote>
+							</div>
+							<!--end card-body-->
+						</div>
+						<!--end card-->
+					</div>
+					<!--end col-->
+					<div class="col-lg-4">
+						<div class="card bg-soft-pink" id="bg_colorCard">
+							<div class="card-body">
+								<blockquote class="card-bodyquote mb-0">
+									<p>결석</p>
+									<footer class="blockquote-footer font-14">
+										0일
+									</footer>
+								</blockquote>
+							</div>
+							<!--end card-body-->
+						</div>
+						<!--end card-->
+					</div>
+					<!--end col-->
+				</div>
+	
+				<!-- 출석, 지각, 결석 끝 -->
+
+				<!-- 캘린더 시작 -->
+				<div th:include="/util/calendarDefaultForm.html"></div>
+				<!--  캘린더 끝 -->
+			</div>
+		</div>
+	</div>
+<div th:include="/include/footer.html"></div>
+</body>
+</html>

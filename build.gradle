@@ -1,0 +1,71 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.0.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+}
+
+group = 'com'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	
+	developmentOnly
+	//when runtime getting devTools
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+	//lombok
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	//maven으로 다운 안될 때 new Maven repo에서 다운 
+	//( oracle 등 licence 관리하는 곳은 이곳에 검수해서 올리기 때문. ) 
+	maven { url "https://code.lds.org/nexus/content/groups/main-repo"}
+}
+
+dependencies {
+	//jdbc
+	//implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	//spring security
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	//thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	//spring web mvc with springBoot
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//mybatis
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
+	
+	//use hikariCP
+	compile group: 'com.zaxxer', name: 'HikariCP', version: '3.3.0'	
+	//lombok
+	compileOnly 'org.projectlombok:lombok'
+	//developer tools.   can live-reload
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	
+ 
+	//get starting you can read ojdbc
+	runtimeOnly 'com.oracle.ojdbc:ojdbc8'
+	
+	// oracle 다국어지원 
+	compile group: 'com.oracle.ojdbc', name: 'orai18n', version: '19.3.0.0'
+
+	
+	//lombok은 이클립스에 직접적인 연관이기때문에 annotation 허용을 해주어야 한다.
+	annotationProcessor 'org.projectlombok:lombok'
+	//test unit : junit
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	//can security test
+	//testImplementation 'org.springframework.security:spring-security-test'
+}
+
+test {
+
+	useJUnitPlatform()
+}

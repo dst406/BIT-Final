@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>학생정보</title>
+<meta th:include="/include/meta.html">
+</head>
+<body>
+	<div th:include="/include/topbar.html"></div>
+	<div th:include="/include/navbar.html"></div>
+	<div class="page-wrapper">
+		<!-- Page Content-->
+		<div class="page-content-tab">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="page-title-box">
+							<h4 class="page-title">학생정보</h4>
+						</div>
+						<!--end page-title-box-->
+					</div>
+					<!--end col-->
+				</div>
+
+				<!-- 학생 INFO 시작  -->
+				<div class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="met-profile">
+									<div class="row">
+										<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
+											<div class="met-profile-main">
+												<div class="met-profile-main-pic">
+													<img src="img/human.png" alt="" height="100"
+														class="rounded-circle"> <span
+														class="fro-profile_main-pic-change"><i
+														class="fas fa-camera"></i></span>
+												</div>
+												<div class="met-profile_user-detail">
+													<h5 class="met-user-name">Rosa Dodson</h5>
+													<p class="mb-0 met-user-name-post">UI/UX Designer, USA</p>
+												</div>
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-8 ml-auto">
+											<ul class="list-unstyled personal-detail">
+												<li>
+													<div class="col-lg-6" style="display: inline-block;">
+														<i class="fas fa-file-signature"></i> <b>이름 </b>: 고재현
+													</div>
+													<div class="col-lg-5" style="display: inline-block;">
+														<i class="fas fa-school"></i> <b>학교 </b>: 3조고등학교
+													</div>
+
+												</li>
+												<li>
+													<div class="col-lg-6" style="display: inline-block;">
+														<i class="fas fa-birthday-cake"></i> <b>생년월일 </b>:
+														1995-06-23 (26세)
+													</div>
+													<div class="col-lg-5" style="display: inline-block;">
+														<i class="fas fa-home"></i> <b>주소 </b>: 서울시 강남구 강남동 강남빌라
+														203호
+													</div>
+												</li>
+												<li>
+													<div class="col-lg-6" style="display: inline-block;">
+														<i class="fas fa-phone"></i> <b>연락처 </b>: 010-1234-5678
+													</div>
+													<div class="col-lg-5" style="display: inline-block;">
+														<i class="fas fa-user-friends"></i> <b>부모님 연락처 </b>:
+														010-1234-5678
+													</div>
+												</li>
+
+
+												<li>
+													<div class="col-lg-6" style="display: inline-block;">
+														<i class="fas fa-calendar-day"></i> <b>수강 등록일 </b>:
+														2020-01-20 ~ 2020-03-20
+													</div>
+													<div class="col-lg-5" style="display: inline-block;">
+														<i class="fas fa-calendar-day"></i> <b>수강 종료 예정일 </b>:
+														2020-03-20
+													</div>
+												</li>
+
+												<li>
+													<div class="col-lg-6" style="display: inline-block;">
+														<i class="fas fa-book-open"></i> <b>수강중인 강의 </b>: 고등영어
+														종합A반
+													</div>
+													<div class="col-lg-5" style="display: inline-block;">
+														<i class="fas fa-money-check"></i> <b>납부/미납 상태 </b>: 납부완료
+													</div>
+												</li>
+												<li>
+													<div class="col-lg-12" style="display: inline-block;">
+														<i class="fas fa-sticky-note"></i> <b>메모 </b>: 성적 많이 오르는 중
+														임니다
+													</div>
+
+												</li>
+											</ul>
+										</div>
+										<!--end col-->
+									</div>
+									<!--end row-->
+								</div>
+								<!--end f_profile-->
+							</div>
+							<!--end card-body-->
+						</div>
+						<!--end card-->
+					</div>
+					<!--end col-->
+				</div>
+
+				<!-- 학생 INFO 끝  -->
+
+				<!-- 수강 강의내역 시작  -->
+				<div class="row mg-top30">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+
+								<h4 class="header-title mt-0 mb-3">수강 강의 내역</h4>
+								<div class="table-responsive dash-social">
+									<div id="datatable_wrapper"
+										class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+										<div class="row">
+											<div class="col-sm-12">
+												<table id="datatable" class="table dataTable no-footer"
+													role="grid" aria-describedby="datatable_info">
+													<thead class="thead-light">
+														<tr role="row">
+															<th class="sorting_asc" style="width: 35px;">번호</th>
+															<th class="sorting" style="width: 100px;">강의명</th>
+															<th class="sorting" style="width: 50px;">강의선생</th>
+															<th class="sorting" style="width: 75px;">강의 금액</th>
+															<th class="sorting" style="width: 75px;">강의 시작일</th>
+															<th class="sorting" style="width: 75px;">강의 종료일</th>
+															<th class="sorting" style="width: 65px;">추가</th>
+															<th class="sorting" style="width: 65px;">추가</th>
+
+														</tr>
+														<!--end tr-->
+													</thead>
+													<tbody>
+														<tr role="row" class="odd">
+															<td>1</td>
+
+															<td>고등영어 단기 1반</td>
+															<td>이찬영</td>
+															<td>198,720원</td>
+															<td>2020-04-01</td>
+															<td>2020-06-30</td>
+															<td>추가</td>
+															<td>추가</td>
+														</tr>
+														<tr role="row" class="even">
+															<td>2</td>
+
+															<td>고등영어 단기 1반</td>
+															<td>이찬영</td>
+															<td>198,720원</td>
+															<td>2020-04-01</td>
+															<td>2020-06-30</td>
+															<td>추가</td>
+															<td>추가</td>
+														</tr>
+														<tr role="row" class="odd">
+															<td>3</td>
+
+															<td>고등영어 단기 1반</td>
+															<td>이찬영</td>
+															<td>198,720원</td>
+															<td>2020-04-01</td>
+															<td>2020-06-30</td>
+															<td>추가</td>
+															<td>추가</td>
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+
+										<div class="row">
+											<div class="col-sm-12 col-md-5"></div>
+											<div class="col-sm-12 col-md-7">
+												<div class="dataTables_paginate paging_simple_numbers"
+													id="datatable_paginate">
+													<ul class="pagination">
+														<li class="paginate_button page-item previous disabled"
+															id="datatable_previous"><a href="#"
+															aria-controls="datatable" data-dt-idx="0" tabindex="0"
+															class="page-link">이전</a></li>
+														<li class="paginate_button page-item active"><a
+															href="#" aria-controls="datatable" data-dt-idx="1"
+															tabindex="0" class="page-link">1</a></li>
+														<li class="paginate_button page-item"><a href="#"
+															aria-controls="datatable" data-dt-idx="1" tabindex="0"
+															class="page-link">2</a></li>
+														<li class="paginate_button page-item"><a href="#"
+															aria-controls="datatable" data-dt-idx="1" tabindex="0"
+															class="page-link">3</a></li>
+														<li class="paginate_button page-item"><a href="#"
+															aria-controls="datatable" data-dt-idx="1" tabindex="0"
+															class="page-link">4</a></li>
+														<li class="paginate_button page-item next"
+															id="datatable_next"><a href="#"
+															aria-controls="datatable" data-dt-idx="2" tabindex="0"
+															class="page-link">다음</a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--end card-body-->
+						</div>
+						<!--end card-->
+					</div>
+					<!--end col-->
+				</div>
+				<!-- 수강 강의내역 끝  -->
+
+				<!-- 성적 내역 시작  -->
+
+				<div class="row mg-top30">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<button type="button"
+									class="btn btn-primary waves-effect waves-light float-right mb-3"
+									data-toggle="modal" data-animation="bounce"
+									data-target=".bs-example-modal-lg" style="margin-left: 20px;">+
+									성적 등록</button>
+								<button type="button"
+									class="btn btn-primary waves-effect waves-light float-right mb-3"
+									data-toggle="modal" data-animation="bounce"
+									data-target=".bs-example-modal-lg" style="margin-left: 50px;">*
+									성적 수정</button>
+								<h4 class="header-title mt-0 mb-3">성적 내역</h4>
+								<div class="table-responsive dash-social">
+									<div id="datatable_wrapper"
+										class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="col-sm-12">
+													<table id="datatable" class="table dataTable no-footer"
+														role="grid" aria-describedby="datatable_info">
+														<thead class="thead-light">
+															<tr role="row">
+																<th class="sorting_asc" style="width: 35px;">번호</th>
+																<th class="sorting" style="width: 100px;">강의명</th>
+																<th class="sorting" style="width: 50px;">강의선생</th>
+																<th class="sorting" style="width: 75px;">시험명</th>
+																<th class="sorting" style="width: 75px;">총점</th>
+																<th class="sorting" style="width: 75px;">평균</th>
+																<th class="sorting" style="width: 65px;">석차</th>
+																<th class="sorting" style="width: 65px;">추가</th>
+
+															</tr>
+															<!--end tr-->
+														</thead>
+														<tbody>
+															<tr role="row" class="odd">
+																<td>1</td>
+
+																<td>고등영어 단기 1반</td>
+																<td>이찬영</td>
+																<td>중간평가</td>
+																<td>485 점</td>
+																<td>86.7 점</td>
+																<td>12/25</td>
+																<td>추가</td>
+															</tr>
+															<tr role="row" class="even">
+																<td>2</td>
+																<td>고등영어 단기 1반</td>
+																<td>이찬영</td>
+																<td>중간평가</td>
+																<td>485 점</td>
+																<td>86.7 점</td>
+																<td>12/25</td>
+																<td>추가</td>
+															</tr>
+															<tr role="row" class="odd">
+																<td>3</td>
+																<td>고등영어 단기 1반</td>
+																<td>이찬영</td>
+																<td>중간평가</td>
+																<td>485 점</td>
+																<td>86.7 점</td>
+																<td>12/25</td>
+																<td>추가</td>
+															</tr>
+															<tr role="row" class="even">
+																<td>4</td>
+																<td>고등영어 단기 1반</td>
+																<td>이찬영</td>
+																<td>중간평가</td>
+																<td>485 점</td>
+																<td>86.7 점</td>
+																<td>12/25</td>
+																<td>추가</td>
+															</tr>
+
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 성적 내역 끝  -->
+					<!-- 총점 현황 그래프 시작 -->
+					<div class="row mg-top30">
+						<div class="col-lg-6">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="header-title mt-0 mb-4">3개월 평균 성적</h4>
+									<div class="chart-demo" style="position: relative;">
+										<div class="apex-charts" style="min-height: 395px;">
+											<div
+												class="apexcharts-canvas apexcharts6d8ff4 apexcharts-theme-light"
+												style="width: 580px; height: 380px;">
+
+												<div id="chart_div"></div>
+
+
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+								<!--end card-body-->
+							</div>
+							<!--end card-->
+						</div>
+
+						<!-- 평균 현황 그래프 시작 -->
+						<div class="col-lg-6">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="header-title mt-0 mb-4">6개월 평균</h4>
+									<div class="chart-demo" style="position: relative;">
+										<div class="apex-charts" style="min-height: 395px;">
+											<div
+												class="apexcharts-canvas apexcharts6d8ff4 apexcharts-theme-light"
+												style="width: 580px; height: 380px;">
+
+												<canvas id="avgChart"
+													style="display: block; width: 1428px; height: 714px;"
+													width="1428" height="714" class="chartjs-render-monitor"></canvas>
+
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+								<!--end card-body-->
+							</div>
+							<!--end card-->
+						</div>
+						<!-- 평균 현황 그래프 끝  -->
+					</div>
+					<!-- 총점 현황 그래프 끝  -->
+				</div>
+			</div>
+		</div>
+
+		<div th:include="/include/footer.html"></div>
+</body>
+</html>
