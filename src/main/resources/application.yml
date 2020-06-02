@@ -14,11 +14,17 @@ spring:
           prepStmtCacheSize: 250
           prepStmtCacheSqlLimit: 2048
           useServerPrepStmts: true
-      jdbc-url: jdbc:oracle:thin:@localhost:1521:root
+      jdbc-url: jdbc:log4jdbc:oracle:thin:@localhost:1521:root
       username: scott
       password: tiger
-      driver-class-name: oracle.jdbc.OracleDriver
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
 
 #포트변경              
 server:
   port: 80
+  
+  
+  # SQL Log
+logging:
+  file:
+    path: logback-spring.xml

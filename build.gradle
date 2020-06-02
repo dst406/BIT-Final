@@ -47,13 +47,18 @@ dependencies {
 	//developer tools.   can live-reload
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	
+	//sql log
+	compile group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4', version: '1.16'
+
  
 	//get starting you can read ojdbc
 	runtimeOnly 'com.oracle.ojdbc:ojdbc8'
 	
 	// oracle 다국어지원 
 	compile group: 'com.oracle.ojdbc', name: 'orai18n', version: '19.3.0.0'
-
+	
+	//AOP
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop'
 	
 	//lombok은 이클립스에 직접적인 연관이기때문에 annotation 허용을 해주어야 한다.
 	annotationProcessor 'org.projectlombok:lombok'
