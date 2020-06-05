@@ -29,6 +29,8 @@ function qlHeadercursor(){
 	$('.ql_header').on('click',function(event){
 		var heading = 'H'+$(event.target).closest('button').val();
 		document.execCommand("formatBlock",null,heading);
+		
+		
 	})
 	
 	//Bold, Italic, StrikeThrough

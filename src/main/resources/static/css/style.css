@@ -49,3 +49,33 @@
 	border-top: 1px solid #8c8a8a;
 	margin-bottom: 30px;
 }
+
+
+.menu-body h6{
+	cursor:pointer;
+}
+
+.main-icon-menu-pane ul{
+	display: none;
+}
+
+.main-icon-menu-pane .active {
+	display: block;
+}
+
+
+.nav-link{
+	margin-bottom:10px;
+}
+
+.nav-second-level .nav-item{
+	margin-bottom:12px;
+}
+
+.group_icon{
+	float:right;
+	position:absolute;
+	text-align:right;	
+}
+
+

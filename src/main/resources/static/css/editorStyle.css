@@ -150,3 +150,12 @@
     background: rgb(248, 249, 250);
     padding: 1rem 1rem 1rem 2rem;
 }
+
+
+/* .drag-over { background-color: #ff0; } 
+.thumb {padding:5px; }
+.thumb > img { width:100%; }
+.thumb > .close { position:absolute; background-color:#808080; cursor:pointer; }*/
+
+img { width:100%; }
+.close { position:absolute; background-color:#808080; cursor:pointer; }
