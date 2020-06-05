@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta th:include="/include/meta.html">
+<link href="/css/editorStyle.css" rel="stylesheet" type="text/css">
+<script src="https://kit.fontawesome.com/8fe653c8f8.js" crossorigin="anonymous"></script>
+<title>Insert title here</title>
+</head>
+<body onload="checkBlockquote();">
+
+	<div th:include="/include/topbar.html"></div>
+	<div th:include="/include/nav/boardNavBar.html"></div>
+
+
+
+	<div class="page-wrapper">
+		<!-- Page Content-->
+		<div class="page-content-tab">
+			<div class="container">
+
+				<!-- 공간   -->
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="page-title-box"></div>
+					</div>
+				</div>
+				<!-- 공간 끝 -->
+
+				<div class="row">
+					<div class="postForm_header">
+						<div class="postForm_header_board">
+							<a href="#"><b> [엄쌤] 일석이조 : SQLD 스터디룸</b></a>
+						</div>
+						<div class="postForm_header_title">
+							<textarea placeholder="제목을 입력하세요" ></textarea>
+						</div>
+						<div class="board_black_line"></div> 
+						<div class="postForm_header_board">
+							<button type="button" class="btn btn-info btn-square btn-outline-dashed waves-effect waves-light">
+								<i class="fas fa-share-square"></i>
+								<span class="temp_title">[엄쌤] 머리에 쏙쏙 SQLD</span> 
+								<span class="temp_date">2020.06.04 12:22</span> 
+							</button>
+							<button type="button" class="btn btn-info btn-square btn-outline-dashed waves-effect waves-light">
+								<i class="fas fa-share-square"></i>
+								<span class="temp_title">[확률과통계]2021 무조건 나오는 적중기출 100제</span>
+								<span class="temp_date">2020.05.21 16:47</span>
+							</button>
+							<button type="button" class="btn btn-info btn-square btn-outline-dashed waves-effect waves-light">
+								<i class="fas fa-share-square"></i>
+								<span class="temp_title">[확률과통계]2021 무조건 나오는 적중기출 100제</span>
+								<span class="temp_date">2020.05.21 16:48</span>
+							</button>
+							<p>저장된 글은 저장일로부터 30일동안 보관됩니다.</p>
+						</div>
+						<hr class="black-hr">
+					</div>
+					
+				</div>
+				
+				<div class="row">
+					<div th:replace="~{common/board/fragment/editToolbar :: editToolbar}"></div>
+					<div class="editorDIV" contenteditable="true">
+						<p class="first_editor_contents">내용을 입력해주세요</p>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+
+
+
+
+
+
+
+	<div th:include="/include/footer.html"></div>
+	<script src="js/editor/boardEditor.js" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="js/editor/editEventTrigger.js"></script>
+</body>
+</html>

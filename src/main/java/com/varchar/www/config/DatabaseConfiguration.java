@@ -15,35 +15,34 @@ import org.springframework.context.annotation.PropertySource;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-
-@Configuration
-@PropertySource("classpath:/application.yml")
-@MapperScan(basePackages = {"com.varchar.www.model.dao"})
-public class DatabaseConfiguration {
-	
-	@Autowired
-	private ApplicationContext applicationContext;
-	@Bean
-	@ConfigurationProperties(prefix = "spring.datasource.hikari")
-	public HikariConfig hikariConfig() {
-		return new HikariConfig();
-	}
-	@Bean(destroyMethod="close")
-	public DataSource dataSource() throws Exception{
-		DataSource dataSource = new HikariDataSource(hikariConfig());
-		return dataSource;
-	}
-	@Bean
-	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-		sqlSessionFactoryBean.setDataSource(dataSource);
-		sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/sql/**/*.xml"));
-		sqlSessionFactoryBean.setTypeAliasesPackage("com.varchar.www.model.domain");
-		return sqlSessionFactoryBean.getObject();
-	}
-	
-	@Bean
-	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-		return new SqlSessionTemplate(sqlSessionFactory);
-	}
-}
+//
+//@Configuration
+//@PropertySource("classpath:/application.yml")
+//public class DatabaseConfiguration {
+//	
+//	@Autowired
+//	private ApplicationContext applicationContext;
+//	@Bean
+//	@ConfigurationProperties(prefix = "spring.datasource.hikari")
+//	public HikariConfig hikariConfig() {
+//		return new HikariConfig();
+//	}
+//	@Bean(destroyMethod="close")
+//	public DataSource dataSource() throws Exception{
+//		DataSource dataSource = new HikariDataSource(hikariConfig());
+//		return dataSource;
+//	}
+//	@Bean
+//	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+//		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+//		sqlSessionFactoryBean.setDataSource(dataSource);
+//		sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/sql/**/*.xml"));
+//		sqlSessionFactoryBean.setTypeAliasesPackage("com.varchar.www.model.domain");
+//		return sqlSessionFactoryBean.getObject();
+//	}
+//	
+//	@Bean
+//	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+//		return new SqlSessionTemplate(sqlSessionFactory);
+//	}
+//}

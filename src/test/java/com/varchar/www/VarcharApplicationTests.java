@@ -6,8 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.varchar.www.model.dao.DAOTest;
 
-import lombok.extern.slf4j.Slf4j;
-
 
 @SpringBootTest
 class VarcharApplicationTests {
@@ -22,7 +20,8 @@ class VarcharApplicationTests {
 	
 	@Test
 	public void DB_CONNECT_TEST() {
-		System.out.println(daoTest.getDeptNames());
+		System.out.println(daoTest.getSeasonId());
 	}
+	
 	
 }

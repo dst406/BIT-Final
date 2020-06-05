@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+ 	<div id="toolbar" class="editor_toolbar" th:fragment="editToolbar">
+	    <button class="toolbar_elements ql_header" value="1"><div class="ql_header_section">H<span>1</span></div></button>
+	    <button class="toolbar_elements ql_header" value="2"><div class="ql_header_section">H<span>2</span></div></button>
+	    <button class="toolbar_elements ql_header" value="3"><div class="ql_header_section">H<span>3</span></div></button>
+	    <button class="toolbar_elements ql_header" value="4"><div class="ql_header_section">H<span>4</span></div></button>
+	    
+	    <div class="vertical_line"></div>
+	    
+	    <button class="toolbar_elements ql_bold textControl" value="bold">
+			   <svg class="bi bi-type-bold" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+ 				 <path d="M8.21 13c2.106 0 3.412-1.087 3.412-2.823 0-1.306-.984-2.283-2.324-2.386v-.055a2.176 2.176 0 0 0 1.852-2.14c0-1.51-1.162-2.46-3.014-2.46H3.843V13H8.21zM5.908 4.674h1.696c.963 0 1.517.451 1.517 1.244 0 .834-.629 1.32-1.73 1.32H5.908V4.673zm0 6.788V8.598h1.73c1.217 0 1.88.492 1.88 1.415 0 .943-.643 1.449-1.832 1.449H5.907z"></path>
+				</svg>
+	    </button>
+	    
+	    <button class="toolbar_elements ql_iteric textControl" value="Italic">
+	    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+	    <path d="M10 4v3h2.21l-3.42 8H6v3h8v-3h-2.21l3.42-8H18V4z"></path></svg>
+	     </button>
+	    
+	    <button class="toolbar_elements ql_strikeThrough textControl" value="strikeThrough">
+	    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+	    <path d="M10 19h4v-3h-4v3zM5 4v3h5v3h4V7h5V4H5zM3 14h18v-2H3v2z"></path></svg>
+	    </button>
+	    
+	    <div class="vertical_line"></div>	    
+	    
+	    	    
+	    	    
+	    	    
+	    	    <button class="toolbar_elements ql_quote" >
+	    	    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+	    	    <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"></path></svg>
+	    	    </button>
+	    	    
+	    	    <button class="toolbar_elements ql_link" >
+	    	    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+	    	    <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>
+	    	    </button>
+	    	    
+	    	    <button class="toolbar_elements ql_img" >
+	    	    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+	    	    <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"></path></svg>
+	    	    </button>
+    </div>
+</body>
+</html>

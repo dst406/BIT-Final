@@ -1,71 +1,51 @@
-.mg-top10{
-    margin-top : 10px;
+.container {
+	max-width: 1200px;
 }
-.mg-top20{
-    margin-top : 20px;
+
+.mg-top10 {
+	margin-top: 10px;
 }
-.mg-top30{
-    margin-top : 30px;
+
+.mg-top20 {
+	margin-top: 20px;
 }
-.mg-top40{
-    margin-top : 40px;
+
+.mg-top30 {
+	margin-top: 30px;
 }
-.mg-top50{
-    margin-top : 50px;
+
+.mg-top40 {
+	margin-top: 40px;
 }
-.mg-top60{
-    margin-top : 60px;
+
+.mg-top50 {
+	margin-top: 50px;
 }
-.mg-top70{
-    margin-top : 70px;
+
+.mg-top60 {
+	margin-top: 60px;
 }
-.mg-top80{
-    margin-top : 80px;
+
+.mg-top70 {
+	margin-top: 70px;
 }
-.mg-top90{
-    margin-top : 90px;
+
+.mg-top80 {
+	margin-top: 80px;
 }
-.col-inline-block{
+
+.mg-top90 {
+	margin-top: 90px;
+}
+.mg-auto{
+	margin:auto;
+}
+
+.col-inline-block {
 	display: inline-block;
 }
 
-.article-post-list{
-    list-style: none;
-    padding-left: 15px;
-    padding-right: 15px;
-    width : 100%;  
-}
-
-.article-post-list li {
-    display: block;
-    padding: 16px 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    border-bottom: 1px solid #eeeeef;
-}
-
-.article-post-list li post-list-contents {
-    display: table;
-    position: relative;
-    width: 100%;
-    table-layout: fixed;
-}
-
-.article-post-list li post-list-header {
-
-	
-}
-
-.article-post-list li .post-list-header strong {
-	display: block;
-    height: 22px;
-    font-size: 16px;
-    line-height: 22px;
-    display: block;
-    overflow: hidden;
-}
-
-
-.article-post-list li .post-list-info {
-
+.black-hr {
+	border-top: 1px solid #8c8a8a;
+	margin-bottom: 30px;
 }

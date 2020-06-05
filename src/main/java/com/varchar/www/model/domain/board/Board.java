@@ -1,5 +1,11 @@
 package com.varchar.www.model.domain.board;
 
-public class Board {
+import org.apache.ibatis.type.Alias;
 
+import lombok.Data;
+
+@Data
+@Alias("board")
+public class Board {
+	public String seasonId;
 }
