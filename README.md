@@ -12,25 +12,29 @@ Modal창으로 gitbook EditPage 구현하는 방법. ( gitbook Layout을 벤치�
 2. 이벤트가 일어날 태그에 data-mfp-src= "Layer 최상단 class 이름" 을 붙혀준다.
   
   ex) 
-  <code>
-  <a href="javascript:void(0)" data-mfp-src=".editBoardGroupPanelWrapper " class="editPage-popup-link"></a></code>
+  ```
+  <a href="javascript:void(0)" data-mfp-src=".editBoardGroupPanelWrapper " class="editPage-popup-link"></a>
+  ```
+  
   
 3. jquery 명령어로 getModalFormEditPage("이벤트가 일어날 class명", "모달창을 닫히게 할 수 있는 버튼의 class명") 을 적어준다.
  
 
 
  - html -
+ ```
  <div th:replace="~{common/board/fragment/editPage :: editPage ( ${boardGroupList} ) }">
  <a href="javascript:void(0)" data-mfp-src=".editBoardGroupPanelWrapper " class="editPage-popup-link">
    <i class="fas fa-plus group_plus"></i>
   </a>
-  
+ ``` 
   
 - js - 
+```
 $(function(){
   getModalFormEditPage("editPage-popup-link", ".boardGroupPanelHeaderClose");
 })
-
+```
 
  
 ------------------------------------------------------------------------------
