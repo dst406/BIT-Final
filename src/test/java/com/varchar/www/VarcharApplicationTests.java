@@ -23,5 +23,11 @@ class VarcharApplicationTests {
 		System.out.println(daoTest.getSeasonId());
 	}
 	
+	public void boardGroup() {
+		
+		
+		
+	}
+	
 	
 }

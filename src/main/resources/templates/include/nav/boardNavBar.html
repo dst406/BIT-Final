@@ -80,7 +80,7 @@
 	<!--end main-icon-menu-->
 	<div class="main-menu-inner active">
 		<!-- LOGO -->
-	
+
 		<!--end logo-->
 		<div class="slimScrollDiv mm-active active"
 			style="position: relative; overflow: hidden; width: auto; height: 969px;">
@@ -89,6 +89,13 @@
 
 				<div id="MetricaApps" class="main-icon-menu-pane active">
 					<div class="title-box">
+					<a href="#" data-mfp-src=".editBoardGroupPanelWrapper" class="group_icon editBoardGroup-popup-link">
+								<i class="fas fa-ellipsis-h"></i>
+							</a>
+							
+							<a href="#" data-mfp-src=".insertBoardGroupContainer" class="group_icon insertPage-popup-link">
+								<i class="fas fa-plus group_plus"></i>
+							</a>	
 						<h6 class="menu-title">[확률과통계]2021 무조건 나오는 적중기출 100제</h6>
 					</div>
 					<ul class="nav metismenu active" style="">
@@ -106,24 +113,43 @@
 							href="../apps/chat.html" aria-expanded="false">★적중 100제★ 자체평가</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="../apps/contact-list.html" aria-expanded="false">복습 검사</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="../apps/invoice.html" aria-expanded="false">개인 질의응답</a></li>
+
+						<li class="nav-item"><a class="nav-link ajax-popup-link"
+							data-mfp-src=".editBoardGroupPanelWrapper" href="#"
+							aria-expanded="false">개인 질의응답</a></li>
 					</ul>
 				</div>
-			
+
+
+		
+
+
 				<!-- end Authentication-->
 				<div id="MetricaApps" class="main-icon-menu-pane active">
 					<div class="title-box">
-						<i class="fas fa-plus group_plus group_icon"></i>
+						<div class="title-box-icons">
+							<a href="#" data-mfp-src=".editBoardGroupPanelWrapper" class="group_icon editBoardGroup-popup-link">
+								<i class="fas fa-ellipsis-h"></i>
+							</a>
+							
+							<a href="#" data-mfp-src=".insertBoardGroupContainer" class="group_icon insertPage-popup-link">
+								<i class="fas fa-plus group_plus"></i>
+							</a>	
+						</div>
 						<h6 class="menu-title">[엄쌤] 익석이조: 문학,독서 휘어잡기</h6>
 					</div>
+					
+				
+					
+					
+
+					
 					<ul class="nav metismenu">
 						<!--end nav-item-->
 						<li class="nav-item mm-active"><a class="nav-link"
 							href="javascript: void(0);" aria-expanded="true"><span
-								class="w-100">엄쌤 무비 더 비기닝</span>
-								<span class="menu-arrow"><i class="fas fa-arrow-right"></i></span>
-								</a>
+								class="w-100">엄쌤 무비 더 비기닝</span> <span class="menu-arrow"><i
+									class="fas fa-arrow-right"></i></span> </a>
 							<ul class="nav-second-level mm-collapse mm-show"
 								aria-expanded="false" style="">
 								<li><a href="../apps/email-inbox.html">5월 문법노트+독서노트</a></li>
@@ -143,9 +169,14 @@
 						<li class="nav-item"><a class="nav-link"
 							href="../apps/invoice.html" aria-expanded="false">엄쌤의 문학노트 -
 								실전모고 1,2,3</a></li>
+						<li></li>
+
 					</ul>
 				</div>
 			</div>
+
+
+
 			<div class="slimScrollBar"
 				style="background: rgba(162, 177, 208, 0.13); width: 7px; position: absolute; top: 0px; opacity: 1; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 901px;"></div>
 			<div class="slimScrollRail"
@@ -155,3 +186,7 @@
 	</div>
 	<!-- end main-menu-inner-->
 </div>
+<!--  <div th:replace="~{common/board/fragment/editPage :: editPage}"></div> -->
+					<div th:replace="~{common/board/fragment/editPage :: editPage}"></div>
+					<div th:replace="~{common/board/fragment/insertBoardGroup :: insertBoardGroup}"></div>
+					

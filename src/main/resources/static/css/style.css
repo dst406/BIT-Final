@@ -72,10 +72,26 @@
 	margin-bottom:12px;
 }
 
+.title-box-icons{
+	text-align:right;
+}
 .group_icon{
 	float:right;
-	position:absolute;
-	text-align:right;	
+	padding-left:3px;
+	padding-right:3px;
+	cursor : pointer;
+	/* position:absolute; */
+}
+
+.main-icon-menu {
+	z-index : 1400 !important;
+}
+.main-menu-inner{
+	z-index : 1400;
 }
 
 
+.menu-title{
+	max-height: 27px;
+    overflow-y: hidden;
+}

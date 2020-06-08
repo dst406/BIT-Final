@@ -14,7 +14,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/postList")
-	public String getPostList(Board board) {
+	public String getPostList(String boardNo) {
 		
 		return "common/board/postList";
 	}
@@ -24,9 +24,16 @@ public class BoardController {
 		return "common/board/editor";
 	}
 	
-	@GetMapping("newPostForm")
+	@GetMapping("/newPostForm")
 	public String newPostForm() {
 		return "common/board/newPostForm";
 	}
+	
+	@GetMapping("/editPage")
+	public String editPage() {
+		return "common/board/fragment/editPage";
+	}
+	
+	
 	
 }
