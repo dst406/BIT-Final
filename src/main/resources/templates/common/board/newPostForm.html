@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  layout:decorator="layout/defaultLayout">
 <head>
-<meta charset="UTF-8">
-<meta th:include="/include/meta.html">
 <link href="/css/editorStyle.css" rel="stylesheet" type="text/css">
 <script src="https://kit.fontawesome.com/8fe653c8f8.js"
 	crossorigin="anonymous"></script>
-<title>Insert title here</title>
+<script type="text/javascript" src="js/editor/editEventTrigger.js"></script>	
+	
 </head>
 <body onload="checkBlockquote();">
 
-	<div th:include="/include/topbar.html"></div>
-	<div th:include="/include/nav/boardNavBar.html"></div>
-
-
-
+<div layout:fragment="content">
 	<div class="page-wrapper">
 		<!-- Page Content-->
 		<div class="page-content-tab">
@@ -94,15 +91,8 @@
 		</div>
 	</div>
 </div>
-
-
-
-
-
-
-
-	<div th:include="/include/footer.html"></div>
+</div>
 	<script src="js/editor/boardEditor.js" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="js/editor/editEventTrigger.js"></script>
+	
 </body>
 </html>

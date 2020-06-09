@@ -7,6 +7,7 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 
 import com.varchar.www.model.domain.board.Board;
 import com.varchar.www.model.domain.board.BoardGroup;
+import com.varchar.www.model.domain.board.BoardGroupList;
 
 @Configuration
 public class JavaBeanConfiguration {
@@ -15,13 +16,13 @@ public class JavaBeanConfiguration {
 	public LogAspectJ logAspectJ() { return new LogAspectJ(); }
 	
 
-	 @Bean public Board board() {return new Board();}
+	
 	 
 	//  @Bean public Season season() {return new Season();}
 	 
-	 
+	 @Bean public Board board() {return new Board();}
 	 @Bean public BoardGroup boardGroup() {return new BoardGroup();}
-	 
+	 @Bean public BoardGroupList boardGroupList() {return new BoardGroupList();}
 	 
 	
 

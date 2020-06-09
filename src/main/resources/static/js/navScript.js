@@ -3,10 +3,131 @@ $(function(){
 	selectNavBar();
 	selectBoardGroup();
 	groupItemActive();
-	getModalFormEditPage("editBoardGroup-popup-link",".boardGroupPanelHeaderClose, .actionsSecondary");
-	getModalFormEditPage("insertPage-popup-link",".itemCloseButton");
+	getModalFormEditPage();
+	getModalFormAddPage();
+//	getModalFormEditPage();
+//	getModalFormEditPage("insertPage-popup-link",".itemCloseButton");
+	
 })
 
+
+
+
+//function getModalFormEditPage(){
+//	$('.menu-body').bind('click','.editBoardGroup-popup-link',function(event){
+//		console.log('1  ');
+//		event.preventDefault();
+//		var title = $(event.target).closest('.title-box').find('.edit-able').text();
+//		$('.formInputWrapper .inputInnerMedium').val(title);
+//		console.log(title);
+//		$('.editBoardGroup-popup-link').magnificPopup({
+//			type:'inline',
+//			midClick:true,
+//			showCloseBtn:false
+//		});
+//		console.log('3  ');
+//		
+//		$(".boardGroupPanelHeaderClose, .actionsSecondary").on('click',function(){
+//			$.magnificPopup.close();
+//		})
+//	})
+//	
+//}	
+//	
+
+
+
+function getModalFormEditPage(){
+
+	$('.editBoardGroup-popup-link').on('click',function(event){
+		var title = $(event.target).closest('.title-box').find('.edit-able').text();
+		$('.formInputWrapper .inputInnerMedium').get(0).value = title;
+		$('.inputInnerMedium').get(1).value="";
+	})
+		
+	getModalForm(".editBoardGroup-popup-link",".boardGroupPanelHeaderClose, .actionsSecondary");
+	
+}	
+	
+function getModalForm(openTarget, closeTarget){
+	$(openTarget).magnificPopup({
+		type:'inline',
+		midClick:true,
+		showCloseBtn:false
+	});
+	
+	$(closeTarget).on('click',function(){
+		$.magnificPopup.close();
+	})
+}
+
+function getModalFormAddPage(){
+	
+	var lectureCode ;
+	
+	
+	$('.insertPage-popup-link').on('click',function(event){
+		$('.itemCardBodyContent').val('');
+		lectureCode = $(event.target).closest('.main-icon-menu-pane').find('.hidden-lectureCode').val();
+	})
+	getModalForm(".insertPage-popup-link",".itemCloseButton");
+	
+	
+	
+	//console.log(order.closest('.main-icon-menu-pane').find('.metismenu'));
+	
+	$(".itemActivityToolbar .itemSaveButton").on('click',function(){
+		
+		
+		
+		$.ajax({
+			url:"/insertBoardGroup",
+			type:"POST",
+			data: { 
+				content : $('.itemCardBodyContent').val(),
+				lectureCode: lectureCode
+			},
+			success:function(data){
+				alert('야쓰');
+				console.log(data);
+				$.magnificPopup.close();
+				$('.menu-body').html(data);
+				var order = $('.hidden-lectureCode[value='+lectureCode+']');
+				order.closest('.main-icon-menu-pane').find('.metismenu').addClass('active');
+				//$('.main-icon-menu-pane:first-child .metismenu').addClass('active');
+				
+			}
+			
+		})
+	})
+	//$('.insertPage-popup-link').on('click',function(event){})
+	//getModalFormEditPage("insertPage-popup-link",".itemCloseButton");
+	
+}
+
+
+//
+//function getModalFormEditPage(){
+//	$('.menu-body').bind('click','.editBoardGroup-popup-link',function(event){
+//		console.log('1  ');ㅈ
+//		event.preventDefault();
+//		var title = $(event.target).closest('.title-box').find('.edit-able').text();
+//		$('.formInputWrapper .inputInnerMedium').val(title);
+//		console.log(title);
+//		$('.editBoardGroup-popup-link').magnificPopup({
+//			type:'inline',
+//			midClick:true,
+//			showCloseBtn:false
+//		});
+//		console.log('3  ');
+//		
+//		$(".boardGroupPanelHeaderClose, .actionsSecondary").on('click',function(){
+//			$.magnificPopup.close();
+//		})
+//	})
+//	
+//}	
+	
 
 
 function target(event){

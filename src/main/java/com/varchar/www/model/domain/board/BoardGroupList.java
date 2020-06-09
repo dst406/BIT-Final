@@ -9,10 +9,10 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-@Alias("boardGroup")
-public class BoardGroup {
-	private int boardGroupNo;
-	private String boardGroupName;
-	private int boardGroupOrder;
-	private List<Board> board;
+@Alias("boardGroupList")
+public class BoardGroupList {
+	public BoardGroupList() {}
+	private String lectureCode;
+	private String lectureName;
+	private List<BoardGroup> boardGroup;
 }

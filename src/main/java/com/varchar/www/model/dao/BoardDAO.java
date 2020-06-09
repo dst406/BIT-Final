@@ -1,11 +1,13 @@
 package com.varchar.www.model.dao;
 
-import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+
+import com.varchar.www.model.domain.board.BoardGroupList;
+
 
 public interface BoardDAO {
-	@Select("SELECT eName FROM emp WHERE empNo = #{empNo}")
-	public String getUserName(@Param("empNo") int empNo);
-	
+	List<BoardGroupList> getNavbar(String userId);
+	void insertBoardGroup(@Param("content")String content, @Param("lectureCode")String lectureCode);
 }

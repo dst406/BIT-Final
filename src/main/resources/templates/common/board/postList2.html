@@ -7,8 +7,9 @@
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
-
-<div layout:fragment="content">
+	<div th:object="${board}"></div>
+	<div th:include="/include/topbar.html"></div>
+	<div th:include="/include/navBar.html"></div>
 
 	<div class="page-wrapper">
 		<!-- Page Content-->
@@ -118,9 +119,10 @@
 			</div>
 		</div>
 	</div>
-</div>
 
 
+
+	<div th:include="/include/footer.html"></div>
 	
 </body>
 </html>
