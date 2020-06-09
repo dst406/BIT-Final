@@ -81,6 +81,7 @@ dependencies {
 	}
 	//can security test
 	//testImplementation 'org.springframework.security:spring-security-test'
+	implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
 }
 
 test {

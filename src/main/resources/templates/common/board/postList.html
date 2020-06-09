@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  layout:decorator="~{layout/defaultLayout}">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<meta th:include="/include/meta.html">
 <link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
-	<div th:object="${board}"></div>
-	<div th:include="/include/topbar.html"></div>
-	<div th:include="/include/nav/boardNavBar.html"></div>
+
+<th:block layout:frament="contents">
 
 	<div class="page-wrapper">
 		<!-- Page Content-->
@@ -120,10 +118,9 @@
 			</div>
 		</div>
 	</div>
+</th:block>
 
 
-
-	<div th:include="/include/footer.html"></div>
 	
 </body>
 </html>
