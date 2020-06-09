@@ -9,4 +9,5 @@ import com.varchar.www.model.domain.board.BoardGroupList;
 
 public interface BoardService {
 	public List<BoardGroupList> getNavbar(String userId);
+	void insertBoardGroup(String content, String lectureCode);
 }

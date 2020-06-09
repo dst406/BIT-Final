@@ -3,6 +3,7 @@
 			<!-- 강의별 게시판 그룹, 게시판 List Start -->
 				<div th:each="boardGroupList : ${boardGroupList}" id="MetricaApps"
 					class="main-icon-menu-pane">
+					<input th:value="${boardGroupList.lectureCode}" type="hidden" class="hidden-lectureCode">
 					<div class="title-box">
 						<div class="title-box-icons">
 							<a href="#" data-mfp-src=".editBoardGroupPanelWrapper"
@@ -13,14 +14,14 @@
 								class="fas fa-plus group_plus"></i>
 							</a>
 						</div>
-						<h6 th:text="${boardGroupList.lectureName}" class="menu-title">[엄쌤]
+						<h6 th:text="${boardGroupList.lectureName}" class="menu-title edit-able">[엄쌤]
 							익석이조: 문학,독서 휘어잡기</h6>
 					</div>
 					<ul 
 						class="nav metismenu">
 						<!--end nav-item-->
 						<li th:each="boardGroup: ${boardGroupList.boardGroup}" class="nav-item mm-active active">
-						<a th:text="${boardGroup.boardGroupName}" class="nav-link"
+						<a th:text="${boardGroup.boardGroupName}" class="nav-link edit-able"
 							href="javascript: void(0);" aria-expanded="true"><span
 								class="w-100">엄쌤 무비 더 비기닝</span><span class="menu-arrow"><i
 									class="mdi mdi-chevron-right"></i></span></a>
@@ -38,6 +39,5 @@
 
 <!--  <div th:replace="~{common/board/fragment/editPage :: editPage}"></div> -->
 <div th:replace="~{common/board/fragment/editPage :: editPage}"></div>
-<div
-	th:replace="~{common/board/fragment/insertBoardGroup :: insertBoardGroup}"></div>
-
+<div th:replace="~{common/board/fragment/insertBoardGroup :: insertBoardGroup}"></div>
+<script th:src="@{js/navScript.js}"></script>

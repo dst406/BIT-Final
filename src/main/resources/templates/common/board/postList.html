@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	  layout:decorator="~{layout/defaultLayout}">
+	  layout:decorator="layout/defaultLayout">
 <head>
 <link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
 
-<th:block layout:frament="contents">
+<div layout:fragment="content">
 
 	<div class="page-wrapper">
 		<!-- Page Content-->
@@ -118,7 +118,7 @@
 			</div>
 		</div>
 	</div>
-</th:block>
+</div>
 
 
 	

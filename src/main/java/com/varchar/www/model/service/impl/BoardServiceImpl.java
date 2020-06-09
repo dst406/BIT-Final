@@ -7,12 +7,13 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.varchar.www.model.dao.BoardDAO;
 import com.varchar.www.model.domain.board.BoardGroupList;
 import com.varchar.www.model.service.BoardService;
 
-@Service
+@Service("boardServiceImpl")
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired BoardDAO boardDAO;
@@ -21,6 +22,13 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardGroupList> getNavbar(String userId) {
 		
 		return boardDAO.getNavbar(userId);
+	}
+
+	@Override
+	@Transactional
+	public void insertBoardGroup(String content, String lectureCode) {
+		boardDAO.insertBoardGroup(content, lectureCode);
+		
 	}
 
 }

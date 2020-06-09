@@ -45,19 +45,31 @@
 	<!-- SELECT * FROM BOARD_GROUP BG
 		INNER JOIN LECTURE ON lecture.lecture_code = bg.lecture_code
 		WHERE user_id = #{userId} -->
+	
+	
+	<!-- getBoardGroup start -->
 		
 	<select id="getNavbar" resultMap="boardGroupList_resultMap">
-		select lecture_code,lecture_name from lecture where user_id = #{userId}
+		SELECT lecture_code,lecture_name FROM lecture WHERE user_id = #{userId}
+		
 	</select>	
 		
 	<select id="getBoardGroupList" resultMap="boardGroup_resultMap">
-	 	SELECT * FROM BOARD_GROUP WHERE lecture_code IN #{lectureCode}
+	 	SELECT * FROM BOARD_GROUP WHERE lecture_code IN ( #{lectureCode} ) ORDER BY board_group_order
 	</select>
 	
 	<select id="getBoardList" resultType="board">
 		SELECT * FROM board WHERE board_GROUP_NO = #{boardGroupNo}
 	</select>
 	
+	<!-- getBoardGroup end -->
 	
+	
+	<!--  insert BoardGroup -->
+	<insert id="insertBoardGroup" parameterType="Map">
+		INSERT INTO board_group VALUES(SEQ_BOARD_GROUP.nextval, #{lectureCode},#{content},
+			(SELECT NVL( MAX(board_group_order)+1 , 1 ) FROM board_group WHERE lecture_code = #{lectureCode} )
+		)
+	</insert>	
 </mapper>
 

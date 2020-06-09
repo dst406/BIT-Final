@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.varchar.www.model.domain.board.BoardGroup;
 import com.varchar.www.model.domain.board.BoardGroupList;
@@ -51,6 +53,20 @@ public class BoardController {
 		model.addAttribute("boardGroupList",boardService.getNavbar(userId));
 		
 		return "include/nav/boardNavbar";
+	}
+	
+
+	@PostMapping("/insertBoardGroup")
+	public String insertBoardGroup(String content, String lectureCode, Model model, RedirectAttributes redirectAttributes) {
+		
+		boardService.insertBoardGroup(content, lectureCode);
+		
+		System.out.println(content+"   "+lectureCode);
+		redirectAttributes.addFlashAttribute("boardGroupList", model);
+		
+		System.out.println("여기");
+		
+		return "redirect:/getNavbar/jin2020";
 	}
 	
 	
