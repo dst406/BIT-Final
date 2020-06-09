@@ -42,6 +42,29 @@ $(function(){
 ------------------------------------------------------------------------------
 06-02 09:46 :  Create Git repository
 06-02 17:00 :  kojae merge Git Repository 
+<<<<<<< HEAD
+=======
+
+06-05  09:33 : kojae merge Master Git Repository 
+06-05  19:10 : kojae merge Master Git Repository 
+
+06-08 20:26 : kojae merge Master Git Repository 
+
+------------------------------------------------------------------------------
+
+
+#고재현
+06-02 : 패키지구조 설정, SpringBoot Project DB까지 설정 완료 
+
+
+
+#김종성
+
+
+#진보형 
+06-02 : 샘플데이터 작성중
+깃 브랜치 생성, 커밋완료!!!
+>>>>>>> 17eeb77bb5397b69981c3edbbc3c4035a08e7e3e
 
 06-05  09:33 : kojae merge Master Git Repository 
 06-05  19:10 : kojae merge Master Git Repository 
@@ -87,4 +110,14 @@ magnific js lib를 사용해
 내비게이션 이벤트 : 여러개 요소 있을 때 클릭 시 나열되는 이벤트 구현
 MockMvc Test 코드로 구현 방법을 배움.
 >>>>>>> 32d980a0133fd074f79e09579a782fe5805c9703
+
+
+------------------------------------------------------------------------------
+
+#고재현
+06-08 : 
+magnific js lib를 사용해
+게시판 그룹 명 수정 Modal, 게시판  그룹 등록 Popup 작성
+내비게이션 이벤트 : 여러개 요소 있을 때 클릭 시 나열되는 이벤트 구현
+MockMvc Test 코드로 구현 방법을 배움.
 
