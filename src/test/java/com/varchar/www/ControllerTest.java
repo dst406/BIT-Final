@@ -23,7 +23,7 @@ public class ControllerTest {
 		
 
 	  	
-	  	@Test
+	  	//@Test
 	  	@DisplayName("GET 게시글 그룹 Controller")
 	  	public void getBoardGroupTest() {
 	  		try {
@@ -36,5 +36,22 @@ public class ControllerTest {
 				e.printStackTrace();
 			}
 	  	}
+	  	
+	  	
+	  	
+	  	@Test
+	  	@DisplayName("GET 게시글List ")
+	  	public void getPostList() {
+	  		try {
+	  			this.mockMvc.perform(  get("/board/postList/2"))
+						.andDo(print())
+						.andExpect(status().isOk()
+								);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	  	}
+	  	
 	  	
 }

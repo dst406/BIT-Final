@@ -51,8 +51,12 @@ public class ResponseBoardController {
 		
 	}
 	
-
+	@PostMapping("/updateBoardGroupName")
+	public void updateBoardGroupName(String boardGroupName, String changeName, int boardGroupNo) {
+		boardService.updateBoardGroupName(boardGroupName,changeName, boardGroupNo);
+	}
 	
+
 
 	
 }

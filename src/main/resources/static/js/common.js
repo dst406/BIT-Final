@@ -1,6 +1,4 @@
 $(function(){
-	
-	
 	// 게시판 그룹 불러오기
 	$('.leftbar-tab-menu .nav-link').on('click',function(){
 		$.ajax({
@@ -17,4 +15,3 @@ $(function(){
 	})
 	
 })
-

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  layout:decorator="layout/defaultLayout">
+<head>
+<link href="/css/editorStyle.css" rel="stylesheet" type="text/css">
+<script src="https://kit.fontawesome.com/8fe653c8f8.js"
+	crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/editor/editEventTrigger.js"></script>	
+	
+</head>
+<body>
+
+<div layout:fragment="content">
+	<div class="page-wrapper">
+		<!-- Page Content-->
+		<div class="page-content-tab">
+			<div class="container">
+
+				<!-- 공간   -->
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="page-title-box"></div>
+					</div>
+				</div>
+				<!-- 공간 끝 -->
+
+				<div class="row">
+					<div class="postForm_header">
+						<div class="postForm_header_board">
+						
+							<a th:href="@{/board/postList/{boardNo}(boardNo=${posts.boardNo})}"
+								th:text="${posts.boardName}"> 
+							<b th:text="${posts.boardName}"> [엄쌤] 일석이조 : SQLD 스터디룸</b></a>
+						</div>
+						<div class="postForm_header_title">
+							<!--  <textarea  placeholder="제목을 입력하세요"  readonly="readonly">
+								[[${posts.postTitle}]]
+							</textarea>  -->
+							
+							 <textarea th:inline="text" placeholder="제목을 입력하세요"  readonly="readonly">[[${posts.postTitle}]]
+							</textarea> 
+							
+						</div>
+						<div class="board_black_line"></div>
+						
+						<hr class="black-hr">
+					</div>
+
+				</div>
+
+				<div class="row">
+				
+					<div class="editorDIV" contenteditable="false">
+						<p th:utext="${posts.postContents}" class="first_editor_contents">내용을 입력해주세요</p>
+					</div>
+				</div>
+
+			</div>
+
+	
+	</div>
+</div>
+</div>
+	<script src="js/editor/boardEditor.js" crossorigin="anonymous"></script>
+	
+</body>
+</html>

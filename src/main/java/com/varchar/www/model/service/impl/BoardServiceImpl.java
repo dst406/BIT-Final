@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.varchar.www.model.dao.BoardDAO;
 import com.varchar.www.model.domain.board.BoardGroupList;
+import com.varchar.www.model.domain.board.Posts;
+import com.varchar.www.model.domain.board.PostsList;
 import com.varchar.www.model.service.BoardService;
 
 @Service("boardServiceImpl")
@@ -29,6 +31,28 @@ public class BoardServiceImpl implements BoardService {
 	public void insertBoardGroup(String content, String lectureCode) {
 		boardDAO.insertBoardGroup(content, lectureCode);
 		
+	}
+
+	@Override
+	public void updateBoardGroupName(String boardGroupName, String changeName,int boardGroupNo) {
+		boardDAO.updateBoardGroupName(boardGroupName, changeName,boardGroupNo);
+		
+	}
+
+	@Override
+	public void insertBoard(String content, int boardGroupNo) {
+		boardDAO.insertBoard(content, boardGroupNo);
+		
+	}
+
+	@Override
+	public List<PostsList> getPostList(int boardNo) {
+		return boardDAO.getPostList(boardNo);
+	}
+
+	@Override
+	public Posts getPost() {
+		return boardDAO.getPost();
 	}
 
 }
