@@ -35,6 +35,28 @@ $(function(){
 //}	
 //	
 
+function editBoardGroupTitle(){
+	$('.buttonMediumBlueBase').on('click',function(event){
+		const boardGroupName = $('.originalTitle').val();
+		const changeName = $('.changeTitle').val();
+		
+		if(changeTitle.length == 0){
+			return;
+		}
+		
+		$.ajax({
+			url:"/updateBoardGroupName",
+			data: {
+				boardGroupName : boardGroupName,
+				changeName : changeName
+			}
+		}).done(function(data){
+			
+		})
+		
+		
+	})
+}
 
 
 function getModalFormEditPage(){
