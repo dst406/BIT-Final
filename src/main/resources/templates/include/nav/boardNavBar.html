@@ -5,15 +5,14 @@
 					class="main-icon-menu-pane">
 					<input th:value="${boardGroupList.lectureCode}" type="hidden" class="hidden-lectureCode">
 					<div class="title-box">
-						<div class="title-box-icons">
-							<a href="#" data-mfp-src=".editBoardGroupPanelWrapper"
-								class="group_icon editBoardGroup-popup-link"> <i
-								class="fas fa-ellipsis-h"></i>
-							</a> <a href="#" data-mfp-src=".insertBoardGroupContainer"
-								class="group_icon insertPage-popup-link"> <i
-								class="fas fa-plus group_plus"></i>
+						<div class="group_icon lecture" >			
+							 <a href="#" data-mfp-src=".insertBoardGroupContainer"
+									class="insertPage-popup-link popup-link insert-board-group"> 
+									<i class="fas fa-plus group_plus"></i>
 							</a>
-						</div>
+						</div>	
+						
+						
 						<h6 th:text="${boardGroupList.lectureName}" class="menu-title edit-able">[엄쌤]
 							익석이조: 문학,독서 휘어잡기</h6>
 					</div>
@@ -21,15 +20,34 @@
 						class="nav metismenu">
 						<!--end nav-item-->
 						<li th:each="boardGroup: ${boardGroupList.boardGroup}" class="nav-item mm-active active">
-						<a th:text="${boardGroup.boardGroupName}" class="nav-link edit-able"
-							href="javascript: void(0);" aria-expanded="true"><span
-								class="w-100">엄쌤 무비 더 비기닝</span><span class="menu-arrow"><i
-									class="mdi mdi-chevron-right"></i></span></a>
+							
+						<span class="nav-link-more-group">
+								<i class="fas fa-chevron-right"></i>
+						 </span>
+									
+					<div class="group_icon">			
+						 <a href="#" data-mfp-src=".insertBoardContainer"
+								class="insertPage-popup-link popup-link insert-board"> 
+								<i class="fas fa-plus group_plus"></i>
+						</a>
+						
+						<a href="#" data-mfp-src=".editBoardGroupPanelWrapper"
+								class="editBoardGroup-popup-link popup-link"> <i
+								class="fas fa-ellipsis-h"></i>
+							</a>
+						</div>	
+						<a th:text="${boardGroup.boardGroupName}" th:data="${boardGroup.boardGroupNo}" 
+						class="nav-link edit-able board-group" href="javascript: void(0);" aria-expanded="true"> </a>								
+								
+							
+								
+								
 							<ul class="nav-second-level mm-collapse mm-show"
 								aria-expanded="false" style="">
 								<li th:each="board : ${boardGroup.board}">
-								<a th:text="${board.boardName}" href="../apps/email-inbox.html">5월 문법노트+독서노트</a></li>
+								<a th:text="${board.boardName}" th:href="@{/board/postList/{boardNo}(boardNo=${board.boardNo})}">5월 문법노트+독서노트</a></li> 
 								
+								<!-- <a th:text="${board.boardName}" th:href="@{/postList(boardNo=${board.boardNo})}">5월 문법노트+독서노트</a></li> -->
 							</ul></li>
 					</ul>
 				</div>
@@ -38,6 +56,7 @@
 
 
 <!--  <div th:replace="~{common/board/fragment/editPage :: editPage}"></div> -->
-<div th:replace="~{common/board/fragment/editPage :: editPage}"></div>
-<div th:replace="~{common/board/fragment/insertBoardGroup :: insertBoardGroup}"></div>
-<script th:src="@{js/navScript.js}"></script>
+<div th:replace="~{/common/board/fragment/editPage :: editPage}"></div>
+<div th:replace="~{/common/board/fragment/insertBoardGroup :: insertBoardGroup}"></div>
+<div th:replace="~{/common/board/fragment/insertBoard :: insertBoard}"></div>
+<script th:src="@{/js/navScript.js}"></script>

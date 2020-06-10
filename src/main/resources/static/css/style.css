@@ -76,10 +76,16 @@
 	text-align:right;
 }
 .group_icon{
-	float:right;
-	padding-left:3px;
-	padding-right:3px;
+	display:none;
+	position:absolute;
+	right:12px;
+	padding : 10px 3px 0px 3px;
 	cursor : pointer;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	
 	/* position:absolute; */
 }
 
@@ -94,4 +100,23 @@
 .menu-title{
 	max-height: 27px;
     overflow-y: hidden;
+}
+
+.metismenu .nav-link{
+	width:140px;
+	padding-right:0px;
+}
+
+.popup-link{
+	padding-left:2px;
+	padding-right:2px;
+}
+
+.nav-item .on{
+	display:block;
+}
+
+.title-box > .lecture{
+	display: block ;
+	padding:0 !important;
 }

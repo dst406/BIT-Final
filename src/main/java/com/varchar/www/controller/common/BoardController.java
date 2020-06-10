@@ -28,9 +28,21 @@ public class BoardController {
 	
 	@GetMapping("/postList")
 	public String getPostList(String boardNo) {
-		
+		//System.out.println("와썹맨");
 		return "common/board/postList";
 	}
+	
+	@GetMapping("/board/postList/{boardNo}")
+	public String getPostList(@PathVariable int boardNo,Model model) {
+		
+		model.addAttribute("postsList",boardService.getPostList(boardNo));
+		
+		System.out.println(boardService.getPostList(boardNo));
+		
+		/* return "common/board/postList"; */
+		return "common/board/postList";
+	}
+	
 	
 	@GetMapping("/edit")
 	public String getEditor() {
@@ -51,24 +63,32 @@ public class BoardController {
 	@GetMapping("/getNavbar/{userId}")
 	public String getNavbar(@PathVariable("userId") String userId,Model model){
 		model.addAttribute("boardGroupList",boardService.getNavbar(userId));
-		
 		return "include/nav/boardNavbar";
 	}
 	
 
 	@PostMapping("/insertBoardGroup")
-	public String insertBoardGroup(String content, String lectureCode, Model model, RedirectAttributes redirectAttributes) {
-		
+	public String insertBoardGroup(String content, String lectureCode) {
 		boardService.insertBoardGroup(content, lectureCode);
-		
-		System.out.println(content+"   "+lectureCode);
-		redirectAttributes.addFlashAttribute("boardGroupList", model);
-		
-		System.out.println("여기");
-		
+		//RedirectAttributes redirectAttributes
+		//redirectAttributes.addFlashAttribute("result", "success");
 		return "redirect:/getNavbar/jin2020";
 	}
 	
+	@PostMapping("/insertBoard")
+	public String insertBoard (String content, int boardGroupNo) {
+		boardService.insertBoard(content, boardGroupNo);
+		return "redirect:/getNavbar/jin2020";
+		
+	}
+	
+	@GetMapping("/getPost/{boardNo}/{postNo}")
+	public String getPost(@PathVariable("boardNo") int boardNo,@PathVariable("postNo") int postNo,Model model) {
+		model.addAttribute("posts", boardService.getPost());
+		System.out.println(boardService.getPost());
+		return "common/board/postInfo";
+	}
+
 	
 	
 	

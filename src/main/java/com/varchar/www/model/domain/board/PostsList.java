@@ -5,7 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-public class Posts {
+public class PostsList {
 	private int postRowNum;
 	private String boardName;
 	private String boardIntro;

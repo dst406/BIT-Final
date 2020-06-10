@@ -19,6 +19,10 @@
 					javaType="List" select = "getBoardGroupList"/>
 	</resultMap>		
 		
+
+		
+		
+		
 		
 		
 		<!-- <collection property="board" ofType="board" column="BOARD_GROUP_NO" javaType="java.util.ArrayList" select ="getBoardList">
@@ -71,5 +75,32 @@
 			(SELECT NVL( MAX(board_group_order)+1 , 1 ) FROM board_group WHERE lecture_code = #{lectureCode} )
 		)
 	</insert>	
+	
+	<insert id="insertBoard" parameterType="Map">
+		INSERT INTO board VALUES(SEQ_BOARD.nextval,#{boardGroupNo},#{content},null, 
+			(SELECT NVL( MAX(board_order)+1 , 1 ) FROM board WHERE board_group_no = #{boardGroupNo} )
+		)
+	</insert>
+	
+	<update id="updateBoardGroupName" parameterType="Map">
+		Update board_group SET board_group_name = #{changeBoardGroupName}
+		WHERE board_group_no = #{boardGroupNo}
+	</update>
+	
+	
+	
+	<select id="getPostList" resultType="postsList">
+		SELECT ROWNUM,board.board_name, board.board_intro, posts.* FROM posts
+		INNER JOIN board ON board.board_no = posts.board_no AND board.board_no = #{boardNo}
+	</select>
+	
+	<select id="getPost" resultType="posts">
+		SELECT ROWNUM,board.board_name, board.board_intro, posts.* FROM posts
+		INNER JOIN board ON board.board_no = posts.board_no AND board.board_no = '2'
+		WHERE posts.post_no = '3'
+	
+	</select>
+	
+	
 </mapper>
 
