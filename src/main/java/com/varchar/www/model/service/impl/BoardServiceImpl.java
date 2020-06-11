@@ -2,16 +2,13 @@ package com.varchar.www.model.service.impl;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.varchar.www.model.dao.BoardDAO;
 import com.varchar.www.model.domain.board.BoardGroupList;
-import com.varchar.www.model.domain.board.Posts;
+import com.varchar.www.model.domain.board.PostDetail;
 import com.varchar.www.model.domain.board.PostsList;
 import com.varchar.www.model.service.BoardService;
 
@@ -46,13 +43,23 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<PostsList> getPostList(int boardNo) {
+	public PostsList getPostList(int boardNo) {
 		return boardDAO.getPostList(boardNo);
 	}
 
 	@Override
-	public Posts getPost() {
-		return boardDAO.getPost();
+	public PostDetail getPost(int boardNo, int postNo) {
+		return boardDAO.getPost( boardNo, postNo);
+	}
+
+	@Override
+	public void insertPosts(PostDetail posts) {
+		try {
+		boardDAO.insertPosts(posts);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

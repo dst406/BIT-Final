@@ -15,7 +15,19 @@
 $(function(){
 	deleteFirstContents();
 	qlHeadercursor();
+	addPostSubmit();
+	
 })
+
+
+function addPostSubmit(){
+	$('.saveButton').on('click',function(){
+		const content=  $.trim( document.querySelector(".editorDIV").innerHTML );
+		$('#postContents').html(content);
+		$('#postTitle').val( $('textarea#postTitleArea').val() );
+		$('#postsForm').submit();
+	})
+}
 
 function deleteFirstContents(){
 	$('.editorDIV').on('click',function(){
@@ -27,10 +39,7 @@ function qlHeadercursor(){
 	
 	//H1, H2, H3, H4
 	$('.ql_header').on('click',function(event){
-		var heading = 'H'+$(event.target).closest('button').val();
-		document.execCommand("formatBlock",null,heading);
-		
-		
+		document.execCommand("formatBlock",null,'H'+$(event.target).closest('button').val());
 	})
 	
 	//Bold, Italic, StrikeThrough
@@ -55,6 +64,7 @@ function qlHeadercursor(){
 		//document.execCommand("createLink",null," ");
 	})
 	
+	// img 삽입.   미완성
 	$('.ql_img').on('click',function(event){
 		document.execCommand("insertImage",null,"img/human.png");
 	})
@@ -62,6 +72,8 @@ function qlHeadercursor(){
 	
 	
 }
+
+
 
 
 

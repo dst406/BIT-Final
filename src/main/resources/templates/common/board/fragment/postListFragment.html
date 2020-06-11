@@ -5,8 +5,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-		<div class="row" th:fragment="boardPostList(postsList)">
-			<ul th:each="post : ${postsList}" class="article-post-list">
+		<div class="row" th:fragment="boardPostList(posts, boardNo)">
+			<ul th:each="post : ${posts}" class="article-post-list">
 				<li>
 					<div class="post-list-contents">
 						<div class="post-list-contents-header">
@@ -14,7 +14,7 @@
 								<div class="col-lg-10">
 									<div class="post-list-title">
 									
-										<a th:href="@{/getPost/{boardNo}/{postNo}(boardNo=${post.boardNo},postNo=${post.postNo})}"> 
+										<a th:href="@{/getPost/{boardNo}/{postNo}(boardNo=${boardNo},postNo=${post.postNo})}"> 
 										<strong th:text="${post.postTitle}">Sql execution plan 문의드려요. 완전
 												초보입니다ㅠㅠ</strong></a>
 									</div>
@@ -35,8 +35,8 @@
 							<div class="post-list-contents-bottom">
 								<div class="col-lg-12">
 									<a th:text="${post.userId}">고재현</a>
-									<p th:test="${post.postsDate}">2020.05.18</p>
-									<p th:test="${post.postViews}">조회수 30</p>
+									<p th:text="${post.postsDate}">2020.05.18</p>
+									<p th:text="'조회수 &nbsp;'+${post.postViews}">조회수 30</p>
 									<p >댓글 2</p>
 								</div>
 							</div>

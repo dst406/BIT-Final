@@ -13,7 +13,7 @@
 	<div class="page-wrapper">
 		<!-- Page Content-->
 		<div class="page-content-tab">
-			<div class="container">
+			<div th:object="${postsList}" class="container">
 
 				<!-- 공간   -->
 				<div class="row">
@@ -30,7 +30,7 @@
 					<div class="col-lg-12">
 						<!-- <h2>[엄쌤] 머리에 쏙쏙 SQLD 들어오는 강의</h2> -->
 						<!-- <textarea rows="1" cols="40" class="board_title_text" >[엄쌤] 머리에 쏙쏙 SQLD 들어오는 강의</textarea> -->
-						<input value="[엄쌤] 머리에 쏙쏙 SQLD 들어오는 강의" type="text" class="board_title_text" maxlength="35">
+						<input th:value="*{boardName}" value="게시판 제목을 입력해주세요" type="text" class="board_title_text" maxlength="35">
 						<!-- <input th:value="${postsList.boardName}" type="text" class="board_title_text" maxlength="35"> -->
 					</div>
 				</div>
@@ -47,7 +47,7 @@
 						강의게시판 간략 소개를 여기에쓰시면 됩니다</textarea> -->
 						
 						<textarea  rows="2" cols="31" maxlength="62"
-							class="board_contents_text">엄쌤의 SQLD자격증을 취득하기 위한 멘토,멘티 일석이조 게시판입니다. 강의게시판 간략 소개를 여기에쓰시면 됩니다</textarea>
+							class="board_contents_text">[[*{boardIntro}]]</textarea>
 						<!-- <textarea rows="2" cols="32" maxlength="66" class="board_contents_text" readonly>[엄쌤] 머리에 쏙쏙 SQLD 들어오는 강의</textarea> -->
 					</div>
 					<div class="col-md-5">
@@ -71,12 +71,13 @@
 
 				<!-- <div  th:each=" posts : ${postsList}" -->
 				<div 
-				th:replace="~{common/board/fragment/postListFragment :: boardPostList( ${postsList} ) }"></div>
+				th:replace="~{common/board/fragment/postListFragment :: boardPostList( *{posts},*{boardNo} ) }"></div>
 				
 				<div class="mg-top20">
 					<div class="row">
 						<div class="col-lg-2">
-							<button class="btn btn-md btn-primary px-4">글쓰기</button>
+						
+							<a th:href="@{/newPostForm/{boardNo}(boardNo=*{boardNo})}" class="btn btn-md btn-primary px-4">글쓰기</a>
 						</div>
 						<div class="col-lg-8">
 							<div class="pagination_center">

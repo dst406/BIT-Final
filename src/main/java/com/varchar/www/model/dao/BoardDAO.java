@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.varchar.www.model.domain.board.BoardGroupList;
-import com.varchar.www.model.domain.board.Posts;
+import com.varchar.www.model.domain.board.PostDetail;
 import com.varchar.www.model.domain.board.PostsList;
 
 
@@ -15,8 +15,13 @@ public interface BoardDAO {
 	void updateBoardGroupName(@Param("boardGroupName")String boardGroupName,
 							  @Param("changeBoardGroupName")String changeName,@Param("boardGroupNo")int boardGroupNo);
 	void insertBoard (@Param("content")String content, @Param("boardGroupNo") int boardGroupNo);
-	List<PostsList> getPostList(int boardNo);
+	PostsList getPostList(int boardNo);
 	
-	public Posts getPost();
+	// 게시글 Detail
+	PostDetail getPost(@Param("boardNo") int boardNo,@Param("postNo") int postNo);
 	
+	
+	
+	
+	void insertPosts(PostDetail posts);
 }

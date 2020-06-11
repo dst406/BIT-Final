@@ -5,7 +5,7 @@
 	
 	
 	<resultMap type="boardGroup" id="boardGroup_resultMap">
-		<result property="boardGroupNo" column="BOARD_GROUP_NO"/>
+		<id property="boardGroupNo" column="BOARD_GROUP_NO"/>
 		<result property="boardGroupName" column="BOARD_GROUP_NAME"/>
 		<result property="boardGroupOrder" column="BOARD_GROUP_ORDER"/>
 		<collection property="board" ofType="board" column="boardGroupNo=BOARD_GROUP_NO" 
@@ -13,15 +13,35 @@
 	</resultMap>
 	
 	<resultMap type="boardGroupList" id="boardGroupList_resultMap">
-		<result property="lectureCode" column="LECTURE_CODE"/>
+		<id property="lectureCode" column="LECTURE_CODE"/>
 		<result property="lectureName" column="LECTURE_NAME"/>
 		<collection property="boardGroup" ofType="boardGroup" column="lectureCode=LECTURE_CODE"
 					javaType="List" select = "getBoardGroupList"/>
 	</resultMap>		
 		
+	
+	<resultMap type="postDetail" id="postDetail_resultMap">
+		<id property="postNo" column="post_no" />
+		<result property="boardNo" column="board_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="boardName" column="board_name"/>
+		<result property="postTitle" column="post_title"/>
+		<result property="postContents" column="post_contents"/>
+		<result property="postsDate" column="posts_date"/>
+		<result property="postViews" column="post_views"/>
+		<collection property="postsDetailList" ofType="postsDetailList" column="boardNo=BOARD_NO"
+					javaType="List" select="getPostListInDetail"/>
+	</resultMap>
+		
+	<resultMap type="postsList" id="postList_resultMap">
+		<id property="boardNo" column="board_no"/>
+		<result property="boardName" column="board_name"/>
+		<result property="boardIntro" column="board_intro"/>
+		<collection property="posts" ofType="posts" column="boardNo=BOARD_NO"
+					javaType="List" select="postList"/>
+	</resultMap>	
 
-		
-		
+	
 		
 		
 		
@@ -88,19 +108,51 @@
 	</update>
 	
 	
+	<!-- postList  Start -->
+	<select id="getPostList" resultMap="postList_resultMap">
 	
-	<select id="getPostList" resultType="postsList">
+		SELECT * FROM board WHERE board_no= #{boardNo}
+	</select>
+	
+	
+	<select id="postList" resultType="posts">
+		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.* FROM posts
+		WHERE board_no = #{boardNo}
+	</select>
+	<!-- postList  end -->
+	
+	
+	<!--  postDetail Start -->
+	<select id="getPost" resultMap="postDetail_resultMap">
 		SELECT ROWNUM,board.board_name, board.board_intro, posts.* FROM posts
 		INNER JOIN board ON board.board_no = posts.board_no AND board.board_no = #{boardNo}
+		WHERE posts.post_no = #{postNo}
 	</select>
 	
-	<select id="getPost" resultType="posts">
-		SELECT ROWNUM,board.board_name, board.board_intro, posts.* FROM posts
-		INNER JOIN board ON board.board_no = posts.board_no AND board.board_no = '2'
-		WHERE posts.post_no = '3'
-	
+	<select id="getPostListInDetail" resultType="postsDetailList">
+			SELECT COUNT(post_no) OVER(PARTITION BY board_no) AS postListCount, 
+			ROW_NUMBER() OVER (ORDER BY posts_date DESC) postRownum, post_title, post_No FROM posts 
+			WHERE board_no = #{boardNo}
 	</select>
 	
+	<!--  postDetail End -->
+	
+	
+	<insert id="insertPosts" parameterType="postDetail">
+		INSERT INTO posts VALUES(
+			SEQ_POSTS.nextval, #{boardNo}, #{userId} ,  #{postTitle} , #{postContents} ,
+			TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'), 0 )
+	</insert>
+	
+	
+	
+	
+	
+	<!-- <insert id="insertPosts" parameterType="posts">
+		INSERT INTO posts VALUES(
+			SEQ_POSTS.nextval, #{boardNo}, #{userId}, #{postsTitle}, <![CDATA[#{postsContents}]]>,
+			TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'), 0 )
+	</insert> -->
 	
 </mapper>
 

@@ -1,16 +1,22 @@
 package com.varchar.www.model.domain.board;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-public class Posts {
+public class PostDetail {
 	private int postNo;
-	private int postRowNum;
+	private int boardNo;
 	private String userId;
+	private String boardName;
 	private String postTitle;	
 	private String postContents;
 	private String postsDate;
 	private int postViews;
+	List<PostsDetailList> postsDetailList;
+	
+	
 }
