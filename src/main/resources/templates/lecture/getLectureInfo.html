@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>강의 상세 페이지</title>
+<!-- <meta th:include="/include/meta.html"> -->
+</head>
+<body>
+	<table border="1">
+	<tr >
+		
+		<th >강의명</th>
+		<th>강의시즌</th>
+		<th>강의실</th>
+		<th>강의대상</th>
+		<th>강의시작일</th>
+		<th>강의종료일</th>
+		<th>요일</th>
+		<th>시작시간</th>
+		<th>종료시간</th>
+		<th>담당강사명</th>
+		<th>연락처</th>
+		<th>강의료</th>
+		<th>정원</th>
+		<th>강의내용</th>
+		</tr>
+		<tr th:each ="lecture : ${lectureInfo}">
+			
+			<td th:text="${lecture.lecture_name}"></td>
+			<td th:text="${lecture.season_name}"></td>
+			<td th:text="${lecture.lectureroom_no}"></td>
+			<td th:text="${lecture.student_grade}"></td>
+			<td th:text="${lecture.season_start_date}"></td>
+			<td th:text="${lecture.season_end_date}"></td>
+			<td th:text="${lecture.lecture_day}"></td>
+			<td th:text="${lecture.lecture_start_time}"></td>
+			<td th:text="${lecture.lecture_end_time}"></td>
+			<td th:text="${lecture.user_name}"></td>
+			<td th:text="${lecture.user_tel}"></td>
+			<td th:text="${lecture.lecture_cost}"></td>
+			<td th:text="${lecture.capacity}"></td>
+			<td th:text="${lecture.lecture_content}"></td>
+		</tr>
+	</table>
+
+
+
+
+
+
+	<!-- 	<div th:include="/include/managerTopbar.html"></div>
+	<div th:include="/include/managerNavbar.html"></div>
+	<div class="page-wrapper">
+		Page Content
+		<div class="page-content-tab">
+			<div class="container">
+				Page-Title
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="page-title-box">
+							<div class="float-right">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="javascript:void(0);">Metrica</a></li>
+									<li class="breadcrumb-item"><a href="javascript:void(0);">CRM</a></li>
+									<li class="breadcrumb-item active">Leads</li>
+								</ol>
+							</div>
+							<h2 class="page-title">강의상세</h2>
+						</div>
+						end page-title-box
+					</div>
+					end col
+				</div>
+
+
+				end page title end breadcrumb
+				<div class="row" style="border: 1px solid">
+					<div class="col-lg-4">
+
+						end card
+					</div>
+					end col
+					<div class="col-lg-8">
+						<div class="row">
+							<div class="col-lg-4">
+
+								end card
+							</div>
+							end col
+							<div class="row">
+								<div class="col-lg-4">
+
+
+									end card-body
+								</div>
+								end card
+							</div>
+							end col
+							<div class="row">
+								<div class="col-lg-4">
+
+
+									end card-body
+								</div>
+								end card
+							</div>
+							end col
+						</div>
+						end row
+					</div>
+					end col
+
+				</div>
+
+
+
+			</div>
+		</div>
+			</div>
+	<div th:include="/include/footer.html"></div> -->
+</body>
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.varchar.www.model.dao.LectureDAO">
+	
+	<!-- 원장이 보는 강의리스트를 띄워주는 쿼리 -->
+	<select id="getManagerLectureList" resultType="com.varchar.www.model.domain.manager.Lecture">
+		SELECT 
+			lec.lecture_code AS lecture_code,
+			lec.lecture_name AS lecture_name,
+			lecs.season_name AS season_name,
+			lecs.season_start_date AS season_start_date,
+			lecs.season_end_date AS season_end_date,
+			(SELECT lecture_state_name FROM lecturestate stat WHERE lec.lecture_state_code = stat.lecture_state_code) AS lecture_state_name,
+			lr.capacity AS capacity,
+			lr.student_grade AS student_grade,
+			(SELECT user_name FROM academy_user au WHERE lec.user_id = au.user_id) AS user_name,
+			lr.lectureroom_no AS lectureroom_no,
+			lec.lecture_cost AS lecture_cost,
+			(SELECT user_tel FROM academy_user au WHERE lec.user_id = au.user_id) AS user_tel
+		FROM lecture lec
+			INNER JOIN season lecs on lec.season_id = lecs.season_id
+			INNER JOIN lectureroom lr on lec.lectureroom_no = lr.lectureroom_no
+	</select>
+	
+	<!-- 강의실 -->
+	<select id="getLectureRoomList" resultType="com.varchar.www.model.domain.manager.LectureRoom">
+		select * from lectureroom
+	</select>
+	
+	<!-- 강의과목 -->
+	<select id="getLectureSubjectList" resultType="com.varchar.www.model.domain.manager.LectureSubject">
+		select * from lecture_subject
+	</select>
+	
+	<!-- 강의상태 -->
+	<select id="getLectureStateList" resultType="com.varchar.www.model.domain.manager.LectureState">
+		select * from lecturestate
+	</select>
+	
+	<!-- 강의 상세정보를 보여주는 쿼리 -->
+	<select id="getLectureInfo" parameterType="String" resultType="com.varchar.www.model.domain.manager.Lecture">
+		SELECT 
+			lec.lecture_code AS lecture_code,
+			lec.lecture_name AS lecture_name,
+			lecs.season_name AS season_name,
+			lecs.season_start_date AS season_start_date,
+			lecs.season_end_date AS season_end_date,
+			(SELECT lecture_state_name FROM lecturestate stat WHERE lec.lecture_state_code = stat.lecture_state_code) AS lecture_state_name,
+			lr.capacity AS capacity,
+			lr.student_grade AS student_grade,
+			(SELECT user_name FROM academy_user au WHERE lec.user_id = au.user_id) AS user_name,
+			lr.lectureroom_no AS lectureroom_no,
+			lec.lecture_cost AS lecture_cost,
+			(SELECT user_tel FROM academy_user au WHERE lec.user_id = au.user_id) AS user_tel
+		FROM lecture lec
+			INNER JOIN season lecs on lec.season_id = lecs.season_id
+			INNER JOIN lectureroom lr on lec.lectureroom_no = lr.lectureroom_no
+		WHERE
+			lec.lecture_code = #{lecture_code}
+	</select>
+	
+	<!-- 강의등록을 위한 쿼리 -->
+	<insert id="insertLecture" parameterType="com.varchar.www.model.domain.manager.LectureVO">
+		insert into lecture 
+		values('bit'||seq_id.nextval,#{user_id},#{season_id},#{lecture_subject_code},#{lectureRoom_no},#{lecture_state_code},#{lecture_name},#{lecture_content},(select sysdate from dual),#{lecture_cost})
+	</insert>
+	
+	<!-- 강의등록에서 강의시간을 할당하기 위한 쿼리문 -->
+	<insert id=""></insert>
+	
+</mapper>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>강의등록</title>
+<meta th:include="/include/meta.html">
+</head>
+<body>
+	<div th:include="/include/managerTopbar.html"></div>
+	<div th:include="/include/managerNavbar.html"></div>
+	<div class="page-wrapper">
+		<!-- Page Content-->
+		<div class="page-content-tab">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="text-center">
+							<br>
+							<h4 class="page-title">강의등록</h4>
+							<br>
+						</div>
+						<!--end page-title-box-->
+					</div>
+					<!--end col-->
+				</div>
+
+				<!-- 강의정보입력 시작  -->
+				<div class="row">
+					<div class="met-profile-main-pic col-lg-4"
+						style="display: list-itemflex; margin: auto;">
+						<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
+							<div class="met-profile-main-pic"></div>
+						</div>
+					</div>
+					<div class="align-self-center  col-lg-12" style="">
+						<div class="met-profile-main">
+
+							<div class="met-profile_user-detail"></div>
+							<div class="col-lg-4" style="margin: auto;">
+							
+								<form class="form-horizontal form-material mb-0" th:action="@{/insertLecture}" 
+									th:object="${lectureVO}" th:method="POST">
+									<div class="form-group">
+										강의명<input type="text" th:field="*{lecture_name}" placeholder="강의명" class="form-control">
+										<p></p>
+										
+											강의과목명 <select name="language" th:field="*{lecture_subject_code}"class="form-control">
+												<option value="">강의과목명</option>
+												<option th:each="lectureSubject : ${lectureSubjectList}" th:value="${lectureSubject.lecture_subject_code}"
+												 th:text="${lectureSubject.lecture_subject_name}"></option>
+											</select>
+										
+										<p></p>
+										강의료(원)<input id="inputPrice" type="text" th:field="*{lecture_cost}" placeholder="강의료"
+											class="form-control">
+										<p></p>
+										
+											담당강사명 <select name="language" th:field="*{user_id}"class="form-control">
+												<option value="">담당강사명</option>
+												<option th:each="teacher : ${teacherList}" th:value="${teacher.user_id}"
+												 th:text="${teacher.user_name}"></option>
+											</select>
+										
+										<p></p>
+										
+											강의시즌 <select name="language" th:field="*{season_id}"class="form-control">
+												<option value="korean" selected>강의시즌</option>
+												<option th:each="season : ${seasonList}" th:value="${season.season_id}"
+												th:text="${season.season_name}"></option>
+												
+											</select>
+										
+										<!-- <p></p>
+										강의시작일 <input type="date" th:field="*{season_start_date}"placeholder="강의시작일"
+											class="form-control" id="currentDate">
+										<script>
+											document
+													.getElementById('currentDate').value = new Date()
+													.toISOString().substring(0,
+															10);
+											;
+										</script>
+										<p></p>
+										<form>
+											강의종료일<input type="date" th:field="*{season_end_date}" placeholder="강의종료일"
+												class="form-control" id="currentDate">
+											<script>
+												document
+														.getElementById('currentDate').value = new Date()
+														.toISOString()
+														.substring(0, 10);
+												;
+											</script>
+											<p></p>
+										</form> -->
+										<p></p>
+										
+											강의실 <select name="language" th:field="*{lectureRoom_no}" class="form-control">
+												<option value="0" selected>강의실</option>
+												<option th:each="lectureRoom : ${lectureRoomList}" th:value="${lectureRoom.lectureRoom_no}"
+												th:text="${lectureRoom.lectureRoom_no} +'('+${lectureRoom.student_grade}+')'"></option>
+											</select>
+										
+
+									</div>
+									<div class="form-group">
+										<textarea rows="5" placeholder="강의내용" class="form-control" th:field="*{lecture_content}"></textarea>
+										
+									<p></p>
+									
+										강의상태 <select name="language" th:field="*{lecture_state_code}"class="form-control">
+											<option value="" selected>강의상태</option>
+											<option th:each="lectureState : ${lectureStateList}" th:value="${lectureState.lecture_state_code}"
+											th:text="${lectureState.lecture_state_name}"></option>
+											
+										</select>
+											
+											
+										<input type="submit" value="등록"
+											class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
+											style="margin-left: 10px;">
+										<button
+											class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
+											onclick="location.href='/getManagerLectureList'">취소</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--  강의등록칸 종료 -->
+
+			</div>
+		</div>
+	</div>
+
+	<div th:include="/include/footer.html"></div>
+</body>
+</html>

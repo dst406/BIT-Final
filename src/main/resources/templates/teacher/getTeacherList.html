@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta th:include="/include/meta.html">
+<title>원장-강사목록</title>
+
+</head>
+<body>
+	<div th:include="/include/managerTopbar.html"></div>
+	<div th:include="/include/managerNavbar.html"></div>
+
+
+	<div class="page-wrapper">
+		<!-- Page Content-->
+		<div class="page-content-tab">
+			<div class="container">
+				<!-- Page-Title -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="page-title-box">
+							<div class="float-right">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="javascript:void(0);">임시</a></li>
+									<li class="breadcrumb-item"><a href="javascript:void(0);">임시</a></li>
+									<li class="breadcrumb-item active">임시</li>
+								</ol>
+							</div>
+							<h3 class="page-title">강사목록</h3>
+						</div>
+						<!--end page-title-box-->
+					</div>
+					<!--end col-->
+				</div>
+				<!-- end page title end breadcrumb -->
+				<div class="row">
+					<div class="col-md">
+						<div class="card profile-card">
+							<div class="card-body p-0">
+
+								<!-- 원장정보시작 -->
+								<div class="media p-3 align-items-center">
+									<img src="img/bh.png"
+										class="rounded-circle thumb-lg">
+									<div th:each="manager : ${managerList}" class="media-body ml-3 align-self-center">
+										<h5	th:text="${manager.user_remark} + ' ' + ${manager.user_name}" class="m-0 font-25 font-weight-semibold">원장 진보형</h5>
+										<p th:text="${manager.user_tel}" class="mb-0 text-muted">010-1234-5678</p>
+										<button type="button" class="btn btn-primary waves-effect waves-light float-right mb-2"
+											data-toggle="modal" data-animation="bounce"	data-target=".bs-example-modal-lg"
+											onclick="location.href='#'">내 정보보기</button>
+									</div>
+									<!-- 원장정보 끝 -->
+						
+									<div class="action-btn">
+										<a href="" class=""><i
+											class="las la-pen text-info font-18"></i></a> <a href="" class=""><i
+											class="las la-trash-alt text-danger font-18"></i></a>
+									</div>
+								</div>
+							</div>
+							<!--end card-body-->
+						</div>
+						<!--end card-->
+						<button type="button"
+							class="btn btn-primary waves-effect waves-light float-right mb-3"
+							data-toggle="modal" data-animation="bounce"
+							data-target=".bs-example-modal-lg"
+							onclick="location.href='#'">+ 강사등록</button>
+					</div>
+				</div>
+
+				<div class="row">
+					<div th:each="teacher : ${teacherList}" class="col-lg-3">
+						<div class="card client-card">
+							<div class="card-body text-center">
+								<img src="img/user.png" 
+									class="rounded-circle thumb-lg">
+								<h5 th:text="${teacher.user_name}" class="client-name">이찬영</h5>
+								<span th:text="${teacher.user_id}" class="text-muted mr-3"><i
+									class="dripicons-location mr-2 text-info"></i>강사번호 : 30200001</span><br>
+								<span th:text="${teacher.user_remark}" class="text-muted mr-3"><i
+									class="dripicons-location mr-2 text-info"></i>중등 수학 단기1반</span>
+								<span th:text="${teacher.user_tel}"
+									class="text-muted"> <i
+									class="dripicons-phone mr-2 text-info"></i>010-3080-8433
+								</span>
+								<p class="text-muted text-center mt-3">안녕하세요 <span th:text="${teacher.user_name}"></span>입니다.</p>
+								<button type="button"
+									class="btn btn-primary waves-effect waves-light float-center mb-3"0
+									data-toggle="modal" data-animation="bounce"
+									data-target=".bs-example-modal-lg"
+									onclick="location.href='#'">정보보기</button>
+								<!--  <button type="button" class="btn btn-sm btn-primary">강의
+										보기</button>-->
+							</div>
+							<!--end card-body-->
+						</div>
+						<!--end card-->
+					</div>
+					<!--end col-->
+			</div>
+			<!-- container -->
+			<!--  Modal content for the above example -->
+			
+			<!-- /.modal -->
+			<footer class="footer text-center text-sm-left">
+				© 2020 Metrica <span
+					class="text-muted d-none d-sm-inline-block float-right">Crafted
+					with <i class="mdi mdi-heart text-danger"></i> by Mannatthemes
+				</span>
+				
+			
+			</footer>
+			<!--end footer-->
+		</div>
+		<!-- end page content -->
+	</div>
+	<div th:include="/include/footer.html">
+	</div>
+	
+</body>
+</html>
