@@ -4,7 +4,10 @@ import java.util.List;
 
 import com.varchar.www.model.domain.board.BoardGroupList;
 import com.varchar.www.model.domain.board.PostDetail;
+import com.varchar.www.model.domain.board.Posts;
 import com.varchar.www.model.domain.board.PostsList;
+import com.varchar.www.model.domain.board.TemporaryPost;
+import com.varchar.www.model.domain.board.TemporaryPostList;
 
 
 public interface BoardService {
@@ -14,5 +17,8 @@ public interface BoardService {
 	void insertBoard (String content, int boardGroupNo);
 	PostsList getPostList( int boardNo);
 	PostDetail getPost(int boardNo, int postNo);
-	void insertPosts(PostDetail posts);
+	void insertPosts(Posts posts);
+	List<TemporaryPostList> getTemporaryPostList(String userId);
+	void insertTemporaryPost(TemporaryPost temporaryPost);
+	TemporaryPost getTemporaryPost(int temporaryNo);
 }

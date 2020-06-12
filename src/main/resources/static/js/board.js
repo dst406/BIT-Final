@@ -1,10 +1,25 @@
 $(function(){
 	clickMorePostList();
 	initPostDetail();
+	searchPosts();
 //	console.log( $('.postListWrapper li a:contains('+$.trim( $('textarea#postTitle').val() )+')').attr('data-number') );
 //	$('.postListWrapper li a:contains('+$.trim( $('textarea#postTitle').val() )+')').addClass('active');
 	
 })
+
+
+
+function searchPosts(){
+	$('.searchPost').on('keyup',function(event){
+		$search = $(this).val();
+		$('strong, div, a').unmark();
+		$searchVal = $('.article-post-list strong:contains('+$search+') , .post-list-info:contains('+$search+'),'
+				+' .post-list-contents-bottom a:contains('+$search+')') ;
+		$('.article-post-list').hide();
+		$searchVal.closest('.article-post-list').show();
+		$searchVal.mark($(this).val());
+	})
+}
 
 
 function initPostDetail(){

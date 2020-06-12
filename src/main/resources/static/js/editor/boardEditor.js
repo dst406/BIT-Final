@@ -16,19 +16,58 @@ $(function(){
 	deleteFirstContents();
 	qlHeadercursor();
 	addPostSubmit();
-	
+	addTemporaryPostSubmit();
 })
 
-
+//게시글 등록
 function addPostSubmit(){
 	$('.saveButton').on('click',function(){
-		const content=  $.trim( document.querySelector(".editorDIV").innerHTML );
-		$('#postContents').html(content);
+		addContentsAsTextarea();
 		$('#postTitle').val( $('textarea#postTitleArea').val() );
 		$('#postsForm').submit();
 	})
 }
 
+
+function addTemporaryPostSubmit(){
+	$('.temporarySaveButton').on('click',function(){
+		addContentsAsTextarea();
+		$('#postTitle').attr('name','temporaryTitle');
+		$('#postTitle').attr('id','temporaryTitle');
+		$('#temporaryTitle').val( $('textarea#postTitleArea').val() );
+		console.log( $('textarea#postTitleArea').val() );
+		console.log( $('#temporaryTitle').val() );
+		
+		$.ajax({
+			type:'POST',
+			url:'/insertTemporaryPost',
+			data:{
+				boardNo : $('#boardNo').val(),
+				temporaryTitle: $('#temporaryTitle').val(),
+				temporaryContents : $('#postContents').val()
+			}
+		}).done(function(data){
+			alert(data); 
+			$('.postForm_header_temporary').html(data);
+		})
+		
+		
+		
+		
+//		$('#postsForm').attr('action','/insertTemporaryPost');
+//		$('#postTitle').attr('name','temporaryTitle');
+//		$('#postContents').attr('name','temporaryContents');
+//		$('#postsForm').submit();
+	})
+}
+
+
+function addContentsAsTextarea(){
+	const content=  $.trim( document.querySelector(".editorDIV").innerHTML );
+	$('#postContents').html(content);
+}
+
+// 게시글 본문 클릭시 placeholder 역할 해주는 div태그 삭제
 function deleteFirstContents(){
 	$('.editorDIV').on('click',function(){
 		$('.first_editor_contents').remove();

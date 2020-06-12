@@ -6,18 +6,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 
-@Getter @Setter @ToString
-public class Board {
-	private int boardNo;
+@Getter @ToString
+public class BoardName {
 	private String boardName;
-	private String boardIntro;
-	private int boardOrder;
 	
-	public Board() {}
+	public BoardName() {}
 	
 	@Builder
-	public Board(int boardNo,  String boardName) {
-		this.boardNo = boardNo;
+	public BoardName( String boardName) {
 		this.boardName = boardName;
 	}
 	

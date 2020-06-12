@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.varchar.www.model.domain.board.PostDetail;
 import com.varchar.www.model.domain.board.Posts;
+import com.varchar.www.model.domain.board.TemporaryPost;
 import com.varchar.www.model.service.BoardService;
 
 @Controller
@@ -24,7 +25,7 @@ public class BoardController {
 	 @InitBinder
 	 public void initBinder(WebDataBinder binder) {
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(new 
-	    SimpleDateFormat("yyyy-MM-dd HH:mm"), true));
+	    SimpleDateFormat("yyyy-MM-dd HH:mm:SS"), true));
 	 }
 	
 	@Autowired BoardService boardService;
@@ -37,28 +38,28 @@ public class BoardController {
 	
 	@GetMapping("/postList")
 	public String getPostList(String boardNo) {
-		//System.out.println("와썹맨");
 		return "common/board/postList";
 	}
 	
+	// 게시글 리스트 조회
 	@GetMapping("/board/postList/{boardNo}")
 	public String getPostList(@ModelAttribute @PathVariable int boardNo,Model model) {
-		
 		model.addAttribute("postsList",boardService.getPostList(boardNo));
 		System.out.println(boardService.getPostList(boardNo));
-		
-		/* return "common/board/postList"; */
 		return "common/board/postList";
 	}
 	
-	
-	@GetMapping("/edit")
-	public String getEditor() {
-		return "common/board/editor";
+	// 내 게시글 리스트 보기
+	@GetMapping("/getSearchMyPostList")
+	public String getSearchMyPostList() {
+		
+		return "";
 	}
 	
-	@GetMapping("/newPostForm")
-	public String newPostForm(Posts posts) {
+	@GetMapping("/newPostForm/{boardNo}/{boardName}")
+	public String newPostForm(Posts posts, @ModelAttribute @PathVariable String boardName,
+			 				   			   @ModelAttribute @PathVariable int boardNo, Model model) {
+		model.addAttribute("temporaryPostList", boardService.getTemporaryPostList("jin2020"));
 		return "common/board/newPostForm";
 	}
 	
@@ -79,8 +80,6 @@ public class BoardController {
 	@PostMapping("/insertBoardGroup")
 	public String insertBoardGroup(String content, String lectureCode) {
 		boardService.insertBoardGroup(content, lectureCode);
-		//RedirectAttributes redirectAttributes
-		//redirectAttributes.addFlashAttribute("result", "success");
 		return "redirect:/getNavbar/jin2020";
 	}
 	
@@ -89,29 +88,52 @@ public class BoardController {
 	public String insertBoard (String content, int boardGroupNo) {
 		boardService.insertBoard(content, boardGroupNo);
 		return "redirect:/getNavbar/jin2020";
-		
 	}
 	
 	
 	// 게시글 Detail
 	@GetMapping("/getPost/{boardNo}/{postNo}")
-	public String getPost(@PathVariable("boardNo") int boardNo,@PathVariable("postNo") int postNo,Model model) {
+	public String getPost(@PathVariable("boardNo") int boardNo,
+						  @PathVariable("postNo")  int postNo ,  Model model) {
 		model.addAttribute("posts", boardService.getPost(boardNo, postNo));
 		System.out.println(boardService.getPost(boardNo, postNo));
 		return "common/board/postInfo";
 	}
+	
+	
+	// 임시저장된 게시글 조회
+	@GetMapping("/getTemporaryPost/{temporaryNo}")
+	public String getTemporaryPost(@PathVariable("temporaryNo") int temporaryNo, Model model) {
+		model.addAttribute("temporaryPost", boardService.getTemporaryPost(temporaryNo));
+		model.addAttribute("temporaryPostList", boardService.getTemporaryPostList("jin2020"));
+		return "common/board/temporaryPostDetail";
+	}
+	
+	
 
 	//게시글 등록
 	@PostMapping("/insertPosts")
-	public String insertPosts(PostDetail posts) {
-		
-		posts.setBoardNo(3);
+	public String insertPosts(Posts posts) {
 		posts.setUserId("jin2020");
 		boardService.insertPosts(posts);
-		
 		System.out.println(posts);
-		return "redirect:/board/postList/2";
+		return "redirect:/board/postList/"+posts.getBoardNo();
 	}
 	
+
+	
+	// 게시글 임시저장
+	@PostMapping("/insertTemporaryPost")
+	public String insertTemporaryPost(TemporaryPost temporaryPost, Model model) {
+		temporaryPost.setUserId("jin2020");
+		boardService.insertTemporaryPost(temporaryPost);
+		return  "redirect:/getTemporaryList/jin2020";
+	}
+	
+	@GetMapping("/getTemporaryList/{userId}")
+	public String temp(Model model, @PathVariable String userId) {
+		model.addAttribute("temporaryPostList", boardService.getTemporaryPostList(userId));
+		return "common/board/fragment/temporaryPostList :: temporaryPostList";
+	}
 	
 }

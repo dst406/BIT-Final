@@ -39,39 +39,10 @@
 		<result property="boardIntro" column="board_intro"/>
 		<collection property="posts" ofType="posts" column="boardNo=BOARD_NO"
 					javaType="List" select="postList"/>
+
 	</resultMap>	
-
 	
-		
-		
-		
-		<!-- <collection property="board" ofType="board" column="BOARD_GROUP_NO" javaType="java.util.ArrayList" select ="getBoardList">
-			<id property="boardNo" column="BOARD_NO"/>
-			<result property="boardName" column="BOARD_NAME"/>
-			<result property="boardIntro" column="BOARD_INTRO"/>
-			<result property="boardOrder" column="BOARD_ORDER"/>
-		</collection> -->
-		
-
-	
-
-	
-<!-- 	<select id="getNavbar" resultMap="boardGroup_resultMap">
-		SELECT * FROM BOARD_GROUP 
-		INNER JOIN BOARD  ON board_group.board_group_no = board.board_group_no
-		INNER JOIN LECTURE ON lecture.lecture_code = board_group.lecture_code
-		
-	</select> -->
-
-
-	
-	
-	<!-- SELECT * FROM BOARD_GROUP BG
-		INNER JOIN LECTURE ON lecture.lecture_code = bg.lecture_code
-		WHERE user_id = #{userId} -->
-	
-	
-	<!-- getBoardGroup start -->
+	<!-- 내비게이션 바 게시판 그룹, 게시판 조회 start -->
 		
 	<select id="getNavbar" resultMap="boardGroupList_resultMap">
 		SELECT lecture_code,lecture_name FROM lecture WHERE user_id = #{userId}
@@ -86,31 +57,36 @@
 		SELECT * FROM board WHERE board_GROUP_NO = #{boardGroupNo}
 	</select>
 	
-	<!-- getBoardGroup end -->
+	<!-- 내비게이션 바 게시판 그룹, 게시판 조회 end -->
 	
 	
-	<!--  insert BoardGroup -->
+	<!--  게시판 그룹 등록 Start -->
 	<insert id="insertBoardGroup" parameterType="Map">
 		INSERT INTO board_group VALUES(SEQ_BOARD_GROUP.nextval, #{lectureCode},#{content},
 			(SELECT NVL( MAX(board_group_order)+1 , 1 ) FROM board_group WHERE lecture_code = #{lectureCode} )
 		)
 	</insert>	
+	<!--  게시판 그룹 등록 End -->
 	
+	<!-- 게시판 그룹 이름 수정 Start -->
+	<update id="updateBoardGroupName" parameterType="Map">
+		Update board_group SET board_group_name = #{changeBoardGroupName}
+		WHERE board_group_no = #{boardGroupNo}
+	</update>
+	<!-- 게시판 그룹 이름 수정 End -->
+	
+	
+	<!-- 게시판 등록 Start -->
 	<insert id="insertBoard" parameterType="Map">
 		INSERT INTO board VALUES(SEQ_BOARD.nextval,#{boardGroupNo},#{content},null, 
 			(SELECT NVL( MAX(board_order)+1 , 1 ) FROM board WHERE board_group_no = #{boardGroupNo} )
 		)
 	</insert>
-	
-	<update id="updateBoardGroupName" parameterType="Map">
-		Update board_group SET board_group_name = #{changeBoardGroupName}
-		WHERE board_group_no = #{boardGroupNo}
-	</update>
+	<!-- 게시판 등록 End -->
 	
 	
 	<!-- postList  Start -->
 	<select id="getPostList" resultMap="postList_resultMap">
-	
 		SELECT * FROM board WHERE board_no= #{boardNo}
 	</select>
 	
@@ -130,29 +106,53 @@
 	</select>
 	
 	<select id="getPostListInDetail" resultType="postsDetailList">
-			SELECT COUNT(post_no) OVER(PARTITION BY board_no) AS postListCount, 
-			ROW_NUMBER() OVER (ORDER BY posts_date DESC) postRownum, post_title, post_No FROM posts 
-			WHERE board_no = #{boardNo}
+		SELECT COUNT(post_no) OVER(PARTITION BY board_no) AS postListCount, 
+		ROW_NUMBER() OVER (ORDER BY posts_date DESC) postRownum, post_title, post_No FROM posts 
+		WHERE board_no = #{boardNo}
 	</select>
-	
 	<!--  postDetail End -->
+		
+
 	
 	
-	<insert id="insertPosts" parameterType="postDetail">
+	<!--  게시판 등록  Start-->
+	
+	<insert id="insertPosts" parameterType="posts">
 		INSERT INTO posts VALUES(
 			SEQ_POSTS.nextval, #{boardNo}, #{userId} ,  #{postTitle} , #{postContents} ,
 			TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'), 0 )
 	</insert>
+	<!--  게시판 등록  End-->
+		
+	<!-- 임시저장 리스트 불러오기 -->		
+	<select id="getTemporaryPostList" resultType="temporaryPostList">
+		SELECT temporary_no, user_id, temporary_title, temporary_date FROM temporary
+		WHERE user_id = #{userId} 
+		AND TO_DATE(temporary_date, 'YYYY-MM-DD HH24:MI:SS' ) > SYSDATE - 30
+	</select>
+	<!-- 임시저장 리스트 불러오기 -->
+	
+	<!-- 게시글 임시저장 Start -->
+	<insert id="insertTemporaryPost" parameterType="temporaryPost">
+		INSERT INTO temporary VALUES(
+			SEQ_TEMPORARY.nextval, #{boardNo}, #{userId}, #{temporaryTitle}, #{temporaryContents},
+			TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS')
+		)
+	</insert>
+	<!-- 게시글 임시저장 End -->
+	
+	<!--  임시저장된 글 조회 Start-->
+	<select id="getTemporaryPost" resultType="temporaryPost">
+		SELECT * FROM temporary WHERE temporary_No = #{temporaryNo}
+	</select>
 	
 	
+	<select id="getBoardName" resultType="String">
+		SELECT board_name FROM board WHERE board_no = #{boardNo}
+	</select>
+	<!--  임시저장된 글 조회 End -->
+
 	
-	
-	
-	<!-- <insert id="insertPosts" parameterType="posts">
-		INSERT INTO posts VALUES(
-			SEQ_POSTS.nextval, #{boardNo}, #{userId}, #{postsTitle}, <![CDATA[#{postsContents}]]>,
-			TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'), 0 )
-	</insert> -->
 	
 </mapper>
 

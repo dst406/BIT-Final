@@ -162,7 +162,7 @@ function imageUploadAjax() {
 						// Ajax call for file uploaling
 						$.ajax({
 									/*enctype : 'multipart/form-data',*/
-									url : 'rest/board/imageUpload',
+									url : '/rest/board/imageUpload',
 									type : 'POST',
 									contentType : false,
 									processData : false,

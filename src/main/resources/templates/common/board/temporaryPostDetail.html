@@ -13,7 +13,7 @@
 
 	<div layout:fragment="content">
 
-		<div  class="page-wrapper"  th:object="${posts}" >
+		<div  class="page-wrapper"  th:object="${temporaryPost}" >
 			<!-- Page Content-->
 			
 			<div class="page-content-tab">
@@ -31,20 +31,27 @@
 						
 						<div class="postForm_header">
 							<div class="postForm_header_board">
-								<a th:href="@{/board/postList/{boardNo}(boardNo=${boardNo})}">
-									<b th:text="${boardName}"> [엄쌤] 일석이조 : SQLD 스터디룸</b>
+								 <a th:href="@{/board/postList/{boardNo}(boardNo=*{boardNo})}"> 
+									<b th:text="*{boardName}"> [엄쌤] 일석이조 : SQLD 스터디룸</b> 
 								</a>
 							</div>
 							<div class="postForm_header_title">
 							<!-- form="postsForm" -->
-								<textarea placeholder="제목을 입력하세요" id="postTitleArea" ></textarea>
+								<textarea th:inline="text" placeholder="제목을 입력하세요" id="postTitleArea" >[[*{temporaryTitle}]]</textarea>
 							</div>
 							<div class="board_black_line"></div>
 							<div class="postForm_header_temporary" >
-							<th:block th:if="${temporaryPostList != null} ">
-								<div th:replace="~{common/board/fragment/temporaryPostList :: temporaryPostList(${temporaryPostList})}"></div>
-							</th:block>	
-							
+								<!-- <a th:href="@{/getTemporaryPost/{temporaryNo}(temporaryNo=*{temporaryNo})}" 
+								   th:each="temporaryPostList : ${temporaryPostList} "  type="button"
+								   class="btn btn-info btn-square btn-outline-dashed waves-effect waves-light">
+									<i class="fas fa-share-square"></i> 
+									<span th:text="${temporaryPostList.temporaryTitle}" class="temp_title">
+										[엄쌤]머리에 쏙쏙 SQLD</span> 
+									<span th:text="${temporaryPostList.temporaryDate}" class="temp_date">2020.06.04 12:22</span>
+								</a> -->
+								<th:block th:if="${temporaryPostList != null} ">
+									<div th:replace="~{common/board/fragment/temporaryPostList :: temporaryPostList(${temporaryPostList})}"></div>
+								</th:block>
 							</div>
 							<hr class="black-hr">
 						</div>
@@ -57,11 +64,11 @@
 				
 								
 				 <form th:action="@{/insertPosts}" method="post" id="postsForm">
-				 		<input type="hidden" th:field="*{postTitle}" >
+				 		<input type="hidden" th:field="*{temporaryTitle}" >
 				 		<input type="hidden" th:field="*{boardNo}" > 								
 						<textarea id="postContents" name="postContents"></textarea>
 							<div class="editorDIV" contenteditable="true" >
-								<div class="first_editor_contents">내용을 입력해주세요</div>
+							<th:block th:utext="*{temporaryContents}"></th:block>
 								<div><br></div>
 						</div>
 				 </form> 		

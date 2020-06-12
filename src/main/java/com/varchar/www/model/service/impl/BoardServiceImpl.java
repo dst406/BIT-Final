@@ -9,7 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.varchar.www.model.dao.BoardDAO;
 import com.varchar.www.model.domain.board.BoardGroupList;
 import com.varchar.www.model.domain.board.PostDetail;
+import com.varchar.www.model.domain.board.Posts;
 import com.varchar.www.model.domain.board.PostsList;
+import com.varchar.www.model.domain.board.TemporaryPost;
+import com.varchar.www.model.domain.board.TemporaryPostList;
 import com.varchar.www.model.service.BoardService;
 
 @Service("boardServiceImpl")
@@ -53,13 +56,30 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void insertPosts(PostDetail posts) {
+	public void insertPosts(Posts posts) {
 		try {
 		boardDAO.insertPosts(posts);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public List<TemporaryPostList> getTemporaryPostList(String userId) {
+		return boardDAO.getTemporaryPostList(userId);
+	}
+
+	@Override
+	public void insertTemporaryPost(TemporaryPost temporaryPost) {
+		boardDAO.insertTemporaryPost(temporaryPost);
+	}
+
+	@Override
+	public TemporaryPost getTemporaryPost(int temporaryNo) {
+		TemporaryPost temporaryPost = boardDAO.getTemporaryPost(temporaryNo);
+		temporaryPost.setBoardName(boardDAO.getBoardName(temporaryPost.getBoardNo()));
+		return temporaryPost;
 	}
 
 }

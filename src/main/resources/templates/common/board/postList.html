@@ -4,6 +4,7 @@
 	  layout:decorator="layout/defaultLayout">
 <head>
 <link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
+
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
@@ -28,24 +29,12 @@
 				<div class="row">
 
 					<div class="col-lg-12">
-						<!-- <h2>[엄쌤] 머리에 쏙쏙 SQLD 들어오는 강의</h2> -->
-						<!-- <textarea rows="1" cols="40" class="board_title_text" >[엄쌤] 머리에 쏙쏙 SQLD 들어오는 강의</textarea> -->
-						<input th:value="*{boardName}" value="게시판 제목을 입력해주세요" type="text" class="board_title_text" maxlength="35">
-						<!-- <input th:value="${postsList.boardName}" type="text" class="board_title_text" maxlength="35"> -->
+						<input th:field="*{boardName}" value="게시판 제목을 입력해주세요" type="text" class="board_title_text" maxlength="35">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-7">
-						<!-- 	<h4>엄쌤의 SQLD자격증을 취득하기 위한 멘토,멘티 일석이조 게시판입니다. 강의게시판 간략 소개를 여기에
-							쓰시면 됩니다</h4> -->
-						<!-- 	<input type="text" class="board_contents_text" maxlength="35"
-						 value="[엄쌤] 머리에 쏙쏙 SQLD 들어오는 강의"> -->
-
-						<!-- <textarea th:text="${postsList.boardIntro}" rows="2" cols="31" maxlength="62"
-							class="board_contents_text">
-						엄쌤의 SQLD자격증을 취득하기 위한 멘토,멘티 일석이조 게시판입니다. 
-						강의게시판 간략 소개를 여기에쓰시면 됩니다</textarea> -->
-						
+			
 						<textarea  rows="2" cols="31" maxlength="62"
 							class="board_contents_text">[[*{boardIntro}]]</textarea>
 						<!-- <textarea rows="2" cols="32" maxlength="66" class="board_contents_text" readonly>[엄쌤] 머리에 쏙쏙 SQLD 들어오는 강의</textarea> -->
@@ -59,7 +48,7 @@
 
 						<div id="datatable_filter" class="dataTables_filter">
 							<label class="board-search-bar">Search:<input
-								type="search" class="form-control form-control-sm"
+								type="search" class="form-control form-control-sm searchPost"
 								placeholder="제목/내용/이름" aria-controls="datatable"></label>
 						</div>
 					</div>
@@ -77,7 +66,7 @@
 					<div class="row">
 						<div class="col-lg-2">
 						
-							<a th:href="@{/newPostForm/{boardNo}(boardNo=*{boardNo})}" class="btn btn-md btn-primary px-4">글쓰기</a>
+							<a th:href="@{/newPostForm/{boardNo}/{boardName}(boardNo=*{boardNo},boardName=*{boardName})}" class="btn btn-md btn-primary px-4">글쓰기</a>
 						</div>
 						<div class="col-lg-8">
 							<div class="pagination_center">
@@ -102,15 +91,19 @@
 							</div>
 						</div>
 						<div class="col-lg-2">
-							<button
+							<a th:href="@{/getSearchMyPostList/{boardNo}(boardNo=*{boardNo})}" 
 								class="btn btn-md btn-gradient-info waves-effect waves-light px-5 ">내
-								글보기</button>
+								글보기</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	
+	<script th:src="@{/js/board.js}"></script>
+	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.es6.min.js}"></script>
 </div>
 
 

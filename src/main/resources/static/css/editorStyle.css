@@ -118,8 +118,8 @@
 	margin-left:30px;
 }
 
-.postForm_header_board > button {
-	margin:2px;
+.postForm_header_temporary > a {
+	margin: 3px 3px 3px 0px;
 }
 .postForm_header_board > p {
 	    margin-top: 10px;

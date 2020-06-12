@@ -20,11 +20,10 @@
 						class="nav metismenu">
 						<!--end nav-item-->
 						<li th:each="boardGroup: ${boardGroupList.boardGroup}" class="nav-item mm-active active">
-							
-						<span class="nav-link-more-group">
+						
+						<span class="nav-link-more-group" th:if="${not boardGroup.board.isEmpty()}">
 								<i class="fas fa-chevron-right"></i>
 						 </span>
-									
 					<div class="group_icon">			
 						 <a href="#" data-mfp-src=".insertBoardContainer"
 								class="insertPage-popup-link popup-link insert-board"> 

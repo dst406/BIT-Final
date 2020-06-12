@@ -29,9 +29,7 @@
 						<div class="postForm_header">
 							<div class="postForm_header_board">
 
-								<a
-									th:href="@{/board/postList/{boardNo}(boardNo=${posts.boardNo})}"
-									th:text="*{boardName}"> <b
+								<a th:href="@{/board/postList/{boardNo}(boardNo=${posts.boardNo})}"> <b
 									th:text="*{boardName}"> [엄쌤] 일석이조 : SQLD 스터디룸</b></a>
 							</div>
 							<div class="postForm_header_title">
@@ -66,7 +64,7 @@
 							<div class="postListInPostContainer">
 								<h2>
 									<a th:text="${posts.boardName}"
-										th:href="@{/board/postList/{boardNo}(boardNo=${posts.boardNo})}">게시판
+										th:href="@{/board/postList/{boardNo}(boardNo=*{boardNo})}">게시판
 										이름</a>
 								</h2>
 								<svg width="32" height="48" fill="none" viewBox="0 0 32 48"

@@ -5,15 +5,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-public class Posts {
-	private int postRowNum;
-	private int postNo;
+public class TemporaryPost {
+	private int temporaryNo;
 	private int boardNo;
+	private String boardName;
 	private String userId;
-	private String postTitle;	
-	private String postContents;
-	private String postsDate;
-	private int postViews;
-	
-	
+	private String temporaryTitle;	
+	private String temporaryContents;
+	private String temporaryDate;
 }

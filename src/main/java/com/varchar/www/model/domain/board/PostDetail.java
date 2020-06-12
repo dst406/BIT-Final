@@ -17,6 +17,4 @@ public class PostDetail {
 	private String postsDate;
 	private int postViews;
 	List<PostsDetailList> postsDetailList;
-	
-	
 }
