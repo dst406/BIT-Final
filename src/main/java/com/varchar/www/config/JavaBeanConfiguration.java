@@ -12,6 +12,7 @@ import com.varchar.www.model.domain.board.PostDetail;
 import com.varchar.www.model.domain.board.Posts;
 import com.varchar.www.model.domain.board.PostsDetailList;
 import com.varchar.www.model.domain.board.PostsList;
+import com.varchar.www.model.domain.comment.ReplyComment;
 
 @Configuration
 public class JavaBeanConfiguration {
@@ -31,7 +32,8 @@ public class JavaBeanConfiguration {
 	 @Bean public PostsList postsList() {return new PostsList();}
 	 @Bean public PostDetail postDetail() {return new PostDetail();}
 	 @Bean public PostsDetailList postsDetailList() {return new PostsDetailList();}
-
+	 @Bean public ReplyComment replyComment() {return new ReplyComment();}
+	 
 	 @Bean
 	 public MultipartResolver multipartResolver() {
 	     return new StandardServletMultipartResolver();

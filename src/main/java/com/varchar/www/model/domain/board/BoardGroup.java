@@ -9,7 +9,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-@Alias("boardGroup")
 public class BoardGroup {
 	private int boardGroupNo;
 	private String boardGroupName;

@@ -4,6 +4,7 @@
 	layout:decorator="layout/defaultLayout">
 <head>
 <link href="/css/editorStyle.css" rel="stylesheet" type="text/css">
+<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
 <script src="https://kit.fontawesome.com/8fe653c8f8.js"
 	crossorigin="anonymous"></script>
 
@@ -12,6 +13,7 @@
 <body>
 
 	<div layout:fragment="content">
+
 		<div class="page-wrapper">
 			<!-- Page Content-->
 			<div class="page-content-tab">
@@ -29,16 +31,20 @@
 						<div class="postForm_header">
 							<div class="postForm_header_board">
 
-								<a th:href="@{/board/postList/{boardNo}(boardNo=${posts.boardNo})}"> <b
-									th:text="*{boardName}"> [엄쌤] 일석이조 : SQLD 스터디룸</b></a>
+								<a
+									th:href="@{/board/postList/{boardNo}(boardNo=${posts.boardNo})}">
+									<input type="hidden" th:value="${postNo}" name="postNo"
+									id="postNo"> <b th:text="*{boardName}"> [엄쌤] 일석이조 :
+										SQLD 스터디룸</b>
+								</a>
 							</div>
 							<div class="postForm_header_title">
 								<!--  <textarea  placeholder="제목을 입력하세요"  readonly="readonly">
 								[[${posts.postTitle}]]
 							</textarea>  -->
 
-								<textarea th:inline="text" id="postTitle" placeholder="제목을 입력하세요"
-									readonly="readonly">[[*{postTitle}]]
+								<textarea th:inline="text" id="postTitle"
+									placeholder="제목을 입력하세요" readonly="readonly">[[*{postTitle}]]
 							</textarea>
 								<div class="row">
 									<div class="post-list-contents-bottom">
@@ -73,11 +79,9 @@
 								<ol class="postListWrapper">
 									<li th:each="postList: *{postsDetailList}"><a
 										th:text="${postList.postTitle}"
-										th:data-number="${postList.postRowNum}" 
-										aria-current="page"
+										th:data-number="${postList.postRowNum}" aria-current="page"
 										class=""
-										th:href="@{/getPost/{boardNo}/{postNo}(boardNo=${posts.boardNo},postNo=${postList.postNo})}"
-										>시리즈1</a></li>
+										th:href="@{/getPost/{boardNo}/{postNo}(boardNo=${posts.boardNo},postNo=${postList.postNo})}">시리즈1</a></li>
 
 
 								</ol>
@@ -91,10 +95,9 @@
 									</div>
 									<div class="postListGuidePagingWrapper">
 										<div class="postNumber">
-										<span id="thisPostNumber"></span>
-										/
-										<span th:text="*{postsDetailList[0].postListCount}">2</span>
-										
+											<span id="thisPostNumber"></span> / <span
+												th:text="*{postsDetailList[0].postListCount}">2</span>
+
 										</div>
 										<div class="postListNavButton">
 											<button class="postListBtn postListPrevBtn" disabled="">
@@ -128,17 +131,37 @@
 						</div>
 					</div>
 
+					<hr class="gray_hr">
+
+					<div class="row comment_line ">
+						<h4 th:text="${#lists.size(posts.commentList)}+' 개의 댓글'">29개의
+							댓글</h4>
+						<div class="comment_container">
+							<!-- <form th:action="@{/insertPostComment}" method="post">-->
+
+							<div class="comment_write_wrapper">
+								<textarea id="commentContent" name="commentConetent" placeholder="댓글을 작성하세요"
+									class="comment_content" style="height: 70px;"></textarea>
+								<div class="button_wrapper">
+									<button type="submit" color="teal" class="write_comment">댓글
+										작성</button>
+								</div>
+							</div>
+							<!-- 	</form> -->
+							<div class="comment_read_wrapper">
+							<th:block
+								th:replace="~{common/board/fragment/commentList :: getCommentList(${posts.commentList})}"></th:block>
+							</div>
+						</div>
+
+					</div>
+
 				</div>
-
-
 			</div>
 		</div>
-	<script th:src="@{/js/board.js}"></script>
-	<script th:src="@{/js/editor/boardEditor.js}" ></script>
-	<script th:src="@{/js/editor/editEventTrigger.js}"></script>
+		 <script th:src="@{/js/board.js}"></script> 
+		<script th:src="@{/js/editor/boardEditor.js}"></script>
+		<script th:src="@{/js/editor/editEventTrigger.js}"></script>
 	</div>
-
-	
-
 </body>
 </html>

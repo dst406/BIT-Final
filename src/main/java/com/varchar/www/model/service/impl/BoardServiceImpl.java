@@ -13,6 +13,7 @@ import com.varchar.www.model.domain.board.Posts;
 import com.varchar.www.model.domain.board.PostsList;
 import com.varchar.www.model.domain.board.TemporaryPost;
 import com.varchar.www.model.domain.board.TemporaryPostList;
+import com.varchar.www.model.domain.comment.Comment;
 import com.varchar.www.model.service.BoardService;
 
 @Service("boardServiceImpl")
@@ -80,6 +81,17 @@ public class BoardServiceImpl implements BoardService {
 		TemporaryPost temporaryPost = boardDAO.getTemporaryPost(temporaryNo);
 		temporaryPost.setBoardName(boardDAO.getBoardName(temporaryPost.getBoardNo()));
 		return temporaryPost;
+	}
+
+	@Override
+	public void insertPostComment(Comment comment, int postNo) {
+		boardDAO.insertPostComment(comment,postNo);
+		
+	}
+
+	@Override
+	public void insertReply(Comment comment,int postNo) {
+		boardDAO.insertReply(comment, postNo);
 	}
 
 }

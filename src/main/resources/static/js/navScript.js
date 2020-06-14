@@ -258,18 +258,14 @@ function selectBoardGroup(){
 	$('.menu-title').on('click',function(event){
 		//moveActive('.menu-body','ul',target(event));
 		
-		var target = $(event.target);
-		target.closest('.menu-body').find('ul')
-		.removeClass('active');
-		target.closest('.main-icon-menu-pane').find('ul').addClass('active');
-		
-		var hasActive = $(this).closest('a');
-		if(hasActive.hasClass('active')){
-			
-			hasActive.closest('a').removeClass('active');
+		var $target = $(event.target);
+		$target.closest('.menu-body').find('ul').removeClass('active');
+		$hasActive = $target.closest('.main-icon-menu-pane').find('.metismenu');
+		if($hasActive.hasClass('active')){
+			$hasActive.removeClass('active');
 			return;
 		}
-		
+		$hasActive.addClass('active');
 	})
 }
 

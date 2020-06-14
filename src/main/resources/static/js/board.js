@@ -2,6 +2,8 @@ $(function(){
 	clickMorePostList();
 	initPostDetail();
 	searchPosts();
+	insertComment();
+
 //	console.log( $('.postListWrapper li a:contains('+$.trim( $('textarea#postTitle').val() )+')').attr('data-number') );
 //	$('.postListWrapper li a:contains('+$.trim( $('textarea#postTitle').val() )+')').addClass('active');
 	
@@ -42,3 +44,25 @@ function clickMorePostList(){
 		$('.postListWrapper').addClass('active');
 	})
 }
+
+
+function insertComment(){
+	$('.write_comment').on('click',function(event){
+		$.ajax({
+			url:"/insertPostComment" ,
+			type:"POST",
+			data:{
+				commentContent: $('textarea#commentContent').val(),
+				postNo : $('#postNo').val()
+			}
+		}).done(function(data){
+			$commentCount = parseInt( $('.comment_line h4').text().split(' ')[0] ) + 1;
+			$commentCountText = $('.comment_line h4').text().substr(-6);
+			$('.comment_line h4').text($commentCount+$commentCountText);
+			$('.comment_read_wrapper').html(data);
+		})
+	})
+}
+
+
+

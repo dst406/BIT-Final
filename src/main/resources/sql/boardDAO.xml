@@ -31,7 +31,32 @@
 		<result property="postViews" column="post_views"/>
 		<collection property="postsDetailList" ofType="postsDetailList" column="boardNo=BOARD_NO"
 					javaType="List" select="getPostListInDetail"/>
+		<collection property="commentList" ofType="comment" column="postNo=POST_NO"
+					javaType="List" select="getCommentList"/>			
 	</resultMap>
+		
+	<resultMap type="comment" id="commentList_resultMap">
+		<id property="commentNo" column="comment_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="commentContent" column="comment_content"/>
+		<result property="commentDate" column="comment_date"/>
+		<result property="commentImage" column="comment_image"/>
+		<collection property="replyCommentList" ofType="replyComment" column="replyNo=COMMENT_NO"
+					javaType="List" select="getReplyList"/>	
+	</resultMap>	
+		
+	<resultMap type="replyComment" id="replyComment_resultMap">
+		<id property="commentNo" column="comment_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="commentContent" column="comment_content"/>
+		<result property="commentDate" column="comment_date"/>
+		<result property="commentImage" column="comment_image"/>
+		<collection property="replyInReplyComment" ofType="replyComment" column="replyNo=COMMENT_NO"
+					javaType="List" select="getReplyInReply"/>	
+
+	
+	</resultMap>
+		
 		
 	<resultMap type="postsList" id="postList_resultMap">
 		<id property="boardNo" column="board_no"/>
@@ -100,7 +125,8 @@
 	
 	<!--  postDetail Start -->
 	<select id="getPost" resultMap="postDetail_resultMap">
-		SELECT ROWNUM,board.board_name, board.board_intro, posts.* FROM posts
+		SELECT 
+		ROWNUM,board.board_name, board.board_intro, posts.* FROM posts
 		INNER JOIN board ON board.board_no = posts.board_no AND board.board_no = #{boardNo}
 		WHERE posts.post_no = #{postNo}
 	</select>
@@ -110,10 +136,31 @@
 		ROW_NUMBER() OVER (ORDER BY posts_date DESC) postRownum, post_title, post_No FROM posts 
 		WHERE board_no = #{boardNo}
 	</select>
-	<!--  postDetail End -->
+	
+	<select id="getCommentList" resultMap="commentList_resultMap">
+		SELECT * FROM board_comment 
+		WHERE post_no = #{postNo} AND comment_re_parent IS NULL
+		ORDER BY comment_date
+	</select>
+	
+	<select id="getReplyList" resultMap="replyComment_resultMap">
+		SELECT LEVEL, board_comment.*
+		from board_comment 
+		WHERE LEVEL = 1
+		START WITH comment_re_parent = #{replyNo}
+		CONNECT BY PRIOR comment_no = comment_re_parent 
+		ORDER SIBLINGS BY comment_date
+	</select>
+	
+	<select id="getReplyInReply" resultType="replyComment">
+		SELECT LEVEL, board_comment.*
+		from board_comment 
+		START WITH comment_re_parent = #{replyNo}
+		CONNECT BY PRIOR comment_no = comment_re_parent
+	</select>
 		
 
-	
+	<!--  postDetail End  = #{commentNo} 최 상위노드 설정 부모노드와 자식노드 연결 --> 
 	
 	<!--  게시판 등록  Start-->
 	
@@ -152,6 +199,27 @@
 	</select>
 	<!--  임시저장된 글 조회 End -->
 
+
+
+	<!-- 댓글 -->
+	
+	<!-- 댓글등록 Start -->	
+	<insert id="insertPostComment" parameterType="Map">
+		INSERT INTO board_comment
+		VALUES (SEQ_BOARD_COMMENT.nextval, #{postNo}, #{comment.userId}, #{comment.commentContent}, 
+				TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'), null, null )
+	</insert>
+	
+	<!-- 댓글등록 End -->
+	
+	<!-- 답글 등록 Start -->
+	
+	<insert id="insertReply" parameterType="Map">
+		INSERT INTO board_comment
+		VALUES (SEQ_BOARD_COMMENT.nextval, #{postNo}, #{comment.userId}, #{comment.commentContent}, 
+				TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'), null, #{comment.commentNo} )
+	</insert>
+	<!-- 답글 등록 End -->
 	
 	
 </mapper>

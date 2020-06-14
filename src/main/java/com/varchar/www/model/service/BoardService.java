@@ -8,6 +8,7 @@ import com.varchar.www.model.domain.board.Posts;
 import com.varchar.www.model.domain.board.PostsList;
 import com.varchar.www.model.domain.board.TemporaryPost;
 import com.varchar.www.model.domain.board.TemporaryPostList;
+import com.varchar.www.model.domain.comment.Comment;
 
 
 public interface BoardService {
@@ -21,4 +22,6 @@ public interface BoardService {
 	List<TemporaryPostList> getTemporaryPostList(String userId);
 	void insertTemporaryPost(TemporaryPost temporaryPost);
 	TemporaryPost getTemporaryPost(int temporaryNo);
+	void insertPostComment(Comment comment, int postNo);
+	void insertReply(Comment comment, int postNo);
 }

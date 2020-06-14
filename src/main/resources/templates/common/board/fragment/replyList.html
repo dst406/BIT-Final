@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<th:block th:fragment="getReplyList(replyList)">
+					<div class="comment_reply_view_wrapper " th:each="replyComment : ${replyList}">
+						<div class="comment_read_container">
+							<div class="comment_read_domain">
+								<div class="comment_read_header">
+									<div class="comment_profile">
+										<div class="comment_info">
+											<div class="username">
+												<a th:text="${replyComment.userId}" href="/@wassup_">wassup_</a>
+											</div>
+											<div th:text="${replyComment.commentDate}" class="date">2020년
+												5월 15일</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="comment_read_content replyaaa">
+								<p th:text="${replyComment.commentContent}">tot은 본적있는데 tit은
+									진짜 :facepalm:입니다;</p>
+							</div>
+
+							<div class="comment_reply_container">
+								<svg width="12" height="12" fill="none" viewBox="0 0 12 12">
+												<path fill="currentColor"
+										d="M5.5 2.5h1v3h3v1h-3v3h-1v-3h-3v-1h3v-3z"></path>
+												<path fill="currentColor" fill-rule="evenodd"
+										d="M1 0a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm10 1H1v10h10V1z"
+										clip-rule="evenodd"></path></svg>
+								<span
+									th:if="${not #lists.isEmpty(replyComment.replyInReplyComment) }"
+									th:text="${ #lists.size(replyComment.replyInReplyComment) }+' 개의 답글'">1개의
+									글</span> <span
+									th:unless="${not #lists.isEmpty(replyComment.replyInReplyComment) }"
+									th:text="답글달기"></span>
+								<!-- <span th:text="${comment.replyCommentList.commentNo}"></span> -->
+							</div>
+							<!-- <button class="commnet_reply_write_content active">답글
+								작성하기</button> -->
+							<div class="comment_write_wrapper">
+								<textarea placeholder="댓글을 작성하세요" class="comment_content"
+									style="height: 70px;"></textarea>
+								<div class="button_wrapper">
+									<button color="gray" class="cancel_comment">취소</button>
+									<button type="submit" color="teal" class="write_reply mg-left-10">답글
+										작성</button>
+								
+								</div>
+
+							</div>
+							<th:block
+								th:replace="~{common/board/fragment/replyList :: getReplyList(${replyComment.replyInReplyComment})}"></th:block>
+						</div>
+	</div>
+	
+	</th:block>
+</body>
+</html>

@@ -10,6 +10,8 @@ import com.varchar.www.model.domain.board.Posts;
 import com.varchar.www.model.domain.board.PostsList;
 import com.varchar.www.model.domain.board.TemporaryPost;
 import com.varchar.www.model.domain.board.TemporaryPostList;
+import com.varchar.www.model.domain.comment.Comment;
+import com.varchar.www.model.domain.comment.ReplyComment;
 
 
 public interface BoardDAO {
@@ -39,6 +41,16 @@ public interface BoardDAO {
 	// 임시저장된 게시글 불러오기
 	TemporaryPost getTemporaryPost(int temporaryNo);
 	
+	// 댓글 등록
+	void insertPostComment(@Param("comment")Comment comment, @Param("postNo")int postNo);
+	
+	// 댓글 조회
+	List<Comment> getCommentList(int postNo);
+	
+	// 답글 등록
+	void insertReply(@Param("comment")Comment comment, @Param("postNo")int postNo);
+	// 답글 조회
+	List<ReplyComment> getReplyList(int commentNo);
 	
 	
 }

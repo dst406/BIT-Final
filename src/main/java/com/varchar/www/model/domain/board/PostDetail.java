@@ -2,6 +2,8 @@ package com.varchar.www.model.domain.board;
 
 import java.util.List;
 
+import com.varchar.www.model.domain.comment.Comment;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,4 +19,5 @@ public class PostDetail {
 	private String postsDate;
 	private int postViews;
 	List<PostsDetailList> postsDetailList;
+	List<Comment> commentList;
 }
