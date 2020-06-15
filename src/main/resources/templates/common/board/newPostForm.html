@@ -57,8 +57,10 @@
 				
 								
 				 <form th:action="@{/insertPosts}" method="post" id="postsForm">
+				 		<input type="hidden" th:field="*{boardNo}" >
 				 		<input type="hidden" th:field="*{postTitle}" >
-				 		<input type="hidden" th:field="*{boardNo}" > 								
+				 		<input type="hidden" th:field="*{postPreview}" maxlength="190" >
+				 		<input type="hidden" th:field="*{postThumbnail}" > 	 								
 						<textarea id="postContents" name="postContents"></textarea>
 							<div class="editorDIV" contenteditable="true" >
 								<div class="first_editor_contents">내용을 입력해주세요</div>

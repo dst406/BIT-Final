@@ -64,6 +64,7 @@
 .post-list-contents-header .row img {
 	float: right;
 	width: 120px;
+	height: 100;
 }
 
 .article-post-list li .post-list-contents .post-list-contents-bottom {
@@ -517,4 +518,11 @@
 .inp_style{
 	border: 1px solid #e8ebf3;
     background-color: #fff;
+}
+
+.closeDatePicker{
+	 float: right;
+    right: 20px;
+    bottom: 5px;
+    position: relative;
 }

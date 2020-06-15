@@ -24,11 +24,19 @@ function addPostSubmit(){
 	$('.saveButton').on('click',function(){
 		addContentsAsTextarea();
 		$('#postTitle').val( $('textarea#postTitleArea').val() );
+		var previewText = $('.editorDIV *').text();
+		if(previewText.length > 200){
+			previewText = previewText.substr(0,200);
+		}	
+		$('#postPreview').val(previewText);
+		if($('.editorDIV img').length > 0 ){
+			$('#postThumbnail').val($('.editorDIV img').get(0).getAttribute('src'));
+		}
 		$('#postsForm').submit();
 	})
 }
 
-
+//임시저장
 function addTemporaryPostSubmit(){
 	$('.temporarySaveButton').on('click',function(){
 		addContentsAsTextarea();

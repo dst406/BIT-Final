@@ -14,6 +14,7 @@ $(function(){
 
 function insertComment(){
 	$('.comment_container').on('click','.write_comment',function(event){
+		 console.log('흠 왜 두번올까요 ? ');
 		$.ajax({
 			url:"/insertPostComment" ,
 			type:"POST",
@@ -75,8 +76,9 @@ function viewComment(){
 	$('.comment_container ').on('click','.comment_reply_wrapper .comment_reply_container',function(event){
 		console.log('ㅠㅠ 왜 안오누');
 		$target = $(event.target);
-		$viewCommentTarget = $target.closest('.comment_reply_wrapper').find('.comment_read_wrapper'); //.first();
+		$viewCommentTarget = $target.closest('.comment_reply_wrapper').find('.comment_read_wrapper');
 		$writeComment = $target.closest('.comment_read_container').children('.comment_write_wrapper').addClass('active');
+		console.log($viewCommentTarget);
 		$viewCommentTarget.addClass("active");
 		
 		
