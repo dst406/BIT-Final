@@ -34,6 +34,11 @@ public interface BoardDAO {
 	// 게시글 등록 - 임시저장 가져오기
 	List<TemporaryPostList> getTemporaryPostList(String userId);
 	
+	// 게시글 검색 - 일자 검색
+	List<Posts> getSearchDatePostList(@Param("boardNo") int boardNo,
+						@Param("startDate")String startDate, @Param("endDate")String endDate);
+	
+	
 	// 게시글 등록
 	void insertPosts(Posts posts);
 	// 게시글 임시저장
@@ -50,7 +55,7 @@ public interface BoardDAO {
 	// 답글 등록
 	void insertReply(@Param("comment")Comment comment, @Param("postNo")int postNo);
 	// 답글 조회
-	List<ReplyComment> getReplyList(int commentNo);
+	List<ReplyComment> getReplyInReply(@Param("replyNo") int commentNo);
 	
 	
 }

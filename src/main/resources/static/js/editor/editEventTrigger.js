@@ -168,11 +168,13 @@ function imageUploadAjax() {
 									processData : false,
 									data : formData,
 									success : function(result) {
-										alert(result)
-										document.execCommand("insertImage",null,"/uploadImg/"+result);
+										$.each(result, function(index, item){
+											document.execCommand("insertImage",null,"/uploadImg/"+item);
+											document.execCommand('InsertParagraph');
+											document.execCommand('Outdent');
+										})
 										
-										document.execCommand('InsertParagraph');
-										document.execCommand('Outdent');
+										
 										
 										
 									}

@@ -94,4 +94,9 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.insertReply(comment, postNo);
 	}
 
+	@Override
+	public List<Posts> getSearchDatePostList(int boardNo, String startDate, String endDate) {
+		return boardDAO.getSearchDatePostList(boardNo, startDate, endDate);
+	}
+
 }

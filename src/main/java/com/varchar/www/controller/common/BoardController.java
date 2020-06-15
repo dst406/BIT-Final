@@ -66,6 +66,15 @@ public class BoardController {
 		return "";
 	}
 	
+	@PostMapping("/getSearchDatePostList")
+	public String getSearchDatePostList( int boardNo, String startDate, String endDate, Model model) {
+		System.out.println(boardNo+"  " +startDate+"  "+ endDate);
+		
+		model.addAttribute("posts",boardService.getSearchDatePostList(boardNo, startDate, endDate));
+		model.addAttribute("boardNo", boardNo);
+		return "common/board/fragment/postListFragment :: boardPostList";
+	}
+	
 	// 게시글 리스트 조회
 	@GetMapping("/board/postList/{boardNo}")
 	public String getPostList(@ModelAttribute @PathVariable int boardNo,Model model) {
@@ -141,7 +150,7 @@ public class BoardController {
 	public String insertReply(Comment comment, int postNo, Model model) {
 		comment.setUserId("kojae2020");
 		boardDAO.insertReply(comment, postNo);
-		model.addAttribute("replyList", boardDAO.getReplyList(comment.getCommentNo()));
+		model.addAttribute("replyList", boardDAO.getReplyInReply(comment.getCommentNo()));
 		return "common/board/fragment/replyList :: getReplyList";
 	}
 

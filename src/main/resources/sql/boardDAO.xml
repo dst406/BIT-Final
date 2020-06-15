@@ -109,6 +109,28 @@
 	</insert>
 	<!-- 게시판 등록 End -->
 	
+	<select id="getSearchDatePostList" resultType = "posts" parameterType="Map">
+		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.* FROM posts
+		WHERE board_no = #{boardNo} AND 
+		posts_date
+		<choose>
+			<when test="startDate == null"> &gt; </when>
+			<when test="startDate != null">
+				 &gt; TO_CHAR(concat(#{startDate},' 00:00:00')) AND	
+			</when>
+		</choose>
+		
+		<choose>
+		<when test='endDate == null || endDate =="" '> 
+				posts_date &lt;  TO_CHAR(concat(TO_CHAR(SYSDATE,'yyyymmdd') ,' 23:59:59') )
+			</when>
+			<when test="endDate != null">
+				posts_date &lt;  TO_CHAR(concat(#{endDate} ,' 23:59:59') )
+			</when>
+		</choose>
+		
+	</select>
+	
 	
 	<!-- postList  Start -->
 	<select id="getPostList" resultMap="postList_resultMap">

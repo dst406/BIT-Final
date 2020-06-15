@@ -429,3 +429,92 @@
 .comment_read_container .active {
 	display:block;
 } 
+
+/* 일자검색 */
+
+
+
+.opt_selected_g .box_opt_menu.active{
+	display:block; 
+}
+
+.opt_selected_g .box_opt_menu{
+	display:none; 
+}
+
+
+.box_opt_menu:active{
+	display:block;
+}
+
+
+.opt_selected_g .box_opt_menu{
+	position: absolute;
+  	 left: 11px;
+    top: 53px;
+}
+.box_opt_menu.calendar_type{
+	    width: 226px;
+}
+
+.box_opt_menu{
+	border: 1px solid #e8ebf3;
+    background-color: #fff;
+    display: none;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    padding: 5px 0;
+    box-shadow: 0 3px 2px rgba(0,0,0,.04);
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+.box_opt_menu .menu_item{
+	    text-align: left;
+}
+.box_opt_menu .link_menu{
+	    display: inline-block;
+    width: 100%;
+    min-height: 34px;
+    padding: 6px 15px 0;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+#search-period-selector .cont_calendar{
+	border-top: 1px solid #f2f2f2;
+	 padding: 13px 16px 8px;
+    margin-top: 5px;
+    text-align: left;
+}
+	
+#search-period-selector .cont_calendar .txt_direct{
+	    display: block;
+    font-size: 13px;
+    color: #333;
+}
+.cont_calendar .wrap_calendar{
+	margin-top: 6px;
+}
+.cont_calendar .box_date, .cont_calendar .txt_hyphen{
+	display: inline-block;
+}
+.cont_calendar .date_picker{
+	width: 90px;
+    border-radius: 2px;
+    box-sizing: border-box;
+    line-height: 29px;
+}
+.screen_out, .sr_only{
+	    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+.inp_style{
+	border: 1px solid #e8ebf3;
+    background-color: #fff;
+}

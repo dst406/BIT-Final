@@ -14,7 +14,6 @@ spring:
      password: 1234
      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
 
-
 #data-source-properties:
 #           cachePrepStmts: true
 #           prepStmtCacheSize: 250
@@ -24,10 +23,10 @@ spring:
       
 mybatis:
   configuration:
-    map-underscore-to-camel-case: true
+    map-underscore-to-camel-case: true    jdbc-type-for-null: 'NULL'
+    cache-enabled: false
   mapper-locations: classpath:/sql/**/*.xml
   type-aliases-package: com.varchar.www.model.domain
-
 
 
 
