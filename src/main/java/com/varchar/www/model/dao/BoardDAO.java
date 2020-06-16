@@ -62,6 +62,9 @@ public interface BoardDAO {
 	
 	// 답글 등록
 	void insertReply(@Param("comment")Comment comment, @Param("postNo")int postNo);
+	
+	
+	List<ReplyComment> getReplyList(@Param("replyNo") int commentNo);
 	// 답글 조회
 	List<ReplyComment> getReplyInReply(@Param("replyNo") int commentNo);
 	

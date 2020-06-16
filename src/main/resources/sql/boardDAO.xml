@@ -52,8 +52,11 @@
 		<result property="commentContent" column="comment_content"/>
 		<result property="commentDate" column="comment_date"/>
 		<result property="commentImage" column="comment_image"/>
-		<collection property="replyInReplyComment" ofType="replyComment" column="replyNo=COMMENT_NO"
-					javaType="List" select="getReplyInReply"/>	
+		<collection property="replyInReplyComment" ofType="list" column="replyNo=COMMENT_NO"
+					select="getReplyInReply">
+			<collection property="replyInReplyComment" ofType="replyComment" column="replyNo=COMMENT_NO"
+					select="getReplyInReply"/>
+			</collection>	
 
 	
 	</resultMap>
@@ -191,7 +194,7 @@
 		ORDER SIBLINGS BY comment_date
 	</select>
 	
-	<select id="getReplyInReply" resultType="replyComment">
+	<select id="getReplyInReply" resultMap="replyComment_resultMap">
 		SELECT LEVEL, board_comment.*
 		from board_comment 
 		START WITH comment_re_parent = #{replyNo}

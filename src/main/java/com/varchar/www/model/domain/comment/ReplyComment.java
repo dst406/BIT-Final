@@ -13,5 +13,5 @@ public class ReplyComment {
 	private String commentContent;
 	private String commentDate;
 	private String commentImage;
-	List<ReplyComment> replyInReplyComment;
+	List<List<ReplyComment>> replyInReplyComment;
 }	

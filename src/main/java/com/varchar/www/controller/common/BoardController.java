@@ -153,7 +153,7 @@ public class BoardController {
 	public String insertReply(Comment comment, int postNo, Model model) {
 		comment.setUserId("kojae2020");
 		boardDAO.insertReply(comment, postNo);
-		model.addAttribute("replyList", boardDAO.getReplyInReply(comment.getCommentNo()));
+		model.addAttribute("replyList", boardDAO.getReplyList(comment.getCommentNo()));
 		return "common/board/fragment/replyList :: getReplyList";
 	}
 
