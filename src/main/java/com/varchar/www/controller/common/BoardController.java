@@ -58,13 +58,7 @@ public class BoardController {
 	
 	
 	/* 게시글 */
-	
-	// 내 게시글 리스트 조회
-	@GetMapping("/getSearchMyPostList")
-	public String getSearchMyPostList() {
-		
-		return "";
-	}
+
 	
 	@PostMapping("/getSearchDatePostList")
 	public String getSearchDatePostList( int boardNo, String startDate, String endDate, Model model) {
@@ -83,6 +77,15 @@ public class BoardController {
 		return "common/board/postList";
 	}
 
+	// 내 게시글 리스트 조회 
+	@GetMapping("/getSearchMyPostList/{boardNo}")
+	public String getSearchMyPostList(@PathVariable @ModelAttribute int boardNo, Model model) {
+		String userId="jin2020";
+		model.addAttribute("posts",boardDAO.postList(boardNo, userId));
+		System.out.println(boardDAO.postList(boardNo, userId));
+		return "common/board/fragment/postListFragment :: boardPostList";
+	}
+	
 	//게시글 등록폼
 	@GetMapping("/newPostForm/{boardNo}/{boardName}")
 	public String newPostForm(Posts posts, @ModelAttribute @PathVariable String boardName,
@@ -94,7 +97,7 @@ public class BoardController {
 	//게시글 등록
 	@PostMapping("/insertPosts")
 	public String insertPosts(Posts posts) {
-		posts.setUserId("jin2020");
+		posts.setUserId("187-004");
 		boardService.insertPosts(posts);
 		System.out.println(posts);
 		return "redirect:/board/postList/"+posts.getBoardNo();

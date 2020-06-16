@@ -2,6 +2,8 @@ package com.varchar.www.model.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.varchar.www.model.domain.board.BoardGroupList;
 import com.varchar.www.model.domain.board.PostDetail;
 import com.varchar.www.model.domain.board.Posts;
@@ -23,6 +25,7 @@ public interface BoardService {
 	List<Posts> getSearchDatePostList(int boardNo, String startDate, String endDate);
 	void insertTemporaryPost(TemporaryPost temporaryPost);
 	TemporaryPost getTemporaryPost(int temporaryNo);
+	void deleteTemporaryPost(int temporaryNo);
 	void insertPostComment(Comment comment, int postNo);
 	void insertReply(Comment comment, int postNo);
 }

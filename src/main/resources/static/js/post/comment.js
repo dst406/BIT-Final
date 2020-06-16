@@ -23,6 +23,7 @@ function insertComment(){
 				postNo : $('#postNo').val()
 			}
 		}).done(function(data){
+			$('textarea#commentContent').val('');
 			$commentCount = parseInt( $('.comment_line h4').text().split(' ')[0] ) + 1;
 			$commentCountText = $('.comment_line h4').text().substr(-6);
 			$('.comment_line h4').text($commentCount+$commentCountText);
@@ -41,7 +42,6 @@ function insertReply(){
 	$('.comment_container').on('click','.write_reply',function(event){
 		$targetTextarea=$(event.target).closest('.comment_write_wrapper')
 		.find('textarea[name="commentContent"]');
-		
 		$.ajax({
 			url:"/insertReply" ,
 			type:"POST",
@@ -51,21 +51,23 @@ function insertReply(){
 				postNo : $('#postNo').val()
 			}
 		}).done(function(data){
-//			$(event.target).closest('.comment_read_container').find('.comment_reply_view_wrapper:nth-child(1)').html(data);
-			console.log($(event.target).closest('.comment_read_container').find('.comment_reply_wrapper'));
-			$(event.target).closest('.comment_read_container').find('.comment_reply_wrapper').html(data);
-			$targetTextarea.val('');
 			
+			$(event.target).closest('.comment_read_container').find('.comment_reply_wrapper .comment_read_container').html(data);
+			$targetTextarea.val('');
 			
 			$replyCountTarget = $(event.target).closest('.comment_read_container')
 								.find('.comment_reply_container span').first(); 
-//			if($replyCountTarget.text().conatins("답글달기") ){
-//				$replyCountTarget.text('1 개의 답글');
-//			}else{
+			
+			
+			console.log( $replyCountTarget);
+			
+			if($replyCountTarget.text() == "답글달기" ){
+				$replyCountTarget.text('1 개의 답글');
+			}else{
 				$replyCount = parseInt( $replyCountTarget.text().split(' ')[0] ) + 1;
 				$replyCountText =$replyCountTarget.text().substr(-6);
 				$replyCountTarget.text($replyCount+$replyCountText);
-//			}
+			}
 		})
 	})
 }

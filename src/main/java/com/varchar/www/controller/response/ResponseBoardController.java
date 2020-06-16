@@ -69,7 +69,14 @@ public class ResponseBoardController {
 //		
 //		return  null;
 //	}
-
+	
+	@GetMapping("/deleteTemporaryPost")
+	public void deleteTemporaryPost(int temporaryNo) {
+		System.out.println(temporaryNo);
+		
+		boardService.deleteTemporaryPost(temporaryNo);
+		
+	}
 
 
 	

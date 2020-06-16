@@ -1,4 +1,5 @@
 $(function(){
+	getMyPostList();
 	searchPosts();
 	searchPostsChange();
 	searchDateText();
@@ -11,6 +12,31 @@ $(function(){
 	
 })
 
+function getMyPostList(){
+	$('.getPost').on('click',function(evnet){
+		$target = $(this);
+		$targetId = $target.attr('id');
+		var url = "/getSearchMyPostList/"+$('#boardName').attr('post-no');
+		
+		if( $targetId == 'getAllPost' ){
+			/*url = '/board/postList/'+$('#boardName').attr('post-no');
+			$target.attr('id','getMyPost');
+			$target.text('내 글보기');*/
+			location.reload();
+		}
+		
+		
+		
+		$.ajax({
+			url:url
+		}).done(function(data){
+			$('.postList').html(data);
+			console.log($target);
+			$target.attr('id','getAllPost');
+			$target.text('전체 글 보기');
+		})
+	})
+}
 
 function selectPaging(){
 	$('.page-item > a').on('click',function(event){

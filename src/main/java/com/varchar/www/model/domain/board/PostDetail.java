@@ -18,6 +18,7 @@ public class PostDetail {
 	private String postContents;
 	private String postsDate;
 	private int postViews;
+	private int countComment;
 	List<PostsDetailList> postsDetailList;
 	List<Comment> commentList;
 }

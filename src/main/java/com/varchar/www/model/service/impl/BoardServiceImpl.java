@@ -51,8 +51,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.getPostList(boardNo);
 	}
 
+	
 	@Override
 	public PostDetail getPost(int boardNo, int postNo) {
+			   boardDAO.updatePostViewCount(postNo);
 		return boardDAO.getPost( boardNo, postNo);
 	}
 
@@ -98,5 +100,13 @@ public class BoardServiceImpl implements BoardService {
 	public List<Posts> getSearchDatePostList(int boardNo, String startDate, String endDate) {
 		return boardDAO.getSearchDatePostList(boardNo, startDate, endDate);
 	}
+
+	@Override
+	public void deleteTemporaryPost(int temporaryNo) {
+		boardDAO.deleteTemporaryPost(temporaryNo);
+		
+	}
+
+
 
 }

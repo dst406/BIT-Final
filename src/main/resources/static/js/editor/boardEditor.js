@@ -17,7 +17,40 @@ $(function(){
 	qlHeadercursor();
 	addPostSubmit();
 	addTemporaryPostSubmit();
+	deleteTemporaryPost();
+	
 })
+
+function deleteTemporaryPost(){
+	$('.removeTempWrapper').on('click',function(event){
+		event.preventDefault();
+		var $target = $(this).find('i');
+		$.ajax({
+			url:"/deleteTemporaryPost",
+			data : {
+				temporaryNo:$target.attr('temporaryno')
+			}
+		}).done(function(){
+			$target.closest('a').remove();
+		})
+	})
+}
+
+//function editorScroll(){
+//	 console.log( $('.editorDIV').height());
+//	$('.editorDIV *').on('change',function(){
+//		console.log('edit change');
+//		if( $('.editorDIV').height() > 552 ){
+//			console.log('min !!');	
+//			$('.editorDIV').attr('style','overflow-y:scroll');
+//		}else{
+//			console.log('maX !!');	
+//			$('.editorDIV').attr('style','overflow-y:hidden');
+//		}
+//	})
+//	
+//}
+
 
 //게시글 등록
 function addPostSubmit(){
@@ -40,32 +73,26 @@ function addPostSubmit(){
 function addTemporaryPostSubmit(){
 	$('.temporarySaveButton').on('click',function(){
 		addContentsAsTextarea();
-		$('#postTitle').attr('name','temporaryTitle');
-		$('#postTitle').attr('id','temporaryTitle');
-		$('#temporaryTitle').val( $('textarea#postTitleArea').val() );
-		console.log( $('textarea#postTitleArea').val() );
-		console.log( $('#temporaryTitle').val() );
-		
+		$('#postTitle').val( $('textarea#postTitleArea').val() );
 		$.ajax({
 			type:'POST',
 			url:'/insertTemporaryPost',
 			data:{
 				boardNo : $('#boardNo').val(),
-				temporaryTitle: $('#temporaryTitle').val(),
+				temporaryTitle: $('#postTitle').val(),
 				temporaryContents : $('#postContents').val()
 			}
 		}).done(function(data){
-			alert(data); 
 			$('.postForm_header_temporary').html(data);
 		})
 		
 		
 		
-		
-//		$('#postsForm').attr('action','/insertTemporaryPost');
-//		$('#postTitle').attr('name','temporaryTitle');
-//		$('#postContents').attr('name','temporaryContents');
-//		$('#postsForm').submit();
+		//	$('#postTitle').attr('name','temporaryTitle');
+		//	$('#postTitle').attr('id','temporaryTitle');
+		//	$('#temporaryTitle').val( $('textarea#postTitleArea').val() );
+		//	console.log( $('textarea#postTitleArea').val() );
+		//	console.log( $('#temporaryTitle').val() );
 	})
 }
 
@@ -86,6 +113,7 @@ function qlHeadercursor(){
 	
 	//H1, H2, H3, H4
 	$('.ql_header').on('click',function(event){
+		console.log(window.getSelection());
 		document.execCommand("formatBlock",null,'H'+$(event.target).closest('button').val());
 	})
 	
