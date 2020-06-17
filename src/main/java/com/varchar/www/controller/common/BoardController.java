@@ -150,11 +150,23 @@ public class BoardController {
 	
 	//답글 등록
 	@PostMapping("/insertReply")
-	public String insertReply(Comment comment, int postNo, Model model) {
+	public String insertReply(Comment comment, int postNo,Model model) {
 		comment.setUserId("kojae2020");
 		boardDAO.insertReply(comment, postNo);
 		model.addAttribute("replyList", boardDAO.getReplyList(comment.getCommentNo()));
+		model.addAttribute("comment", comment);
 		return "common/board/fragment/replyList :: getReplyList";
+		
+	}
+	
+	//답글의 답글 등록
+	@PostMapping("/insertReplyInReply")
+	public String insertReplyInReply(Comment comment, int postNo,Model model) {
+		comment.setUserId("jin2020");
+		boardDAO.insertReply(comment, postNo);
+		model.addAttribute("replyInReplyComment", boardDAO.getReplyList(comment.getCommentNo()));
+		model.addAttribute("replyCommentNo", comment.getCommentNo());
+		return "common/board/fragment/replyInReply :: getReReplyList";
 	}
 
 	

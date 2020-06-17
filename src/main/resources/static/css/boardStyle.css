@@ -151,6 +151,7 @@
     letter-spacing: -0.004em;
     word-break: keep-all;
     overflow-wrap: break-word;
+    margin-bottom: 60px;
 }
 
 .comment_write_wrapper .comment_content{
@@ -200,8 +201,11 @@
     background: #7680ff;
     border-radius: 4px;
 }
-
- .write_reply{
+.write_reply_area{
+    background-color: rgba(0, 0, 0, 0.016);
+    padding: 13px;
+    }
+ .write_reply_btn{
  display: inline-flex;
     -webkit-box-align: center;
     align-items: center;
@@ -254,8 +258,8 @@
 }  
 
 .comment_read_wrapper{
-	margin-top:2.5rem;
-	padding-bottom:3rem;
+	/*margin-top:2.5rem;
+	 padding-bottom:3rem; */
 	
 }
 
@@ -263,10 +267,10 @@
 	border-top: 0px;
 }
 .comment_read_container{
-	/* padding-top: 0.5rem; */
-    padding-bottom: 1.5rem;
+	/* padding-top: 0.5rem;*/
+    padding-bottom: 1.5rem;    
 	border-top: 1px solid rgb(233, 236, 239);
-	
+	 
 }
 
 

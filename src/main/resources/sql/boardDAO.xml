@@ -38,6 +38,7 @@
 		
 	<resultMap type="comment" id="commentList_resultMap">
 		<id property="commentNo" column="comment_no"/>
+		<result property="commentLevel" column="comment_level"/>
 		<result property="userId" column="user_id"/>
 		<result property="commentContent" column="comment_content"/>
 		<result property="commentDate" column="comment_date"/>
@@ -52,10 +53,11 @@
 		<result property="commentContent" column="comment_content"/>
 		<result property="commentDate" column="comment_date"/>
 		<result property="commentImage" column="comment_image"/>
-		<collection property="replyInReplyComment" ofType="list" column="replyNo=COMMENT_NO"
+		<result property="commentReplyNo" column="comment_re_parent"/>
+		<collection property="replyInReplyComment" ofType="replyComment" column="replyNo=COMMENT_NO"
 					select="getReplyInReply">
-			<collection property="replyInReplyComment" ofType="replyComment" column="replyNo=COMMENT_NO"
-					select="getReplyInReply"/>
+			<!-- <collection property="replyInReplyComment" ofType="replyComment" column="replyNo=COMMENT_NO"
+					select="getReplyInReply"/> -->
 			</collection>	
 
 	
@@ -144,15 +146,32 @@
 	</select>
 	
 	<select id="postList" resultType="posts">
+		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.*, cnt.countComment 
+		FROM posts
+		LEFT OUTER JOIN (SELECT post_no, count(comment_no) countComment FROM board_comment 
+		 				 WHERE comment_re_parent IS NULL GROUP BY post_no) cnt
+		 	 ON cnt.post_no = posts.post_no
+		WHERE board_no = #{boardNo}
+		<if test="userId != null">
+			AND user_id = #{userId}
+		</if>
+	</select>
+	
+<!-- 	<select id="postList" resultType="posts">
 		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.*, cnt.countComment FROM posts,
-		(SELECT post_no, count(comment_no) countComment FROM board_comment group by post_no) cnt
+			(SELECT post_no, count(comment_no) countComment FROM board_comment 
+		 	 WHERE comment_re_parent IS NULL GROUP BY post_no) cnt
 		WHERE board_no = #{boardNo}
 		<if test="userId != null">
 			AND user_id = #{userId}
 		</if>
 		AND cnt.post_no = posts.post_no
-		
-	</select>
+	</select> -->
+	
+	
+	
+	
+	
 	
 	<!-- SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.*,countPost.countComment
 		FROM posts,
@@ -167,7 +186,7 @@
 	<select id="getPost" resultMap="postDetail_resultMap">
 		SELECT 
 		ROWNUM,board.board_name, board.board_intro, posts.*, cnt.count_comment FROM posts
-        INNER JOIN (SELECT post_no, count(comment_no) count_comment FROM board_comment group by post_no) cnt 
+        LEFT JOIN (SELECT post_no, count(comment_no) count_comment FROM board_comment group by post_no) cnt 
         ON cnt.post_no = posts.post_no
 		INNER JOIN board ON board.board_no = posts.board_no AND board.board_no = #{boardNo}
 		WHERE posts.post_no = #{postNo}
@@ -186,7 +205,7 @@
 	</select>
 	
 	<select id="getReplyList" resultMap="replyComment_resultMap">
-		SELECT LEVEL, board_comment.*
+		SELECT LEVEL comment_level, board_comment.*
 		from board_comment 
 		WHERE LEVEL = 1
 		START WITH comment_re_parent = #{replyNo}
@@ -195,7 +214,7 @@
 	</select>
 	
 	<select id="getReplyInReply" resultMap="replyComment_resultMap">
-		SELECT LEVEL, board_comment.*
+		SELECT LEVEL comment_level, board_comment.*
 		from board_comment 
 		START WITH comment_re_parent = #{replyNo}
 		CONNECT BY PRIOR comment_no = comment_re_parent
@@ -271,6 +290,7 @@
 		VALUES (SEQ_BOARD_COMMENT.nextval, #{postNo}, #{comment.userId}, #{comment.commentContent}, 
 				TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'), null, #{comment.commentNo} )
 	</insert>
+	
 	<!-- 답글 등록 End -->
 	
 	
