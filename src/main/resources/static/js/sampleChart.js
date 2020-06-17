@@ -63,7 +63,7 @@
 			    data: {
 			        labels: ['국어', '영어', '수학', '사회', '과학'],
 			        datasets: [{
-			            label: '총점띠',
+			            label: '총점',
 			            backgroundColor: 'rgb(255, 99, 132)',
 			            borderColor: 'rgb(255, 99, 132)',
 			            data: [60, 70, 80, 60, 90]
