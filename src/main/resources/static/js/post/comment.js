@@ -29,6 +29,7 @@ function insertComment(){
 			$commentCount = parseInt( $('.comment_line h4').text().split(' ')[0] ) + 1;
 			$commentCountText = $('.comment_line h4').text().substr(-6);
 			$('.comment_line h4').text($commentCount+$commentCountText);
+			$('.countComment').text( "댓글 "+(parseInt( $('.countComment').text().substr(-1))+1) )
 			$('.comment_read_wrapper').html(data);
 			console.log('호옹이..');
 		})
@@ -44,11 +45,8 @@ function insertReply(){
 	$('.comment_container').on('click','.write_reply',function(event){
 		$targetTextarea=$(event.target).closest('.comment_write_wrapper')
 		.find('textarea[name="commentContent"]');
-		var targetClass = $(event.target).closest('.button_wrapper').find('.write_reply').hasClass('write_re_reply');
-		console.log($(event.target).closest('.button_wrapper').find('write_reply'));
-		console.log(targetClass);
-		
-		var url = ! targetClass ? "/insertReply" : "/insertReplyInReply";
+		 isReReply = $(event.target).closest('.button_wrapper').find('.write_reply').hasClass('write_re_reply');
+		var url = ! isReReply ? "/insertReply" : "/insertReplyInReply";
 		$.ajax({
 			url:url ,
 			type:"POST",
@@ -59,40 +57,48 @@ function insertReply(){
 				
 			}
 		}).done(function(data){
-			const isFirst = $(event.target).closest('.comment_read_container').find('.comment_reply_container span').attr("data-comment-length") == 0 ?
+			var isFirst = $(event.target).closest('.comment_read_container').find('.comment_reply_container span').attr("data-comment-length") == 0 ?
 							true:false;
-			const appendTarget = targetClass ?
+			var isComment =  $(event.target).hasClass('comment_rep');
+			console.log(isFirst);
+			 $appendTarget = isReReply ?
+					//답글의 답글					
 					$(event.target).closest('.comment_write_wrapper').parent().find('.comment_read_wrapper .comment_read_container') 
 					: isFirst
-					? $(event.target).closest('.comment_read_container').find('.comment_reply_wrapper .comment_read_container')
-					: $(event.target).closest('.comment_read_container').first()
-					// $(event.target).closest('.comment_read_container').first() ㅇ ㅣ부분이 잘못됬음 ! 
-					
-			if(isFirst){
-				$(event.target).closest('.comment_write_wrapper').remove();
-			}	
-					
-					
-			console.log($(event.target).closest('.comment_write_wrapper').parent());
-			console.log($(event.target).closest('.comment_write_wrapper').parent().find('.comment_read_wrapper') );
-			console.log(appendTarget);
-			
-			appendTarget.html(data);
+					//댓글의 답글
+						? ( 
+							isComment
+							? $(event.target).closest('.comment_write_wrapper').siblings('.comment_reply_wrapper').find('.comment_read_container')
+							: $(event.target).closest('.comment_reply_view_wrapper ').parent() 
+							)
+					//답글의 답글작성하기 버튼
+						: $(event.target).closest('.comment_read_container') 
+			// appendTarget = 답글에 답글이냐 ? 답글의 답글 : ( 첫댓글이냐 ? ( 댓글의 답글  ? 그냥 답글창 : 답글의 댓글작성하기 버튼 ) : 답글달기 )		
+
 			$targetTextarea.val('');
-			
-			$replyCountTarget = $(event.target).closest('.comment_read_container')
-								.find('.comment_reply_container span').first(); 
-			
-			
-			console.log( $replyCountTarget);
-			
-			if($replyCountTarget.text() == "숨기기" ){
+							
+			$replyCountTarget = $(event.target).closest('.comment_read_container').find('.comment_reply_container span').first(); 
+			if(isReReply && $replyCountTarget.text() == "숨기기" ){
+				//답글의 답글 달면 카운트증가
 				$replyCountTarget.attr("data-comment-length", parseInt( $replyCountTarget.attr("data-comment-length"))+1);
 			}else{
-				$replyCount = parseInt( $replyCountTarget.text().split(' ')[0] ) + 1;
-				$replyCountText =$replyCountTarget.text().substr(-6);
-				$replyCountTarget.text($replyCount+$replyCountText);
+				//댓글의 답글달면 카운트 증가
+				var commentReplyCount = isComment 
+										? $(event.target).closest('.comment_write_wrapper').siblings('.comment_reply_wrapper').find('span')
+										: $(event.target).closest('.comment_read_wrapper').parent().children().find('span');
+				commentReplyCount.attr("data-comment-length", parseInt( commentReplyCount.attr("data-comment-length"))+1);
 			}
+			console.log($appendTarget);
+			$appendTarget.html(data);	
+			
+			if(!isReReply && isFirst && isComment ){
+				$(event.target).closest('.comment_write_wrapper').siblings('.comment_reply_wrapper').find('span').removeClass('comment_first');
+				$(event.target).closest('.comment_write_wrapper').remove();
+			}	
+
+			
+			
+			
 		})
 	})
 }

@@ -29,11 +29,10 @@
 					<div class="row">
 						<div class="postForm_header">
 							<div class="postForm_header_board">
-
-								<a
-									th:href="@{/board/postList/{boardNo}(boardNo=${posts.boardNo})}">
+								
+								<a th:href="@{/board/postList/{boardNo}(boardNo=${posts.boardNo})}">
 									<input type="hidden" th:value="${postNo}" name="postNo"
-									id="postNo"> <b th:text="*{boardName}"> [엄쌤] 일석이조 :
+									id="postNo"> <b th:data-board-no="*{boardNo}" id="boardNo" th:text="*{boardName}"> [엄쌤] 일석이조 :
 										SQLD 스터디룸</b>
 								</a>
 							</div>
@@ -46,12 +45,12 @@
 									placeholder="제목을 입력하세요" readonly="readonly">[[*{postTitle}]]
 							</textarea>
 								<div class="row">
-									<div class="post-list-contents-bottom">
-										<div class="col-lg-12">
+									<div class="post-list-contents-bottom col-lg-11">
 											<a th:text="*{userId}">고재현</a>
 											<p th:text="*{postsDate}">2020.05.18</p>
-											<p th:text="'댓글 '+*{countComment}">댓글 2</p>
-										</div>
+											<p th:text="'댓글 '+*{countComment}" class="countComment">댓글 2</p>
+											<!-- <a th:if="${session['userId'] == posts.userId}" style="float: right;">삭제</a> -->
+											<a th:data-post-no=*{postNo} class="deletePost">삭제</a>
 									</div>
 
 								</div>
@@ -78,6 +77,7 @@
 								<ol class="postListWrapper">
 									<li th:each="postList: *{postsDetailList}"><a
 										th:text="${postList.postTitle}"
+										th:data-post-no="${postList.postNo}"
 										th:data-number="${postList.postRowNum}" aria-current="page"
 										class=""
 										th:href="@{/getPost/{boardNo}/{postNo}(boardNo=${posts.boardNo},postNo=${postList.postNo})}">시리즈1</a></li>
@@ -157,6 +157,7 @@
 				</div>
 			</div>
 		</div>
+		<script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@9.15.1/dist/sweetalert2.all.min.js}"></script>
 		<script th:src="@{/js/post/comment.js}"  type="text/javascript"></script>
 		 <script th:src="@{/js/board.js}"></script> 
 		<script th:src="@{/js/editor/boardEditor.js}"></script>

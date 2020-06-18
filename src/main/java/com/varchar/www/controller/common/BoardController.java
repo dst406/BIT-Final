@@ -8,6 +8,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -57,8 +58,9 @@ public class BoardController {
 	}
 	
 	
+	
+	
 	/* 게시글 */
-
 	
 	@PostMapping("/getSearchDatePostList")
 	public String getSearchDatePostList( int boardNo, String startDate, String endDate, Model model) {
@@ -119,6 +121,12 @@ public class BoardController {
 		return "common/board/postInfo";
 	}
 	
+	//게시글 삭제
+	@GetMapping("/deletePost/{postNo}/{boardNo}")
+	public String deletePost(@PathVariable int postNo, @PathVariable int boardNo) {
+		boardDAO.deletePost(postNo);
+		return "redirect:/board/postList/"+boardNo;
+	}
 	
 	// 임시저장된 게시글 조회
 	@GetMapping("/getTemporaryPost/{temporaryNo}")
@@ -168,7 +176,8 @@ public class BoardController {
 		model.addAttribute("replyCommentNo", comment.getCommentNo());
 		return "common/board/fragment/replyInReply :: getReReplyList";
 	}
-
 	
+	
+
 	
 }

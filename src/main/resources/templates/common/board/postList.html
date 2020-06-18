@@ -29,23 +29,21 @@
 					<div class="row">
 
 						<div class="col-lg-12">
-							<input th:post-no="*{boardNo}" th:field="*{boardName}" value="게시판 제목을 입력해주세요" type="text"
+							<input th:data-board-no="*{boardNo}" th:field="*{boardName}" value="게시판 제목을 입력해주세요" type="text"
 								class="board_title_text" maxlength="35">
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-7">
-
-							<textarea rows="2" cols="31" maxlength="62"
-								class="board_contents_text">[[*{boardIntro}]]</textarea>
-							<!-- <textarea rows="2" cols="32" maxlength="66" class="board_contents_text" readonly>[엄쌤] 머리에 쏙쏙 SQLD 들어오는 강의</textarea> -->
+							<textarea th:field="*{boardIntro}" rows="2" cols="31" maxlength="62"
+								placeholder="소개글을 넣어주세요." class="board_contents_text">[[*{boardIntro}]]</textarea>
 						</div>
 						<div class="col-md-5">
 							<div id="search-period-selector"
 								class="opt_selected_g open_layer">
 								<div id="dataTable_dateFilter" class="dataTable_dateFilter">
 									<label class="">일자검색: <input type="text"
-										class="form-control form-control-sm active" placeholder="직접입력">
+										class="form-control form-control-sm searchDate active" placeholder="전체기간">
 									</label>
 								
 									<div
@@ -85,26 +83,23 @@
 											aria-controls="datatable" data-dt-idx="0" tabindex="0"
 											class="page-link">이전</a></li>
 										<li class="paginate_button page-item active"><a href="#"
-											aria-controls="datatable" data-dt-idx="1" tabindex="0"
+											aria-controls="datatable" data-dt-idx="0" tabindex="0"
 											class="page-link">1</a></li>
 										<li class="paginate_button page-item "><a href="#"
-											aria-controls="datatable" data-dt-idx="2" tabindex="0"
+											aria-controls="datatable" data-dt-idx="1" tabindex="0"
 											class="page-link">2</a></li>
 										<li class="paginate_button page-item "><a href="#"
-											aria-controls="datatable" data-dt-idx="3" tabindex="0"
+											aria-controls="datatable" data-dt-idx="2" tabindex="0"
 											class="page-link">3</a></li>
 										<li class="paginate_button page-item next disabled"
 											id="datatable_next"><a href="#"
-											aria-controls="datatable" data-dt-idx="7" tabindex="0"
+											aria-controls="datatable" data-dt-idx="3" tabindex="0"
 											class="page-link">다음</a></li>
 									</ul>
 								</div>
 							</div>
 							<div class="col-lg-2">
-								<!-- <a
-									th:href="@{/getSearchMyPostList/{boardNo}(boardNo=*{boardNo})}"
-									class="btn btn-md btn-gradient-info waves-effect waves-light px-5 ">내
-									글보기</a> -->
+						
 									<button
 									id="getMyPost"
 									class="btn btn-md btn-gradient-info waves-effect waves-light px-5 getPost">내

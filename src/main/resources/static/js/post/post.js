@@ -6,11 +6,14 @@ $(function(){
 	searchDatePicker();
 	searchDateLatelyPost();
 	viewDataPicker();
-	pagingNum();
+	defaultPagingNumbers();
 	limitPaging(0);
 	selectPaging();
-	
+	//calcPaging();
 })
+
+
+
 
 function getMyPostList(){
 	$('.getPost').on('click',function(evnet){
@@ -31,7 +34,6 @@ function getMyPostList(){
 			url:url
 		}).done(function(data){
 			$('.postList').html(data);
-			console.log($target);
 			$target.attr('id','getAllPost');
 			$target.text('전체 글 보기');
 		})
@@ -39,47 +41,80 @@ function getMyPostList(){
 }
 
 function selectPaging(){
-	$('.page-item > a').on('click',function(event){
-		console.log($(event.target).attr('data-dt-idx'));
+	$('.pagination_center').on('click','.page-item > a',function(event){
 		limitPaging($(event.target).attr('data-dt-idx'));
 	})
 }
 
-function pagingNum(){
-	var paging = parseInt( $('.article-post-list').length / 10 )+1;
-	
+function defaultPagingNumbers(){
+	pagingNumbers( $('.article-post-list'));
+
+}
+
+function calcPaging(){
+	pagingNumbers(  $('.article-post-list:visible') );
+}
+
+
+function pagingNumbers(target ){
+	var paging = parseInt( target.length / 10 );
+	var startCount = parseInt($('.page-item:nth-child(2) a').attr('data-dt-idx'));
+	var endCount = ( paging / 5 ) > 1 ? parseInt( $('.page-item.active a').data('dt-idx') ) +5 : paging;
+	// 이부분 function처리 
 	$('.pagination').html(
 			'<li class="paginate_button page-item previous disabled" id="datatable_previous">'+
 			'<a href="javascript:void(0)" aria-controls="datatable" data-dt-idx="0" tabindex="0" class="page-link">이전</a></li>'
 			)
 	
 	
-	for(var i = 0; i<paging; i++){
+	for(var i = startCount ; i <= endCount; i++){
 		$('.pagination').append(	
 		'<li class="paginate_button page-item ">'+
 				'<a href="javascript:void(0)" aria-controls="datatable" data-dt-idx="'+i+'" tabindex="0" class="page-link">'+(i+1)+'</a></li>'
 				)
 		}
-			
+	$('.page-item:nth-child(2)').addClass('active');
+	
+	var isLast = paging == 0 ? "disabled" : "";		
+	
+	
 	$('.pagination').append(			
-			'<li class="paginate_button page-item next disabled" id="datatable_next">'+
-			'<a href="javascript:void(0)" aria-controls="datatable" data-dt-idx="'+paging+'" tabindex="0" class="page-link">다음</a></li>'	
+			'<li class="paginate_button page-item next '+isLast+'" id="datatable_next">'+
+			'<a href="javascript:void(0)" aria-controls="datatable" data-dt-idx="'+endCount+'" tabindex="0" class="page-link">다음</a></li>'	
 	)
 }
 
-function limitPaging(pagingNum = 0){
+
+function limitPaging(pagingNum){
 	$('.page-item').siblings().removeClass('active');
 	$('.page-link[data-dt-idx='+(pagingNum)+']').closest('.page-item').addClass('active');
 	
-	$('.article-post-list').hide();
-	var startLength = parseInt(pagingNum+"0");
-	var endLength = startLength+9; 
-	if( parseInt($('.article-post-list').length / 10 )==  parseInt(pagingNum) ){
-		endLength = $('.article-post-list').length % 10;
+	preNextBtnControll($('.previous'));
+	preNextBtnControll($('.next'));
+	
+	function preNextBtnControll(btn){
+		btn.removeClass("disabled");
+		if ( btn.children().attr('data-dt-idx') == pagingNum ) {
+			btn.removeClass('active');
+			btn.addClass('disabled');
+		}  
 	}
 	
-	for(var i = startLength ; i < endLength ; i++ ){
-		$('.article-post-list').get(i).style.display = "block";
+	$('.article-post-list').hide();
+	var startLength = parseInt(pagingNum+"0");
+	
+	var endLength = parseInt(startLength+9);
+	
+	if( parseInt($('.article-post-list').length / 10 )==  parseInt(pagingNum) ){
+		endLength = startLength + ( $('.article-post-list').length % 10 );
+	}
+	
+	console.log("startLength   "+startLength);
+	console.log("endLength   "+endLength);
+	
+	for(var i = startLength ; i <= endLength ; i++ ){
+		$('.article-post-list:nth-child('+(i+1)+')').attr("style","display:block");
+		//$('.article-post-list').get(i).style.display = "block";
 	}
 	
 }
@@ -102,17 +137,18 @@ function viewDataPicker(){
 			 }
 			 
 			 // search ajax 요청
-			 searchDate($startDate, $endDate);
-			
+			 searchDate($startDate, $endDate, ($startDate != null ? $startDate : "모두" )+" ~ "+ ( $endDate != null ? $endDate : "오늘" ) );
+			 calcPaging();
+			 
 		});
 }
 
 function searchDateLatelyPost(){
 	$('.menu_item a').on('click',function(event){
 		$startDate = $(this).attr('date');
+		var dateTarget = $(this).text();
 		if($startDate == null){
-			console.log($startDate);
-			searchDate(null, null);
+			searchDate(null, null,dateTarget);
 			$('.box_opt_menu').removeClass('active');
 			return;
 		}
@@ -131,12 +167,15 @@ function searchDateLatelyPost(){
 			day = "0" + day;
 		}
 		var resultDate = year + "-" + month + "-" + day;
-		searchDate(resultDate, null);
+	
+		
+		searchDate(resultDate, null,dateTarget);
+		
 		$('.box_opt_menu').removeClass('active');
 	})
 }
 
-function searchDate($startDate, $endDate){
+function searchDate($startDate, $endDate, text){
 	 $.ajax({
 		 url:"/getSearchDatePostList",
 		 type:"POST",
@@ -147,7 +186,8 @@ function searchDate($startDate, $endDate){
 		 }
 	 }).done(function(data){
 		$('.postList').html(data);
-		
+		$('.searchDate').val(text);
+		calcPaging();
 	 })
 }
 
@@ -176,6 +216,7 @@ function searchPosts(){
 		$searchVal = $(this).val();
 		$searchText = searchPostsSelect($searchVal) ;
 		searchTarget( $searchText, $searchVal);
+		defaultPagingNumbers();
 	})
 }
 
@@ -184,6 +225,7 @@ function searchPostsChange(){
 		$searchVal = $(this).val();
 		$searchText = searchPostsSelect($searchVal) ;
 		searchTarget( $searchText, $searchVal);
+		defaultPagingNumbers();
 	})
 }
 

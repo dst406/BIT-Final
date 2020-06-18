@@ -115,9 +115,29 @@
 	</insert>
 	<!-- 게시판 등록 End -->
 	
+	<!-- 게시판 수정 Start -->
+	<update id="updateBoard" parameterType="Map">
+		UPDATE board SET board_name = #{boardName} ,board_intro = #{boardIntro}
+		WHERE board_no = #{boardNo}
+	</update>
+	
+	<!-- 게시판 삭제 Start -->
+	<delete id="deletePost">
+		DELETE FROM posts
+		WHERE
+		post_no = #{postNo}
+	</delete>
+	<!-- 게시판 삭제 End -->
+	
+	
+	<!-- 게시글 일자 검색  Start-->
 	<select id="getSearchDatePostList" resultType = "posts" parameterType="Map">
-		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.*,cnt.countComment FROM posts,
-		(SELECT post_no, count(comment_no) countComment FROM board_comment group by post_no) cnt
+		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.*,cnt.countComment 
+		FROM posts
+			LEFT OUTER JOIN	(SELECT post_no, count(comment_no) countComment FROM board_comment 
+				 WHERE comment_re_parent IS NULL 
+				 GROUP BY post_no) cnt
+				 ON  cnt.post_no = posts.post_no
 		WHERE board_no = #{boardNo} AND 
 		posts_date
 		<choose>
@@ -135,9 +155,8 @@
 				posts_date &lt;  TO_CHAR(concat(#{endDate} ,' 23:59:59') )
 			</when>
 		</choose>
-		AND cnt.post_no = posts.post_no
 	</select>
-	
+	<!-- 게시글 일자 검색  End-->
 	
 	<!-- postList  Start -->
 	<select id="getPostList" resultMap="postList_resultMap">
@@ -186,7 +205,8 @@
 	<select id="getPost" resultMap="postDetail_resultMap">
 		SELECT 
 		ROWNUM,board.board_name, board.board_intro, posts.*, cnt.count_comment FROM posts
-        LEFT JOIN (SELECT post_no, count(comment_no) count_comment FROM board_comment group by post_no) cnt 
+        LEFT JOIN (SELECT post_no, count(comment_no) count_comment FROM board_comment 
+        			 WHERE comment_re_parent IS NULL GROUP BY post_no) cnt 
         ON cnt.post_no = posts.post_no
 		INNER JOIN board ON board.board_no = posts.board_no AND board.board_no = #{boardNo}
 		WHERE posts.post_no = #{postNo}

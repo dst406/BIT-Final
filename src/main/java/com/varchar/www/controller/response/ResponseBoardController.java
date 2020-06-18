@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.varchar.www.model.dao.BoardDAO;
 import com.varchar.www.model.domain.board.Board;
 import com.varchar.www.model.domain.board.TemporaryPost;
 import com.varchar.www.model.service.BoardService;
@@ -24,7 +25,8 @@ import com.varchar.www.util.CustomParser;
 public class ResponseBoardController {
 	
 	@Autowired BoardService boardService;
-	
+	@Autowired BoardDAO boardDAO;
+ 	
 	@PostMapping("/rest/board/imageUpload")
 	public List<String> editorImageUpload( MultipartRequest multipartRequest ){
 		System.out.println("여기는 왔어요 ? "+multipartRequest.getFiles("files"));
@@ -78,7 +80,12 @@ public class ResponseBoardController {
 		
 	}
 
-
+	//게시판 수정
+	@GetMapping("/updateBoard/{boardNo}/{boardName}/{boardIntro}")
+	public void updateBoard(@PathVariable int boardNo, @PathVariable String boardName ,@PathVariable String boardIntro) {
+		boardDAO.updateBoard(boardNo,boardName, boardIntro);
+	}
+	
 	
 }
 
