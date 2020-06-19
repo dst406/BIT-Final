@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 public class CustomParser {
-	public List<String> fileParser(MultipartRequest multipartRequest) throws IOException {
-		String filePath = "D:/varchar/images/";
+	public List<String> fileParser(MultipartHttpServletRequest  multipartHttpServletRequest ) throws IOException {
+		String filePath = "D:/varchar/uploadImg/";
 		//파일들을 List형식으로 보관
-		List<MultipartFile> files = multipartRequest.getFiles("files");
+		List<MultipartFile> files = multipartHttpServletRequest.getFiles("files");
 		
 		File file = new File(filePath);
 		//파일이 없다면 디렉토리를 생성

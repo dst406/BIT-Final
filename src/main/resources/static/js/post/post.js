@@ -6,7 +6,7 @@ $(function(){
 	searchDatePicker();
 	searchDateLatelyPost();
 	viewDataPicker();
-	defaultPagingNumbers();
+	defaultPostPagingNumbers();
 	limitPaging(0);
 	selectPaging();
 	nextPage();
@@ -48,7 +48,7 @@ function selectPaging(){
 	})
 }
 
-function defaultPagingNumbers(){
+function defaultPostPagingNumbers(){
 	pagingNumbers( $('.article-post-list'));
 
 }
@@ -59,11 +59,16 @@ function visiblePostPagingNumbers(){
 
 
 function pagingNumbers(target ){
+				// 버튼 갯수 구하기
 	var paging = parseInt( target.length / 10 );
+				// 첫 버튼 숫자 구하기
 	var startCount = parseInt($('.page-item:nth-child(2) a').attr('data-dt-idx'));
-	var endCount = ( paging / 5 ) > 1 ? parseInt( $('.page-item.active a').last().data('dt-idx') ) + 4 : paging;
+				// 페이징 갯수 5개로 제한
+	var endCount = ( paging / 5 ) > 1 ? 
+						parseInt( $('.page-item.active a').last().data('dt-idx') ) + 4 : 
+						paging;
 	
-	viewPagingNumber(startCount, endCount);
+	viewPagingNumber(startCount, endCount, paging);
 	
 	
 }
@@ -73,7 +78,7 @@ function previousPage(){
 	$('.pagination_center').on('click','.previous',function(){
 		var preData = parseInt ($('.previous').children().attr('data-dt-idx'));
 		if( preData != 0 ){
-			viewPagingNumber( preData-5, preData-1 );
+			viewPagingNumber( preData-5, preData-1 ,0 );
 			limitPaging(preData-1);
 		}
 			
@@ -84,25 +89,34 @@ function previousPage(){
 
 function nextPage(){
 	$('.pagination_center').on('click','.next',function(){
+		
+		//들어왔을때 막으면 댐 !!
 		var nextData = parseInt ($('.next').children().attr('data-dt-idx'));
+		var maxCount = parseInt ( $('.page-link').last().attr('data-dt-max') ) ;
 		
-		if ( nextData < parseInt( $('.article-post-list').length / 10  ) ){
-			viewPagingNumber( nextData+1, nextData+5 );
+		if( isNaN(maxCount) ) {return ;}
+		
+		if ( ( nextData < parseInt( $('.article-post-list').length / 10 ) ) && ( ( maxCount - nextData) > 4  ) ){
+			viewPagingNumber( (nextData+1) , (nextData+5) , 0 );
+		}else{
+			if( $('.page-link').length < 5  ){
+				limitPaging(maxCount);
+				return;
+			}
+			viewPagingNumber( (nextData+1), maxCount, maxCount );
 		}
-		
 	})
-	
 }
 
 
-function viewPagingNumber(startCount, endCount){
-	var isFirst = startCount == 0 ? "disabled" : "";	
+function viewPagingNumber(startCount, endCount, maxCount){
+	var isFirst = startCount == 0 ? "disabled" : "";
+	maxCount = maxCount == 0 ? parseInt( $('#datatable_next a').attr('data-dt-max') ) : maxCount;
 	$('.pagination').html(
 			'<li class="paginate_button page-item previous " '+isFirst+' id="datatable_previous">'+
 			'<a href="javascript:void(0)"  data-dt-idx="'+startCount+'" class="page-link">이전</a></li>'
 			)
-	
-	
+	endCount = maxCount-startCount < 4 ? ( endCount = maxCount-endCount != 0 ? endCount : startCount+ 1 )  : endCount ;
 	for(var i = startCount ; i <= endCount; i++){
 		$('.pagination').append(	
 		'<li class="paginate_button page-item ">'+
@@ -111,11 +125,12 @@ function viewPagingNumber(startCount, endCount){
 		}
 	$('.page-item:nth-child(2)').addClass('active');
 	
-	var isLast = endCount == 0 ? "disabled" : "" ;		
+	var isLast = maxCount-startCount < 4 ? "isLast" : "" ;		
+	var isOne = endCount == 0 ? "disabled" : "" ;
 	
 	$('.pagination').append(			
-			'<li class="paginate_button page-item next '+isLast+'" id="datatable_next">'+
-			'<a href="javascript:void(0)"  data-dt-idx="'+endCount+'" class="page-link">다음</a></li>'	
+			'<li class="paginate_button page-item next '+isLast+'  '+isOne+'" id="datatable_next">'+
+			'<a href="javascript:void(0)"  data-dt-idx="'+endCount+'" data-dt-max="'+maxCount+'" class="page-link">다음</a></li>'	
 	)
 	
 }
@@ -129,13 +144,26 @@ function limitPaging(pagingNum){
 	preNextBtnControll($('.previous'));
 	preNextBtnControll($('.next'));
 	
+
+	
 	function preNextBtnControll(btn){
 		btn.removeClass("disabled");
-		if (   btn.children().attr('data-dt-idx') == pagingNum ) {
-			btn.removeClass('active');
+		btn.removeClass("active");
+		
+		console.log(  btn.children().attr('data-dt-idx')  == 0 && pagingNum == 0 ? true : false );
+		console.log(  (  btn.children().attr('data-dt-idx') == $('.isLast').children().attr('data-dt-max') )   );
+		
+				// 이전  버튼
+		if ( btn.children().attr('data-dt-idx')  == 0 && pagingNum == 0 ? true : false ||
+					// 마지막 버튼을 눌렀는지
+				(  ( pagingNum == btn.children().attr('data-dt-idx') )
+							// 다음버튼을 눌렀는지.
+						&& ( btn.children().attr('data-dt-idx') == $('.isLast').children().attr('data-dt-max') )) )  {
 			btn.addClass('disabled');
 		}  
 	}
+	
+	//$('#datatable_next').children().attr('data-dt-max') ) 
 	
 	$('.article-post-list').hide();
 	var startLength = parseInt(pagingNum+"0");
@@ -260,7 +288,7 @@ function searchPostsChange(){
 		$searchText = searchPostsSelect($searchVal) ;
 		searchTarget( $searchText, $searchVal) ;
 		visiblePostPagingNumbers();
-		//defaultPagingNumbers();
+		//defaultPostPagingNumbers();
 	})
 }
 
@@ -304,7 +332,6 @@ function searchDatePicker(){
 	
 //	$('.date_picker').on({
 //		'click':function(){
-//			console.log('앗 나갔다');
 //			$(".box_opt_menu").addClass('active');
 //		},'focusout':function(){
 //			$(".box_opt_menu").removeClass('active');

@@ -101,7 +101,6 @@ public class BoardController {
 	public String insertPosts(Posts posts) {
 		posts.setUserId("187-004");
 		boardService.insertPosts(posts);
-		System.out.println(posts);
 		return "redirect:/board/postList/"+posts.getBoardNo();
 	}
 	

@@ -89,22 +89,43 @@ function imgUploadDragAndDrop() {
 		var files = e.originalEvent.dataTransfer.files; // 드래그&드랍 항목
 		for (var i = 0; i < files.length; i++) {
 			var file = files[i];
-			console.log(file);
-			
 			var size = uploadFiles.push(file); // 업로드 목록에 추가
+			
 			preview(file, size - 1, e); // 미리보기 만들기
-			console.log('dd');
 		}
+		
 	});
 }
 
+//
+//var formData = new FormData($('#image_form')[0]);
+//var files = $("#files")[0].files;
+//
+//for(var i = 0 ; i<files.length; i++){
+//	formData.append("fileObj", files[i]);
+//}
+//// Ajax call for file uploaling
+//uploadImage(formData);
+
+
 function preview(file, idx, event) {
+	var form = $("#drag_drop_img");
+	var formData = new FormData(form[0]);
+	
+	$.each(uploadFiles, function(i, file) {
+		formData.append('files', file);
+	});
+	//formData.append('upload-file', uploadFiles);
+	uploadImage(formData);
+	
+	uploadFiles = [];
+	formData.delete("files");
+	
 	var reader = new FileReader();
 	reader.onload = (function(f, idx) {
 		return function(e) {
-			var div = '<div> \
-	<div class="close" data-idx="'+ idx + '">X</div> \
-	<img src="' + e.target.result
+			var div = '<div> '
+	+'<img src="/uploadImg/' + file.name
 					+ '" title="' + escape(f.name) + '"/> \
 	</div>';
 			$(event.target).closest('div').append(div);
@@ -112,19 +133,38 @@ function preview(file, idx, event) {
 		};
 	})(file, idx);
 	reader.readAsDataURL(file);
-	var formData = new FormData();
-	$.each(file, function(i, file) {
-			formData.append('upload-file', files[i]);
-	});
-	uploadImage(formData);
-		
-
+	
 }
 
 
+//
+//function preview(file, idx, event) {
+//	var reader = new FileReader();
+//	reader.onload = (function(f, idx) {
+//		return function(e) {
+//			var div = '<div> \
+//	<div class="close" data-idx="'+ idx + '">X</div> \
+//	<img src="' + e.target.result
+//					+ '" title="' + escape(f.name) + '"/> \
+//	</div>';
+//			$(event.target).closest('div').append(div);
+//			$(event.target).closest('div').append('<br><br>');
+//		};
+//	})(file, idx);
+//	reader.readAsDataURL(file);
+//	var formData = new FormData();
+//	$.each(file, function(i, file) {
+//			formData.append('upload-file', files[i]);
+//	});
+//	uploadImage(formData);
+//}
+
+
 function uploadImage(formData){
+	console.log(formData);
 	$.ajax({
 		url : '/rest/board/imageUpload',
+		enctype: 'multipart/form-data',
 		data : formData,
 		type : 'post',
 		contentType : false,
@@ -213,9 +253,14 @@ function imageUploadAjax() {
 		                var formData = new FormData($('#image_form')[0]);
 		                var files = $("#files")[0].files;
 						
+		                console.log(files);
 						for(var i = 0 ; i<files.length; i++){
 							formData.append("fileObj", files[i]);
+							
 						}
+						
+						console.log(formData);
+						
 						// Ajax call for file uploaling
 						uploadImage(formData);
 								
