@@ -23,14 +23,8 @@ function getMyPostList(){
 		var url = "/getSearchMyPostList/"+$('#boardName').attr('data-board-no');
 		
 		if( $targetId == 'getAllPost' ){
-			/*url = '/board/postList/'+$('#boardName').attr('post-no');
-			$target.attr('id','getMyPost');
-			$target.text('내 글보기');*/
 			location.reload();
 		}
-		
-		
-		
 		$.ajax({
 			url:url
 		}).done(function(data){
@@ -89,8 +83,6 @@ function previousPage(){
 
 function nextPage(){
 	$('.pagination_center').on('click','.next',function(){
-		
-		//들어왔을때 막으면 댐 !!
 		var nextData = parseInt ($('.next').children().attr('data-dt-idx'));
 		var maxCount = parseInt ( $('.page-link').last().attr('data-dt-max') ) ;
 		
