@@ -4,6 +4,9 @@ import lombok.Data;
 
 @Data
 public class CategoryDTO {
+	public CategoryDTO() {
+		
+	}
 	//변동지출 카테고리
 	private int variable_category_no;//카테고리번호
 	private String variable_cotegory_name;//카테고리명
