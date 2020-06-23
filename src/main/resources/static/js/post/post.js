@@ -8,26 +8,39 @@ $(function(){
 
 function getPostInfoPreviewPaging(visibleFirstPageList){
 	
-	// Limit 포스트개수 = 10개
-	var visibleLastPageList = visibleFirstPageList + 10 ;
-	
 	// 첫페이지를 나타내는 넘버
-	var firstPostRowNum = $('.postListWrapper > li').first().children().attr('data-number');
+	var firstPostRowNum = $('.postListWrapper > li').first().find('a').attr('data-number');
+	
 	
 	// 마지막페이지를 나타내는 넘버
-	var LastPostRowNum = $('.postListWrapper > li').last().children().attr('data-number');
+	var LastPostRowNum = $('.postListWrapper > li').last().find('a').attr('data-number');
 	
-	// 페이징
-	$('.postListWrapper li').hide().slice(visibleFirstPageList,visibleLastPageList).show();
-		
+	
+	// 버그 : 1. ol이 display :none 이라서 li:visible이 첫화면에서 안되고있음
+	//      2. 10, 20 등 목록에는 뜨는데 10 누르면 목록은 11부터 뜨고 10은 목록에 안뜸. 
+	//console.log($('.postListWrapper').find('li[style !="display:none"]').first().find('a').attr('data-number'));
+	
+	
 	//첫페이지면  '<' 버튼 disalbed
-	 firstPostRowNum == $('.postListWrapper').find('li:visible').first().children().attr('data-number') ? 
+	 firstPostRowNum == $('.postListWrapper').find('li:visible').first().find('a').attr('data-number') ? 
 			 $('.postListPrevBtn').attr('disabled',true) : $('.postListPrevBtn').attr('disabled',false);
 			 
 	// 마지막 페이지면 '>' 버튼 disabled
-	 LastPostRowNum == $('.postListWrapper > li:visible').last().children().attr('data-number') ? 
+	 LastPostRowNum == $('.postListWrapper > li:visible').last().find('a').attr('data-number') ? 
 			 $('.postListNextBtn').attr('disabled',true) : $('.postListNextBtn').attr('disabled',false);
 	
+	
+	
+	// Limit 포스트개수 = 10개
+	var visibleLastPageList = visibleFirstPageList + 10 ;
+	
+	$('#thisPostNumber').text(parseInt(visibleFirstPageList/10)+1);
+	
+
+	// 페이징
+	$('.postListWrapper li').hide().slice(visibleFirstPageList,visibleLastPageList).show();
+	
+
 	//on click
 	$('.postListPrevBtn').one('click',function(){
 		visibleFirstPageList -= 10;
@@ -48,8 +61,12 @@ function getPostInfoPreviewPaging(visibleFirstPageList){
 function initPostDetail(){
 	$('.postListWrapper').find('li a').each(function(index, item){
 		if( $('#postNo').val() == $(this).attr('data-post-no') ){
-			$('#thisPostNumber').text($(this).attr('data-number'));
+			var pageNumber =  parseInt( ($(this).attr('data-number'))/10);
+			getPostInfoPreviewPaging(  pageNumber*10 );
+				
+			$('#thisPostNumber').text(parseInt($(this).attr('data-number')/10)+1);
 			$(this).addClass('active');
+			$(this).siblings().addClass('active');
 		}
 	})
 	
@@ -69,8 +86,7 @@ function clickMorePostList(){
 		$('.morePostList').text('숨기기');
 		$('.postListViewGuide path').attr('d','M7 14l5-5 5 5z');
 		$('.postListWrapper').toggleClass('active');
-		console.log('click more '+ parseInt( $('.postListWrapper > li:visible').first().children().attr('data-number') ));
-		getPostInfoPreviewPaging( parseInt( $('.postListWrapper > li:visible').first().children().attr('data-number') ) -1 );
+		getPostInfoPreviewPaging( parseInt( $('.postListWrapper > li:visible').first().find('a').attr('data-number') ) -1 );
 	})
 }
 

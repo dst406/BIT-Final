@@ -75,13 +75,17 @@
 									class="corner-ribbon">
 										<path fill="#7680ff" d="M32 0H0v48h.163l16-16L32 47.836V0z"></path></svg>
 								<ol class="postListWrapper">
-									<li th:each="postList: *{postsDetailList}"><a
+									<li th:each="postList: *{postsDetailList}">
+									<span th:text="${postList.postRowNum}+'. '" class="postRowNum"></span>
+									<a
 										th:text="${postList.postTitle}"
 										th:data-post-no="${postList.postNo}"
 										th:data-number="${postList.postRowNum}" aria-current="page"
 										class=""
-										th:href="@{/getPost/{boardNo}/{postNo}(boardNo=${posts.boardNo},postNo=${postList.postNo})}">시리즈1</a></li>
-
+										th:href="@{/getPost/{boardNo}/{postNo}(boardNo=${posts.boardNo},postNo=${postList.postNo})}">시리즈1</a>
+										
+										</li>
+									
 
 								</ol>
 								<div class="postListBottomWrapper">
@@ -95,7 +99,7 @@
 									<div class="postListGuidePagingWrapper">
 										<div class="postNumber">
 											<span id="thisPostNumber"></span> / <span
-												th:text="*{postsDetailList[0].postListCount}">2</span>
+												th:text="*{postsDetailList[0].postListCount / 10 +1}">2</span>
 
 										</div>
 										<div class="postListNavButton">
@@ -105,7 +109,8 @@
 													width="1em" xmlns="http://www.w3.org/2000/svg">
 														<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg>
 											</button>
-											<button class="postListBtn postListNextBtn" disabled>
+											<!-- th:data-comment-length="${ #lists.size(replyComment.replyInReplyComment) }" ${posts} -->
+											<button class="postListBtn postListNextBtn" th:disabled="${ #lists.size(posts.postsDetailList) < 10} ">
 												<svg stroke="currentColor" fill="currentColor"
 													stroke-width="0" viewBox="0 0 24 24" height="1em"
 													width="1em" xmlns="http://www.w3.org/2000/svg">
