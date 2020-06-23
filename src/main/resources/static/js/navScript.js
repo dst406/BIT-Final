@@ -8,36 +8,9 @@ $(function(){
 	getModalFormEditPage();
 	editAbleBoard();
 	editBoardGroupTitle();
-	
-//	getModalFormEditPage();
-//	getModalFormEditPage("insertPage-popup-link",".itemCloseButton");
-	
 })
 
 
-
-
-//function getModalFormEditPage(){
-//	$('.menu-body').bind('click','.editBoardGroup-popup-link',function(event){
-//		console.log('1  ');
-//		event.preventDefault();
-//		var title = $(event.target).closest('.title-box').find('.edit-able').text();
-//		$('.formInputWrapper .inputInnerMedium').val(title);
-//		console.log(title);
-//		$('.editBoardGroup-popup-link').magnificPopup({
-//			type:'inline',
-//			midClick:true,
-//			showCloseBtn:false
-//		});
-//		console.log('3  ');
-//		
-//		$(".boardGroupPanelHeaderClose, .actionsSecondary").on('click',function(){
-//			$.magnificPopup.close();
-//		})
-//	})
-//	
-//}	
-//	
 
 
 
@@ -199,54 +172,6 @@ function editBoardGroupTitle(){
    })
 }
 
-/*function editBoardGroupTitle(){
-	$('.buttonMediumBlueBase').on('click',function(event){
-		const boardGroupName = $('.originalTitle').val();
-		const changeName = $('.changeTitle').val();
-		
-		if(changeTitle.length == 0){
-			return;
-		}
-		
-		$.ajax({
-			url:"/updateBoardGroupName",
-			data: {
-				boardGroupName : boardGroupName,
-				changeName : changeName
-			}
-		}).done(function(data){
-			
-		})
-		
-		
-	})
-}
-*/
-
-
-
-//
-//function getModalFormEditPage(){
-//	$('.menu-body').bind('click','.editBoardGroup-popup-link',function(event){
-//		console.log('1  ');ㅈ
-//		event.preventDefault();
-//		var title = $(event.target).closest('.title-box').find('.edit-able').text();
-//		$('.formInputWrapper .inputInnerMedium').val(title);
-//		console.log(title);
-//		$('.editBoardGroup-popup-link').magnificPopup({
-//			type:'inline',
-//			midClick:true,
-//			showCloseBtn:false
-//		});
-//		console.log('3  ');
-//		
-//		$(".boardGroupPanelHeaderClose, .actionsSecondary").on('click',function(){
-//			$.magnificPopup.close();
-//		})
-//	})
-//	
-//}	
-	
 
 
 

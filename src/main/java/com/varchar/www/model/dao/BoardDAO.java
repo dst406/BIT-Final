@@ -27,10 +27,21 @@ public interface BoardDAO {
 	
 	// 게시판 등록
 	void insertBoard (@Param("content")String content, @Param("boardGroupNo") int boardGroupNo);
+
+	// 게시판 수정
+	void updateBoard(@Param("boardNo") int boardNo,@Param("boardName") String boardName, @Param("boardIntro") String boardIntro); 
+	
 	// 게시글 리스트
-	PostsList getPostList(int boardNo);
+	PostsList getPostList(@Param("boardNo") int boardNo);
+	// 내 게시글 리스트
+	List<Posts> postList(@Param("boardNo") int boardNo,@Param("userId") String userId);
+	
 	// 게시글 Detail
 	PostDetail getPost(@Param("boardNo") int boardNo,@Param("postNo") int postNo);
+	// 게시글 삭제
+	void deletePost(int postNo);
+	// 게시글 조회수 증가
+	void updatePostViewCount(int postNo);
 	// 게시글 등록 - 임시저장 가져오기
 	List<TemporaryPostList> getTemporaryPostList(String userId);
 	
@@ -45,6 +56,10 @@ public interface BoardDAO {
 	void insertTemporaryPost(TemporaryPost temporaryPost);
 	// 임시저장된 게시글 불러오기
 	TemporaryPost getTemporaryPost(int temporaryNo);
+
+	// 임시저장 글 삭제
+	void deleteTemporaryPost(int temporaryNo);
+	
 	
 	// 댓글 등록
 	void insertPostComment(@Param("comment")Comment comment, @Param("postNo")int postNo);
@@ -54,8 +69,13 @@ public interface BoardDAO {
 	
 	// 답글 등록
 	void insertReply(@Param("comment")Comment comment, @Param("postNo")int postNo);
+
+	
+	List<ReplyComment> getReplyList(@Param("replyNo") int commentNo);
 	// 답글 조회
 	List<ReplyComment> getReplyInReply(@Param("replyNo") int commentNo);
 	
 	
+	
 }
+

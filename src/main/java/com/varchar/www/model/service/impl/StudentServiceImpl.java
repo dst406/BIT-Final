@@ -17,32 +17,31 @@ public class StudentServiceImpl implements StudentService {
 	
 	@Override
 	public List<Student> getStudentList(String authorityCode) {
-		// TODO Auto-generated method stub
+
 		return studentDAO.getStudentList(authorityCode);
 	}
 
 	@Override
 	public void insertStudent(Student student) {
-		// TODO Auto-generated method stub
+
 		studentDAO.insertStudent(student);
 	}
 
 	@Override
 	public Student getStudentInfo(String userId) {
-		// TODO Auto-generated method stub
+
 		return studentDAO.getStudentInfo(userId);
 	}
 
 	@Override
 	public void modifyStudent(Student student) {
-		// TODO Auto-generated method stub
-		
+
 		studentDAO.modifyStudent(student);
 	}
 
 	@Override
 	public void deleteStudent(String userId) {
-		// TODO Auto-generated method stub
+
 		studentDAO.deleteStudent(userId);
 	}
 

@@ -17,13 +17,13 @@ public class RecordServiceImpl implements RecordService {
 
 	@Override
 	public List<Record> getRecordList() {
-		// TODO Auto-generated method stub
+
 		return recordDAO.getRecordList();
 	}
 
 	@Override
 	public List<Record> getStudentRecord(String userId) {
-		// TODO Auto-generated method stub		
+
 		return recordDAO.getStudentRecord(userId);
 	}
 	

@@ -28,6 +28,6 @@
 				  where u.user_id = r.user_id
 				  and r.user_id = #{userId}
 				  and r.test_no = t.test_no
-				  
+
 	</select>
 </mapper>

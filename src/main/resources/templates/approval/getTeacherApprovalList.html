@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>강사-결재목록</title>
+</head>
+<body>
+	<h1>강사의 결재목록 입니다.</h1>
+	
+	<a href="/insertApproval">결재신청</a>
+	
+	<table border="1">
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>신청인</th>
+				<th>신청일</th>
+				<th>결재내용</th>
+				<th>결재상태</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="approval : ${approvalList}">
+				<td th:text="${approvalStat.count}"></td>
+				<td th:text="${approval.userId}"></td>
+				<td th:text="${approval.approvalRegisterDate}"></td>
+				<td th:text="${approval.approvalContent}"></td>
+				<td th:text="${approval.approvalStateName}"></td>
+				
+				
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>

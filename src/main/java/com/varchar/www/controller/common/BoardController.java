@@ -22,7 +22,7 @@ import com.varchar.www.model.service.BoardService;
 
 @Controller
 public class BoardController {
-	
+
 	 @InitBinder
 	 public void initBinder(WebDataBinder binder) {
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(new 
@@ -57,14 +57,9 @@ public class BoardController {
 	}
 	
 	
-	/* 게시글 */
 	
-	// 내 게시글 리스트 조회
-	@GetMapping("/getSearchMyPostList")
-	public String getSearchMyPostList() {
-		
-		return "";
-	}
+	
+	/* 게시글 */
 	
 	@PostMapping("/getSearchDatePostList")
 	public String getSearchDatePostList( int boardNo, String startDate, String endDate, Model model) {
@@ -83,6 +78,15 @@ public class BoardController {
 		return "common/board/postList";
 	}
 
+	// 내 게시글 리스트 조회 
+	@GetMapping("/getSearchMyPostList/{boardNo}")
+	public String getSearchMyPostList(@PathVariable @ModelAttribute int boardNo, Model model) {
+		String userId="jin2020";
+		model.addAttribute("posts",boardDAO.postList(boardNo, userId));
+		System.out.println(boardDAO.postList(boardNo, userId));
+		return "common/board/fragment/postListFragment :: boardPostList";
+	}
+	
 	//게시글 등록폼
 	@GetMapping("/newPostForm/{boardNo}/{boardName}")
 	public String newPostForm(Posts posts, @ModelAttribute @PathVariable String boardName,
@@ -94,9 +98,8 @@ public class BoardController {
 	//게시글 등록
 	@PostMapping("/insertPosts")
 	public String insertPosts(Posts posts) {
-		posts.setUserId("jin2020");
+		posts.setUserId("187-004");
 		boardService.insertPosts(posts);
-		System.out.println(posts);
 		return "redirect:/board/postList/"+posts.getBoardNo();
 	}
 	
@@ -116,6 +119,12 @@ public class BoardController {
 		return "common/board/postInfo";
 	}
 	
+	//게시글 삭제
+	@GetMapping("/deletePost/{postNo}/{boardNo}")
+	public String deletePost(@PathVariable int postNo, @PathVariable int boardNo) {
+		boardDAO.deletePost(postNo);
+		return "redirect:/board/postList/"+boardNo;
+	}
 	
 	// 임시저장된 게시글 조회
 	@GetMapping("/getTemporaryPost/{temporaryNo}")
@@ -147,13 +156,24 @@ public class BoardController {
 	
 	//답글 등록
 	@PostMapping("/insertReply")
-	public String insertReply(Comment comment, int postNo, Model model) {
+	public String insertReply(Comment comment, int postNo,Model model) {
 		comment.setUserId("kojae2020");
 		boardDAO.insertReply(comment, postNo);
-		model.addAttribute("replyList", boardDAO.getReplyInReply(comment.getCommentNo()));
+		model.addAttribute("replyList", boardDAO.getReplyList(comment.getCommentNo()));
+		model.addAttribute("comment", comment);
 		return "common/board/fragment/replyList :: getReplyList";
+		
 	}
-
+	
+	//답글의 답글 등록
+	@PostMapping("/insertReplyInReply")
+	public String insertReplyInReply(Comment comment, int postNo,Model model) {
+		comment.setUserId("jin2020");
+		boardDAO.insertReply(comment, postNo);
+		model.addAttribute("replyInReplyComment", boardDAO.getReplyList(comment.getCommentNo()));
+		model.addAttribute("replyCommentNo", comment.getCommentNo());
+		return "common/board/fragment/replyInReply :: getReReplyList";
+	}
 	
 	
 }

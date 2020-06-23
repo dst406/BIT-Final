@@ -4,6 +4,9 @@
 #postsForm{
 	width: 100%;
 }
+.mg-bot-4{
+	margin-bottom:4rem;
+}
 
 .toolbar_elements {
 	width: 3rem;
@@ -109,10 +112,16 @@
 
 .editorDIV{
 	width:100%;
-	min-height: 300px;
 	padding-left: 3rem;
     padding-right: 3rem;
+    min-height:300px;
+    
 }
+.editorDIV.editorForm{
+	overflow-y: auto;
+    height: 552px;
+}
+
 
 .temp_date{
 	margin-left:30px;
@@ -173,7 +182,7 @@ img { width:100%; }
     bottom: 0px;
     width:1000px;
     z-index: 10;
-    right:315px;
+    right:325px;
 }
 
 .editorFooter .footerWrapper{
@@ -347,16 +356,37 @@ img { width:100%; }
     padding-inline-start: 40px;
 }
 
+/* .postListInPostContainer .postListWrapper ol{
+	counter-set : item;
+}
+ */
 .postListInPostContainer .postListWrapper li{
 	display: block;
+
 }
-.postListInPostContainer .postListWrapper li:before{
-	content: counter(item) ". ";
-    counter-increment: item 1;
-    color: rgb(173, 181, 189);
+
+.postListInPostContainer .postListWrapper .postRowNum{
+	color: rgb(173, 181, 189);
+    font-style: italic;
+    margin-right: 0.35rem;
+    display: inline-block;
+    font-size: 12px;
+}
+
+/* 
+.postListInPostContainer .postListWrapper li::before{
+	color: rgb(173, 181, 189);
     font-style: italic;
     margin-right: 0.25rem;
+    counter-increment: item 1;	
+	content: counter(item) ". ";
 }
+.postListInPostContainer .postListWrapper li::hidden{
+	counter-increment: item 1;	
+	content: counter(item) ". ";
+}
+ */
+
 
 .postListInPostContainer .postListWrapper li .active{
 	color: #7680ff;
@@ -429,7 +459,7 @@ img { width:100%; }
     padding: 0px;
 }
 
-.postListNavButton .postListPrevBtn:disabled{
+.postListNavButton .postListBtn:disabled{
 	cursor: default;
     color: rgb(206, 212, 218);
     background: rgb(241, 243, 245);
@@ -443,4 +473,34 @@ img { width:100%; }
 	    margin-left: 0.375rem;
 }
 
+.ql_img{
+	margin:0 !important;
+}
+
+#image_form input[type="file"] {
+    position: absolute;
+    /* width: 0;
+    height: 0; */
+    padding: 0;
+    /* overflow: hidden; */
+    border: 0;
+}
+
+
+.temporaryElement{
+	display: inline-table;
+}
+
+
+.temporaryElement a{
+	margin: 0px 5px 10px 0px;
+	padding-right:0px !important;
+}
+
+.removeTempWrapper{
+    width: 35px;
+    height: 20px;
+    z-index: 9999;
+    display: inline-table;
+}
 

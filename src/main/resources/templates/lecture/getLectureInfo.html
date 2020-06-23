@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
+<head>
+<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="page-wrapper">
+			<!-- Page Content-->
+			<div class="page-content-tab">
+				<div class="container">
+
+					<!-- 공간   -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box">
+								<h2 class="page-title">강의상세</h2>
+							</div>
+							<p>강의명</p>
+							<input type="text" placeholder="강의명"
+								th:value="${lecture.lectureName}" style="width: 35%;">
+							<p></p>
+
+							<!-- 드롭다운이어야하는것들 강의시즌, 강의실, 강의대상, 강의시작일,종료일 -->
+							<p>강의시즌</p>
+							<input type="text" placeholder="강의시즌명"
+								th:value="${lecture.seasonName}" style="width: 35%;">
+							<p></p>
+
+							<p>강의실</p>
+							<input type="text" placeholder="강의명"
+								th:value="${lecture.lectureroomNo}" style="width: 35%;">
+							<p></p>
+
+							<p>강의시작일</p>
+							<input type="text" placeholder="강의시작일"
+								th:value="${lecture.seasonStartDate}" style="width: 35%;">
+							<p></p>
+
+							<p>강의종료일</p>
+							<input type="text" placeholder="강의종료일"
+								th:value="${lecture.seasonEndDate}" style="width: 35%;">
+							<p></p>
+
+							<p>요일</p>
+							<input type="text" placeholder="요일"
+								th:value="${lecture.lectureDay}" style="width: 35%;">
+							<p></p>
+
+							<p>시작시간</p>
+							<input type="text" placeholder="시작시간"
+								th:value="${lecture.lectureStartTime}" style="width: 35%;">
+							<p></p>
+
+							<p>종료시간</p>
+							<input type="text" placeholder="종료시간"
+								th:value="${lecture.lectureEndTime}" style="width: 35%;">
+							<p></p>
+
+							<p>담당강사명</p>
+							<input type="text" placeholder="담당강사명"
+								th:value="${lecture.userName}" style="width: 35%;">
+							<p></p>
+
+							<p>연락처</p>
+							<input type="text" placeholder="연락처"
+								th:value="${lecture.userTel}" style="width: 35%;">
+							<p></p>
+
+							<p>강의료</p>
+							<input type="text" placeholder="강의료"
+								th:value="${lecture.lectureCost}" style="width: 35%;">
+							<p></p>
+
+							<p>정원</p>
+							<input type="text" placeholder="강의명"
+								th:value="${lecture.capacity}" style="width: 35%;">
+							<p></p>
+
+
+							<p>강의내용</p>
+							<input type="text" placeholder="강의내용"
+								th:value="${lecture.lectureContent}" style="width: 35%;">
+							<p></p>
+
+							<input type="submit" value="수정하기" onclick="#"> <input
+								type="button" value="취소하기"> 
+								<a type="button"
+								class="btn btn-primary waves-effect waves-light float-right mb-3"
+								data-toggle="modal" data-animation="bounce"
+								data-target=".bs-example-modal-lg"
+								th:href="'/deleteLecture/'+${lecture.lectureCode}">강의삭제</a>
+
+							<!-- <table border="1" style="font-size:15px;">
+								<tr>
+
+									<th>강의명</th>
+									<th>강의시즌</th>
+									<th>강의실</th>
+									<th>강의대상</th>
+									<th>강의시작일</th>
+									<th>강의종료일</th>
+									<th>요일</th>
+									<th>시작시간</th>
+									<th>종료시간</th>
+									<th>담당강사명</th>
+									<th>연락처</th>
+									<th>강의료</th>
+									<th>정원</th>
+									<th>강의내용</th>
+								</tr>
+								<tr th:each="lecture : ${lectureInfo}">
+
+									<td th:text="${lecture.lectureName}"></td>
+									<td th:text="${lecture.seasonName}"></td>
+									<td th:text="${lecture.lectureroomNo}"></td>
+									<td th:text="${lecture.studentGrade}"></td>
+									<td th:text="${lecture.seasonStartDate}"></td>
+									<td th:text="${lecture.seasonEndDate}"></td>
+									<td th:text="${lecture.lectureDay}"></td>
+									<td th:text="${lecture.lectureStartTime}"></td>
+									<td th:text="${lecture.lectureEndTime}"></td>
+									<td th:text="${lecture.userName}"></td>
+									<td th:text="${lecture.userTel}"></td>
+									<td th:text="${lecture.lectureCost}"></td>
+									<td th:text="${lecture.capacity}"></td>
+									<td th:text="${lecture.lectureContent}"></td>
+								</tr>
+							</table> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+	<!-- 	<div th:include="/include/managerTopbar.html"></div>
+	<div th:include="/include/managerNavbar.html"></div>
+	<div class="page-wrapper">
+		Page Content
+		<div class="page-content-tab">
+			<div class="container">
+				Page-Title
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="page-title-box">
+							<div class="float-right">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="javascript:void(0);">Metrica</a></li>
+									<li class="breadcrumb-item"><a href="javascript:void(0);">CRM</a></li>
+									<li class="breadcrumb-item active">Leads</li>
+								</ol>
+							</div>
+							<h2 class="page-title">강의상세</h2>
+						</div>
+						end page-title-box
+					</div>
+					end col
+				</div>
+
+
+				end page title end breadcrumb
+				<div class="row" style="border: 1px solid">
+					<div class="col-lg-4">
+
+						end card
+					</div>
+					end col
+					<div class="col-lg-8">
+						<div class="row">
+							<div class="col-lg-4">
+
+								end card
+							</div>
+							end col
+							<div class="row">
+								<div class="col-lg-4">
+
+
+									end card-body
+								</div>
+								end card
+							</div>
+							end col
+							<div class="row">
+								<div class="col-lg-4">
+
+
+									end card-body
+								</div>
+								end card
+							</div>
+							end col
+						</div>
+						end row
+					</div>
+					end col
+
+				</div>
+
+
+
+			</div>
+		</div>
+			</div>
+	<div th:include="/include/footer.html"></div> -->
+</body>
+</html>

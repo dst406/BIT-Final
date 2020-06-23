@@ -9,9 +9,11 @@ import lombok.ToString;
 @Getter @Setter @ToString
 public class ReplyComment {
 	private int commentNo;
+	private int commentLevel;
 	private String userId;
 	private String commentContent;
 	private String commentDate;
 	private String commentImage;
+	private int commentReplyNo;
 	List<ReplyComment> replyInReplyComment;
 }	

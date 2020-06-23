@@ -12,8 +12,12 @@ public class Posts {
 	private String userId;
 	private String postTitle;	
 	private String postContents;
+	private String postPreview;
+	private String postThumbnail;
 	private String postsDate;
 	private int postViews;
+	private int countComment;
 	
 	
 }
+

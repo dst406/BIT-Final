@@ -5,18 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.varchar.www.model.dao.BoardDAO;
 import com.varchar.www.model.domain.board.Board;
-import com.varchar.www.model.domain.board.TemporaryPost;
 import com.varchar.www.model.service.BoardService;
 import com.varchar.www.util.CustomParser;
 
@@ -24,12 +20,14 @@ import com.varchar.www.util.CustomParser;
 public class ResponseBoardController {
 	
 	@Autowired BoardService boardService;
-	
+
+	@Autowired BoardDAO boardDAO;
+ 	
 	@PostMapping("/rest/board/imageUpload")
-	public List<String> editorImageUpload( MultipartRequest multipartRequest ){
-		System.out.println("여기는 왔어요 ? "+multipartRequest.getFiles("files"));
+	public List<String> editorImageUpload( MultipartHttpServletRequest   multipartHttpServletRequest  ){
+		System.out.println("여기는 왔어요 ? "+multipartHttpServletRequest.getFiles("files"));
 		try {
-			return new CustomParser().fileParser(multipartRequest);
+			return new CustomParser().fileParser(multipartHttpServletRequest);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -59,6 +57,7 @@ public class ResponseBoardController {
 		boardService.updateBoardGroupName(boardGroupName,changeName, boardGroupNo);
 	}
 	
+
 	// 게시글 임시저장
 //	@PostMapping("/insertTemporaryPost")
 //	public TemporaryPost insertTemporaryPost(TemporaryPost temporaryPost, Model model) {
@@ -69,9 +68,21 @@ public class ResponseBoardController {
 //		
 //		return  null;
 //	}
+	
+	@GetMapping("/deleteTemporaryPost")
+	public void deleteTemporaryPost(int temporaryNo) {
+		System.out.println(temporaryNo);
+		
+		boardService.deleteTemporaryPost(temporaryNo);
+		
+	}
 
-
-
+	//게시판 수정
+	@GetMapping("/updateBoard/{boardNo}/{boardName}/{boardIntro}")
+	public void updateBoard(@PathVariable int boardNo, @PathVariable String boardName ,@PathVariable String boardIntro) {
+		boardDAO.updateBoard(boardNo,boardName, boardIntro);
+	}
+	
 	
 }
 

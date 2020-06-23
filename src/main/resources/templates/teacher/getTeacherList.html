@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/managerLayout">
+<head>
+<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="page-wrapper">
+			<!-- Page Content-->
+			<div class="page-content-tab">
+				<div class="container">
+
+					<!-- 공간   -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box">
+								<h2 class="page-title">강사 목록</h2>
+							</div>
+
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+
+
+
+											<!-- 원장정보시작 -->
+											<div class="media p-1 align-items-center">
+												<img src="img/user.png" class="rounded-circle thumb-lg">
+												<div th:each="manager : ${managerList}"
+													class="media-body ml-3 align-self-center">
+													<h5
+														th:text="${manager.userRemark} + ' ' + ${manager.userName}"
+														class="m-0 font-25 font-weight-semibold">원장 진보형</h5>
+													<br>
+													<a th:href="'/getManagerInfo/'+${manager.authorityCode}">내정보보기</a>
+												</div>
+												<!-- 원장정보 끝 -->
+
+
+												<div class="action-btn">
+													<a href="" class=""><i
+														class="las la-pen text-info font-18"></i></a> <a href=""
+														class="">ddd<i
+														class="las la-trash-alt text-danger font-18"></i></a>
+												</div>
+											</div>
+										</div>
+										<!--end card-body-->
+									</div>
+									<!--end card-->
+									<button type="button"
+										class="btn btn-primary waves-effect waves-light float-right mb-3"
+										data-toggle="modal" data-animation="bounce"
+										data-target=".bs-example-modal-lg"
+										onclick="location.href='/goInsertTeacher'">+ 강사등록</button>
+								</div>
+							</div>
+
+							<div class="row">
+								<div th:each="teacher : ${teacherList}" class="col-lg-3">
+									<div class="card client-card">
+										<div class="card-body text-center">
+											<img src="img/user.png" class="rounded-circle thumb-lg">
+											<h5 th:text="${teacher.userName}" class="client-name"></h5>
+											<span th:text="${teacher.userRemark}" class="text-muted mr-3">
+											<i class="dripicons-location mr-2 text-info"></i>
+											<i class="dripicons-phone mr-2 text-info"></i></span>
+											<a th:href="'/getTeacherInfo/'+${teacher.userId}">정보보기</a>
+										</div>
+										<!--end card-body-->
+									</div>
+									<!--end card-->
+								</div>
+								<!--end col-->
+							</div>
+							<!-- container -->
+							<!--  Modal content for the above example -->
+
+							<!-- /.modal -->
+							<!-- <footer class="footer text-center text-sm-left">
+								© 2020 Metrica <span
+									class="text-muted d-none d-sm-inline-block float-right">Crafted
+									with <i class="mdi mdi-heart text-danger"></i> by Mannatthemes
+								</span> -->
+
+
+							</footer>
+							<!--end footer-->
+						</div>
+						<!-- end page content -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="/include/footer.html"></div>
+</body>
+</html>

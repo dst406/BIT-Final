@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.varchar.www.model.dao.ManagerDAO">
+
+<!-- 강사 목록을 불러오는 쿼리문 입니다. -->
+	<select id="getTeacherList" parameterType="String" resultType="com.varchar.www.model.domain.teacher.Teacher">
+		SELECT * FROM academy_user WHERE authority_code = #{authorityCode}
+	</select>
+	
+<!-- 시즌을 불러오는 쿼리문 입니다. -->
+	<select id="getSeasonList" resultType="com.varchar.www.model.domain.manager.Season">
+		SELECT * FROM season
+	</select>
+	
+	<!-- 원장이 자신의 정보를 조회 -->
+	<select id="getManagerInfo" parameterType="String" resultType="com.varchar.www.model.domain.teacher.Teacher">
+		SELECT * FROM academy_user WHERE authority_code = #{authorityCode}
+	</select>
+	<!-- 원장의 강사조회(경력부분) -->
+	<!-- 경력은 여러 행 나올 수 있어 따로 가져와서 나열합니다. -->
+	<select id="getManagerCareer" parameterType="String" resultType="com.varchar.www.model.domain.manager.CareerVO">
+		SELECT * FROM career WHERE user_id = #{userId}	
+	</select>
+	
+	
+</mapper>
+

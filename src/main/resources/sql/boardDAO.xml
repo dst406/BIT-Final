@@ -29,6 +29,7 @@
 		<result property="postContents" column="post_contents"/>
 		<result property="postsDate" column="posts_date"/>
 		<result property="postViews" column="post_views"/>
+		<result property="countComment" column="count_comment"/>
 		<collection property="postsDetailList" ofType="postsDetailList" column="boardNo=BOARD_NO"
 					javaType="List" select="getPostListInDetail"/>
 		<collection property="commentList" ofType="comment" column="postNo=POST_NO"
@@ -37,6 +38,7 @@
 		
 	<resultMap type="comment" id="commentList_resultMap">
 		<id property="commentNo" column="comment_no"/>
+		<result property="commentLevel" column="comment_level"/>
 		<result property="userId" column="user_id"/>
 		<result property="commentContent" column="comment_content"/>
 		<result property="commentDate" column="comment_date"/>
@@ -51,8 +53,12 @@
 		<result property="commentContent" column="comment_content"/>
 		<result property="commentDate" column="comment_date"/>
 		<result property="commentImage" column="comment_image"/>
+		<result property="commentReplyNo" column="comment_re_parent"/>
 		<collection property="replyInReplyComment" ofType="replyComment" column="replyNo=COMMENT_NO"
-					javaType="List" select="getReplyInReply"/>	
+					select="getReplyInReply">
+			<!-- <collection property="replyInReplyComment" ofType="replyComment" column="replyNo=COMMENT_NO"
+					select="getReplyInReply"/> -->
+			</collection>	
 
 	
 	</resultMap>
@@ -109,8 +115,29 @@
 	</insert>
 	<!-- 게시판 등록 End -->
 	
+	<!-- 게시판 수정 Start -->
+	<update id="updateBoard" parameterType="Map">
+		UPDATE board SET board_name = #{boardName} ,board_intro = #{boardIntro}
+		WHERE board_no = #{boardNo}
+	</update>
+	
+	<!-- 게시판 삭제 Start -->
+	<delete id="deletePost">
+		DELETE FROM posts
+		WHERE
+		post_no = #{postNo}
+	</delete>
+	<!-- 게시판 삭제 End -->
+	
+	
+	<!-- 게시글 일자 검색  Start-->
 	<select id="getSearchDatePostList" resultType = "posts" parameterType="Map">
-		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.* FROM posts
+		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.*,cnt.countComment 
+		FROM posts
+			LEFT OUTER JOIN	(SELECT post_no, count(comment_no) countComment FROM board_comment 
+				 WHERE comment_re_parent IS NULL 
+				 GROUP BY post_no) cnt
+				 ON  cnt.post_no = posts.post_no
 		WHERE board_no = #{boardNo} AND 
 		posts_date
 		<choose>
@@ -128,27 +155,59 @@
 				posts_date &lt;  TO_CHAR(concat(#{endDate} ,' 23:59:59') )
 			</when>
 		</choose>
-		
 	</select>
-	
+	<!-- 게시글 일자 검색  End-->
 	
 	<!-- postList  Start -->
 	<select id="getPostList" resultMap="postList_resultMap">
-		SELECT * FROM board WHERE board_no= #{boardNo}
+		SELECT * FROM board WHERE board_no= #{boardNo} 
+		
 	</select>
-	
 	
 	<select id="postList" resultType="posts">
-		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.* FROM posts
+		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.*, cnt.countComment 
+		FROM posts
+		LEFT OUTER JOIN (SELECT post_no, count(comment_no) countComment FROM board_comment 
+		 				 WHERE comment_re_parent IS NULL GROUP BY post_no) cnt
+		 	 ON cnt.post_no = posts.post_no
 		WHERE board_no = #{boardNo}
+		<if test="userId != null">
+			AND user_id = #{userId}
+		</if>
 	</select>
+	
+<!-- 	<select id="postList" resultType="posts">
+		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.*, cnt.countComment FROM posts,
+			(SELECT post_no, count(comment_no) countComment FROM board_comment 
+		 	 WHERE comment_re_parent IS NULL GROUP BY post_no) cnt
+		WHERE board_no = #{boardNo}
+		<if test="userId != null">
+			AND user_id = #{userId}
+		</if>
+		AND cnt.post_no = posts.post_no
+	</select> -->
+	
+	
+	
+	
+	
+	
+	<!-- SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.*,countPost.countComment
+		FROM posts,
+		(SELECT count(*) countComment, post_no FROM board_comment GROUP BY post_no) countPost
+		WHERE board_no = #{boardNo}
+		AND posts.post_no = countPost.post_no -->
+	
 	<!-- postList  end -->
 	
 	
 	<!--  postDetail Start -->
 	<select id="getPost" resultMap="postDetail_resultMap">
 		SELECT 
-		ROWNUM,board.board_name, board.board_intro, posts.* FROM posts
+		ROWNUM,board.board_name, board.board_intro, posts.*, cnt.count_comment FROM posts
+        LEFT JOIN (SELECT post_no, count(comment_no) count_comment FROM board_comment 
+        			 WHERE comment_re_parent IS NULL GROUP BY post_no) cnt 
+        ON cnt.post_no = posts.post_no
 		INNER JOIN board ON board.board_no = posts.board_no AND board.board_no = #{boardNo}
 		WHERE posts.post_no = #{postNo}
 	</select>
@@ -166,7 +225,7 @@
 	</select>
 	
 	<select id="getReplyList" resultMap="replyComment_resultMap">
-		SELECT LEVEL, board_comment.*
+		SELECT LEVEL comment_level, board_comment.*
 		from board_comment 
 		WHERE LEVEL = 1
 		START WITH comment_re_parent = #{replyNo}
@@ -174,21 +233,25 @@
 		ORDER SIBLINGS BY comment_date
 	</select>
 	
-	<select id="getReplyInReply" resultType="replyComment">
-		SELECT LEVEL, board_comment.*
+	<select id="getReplyInReply" resultMap="replyComment_resultMap">
+		SELECT LEVEL comment_level, board_comment.*
 		from board_comment 
 		START WITH comment_re_parent = #{replyNo}
 		CONNECT BY PRIOR comment_no = comment_re_parent
 	</select>
 		
-
 	<!--  postDetail End  = #{commentNo} 최 상위노드 설정 부모노드와 자식노드 연결 --> 
+	<!--  게시글 조회수 증가 -->
+	<update id="updatePostViewCount">
+		UPDATE posts SET post_views = (SELECT post_views from posts where post_no = #{postNo} )+1
+		WHERE post_no = #{postNo}
+	</update>
 	
 	<!--  게시판 등록  Start-->
 	
 	<insert id="insertPosts" parameterType="posts">
 		INSERT INTO posts VALUES(
-			SEQ_POSTS.nextval, #{boardNo}, #{userId} ,  #{postTitle} , #{postContents} ,
+			SEQ_POSTS.nextval, #{boardNo}, #{userId} ,#{postTitle} ,#{postPreview},#{postThumbnail} , #{postContents} ,
 			TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'), 0 )
 	</insert>
 	<!--  게시판 등록  End-->
@@ -221,6 +284,12 @@
 	</select>
 	<!--  임시저장된 글 조회 End -->
 
+	
+	<!--  임시저장 글 삭제  Start -->
+	<delete id="deleteTemporaryPost">
+		DELETE FROM temporary  WHERE temporary_no = #{temporaryNo}
+	</delete>	
+	<!--  임시저장 글 삭제  End -->
 
 
 	<!-- 댓글 -->
@@ -241,8 +310,8 @@
 		VALUES (SEQ_BOARD_COMMENT.nextval, #{postNo}, #{comment.userId}, #{comment.commentContent}, 
 				TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'), null, #{comment.commentNo} )
 	</insert>
+	
 	<!-- 답글 등록 End -->
 	
 	
 </mapper>
-

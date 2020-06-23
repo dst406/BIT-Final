@@ -6,10 +6,11 @@ $(function(){
 		}).done(function(data){
 			$('.menu-body').html(data);
 			$('.main-icon-menu-pane:first-child .metismenu').addClass('active');
+		//	var popupLink = document.querySelector('.editBoardGroup-popup-link');
+			
+		//	popupLink.addEventListener('click',getModalFormEditPage);
 		})
 		
 	})
-	
-
 	
 })

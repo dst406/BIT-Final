@@ -90,18 +90,42 @@ function imgUploadDragAndDrop() {
 		for (var i = 0; i < files.length; i++) {
 			var file = files[i];
 			var size = uploadFiles.push(file); // 업로드 목록에 추가
+			
 			preview(file, size - 1, e); // 미리보기 만들기
 		}
+		
 	});
 }
 
+//
+//var formData = new FormData($('#image_form')[0]);
+//var files = $("#files")[0].files;
+//
+//for(var i = 0 ; i<files.length; i++){
+//	formData.append("fileObj", files[i]);
+//}
+//// Ajax call for file uploaling
+//uploadImage(formData);
+
+
 function preview(file, idx, event) {
+	var form = $("#drag_drop_img");
+	var formData = new FormData(form[0]);
+	
+	$.each(uploadFiles, function(i, file) {
+		formData.append('files', file);
+	});
+	//formData.append('upload-file', uploadFiles);
+	uploadImage(formData);
+	
+	uploadFiles = [];
+	formData.delete("files");
+	
 	var reader = new FileReader();
 	reader.onload = (function(f, idx) {
 		return function(e) {
-			var div = '<div> \
-	<div class="close" data-idx="'+ idx + '">X</div> \
-	<img src="' + e.target.result
+			var div = '<div> '
+	+'<img src="/uploadImg/' + file.name
 					+ '" title="' + escape(f.name) + '"/> \
 	</div>';
 			$(event.target).closest('div').append(div);
@@ -109,26 +133,90 @@ function preview(file, idx, event) {
 		};
 	})(file, idx);
 	reader.readAsDataURL(file);
+	
+}
 
-		
-		$("#btnSubmit").on("click", function() {
-			var formData = new FormData();
-			$.each(uploadFiles, function(i, file) {
-				if (file.upload != 'disable') // 삭제하지 않은 이미지만 업로드 항목으로 추가
-					formData.append('upload-file', file, file.name);
-			});
-			
-					$.ajax({
-						url : '/api/etc/file/upload',
-						data : formData,
-						type : 'post',
-						contentType : false,
-						processData : false,
-						success : function(ret) {
-							alert("완료");
-						}
-					});
-		});
+
+//
+//function preview(file, idx, event) {
+//	var reader = new FileReader();
+//	reader.onload = (function(f, idx) {
+//		return function(e) {
+//			var div = '<div> \
+//	<div class="close" data-idx="'+ idx + '">X</div> \
+//	<img src="' + e.target.result
+//					+ '" title="' + escape(f.name) + '"/> \
+//	</div>';
+//			$(event.target).closest('div').append(div);
+//			$(event.target).closest('div').append('<br><br>');
+//		};
+//	})(file, idx);
+//	reader.readAsDataURL(file);
+//	var formData = new FormData();
+//	$.each(file, function(i, file) {
+//			formData.append('upload-file', files[i]);
+//	});
+//	uploadImage(formData);
+//}
+
+
+function uploadImage(formData){
+	console.log(formData);
+	$.ajax({
+		url : '/rest/board/imageUpload',
+		enctype: 'multipart/form-data',
+		data : formData,
+		type : 'post',
+		contentType : false,
+		processData : false,
+	}).done(function(result){
+		$.each(result, function(index, item){
+				console.log(item);
+				document.execCommand("insertImage",false,"/uploadImg/"+item);
+				document.execCommand('InsertParagraph');
+				document.execCommand('Outdent');
+				
+		})
+	});
+	
+}
+
+
+function saveSelection(){
+	var saveSelection, restoreSelection;
+	if (window.getSelection) {
+	       // IE 9 and non-IE
+	       saveSelection = function() {
+	           var sel = window.getSelection(), ranges = [];
+	           if (sel.rangeCount) {
+	               for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+	                   ranges.push(sel.getRangeAt(i));
+	               }
+	           }
+	           return ranges;
+	       };
+
+	       restoreSelection = function(savedSelection) {
+	           var sel = window.getSelection();
+	           sel.removeAllRanges();
+	           for (var i = 0, len = savedSelection.length; i < len; ++i) {
+	               sel.addRange(savedSelection[i]);
+	           }
+	       };
+	} else if (document.selection && document.selection.createRange) {
+	       // IE <= 8
+	       saveSelection = function() {
+	           var sel = document.selection;
+	           return (sel.type != "None") ? sel.createRange() : null;
+	       };
+
+	       restoreSelection = function(savedSelection) {
+	           if (savedSelection) {
+	               savedSelection.select();
+	           }
+	       };
+	}
+	
 }
 
 
@@ -145,40 +233,36 @@ function removePreview(){
 	});	
 }
 
-
+$(function(){
+	$('body').bind('focus', '#editorForm *',function(event){
+		console.log('aa');
+		console.log($(event.target));
+	})
+	
+})
 
 function imageUploadAjax() {
+	
+	var sel = document.getSelection();
+	
+	
 	$('#files').on('change',function(event) {
-						event.preventDefault();
+		
+						//$('#editorForm').focus();
+						//$('#editorForm').setSelectionRange($('div').length,$('div').length);
 		                var formData = new FormData($('#image_form')[0]);
 		                var files = $("#files")[0].files;
-		                
-		                console.log(files);
 						
+		                console.log(files);
 						for(var i = 0 ; i<files.length; i++){
 							formData.append("fileObj", files[i]);
+							
 						}
-						console.log(formData.get("fileObj"));
+						
+						console.log(formData);
+						
 						// Ajax call for file uploaling
-						$.ajax({
-									/*enctype : 'multipart/form-data',*/
-									url : '/rest/board/imageUpload',
-									type : 'POST',
-									contentType : false,
-									processData : false,
-									data : formData,
-									success : function(result) {
-										$.each(result, function(index, item){
-											document.execCommand("insertImage",null,"/uploadImg/"+item);
-											document.execCommand('InsertParagraph');
-											document.execCommand('Outdent');
-										})
-										
-										
-										
-										
-									}
-								})
+						uploadImage(formData);
 								
 					})
 }

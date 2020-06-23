@@ -7,15 +7,21 @@
 <body>
 
 
-	<th:block th:fragment="temporaryPostList(temporaryPostList)">
-		<a th:each="temporaryPostList : ${temporaryPostList} " type="button"
+	<th:block th:fragment="temporaryPostList(temporaryPostList,temporaryNo)">
+	<div class="temporaryElement">
+		<a 	th:if="${temporaryNo != temporaryPostList.temporaryNo}"
+			th:each="temporaryPostList : ${temporaryPostList} " type="button"
 			th:href="@{/getTemporaryPost/{temporaryNo}(temporaryNo=${temporaryPostList.temporaryNo})}"
 			class="btn btn-info btn-square btn-outline-dashed waves-effect waves-light">
 			<i class="fas fa-share-square"></i> <span
 			th:text="${temporaryPostList.temporaryTitle}" class="temp_title">
 				[엄쌤]머리에 쏙쏙 SQLD</span> <span th:text="${temporaryPostList.temporaryDate}"
-			class="temp_date">2020.06.04 12:22</span> <!-- <input th:value="${temporaryPostList.temporaryNo}" name="temporaryNo" type="hidden"> -->
+			class="temp_date">2020.06.04 12:22</span> 
+			<div class="removeTempWrapper">
+			<i th:temporaryNo=${temporaryPostList.temporaryNo} class="fas fa-times-circle removeTemporary"></i>
+			</div>
 		</a>
+		</div>
 		<p>저장된 글은 저장일로부터 30일동안 보관됩니다.</p>
 	</th:block>
 

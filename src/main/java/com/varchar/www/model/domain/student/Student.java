@@ -4,10 +4,6 @@ import java.sql.Date;
 
 import lombok.Data;
 
-
-
-
-
 @Data
 public class Student {
 	private String userId;
@@ -25,5 +21,4 @@ public class Student {
 	private String userRemark;
 	private String schoolName;
 
-	
 }

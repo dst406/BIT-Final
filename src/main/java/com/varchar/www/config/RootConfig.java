@@ -11,9 +11,7 @@ public class RootConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/uploadImg/**")
-                //.addResourceLocations("file:///D:/img/");
-                .addResourceLocations("file:D:/varchar/images/");
-        
+                .addResourceLocations("file:C:/varchar/uploadImg/");
         registry.addResourceHandler("/css/**")
                 .addResourceLocations("classpath:/static/css/");
         registry.addResourceHandler("/js/**")
