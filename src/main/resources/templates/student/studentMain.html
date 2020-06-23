@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/studentLayout">
+<head>
+<meta charset="UTF-8">
+<title>학생메인페이지</title>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="page-wrapper">
+			<!-- Page Content-->
+			<!-- 학생 INFO 시작  -->
+			<div class="page-content-tab">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="met-profile">
+										<div class="row">
+											<div class="col-lg-12 align-self-center mb-3 mb-lg-0">
+												<div class="met-profile-main">
+													<div class="met-profile-main-pic">
+														<img src="img/human.png" alt="" height="100"
+															class="rounded-circle">
+													</div>
+													<div class="met-profile_user-detail">
+														<h5 class="met-user-name">동송현 님 환영합니다.</h5>
+													</div>
+													<!-- 시간표 시작 -->
+													<div th:include="/util/scheduleForm.html"></div>
+													<!-- 캘린더 시작 -->
+													<div th:include="/util/calendarDefaultForm.html"></div>
+													<!--  캘린더 끝 -->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

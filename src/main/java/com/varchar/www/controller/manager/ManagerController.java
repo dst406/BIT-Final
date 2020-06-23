@@ -12,7 +12,8 @@ import com.varchar.www.model.service.ManagerService;
 
 @Controller
 public class ManagerController {
-	
+
+
 	@Autowired
 	private ManagerService managerService;
 	
@@ -29,8 +30,6 @@ public class ManagerController {
 		model.addAttribute("manager",managerService.getManagerInfo("1"));
 		model.addAttribute("getManagerCareer", managerService.getManagerCareer("kojae2020"));
 		return"manager/getManagerInfo";
-	}
-	
-	
+	}	
 	
 }

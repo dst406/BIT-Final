@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.varchar.www.model.dao.TeacherDAO;
+
 import com.varchar.www.model.domain.manager.Attendance;
 import com.varchar.www.model.domain.manager.CareerVO;
 import com.varchar.www.model.domain.teacher.Teacher;
@@ -14,6 +15,7 @@ import com.varchar.www.model.service.TeacherService;
 
 @Service
 public class TeacherServiceImpl implements TeacherService{
+
 	
 	@Autowired
 	private TeacherDAO teacherdao;
@@ -85,6 +87,4 @@ public class TeacherServiceImpl implements TeacherService{
 		return teacherdao.getgetAttendanceType(attendanceStateName);
 	}
 
-
-	
 }

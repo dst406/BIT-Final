@@ -20,9 +20,6 @@ public class JavaBeanConfiguration {
 	
 	@Bean
 	public LogAspectJ logAspectJ() { return new LogAspectJ(); }
-	
-
-	
 	 
 	//  @Bean public Season season() {return new Season();}
 	 

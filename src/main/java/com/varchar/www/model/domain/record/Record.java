@@ -1,5 +1,6 @@
 package com.varchar.www.model.domain.record;
 
+import java.sql.Date;
 
 import lombok.Data;
 
@@ -20,4 +21,3 @@ public class Record {
 	private int avg;
 	private String rank;
 }
-

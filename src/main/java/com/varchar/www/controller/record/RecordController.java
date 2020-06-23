@@ -22,7 +22,7 @@ public class RecordController {
 		return "record/recordManagement";
 	}
 	
-	@GetMapping("/recordRegist")
+	@GetMapping("/recordRegist/{userId}")
 	public String recordRegist() {
 	
 		

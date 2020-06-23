@@ -17,11 +17,13 @@ public class RecordServiceImpl implements RecordService {
 
 	@Override
 	public List<Record> getRecordList() {
+
 		return recordDAO.getRecordList();
 	}
 
 	@Override
 	public List<Record> getStudentRecord(String userId) {
+
 		return recordDAO.getStudentRecord(userId);
 	}
 	

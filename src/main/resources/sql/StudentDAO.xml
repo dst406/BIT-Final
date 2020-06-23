@@ -13,8 +13,6 @@
 		and u.academic_type_code = a.academic_type_code
 	</select>
 	
-	
-	
 	<insert id="insertStudent" parameterType="com.varchar.www.model.domain.student.Student">
 		insert into academy_user(user_id, user_name, authority_code, academic_type_code, user_birth, user_tel, user_parent_tel, school_name, user_address, user_remark, user_registration, user_image) 
 		values ('187-'||userSeq.nextval, #{userName}, '3',#{academicTypeCode},#{userBirth}, #{userTel}, #{userParentTel}, #{schoolName}, #{userAddress}, #{userRemark}, (select sysdate from dual), #{userImage})

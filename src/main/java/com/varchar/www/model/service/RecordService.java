@@ -11,4 +11,3 @@ public interface RecordService {
 	List<Record> getRecordList();
 	List<Record> getStudentRecord(String userId);
 }
-
