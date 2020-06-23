@@ -99,13 +99,13 @@
 
 										</div>
 										<div class="postListNavButton">
-											<button class="postListBtn postListPrevBtn" disabled="">
+											<button class="postListBtn postListPrevBtn" disabled>
 												<svg stroke="currentColor" fill="currentColor"
 													stroke-width="0" viewBox="0 0 24 24" height="1em"
 													width="1em" xmlns="http://www.w3.org/2000/svg">
 														<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg>
 											</button>
-											<button class="postListBtn postListNextBtn">
+											<button class="postListBtn postListNextBtn" disabled>
 												<svg stroke="currentColor" fill="currentColor"
 													stroke-width="0" viewBox="0 0 24 24" height="1em"
 													width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -158,8 +158,8 @@
 			</div>
 		</div>
 		<script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@9.15.1/dist/sweetalert2.all.min.js}"></script>
+		<script th:src="@{/js/post/post.js}"  type="text/javascript"></script>
 		<script th:src="@{/js/post/comment.js}"  type="text/javascript"></script>
-		 <script th:src="@{/js/board.js}"></script> 
 		<script th:src="@{/js/editor/boardEditor.js}"></script>
 		<script th:src="@{/js/editor/editEventTrigger.js}"></script>
 	</div>

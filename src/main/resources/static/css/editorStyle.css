@@ -438,7 +438,7 @@ img { width:100%; }
     padding: 0px;
 }
 
-.postListNavButton .postListPrevBtn:disabled{
+.postListNavButton .postListBtn:disabled{
 	cursor: default;
     color: rgb(206, 212, 218);
     background: rgb(241, 243, 245);
