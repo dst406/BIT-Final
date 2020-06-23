@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.nav-link-more-group {
+	position: absolute;
+	right: 0;
+	top:10px;
+}
+
+.error{
+	color:red;
+}
+
+/* .edit-able:hover{
+	background: black;
+    opacity: .2;
+} */

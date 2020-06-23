@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div class="editBoardGroupPanelWrapper">
+		<div class="editBoardGroupPanel">
+			<div class="boardGroupPanelHeader">
+				<span
+					class="boardGroupHeaderTitle">Page</span>
+				<div class="boardGroupPanelHeaderClose"
+					role="presentation">
+					
+					<!--  close( <- ) 아이콘   -->
+					<svg preserveAspectRatio="xMidYMid meet" fill="none"
+						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+						stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+						stroke="currentColor" class="icon_medium">
+						<g>
+						<line x1="19" y1="12" x2="5" y2="12"></line>
+						<polyline points="12 19 5 12 12 5"></polyline></g></svg>
+				</div>
+			</div>
+			<div
+				class="boardGroupPanelBody">
+				<form class="boardGroupDataForm">
+				
+				<!--  Title Start -->
+					<div
+						class="formGroupElement">
+						<div
+							class="bottomFlexWrapper">
+							<span
+								class="textFamilyGreyBase">Title</span>
+						</div>
+						<div aria-label=""
+							class="formInputWrapper">
+							<div class="formInputInnerSizer">
+								<input maxlength="100" type="text"
+									class="inputInnerMedium" value="홀리몰리">
+							</div>
+						</div>
+					</div>
+					<!--  Title End -->
+					
+					
+					<!--  Slug Start -->
+					<div
+						class="formGroupElement">
+						<div
+							class="bottomFlexWrapper">
+							<span
+								class="textFamilyGreyBase">SLUG</span>
+						</div>
+						<div aria-label=""
+							class="formInputWrapper">
+							<div class="formInputInnerSizer">
+								<input maxlength="100" type="text"
+									class="inputInnerMedium" value="undefined">
+							</div>
+						</div>
+					</div>
+					
+					<!--  Slug End -->
+					
+					<!-- EditGroup Footer Start -->
+					
+					
+					<!--  Cancle button start -->
+					<div class="boardGroupPanelFooter">
+						<div class="actions">
+							<div class="actionsSecondary">
+								<button
+									class="buttonMediumGrayBase"
+									type="button">
+									<span
+										class="textFamilyButtonGrayBase">Cancel</span>
+								</button>
+							</div>
+							<!--  Cancle button end -->
+							
+							<div class="actionPrimary">
+								<button
+									class="buttonMediumBlueBase">
+									<span
+										class="textFamilyButtonBlueBase">Save</span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<!-- EditGroup Footer End -->
+					
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

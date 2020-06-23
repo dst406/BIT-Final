@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/popupLayout">
+<head>
+<meta charset="UTF-8">
+<title>학생정보수정</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="page-wrapper">
+			<!-- Page Content-->
+			<div class="page-content-tab">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="text-center">
+								<h4 class="page-title">학생정보 수정</h4>
+							</div>
+							<!--end page-title-box-->
+						</div>
+						<!--end col-->
+					</div>
+
+					<!-- 학생 정보 입력칸 시작  -->
+					<div class="row">
+						<div class="met-profile-main-pic col-lg-4"
+							style="display: list-itemflex; margin: auto;">
+							<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
+								<div class="met-profile-main-pic">
+									<img src="img/human.png" alt="" height="100"
+										class="rounded-circle"> <span
+										class="fro-profile_main-pic-change"><i
+										class="fas fa-camera" aria-hidden="true"></i></span>
+								</div>
+							</div>
+						</div>
+						<div class="align-self-center  col-lg-12" style="">
+							<div class="met-profile-main">
+
+								<div class="met-profile_user-detail"></div>
+								<div class="col-lg-4" style="margin: auto;">
+									<form class="form-horizontal form-material mb-0"
+										th:action="@{/modifyStudent}" th:method="POST">
+										<div class="form-group">
+											<input th:value="${studentInfo.userId}" type="hidden"
+												name="userId"> 이름 <input type="text"
+												class="form-control" th:value="${studentInfo.userName}"
+												name="userName">
+											<p></p>
+											생년월일 <input type="date" class="form-control"
+												th:value="${studentInfo.userBirth}" name="userBirth">
+											<p></p>
+											연락처 <input type="text" class="form-control"
+												th:value="${studentInfo.userTel}" name="userTel">
+											<p></p>
+											보호자연락처 <input type="text" class="form-control"
+												th:value="${studentInfo.userParentTel}" name="userParentTel">
+											<p></p>
+											학교명 <input type="text" class="form-control"
+												th:value="${studentInfo.schoolName}" name="schoolName">
+											<p></p>
+											문/이과 <select class="form-control" name="academicTypeCode">
+												<option value="0">선택</option>
+												<option value="1">문과</option>
+												<option value="2">이과</option>
+											</select> 주소 <input type="text" th:value="${studentInfo.userAddress}"
+												name="userAddress" class="form-control">
+											<p></p>
+										</div>
+										특이사항
+										<div class="form-group">
+											<textarea rows="5" th:value="${studentInfo.userRemark}"
+												name="userRemark" class="form-control"></textarea>
+											<button
+												class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
+												onclick="studentRegistClose();">수정완료</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--  학생입력칸 종료 -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

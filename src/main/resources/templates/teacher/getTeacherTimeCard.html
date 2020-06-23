@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/managerLayout"> -->
+<head>
+<meta charset="UTF-8">
+<title>강사-출퇴근기록</title>
+</head>
+<body>
+<h1>강사의 출퇴근 기록부 입니다.</h1>
+<table border="1">
+												<thead>
+													<tr>
+														<th>번호</th>
+														<th>강사명</th>
+														<th>출근시간</th>
+														<th>퇴근시간</th>
+														<th>연락처</th>
+														<th>상태</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="attendance : ${getTeacherTimeCard}">
+														<td th:text="${attendanceStat.count}"></td>
+														<td th:text="${attendance.userName}"></td>
+														<td th:text="${attendance.attendanceComeTime}"></td>
+														<td th:text="${attendance.attendanceGoTime}"></td>
+														<td th:text="${attendance.userTel}"></td>
+														<td th:text="${attendance.attendanceStateName}"></td>
+													</tr>
+
+												</tbody>
+											</table>
+
+</body>
+</html>

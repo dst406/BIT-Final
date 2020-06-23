@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<th:block th:fragment="getReReplyList(replyInReplyComment,replyCommentNo)">
+			<div class="comment_reply_view_wrapper "
+				th:each="replyComment : ${replyInReplyComment}">
+				<div class="comment_read_container ">
+					<div class="comment_read_domain">
+						<div class="comment_read_header">
+							<div class="comment_profile">
+								<div class="comment_info">
+									<div class="username">
+										<a th:text="${replyComment.userId}" href="/@wassup_">wassup_</a>
+									</div>
+									<div th:text="${replyComment.commentDate}" class="date">2020년
+										5월 15일</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="comment_read_content reply">
+						<p th:text="${replyComment.commentContent}">tot은 본적있는데 tit은 진짜
+							:facepalm:입니다;</p>
+					</div>
+					<div class="comment_reply_wrapper">
+
+						
+					</div>
+					
+				<!-- <th:block th:if="${replyCommentStat.last}">
+					<hr class="gray_hr">
+					<button class="commnet_reply_write_content active"> 답글 작성하기 </button>
+				</th:block> -->
+					<!-- <div class="comment_write_wrapper">
+						<textarea name="commentContent" placeholder="답글을 작성하세요"
+							class="comment_content" style="height: 70px;"></textarea>
+						<div class="button_wrapper">
+							<button color="gray" class="cancel_comment">취소</button>
+							<button th:data-comment-no="${commentNo}"
+								type="submit" color="teal" class="write_reply mg-left-10">답글
+								작성</button>
+						</div>
+					</div> -->
+
+
+				</div>
+			</div>
+
+	</th:block>
+</body>
+</html>

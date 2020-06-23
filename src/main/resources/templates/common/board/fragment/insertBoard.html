@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<th:block th:fragment="insertBoard">
+	<div class="insertPopupContainer insertBoardContainer mfp-hide">
+		<div class="insertBoardGroupItem">
+			<div
+				class="itemCardWrapper">
+				<div class="itemCardExtra">
+					<div class="itemCardHeader">
+						<div
+							class="itemCardHeaderAuthor">
+							<span
+								class="textUIFamily">게시판
+								추가</span>
+						</div>
+					</div>
+					<div class="itemCardBody">
+						<div class="mg-top-8">
+							
+							<input type="text" placeholder="게시판명을 입력해주세요" maxlength="25"
+								class="itemCardBodyContent">
+						</div>
+					</div>
+				</div>
+				<div class="gray-line"></div>
+				<div
+					class="itemCardFooter">
+					<div
+						class="itemActivitySummary"></div>
+					<div class="itemActivityToolbar">
+						<button
+							class="itemSaveButton">
+							<span class="smallIconArea"><svg
+									preserveAspectRatio="xMidYMid meet" height="1em" width="1em"
+									fill="none" xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" stroke="currentColor"
+									class="smallIcon">
+									<g>
+									<polyline points="20 6 9 17 4 12"></polyline></g></svg></span><span
+								class="text-4505230f--UIH300-2063425d--textUIFamily-5ebd8e40--text-8ee2c8b2">등록</span>
+						</button>
+						<button
+							class="itemCloseButton">
+							<span class="iconOnly"><svg
+									preserveAspectRatio="xMidYMid meet" height="1em" width="1em"
+									fill="none" xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" stroke="currentColor"
+									class="icon-7f6730be--text-3f89f380">
+									<g>
+									<line x1="18" y1="6" x2="6" y2="18"></line>
+									<line x1="6" y1="6" x2="18" y2="18"></line></g></svg></span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</th:block>
+</body>
+</html>

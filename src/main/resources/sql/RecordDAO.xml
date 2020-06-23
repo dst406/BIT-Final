@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.varchar.www.model.dao.RecordDAO">
+	<select id="getRecordList" parameterType="String" resultType="com.varchar.www.model.domain.record.Record">
+		select u.user_id, u.user_name, u.school_name, 
+					r.age, r.korean_language, r.english, r.math, r.social, r.science, r.korean_history, r.sum, r.sum/6 as avg, r.test_no, r.record_no,
+					t.test_name,
+					r.rank
+		from academy_user u, test t,
+		(select r2.user_id user_id, r2.age age, r2.korean_language korean_language, r2.english english, r2.math math, r2.social social, r2.science science, r2.korean_history korean_history, 
+                               r2.sum sum, r2.sum/6 as avg, r2.test_no test_no, r2.record_no record_no,
+                               rank() over(partition by r2.test_no order by r2.sum desc) as rank 
+                               from record r2) r
+		where u.user_id = r.user_id
+		and r.test_no = t.test_no
+	</select>
+	
+	<select id="getStudentRecord" parameterType="String" resultType="com.varchar.www.model.domain.record.Record">
+		select u.user_id, u.user_name, u.school_name,
+				  r.age, r.korean_language, r.english, r.math, r.social, r.science, r.korean_history, r.sum, r.sum/6 as avg, r.test_no,
+				  t.test_name,
+                  r.rank
+				  from academy_user u, test t, 
+                       (select r2.user_id user_id, r2.age age, r2.korean_language korean_language, r2.english english, r2.math math, r2.social social, r2.science science, r2.korean_history korean_history, 
+                               r2.sum sum, r2.sum/6 as avg, r2.test_no test_no, 
+                               rank() over(partition by r2.test_no order by r2.sum desc) as rank 
+                               from record r2) r
+				  where u.user_id = r.user_id
+				  and r.user_id = #{userId}
+				  and r.test_no = t.test_no
+
+	</select>
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.varchar.www.model.dao.ApprovalDAO">
+	<!-- 원장이 조회하는 전체 결재목록 -->
+	<select id="getApprovalList" resultType="com.varchar.www.model.domain.approval.ApprovalVO">
+		SELECT
+		ap.*,
+		at.approval_type_name as approval_type_name,
+		apst.approval_state_name as approval_state_name,
+		au.user_name as user_name
+		FROM approval ap
+		INNER JOIN approval_type at on ap.approval_type_code =
+		at.approval_type_code
+		INNER JOIN approval_state apst on apst.approval_state_code =
+		ap.approval_state_code
+		INNER JOIN academy_user au on ap.user_id = au.user_id
+		ORDER BY approval_register_date DESC
+		
+	</select>
+
+	<!-- 강사가 조회하는 자신의 결재목록 -->
+	<select id="getMyApprovalList" parameterType="String" resultType="com.varchar.www.model.domain.approval.ApprovalVO">
+		SELECT
+		ap.*,
+		at.approval_type_name as approval_type_name,
+		apst.approval_state_name as approval_state_name
+		FROM approval ap
+		INNER JOIN approval_type at on ap.approval_type_code =
+		at.approval_type_coder
+		INNER JOIN approval_state apst on apst.approval_state_code =
+		ap.approval_state_code 
+		WHERE user_id= #{userId}
+	</select>
+	
+	<select id="getApprovalType" parameterType="String" resultType="com.varchar.www.model.domain.approval.ApprovalVO">
+		SELECT
+		ap.*,
+		at.approval_type_name as approval_type_name,
+		apst.approval_state_name as approval_state_name,
+		au.user_name as user_name
+		FROM approval ap
+		INNER JOIN approval_type at on ap.approval_type_code =
+		at.approval_type_code
+		INNER JOIN approval_state apst on apst.approval_state_code =
+		ap.approval_state_code
+		INNER JOIN academy_user au on ap.user_id = au.user_id
+		WHERE apst.approval_state_name = #{approvalType}
+		ORDER BY approval_register_date DESC
+	</select>
+	
+	<!-- 원장이 하는 결재승인 -->
+	<update id="updateApprovalAllow" parameterType="String">
+		UPDATE approval SET approval_state_code = 'APPROVAL_ALLOW' WHERE approval_no = #{approvalNo}
+	</update>
+	
+	<!-- 원장이하는 결재반려 -->
+	<update id="updateApprovalReject" parameterType="String">
+		UPDATE approval SET approval_state_code = 'APPROVAL_REJECT' WHERE approval_no = #{approvalNo}
+	</update>
+</mapper>

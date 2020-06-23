@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<<<<<<< HEAD
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/teacherLayout">
+<head>
+<meta charset="UTF-8">
+<title>성적관리</title>
+<script language="javascript">
+	function recordRegist() {
+		window.open("recordRegist", "성적등록",
+				"width=800, height=800, left=100, top=50");
+	}
+</script>
+</head>
+<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<body>
+	<div layout:fragment="content">
+		<div class="page-wrapper">
+			<!-- Page Content-->
+			<div class="page-content-tab">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box">
+
+								<h4 class="page-title">성적관리</h4>
+							</div>
+							<!--end page-title-box-->
+						</div>
+						<!--end col-->
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-body">
+									<button type="button"
+										class="btn btn-primary waves-effect waves-light float-right mb-3"
+										data-toggle="modal" data-animation="bounce"
+										data-target=".bs-example-modal-lg" style="margin-left: 10px;"
+										onclick="recordRegist()">성적 등록</button>
+									<button type="button"
+										class="btn btn-primary waves-effect waves-light float-right mb-3"
+										data-toggle="modal" data-animation="bounce"
+										data-target=".bs-example-modal-lg">액셀로 추가</button>
+									<h4 class="header-title mt-0 mb-3">학교</h4>
+									<div class="table-responsive dash-social">
+										<div id="datatable_wrapper"
+											class="dataTables_wrapper dt-bootstrap4 no-footer">
+											<div class="row">
+												<div class="col-sm-12 col-md-6">
+													<div class="dataTables_length" id="datatable_length">
+														<label>시험 <select name="datatable_length"
+															aria-controls="datatable"
+															class="custom-select custom-select-sm form-control form-control-sm">
+																<option value="10">전체</option>
+																<option value="25">1학기 중간고사</option>
+																<option value="50">1학기 기말고사</option>
+																<option value="100">2학기 중간고사</option>
+																<option value="100">2학기 기말고사</option>
+														</select>
+														</label> <label>학년 <select name="datatable_length"
+															aria-controls="datatable"
+															class="custom-select custom-select-sm form-control form-control-sm">
+																<option value="10">전체</option>
+																<option value="25">고등학교 3학년</option>
+																<option value="50">고등학교 2학년</option>
+																<option value="100">고등학교 1학년</option>
+																<option value="100">중학교 3학년</option>
+																<option value="100">중학교 2학년</option>
+																<option value="100">중학교 1학년</option>
+														</select>
+														</label>
+													</div>
+
+												</div>
+												<div class="col-sm-12 col-md-6">
+													<div id="datatable_filter" class="dataTables_filter">
+														<label>Search:<input type="search"
+															class="form-control form-control-sm"
+															placeholder="이름 / 학년 / 학교 / 시험명"
+															aria-controls="datatable"></label>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12">
+													<table id="datatable" class="table dataTable no-footer"
+														role="grid" aria-describedby="datatable_info">
+														<thead class="thead-light">
+															<tr role="row">
+																<th class="sorting_asc" style="width: 50px;">학생번호</th>
+																<th class="sorting" style="width: 50px;">이름</th>
+																<th class="sorting" style="width: 40px;">학년</th>
+																<th class="sorting" style="width: 80px;">학교</th>
+																<th class="sorting" style="width: 130px;">시험명</th>
+																<th class="sorting" style="width: 60px;">국어</th>
+																<th class="sorting" style="width: 60px;">영어</th>
+																<th class="sorting" style="width: 60px;">수학</th>
+																<th class="sorting" style="width: 60px;">사회</th>
+																<th class="sorting" style="width: 60px;">과학</th>
+																<th class="sorting" style="width: 70px;">한국사</th>
+																<th class="sorting" style="width: 60px;">총점</th>
+																<th class="sorting" style="width: 60px;">평균</th>
+																<th class="sorting" style="width: 60px;">석차</th>
+															</tr>
+															<!--end tr-->
+														</thead>
+														<tbody>
+															<tr th:each="record : ${recordList}" role="row"
+																class="odd">
+																<td th:text="${record.userId}"></td>
+																<td th:text="${record.userName}"></td>
+																<td th:text="${record.age}"></td>
+																<td th:text="${record.schoolName}"></td>
+																<td th:text="${record.testName}"></td>
+																<td th:text="${record.koreanLanguage}"></td>
+																<td th:text="${record.english}"></td>
+																<td th:text="${record.math}"></td>
+																<td th:text="${record.social}"></td>
+																<td th:text="${record.science}"></td>
+																<td th:text="${record.koreanHistory}"></td>
+																<td th:text="${record.sum}"></td>
+																<td th:text="${record.avg}"></td>
+																<td th:text="${record.rank}"></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12 col-md-5"></div>
+												<div class="col-sm-12 col-md-7">
+													<div class="dataTables_paginate paging_simple_numbers"
+														id="datatable_paginate">
+														<ul class="pagination">
+															<li class="paginate_button page-item previous disabled"
+																id="datatable_previous"><a href="#"
+																aria-controls="datatable" data-dt-idx="0" tabindex="0"
+																class="page-link">이전</a></li>
+															<li class="paginate_button page-item active"><a
+																href="#" aria-controls="datatable" data-dt-idx="1"
+																tabindex="0" class="page-link">1</a></li>
+															<li class="paginate_button page-item"><a href="#"
+																aria-controls="datatable" data-dt-idx="1" tabindex="0"
+																class="page-link">2</a></li>
+															<li class="paginate_button page-item"><a href="#"
+																aria-controls="datatable" data-dt-idx="1" tabindex="0"
+																class="page-link">3</a></li>
+															<li class="paginate_button page-item"><a href="#"
+																aria-controls="datatable" data-dt-idx="1" tabindex="0"
+																class="page-link">4</a></li>
+															<li class="paginate_button page-item next"
+																id="datatable_next"><a href="#"
+																aria-controls="datatable" data-dt-idx="2" tabindex="0"
+																class="page-link">다음</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--end card-body-->
+							</div>
+							<!--end card-->
+						</div>
+						<!--end col-->
+					</div>
+
+					<div class="row mg-top30">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-body">
+									<button type="button"
+										class="btn btn-primary waves-effect waves-light float-right mb-3"
+										data-toggle="modal" data-animation="bounce"
+										data-target=".bs-example-modal-lg" style="margin-left: 10px;"
+										onclick="recordRegist()">성적 등록</button>
+
+									<button type="button"
+										class="btn btn-primary waves-effect waves-light float-right mb-3"
+										data-toggle="modal" data-animation="bounce"
+										data-target=".bs-example-modal-lg">액셀로 추가</button>
+									<h4 class="header-title mt-0 mb-3">학원</h4>
+
+									<div class="table-responsive dash-social">
+										<div id="datatable_wrapper"
+											class="dataTables_wrapper dt-bootstrap4 no-footer">
+											<div class="row">
+												<div class="col-sm-12 col-md-6">
+													<div class="dataTables_length" id="datatable_length">
+														<label>시험 <select name="datatable_length"
+															aria-controls="datatable"
+															class="custom-select custom-select-sm form-control form-control-sm">
+																<option value="10">전체</option>
+																<option value="10">3월 사설모의평가</option>
+																<option value="25">4월 사설모의평가</option>
+																<option value="50">5월 사설모의평가</option>
+														</select>
+														</label> <label>학년 <select name="datatable_length"
+															aria-controls="datatable"
+															class="custom-select custom-select-sm form-control form-control-sm">
+																<option value="10">전체</option>
+																<option value="25">고등학교 3학년</option>
+																<option value="50">고등학교 2학년</option>
+																<option value="100">고등학교 1학년</option>
+																<option value="100">중학교 3학년</option>
+																<option value="100">중학교 2학년</option>
+																<option value="100">중학교 1학년</option>
+														</select>
+														</label>
+													</div>
+												</div>
+												<div class="col-sm-12 col-md-6">
+													<div id="datatable_filter" class="dataTables_filter">
+														<label style="width: 300px;">Search:<input
+															type="search" class="form-control form-control-sm"
+															placeholder="이름 / 학년 / 학교 / 시험명"
+															aria-controls="datatable"></label>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12">
+													<table id="datatable" class="table dataTable no-footer"
+														role="grid" aria-describedby="datatable_info">
+														<thead class="thead-light">
+															<tr role="row">
+																<th class="sorting_asc" style="width: 50px;">학생번호</th>
+																<th class="sorting" style="width: 50px;">이름</th>
+																<th class="sorting" style="width: 40px;">학년</th>
+																<th class="sorting" style="width: 80px;">학교</th>
+																<th class="sorting" style="width: 130px;">시험명</th>
+																<th class="sorting" style="width: 60px;">국어</th>
+																<th class="sorting" style="width: 60px;">영어</th>
+																<th class="sorting" style="width: 60px;">수학</th>
+																<th class="sorting" style="width: 60px;">사회</th>
+																<th class="sorting" style="width: 60px;">과학</th>
+																<th class="sorting" style="width: 70px;">한국사</th>
+																<th class="sorting" style="width: 60px;">총점</th>
+																<th class="sorting" style="width: 60px;">평균</th>
+																<th class="sorting" style="width: 60px;">석차</th>
+															</tr>
+															<!--end tr-->
+														</thead>
+														<tbody>
+															<tr role="row" class="odd">
+																<td>2039D930A</td>
+																<td>동송현</td>
+																<td>고3</td>
+																<td>세화고</td>
+																<td>1학기 중간고사</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>480</td>
+																<td>80</td>
+																<td>3/30</td>
+															</tr>
+															<tr role="row" class="odd">
+																<td>2039D930A</td>
+																<td>동송현</td>
+																<td>고3</td>
+																<td>세화고</td>
+																<td>1학기 중간고사</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>480</td>
+																<td>80</td>
+																<td>3/30</td>
+															</tr>
+															<tr role="row" class="odd">
+																<td>2039D930A</td>
+																<td>동송현</td>
+																<td>고3</td>
+																<td>세화고</td>
+																<td>1학기 중간고사</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>480</td>
+																<td>80</td>
+																<td>3/30</td>
+															</tr>
+															<tr role="row" class="odd">
+																<td>2039D930A</td>
+																<td>동송현</td>
+																<td>고3</td>
+																<td>세화고</td>
+																<td>1학기 중간고사</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>480</td>
+																<td>80</td>
+																<td>3/30</td>
+															</tr>
+															<tr role="row" class="odd">
+																<td>2039D930A</td>
+																<td>동송현</td>
+																<td>고3</td>
+																<td>세화고</td>
+																<td>1학기 중간고사</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>480</td>
+																<td>80</td>
+																<td>3/30</td>
+															</tr>
+															<tr role="row" class="odd">
+																<td>2039D930A</td>
+																<td>동송현</td>
+																<td>고3</td>
+																<td>세화고</td>
+																<td>1학기 중간고사</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>480</td>
+																<td>80</td>
+																<td>3/30</td>
+															</tr>
+															<tr role="row" class="odd">
+																<td>2039D930A</td>
+																<td>동송현</td>
+																<td>고3</td>
+																<td>세화고</td>
+																<td>1학기 중간고사</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>480</td>
+																<td>80</td>
+																<td>3/30</td>
+															</tr>
+															<tr role="row" class="odd">
+																<td>2039D930A</td>
+																<td>동송현</td>
+																<td>고3</td>
+																<td>세화고</td>
+																<td>1학기 중간고사</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>480</td>
+																<td>80</td>
+																<td>3/30</td>
+															</tr>
+															<tr role="row" class="odd">
+																<td>2039D930A</td>
+																<td>동송현</td>
+																<td>고3</td>
+																<td>세화고</td>
+																<td>1학기 중간고사</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>480</td>
+																<td>80</td>
+																<td>3/30</td>
+															</tr>
+															<tr role="row" class="odd">
+																<td>2039D930A</td>
+																<td>동송현</td>
+																<td>고3</td>
+																<td>세화고</td>
+																<td>1학기 중간고사</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>80</td>
+																<td>480</td>
+																<td>80</td>
+																<td>3/30</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12 col-md-5"></div>
+												<div class="col-sm-12 col-md-7">
+													<div class="dataTables_paginate paging_simple_numbers"
+														id="datatable_paginate">
+														<ul class="pagination">
+															<li class="paginate_button page-item previous disabled"
+																id="datatable_previous"><a href="#"
+																aria-controls="datatable" data-dt-idx="0" tabindex="0"
+																class="page-link">이전</a></li>
+															<li class="paginate_button page-item active"><a
+																href="#" aria-controls="datatable" data-dt-idx="1"
+																tabindex="0" class="page-link">1</a></li>
+															<li class="paginate_button page-item"><a href="#"
+																aria-controls="datatable" data-dt-idx="1" tabindex="0"
+																class="page-link">2</a></li>
+															<li class="paginate_button page-item"><a href="#"
+																aria-controls="datatable" data-dt-idx="1" tabindex="0"
+																class="page-link">3</a></li>
+															<li class="paginate_button page-item"><a href="#"
+																aria-controls="datatable" data-dt-idx="1" tabindex="0"
+																class="page-link">4</a></li>
+															<li class="paginate_button page-item next"
+																id="datatable_next"><a href="#"
+																aria-controls="datatable" data-dt-idx="2" tabindex="0"
+																class="page-link">다음</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--end card-body-->
+							</div>
+							<!--end card-->
+						</div>
+						<!--end col-->
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

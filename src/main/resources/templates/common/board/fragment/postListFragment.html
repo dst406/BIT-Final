@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+		<div class="row" th:fragment="boardPostList(posts, boardNo)">
+			<ul th:each="post : ${posts}" class="article-post-list">
+				<li>
+					<div class="post-list-contents">
+						<div class="post-list-contents-header">
+							<div class="row">
+							
+								<div class="col-lg-10">
+									<div class="post-list-title">
+									
+										<a th:href="@{/getPost/{boardNo}/{postNo}(boardNo=${boardNo},postNo=${post.postNo})}"> 
+										<strong th:text="${post.postTitle}">Sql execution plan 문의드려요. 완전
+												초보입니다ㅠㅠ</strong></a>
+									</div>
+									<div class="post-list-info">
+									
+										<th:block th:text="${post.postPreview}">부서번호에 Int형이 와야되는데 문자형이 오면 에러 발생하지 않나요? 이게 도메인 무결성
+											제약조건이랑은 상관없는거같은데.. 4번은 기존의 자재부가 있어서 참조무결성위배 맞지않나요? 부서번호에
+											Int형이 와야되는데 문자형이 오면 에러 발생하지 않나요? 이게 도메인 무결성 제약조건이랑은
+											상관없는거같은데.. 4번은 기존의 자재부가 있어서 참조무결성위배 맞지않나요?</th:block>
+									</div>
+								</div>
+								<div th:if="${post.postThumbnail != null}" class="col-lg-2">
+									<img  th:src="@{${post.postThumbnail}}">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="post-list-contents-bottom">
+								<div class="col-lg-12">
+									<a th:text="${post.userId}">고재현</a>
+									<p class="postDate" th:text="${post.postsDate}">2020.05.18</p>
+									<p th:text="'조회수 &nbsp;'+${post.postViews}">조회수 30</p>
+									<p th:text="'댓글 '+${post.countComment}">댓글 2</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+</body>
+</html>
