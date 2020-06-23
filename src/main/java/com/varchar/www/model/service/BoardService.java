@@ -10,7 +10,6 @@ import com.varchar.www.model.domain.board.TemporaryPost;
 import com.varchar.www.model.domain.board.TemporaryPostList;
 import com.varchar.www.model.domain.comment.Comment;
 
-
 public interface BoardService {
 	List<BoardGroupList> getNavbar(String userId);
 	void insertBoardGroup(String content, String lectureCode);
@@ -23,6 +22,7 @@ public interface BoardService {
 	List<Posts> getSearchDatePostList(int boardNo, String startDate, String endDate);
 	void insertTemporaryPost(TemporaryPost temporaryPost);
 	TemporaryPost getTemporaryPost(int temporaryNo);
+	void deleteTemporaryPost(int temporaryNo);
 	void insertPostComment(Comment comment, int postNo);
 	void insertReply(Comment comment, int postNo);
 }

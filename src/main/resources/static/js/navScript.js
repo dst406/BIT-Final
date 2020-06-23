@@ -8,37 +8,9 @@ $(function(){
 	getModalFormEditPage();
 	editAbleBoard();
 	editBoardGroupTitle();
-	
-//	getModalFormEditPage();
-//	getModalFormEditPage("insertPage-popup-link",".itemCloseButton");
-
-	
 })
 
 
-
-
-//function getModalFormEditPage(){
-//	$('.menu-body').bind('click','.editBoardGroup-popup-link',function(event){
-//		console.log('1  ');
-//		event.preventDefault();
-//		var title = $(event.target).closest('.title-box').find('.edit-able').text();
-//		$('.formInputWrapper .inputInnerMedium').val(title);
-//		console.log(title);
-//		$('.editBoardGroup-popup-link').magnificPopup({
-//			type:'inline',
-//			midClick:true,
-//			showCloseBtn:false
-//		});
-//		console.log('3  ');
-//		
-//		$(".boardGroupPanelHeaderClose, .actionsSecondary").on('click',function(){
-//			$.magnificPopup.close();
-//		})
-//	})
-//	
-//}	
-//	
 
 
 
@@ -141,6 +113,10 @@ function getModalFormAddBoard(){
 				$boardGroup.closest('.main-icon-menu-pane').find('.metismenu ').addClass('active');
 				$boardGroup.closest('li').find('ul').addClass('active');
 				
+				// 변수 var , 없이 : https://hue9010.github.io/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C/JavaScript-var/
+				//    L Scope 체인
+				// $변수 , 변수   : https://seras.tistory.com/45
+				//    L Jqeury 변수, javascript변수
 				
 				//$('.main-icon-menu-pane:first-child .metismenu').addClass('active');
 				
@@ -197,29 +173,6 @@ function editBoardGroupTitle(){
 }
 
 
-//
-//function getModalFormEditPage(){
-//	$('.menu-body').bind('click','.editBoardGroup-popup-link',function(event){
-//		console.log('1  ');ㅈ
-//		event.preventDefault();
-//		var title = $(event.target).closest('.title-box').find('.edit-able').text();
-//		$('.formInputWrapper .inputInnerMedium').val(title);
-//		console.log(title);
-//		$('.editBoardGroup-popup-link').magnificPopup({
-//			type:'inline',
-//			midClick:true,
-//			showCloseBtn:false
-//		});
-//		console.log('3  ');
-//		
-//		$(".boardGroupPanelHeaderClose, .actionsSecondary").on('click',function(){
-//			$.magnificPopup.close();
-//		})
-//	})
-//	
-//}	
-	
-
 
 
 
@@ -230,18 +183,14 @@ function selectBoardGroup(){
 	$('.menu-title').on('click',function(event){
 		//moveActive('.menu-body','ul',target(event));
 		
-		var target = $(event.target);
-		target.closest('.menu-body').find('ul')
-		.removeClass('active');
-		target.closest('.main-icon-menu-pane').find('ul').addClass('active');
-		
-		var hasActive = $(this).closest('a');
-		if(hasActive.hasClass('active')){
-			
-			hasActive.closest('a').removeClass('active');
+		var $target = $(event.target);
+		$target.closest('.menu-body').find('ul').removeClass('active');
+		$hasActive = $target.closest('.main-icon-menu-pane').find('.metismenu');
+		if($hasActive.hasClass('active')){
+			$hasActive.removeClass('active');
 			return;
 		}
-		
+		$hasActive.addClass('active');
 	})
 }
 
@@ -255,10 +204,13 @@ function groupItemActive(){
 	$('.board-group').on('click',function(event){
 		var target = $(event.target); 
 		var hasActive = target.closest('li').find('ul');
+		$icon = target.closest('li').find('.nav-link-more-group > i');
+		
 		
 		if(target.hasClass('active') ){
 			target.removeClass('active');
 			hasActive.removeClass('active');
+			$icon.attr('class','fas fa-chevron-right');
 			return;
 		}
 		
@@ -266,6 +218,7 @@ function groupItemActive(){
 			console.log(hasActive.find('li').length);
 			target.addClass('active');
 			hasActive.addClass('active');
+			$icon.attr('class','fas fa-chevron-down');
 		}
 		
 		
@@ -312,6 +265,9 @@ function moveActive(removeTarget, addTarget,target){
 }	
 */
 	
+
+
+
 
 
 

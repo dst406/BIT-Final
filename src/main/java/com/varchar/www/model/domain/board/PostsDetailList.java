@@ -11,4 +11,3 @@ public class PostsDetailList {
 	private String postTitle;
 	private int postListCount;
 }
-

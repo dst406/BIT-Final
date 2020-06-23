@@ -29,7 +29,8 @@ class VarcharApplicationTests {
 	@Test
 	public void boardGroupListTest() {
 		try {
-		log.info(boardDAO.getNavbar("jin2020").toString());
+		//log.info();
+			System.out.println(boardDAO.getNavbar("jin2020").toString());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -38,7 +39,7 @@ class VarcharApplicationTests {
 	
 	//@Test
 	public void DB_CONNECT_TEST() {
-		//System.out.println(daoTest.getSeasonId());
+		System.out.println(daoTest.getSeasonId());
 	}
 	
 	public void boardGroup() {

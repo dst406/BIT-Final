@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<th:block th:fragment="getReplyList(replyList,comment)">
+		<th:block th:each="replyInReplyComment : ${replyList}">
+			<div class="comment_reply_view_wrapper "
+				th:each="replyComment : ${replyInReplyComment}">
+				<div class="comment_read_container ">
+					<div class="comment_read_domain">
+						<div class="comment_read_header">
+							<div class="comment_profile">
+								<div class="comment_info">
+									<div class="username">
+										<a th:text="${replyComment.userId}" href="/@wassup_">wassup_</a>
+									</div>
+									<div th:text="${replyComment.commentDate}" class="date">2020년
+										5월 15일</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="comment_read_content reply">
+						<p th:text="${replyComment.commentContent}">tot은 본적있는데 tit은 진짜
+							:facepalm:입니다;</p>
+					</div>
+					<div class="comment_reply_wrapper">
+
+						<div class="comment_reply_container reply_comment">
+							<svg width="12" height="12" fill="none" viewBox="0 0 12 12">
+												<path fill="currentColor"
+									d="M5.5 2.5h1v3h3v1h-3v3h-1v-3h-3v-1h3v-3z"></path>
+												<path fill="currentColor" fill-rule="evenodd"
+									d="M1 0a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm10 1H1v10h10V1z"
+									clip-rule="evenodd"></path></svg>
+							<span
+								th:if="${not #lists.isEmpty(replyComment.replyInReplyComment) }"
+								th:data-comment-length="${ #lists.size(replyComment.replyInReplyComment) }"
+								th:text="${ #lists.size(replyComment.replyInReplyComment) }+' 개의 답글'">1개의
+								글</span> <span
+								th:unless="${not #lists.isEmpty(replyComment.replyInReplyComment) }"
+								th:data-comment-length="0" th:text="답글달기"></span>
+							<!-- <span th:text="${comment.replyCommentList.commentNo}"></span> -->
+
+						</div>
+						<div class="comment_read_wrapper">
+							<div class="comment_read_container">
+								<th:block
+									th:if="${not #lists.isEmpty (replyComment.replyInReplyComment) }"
+									th:replace="~{common/board/fragment/replyInReply :: getReReplyList(${replyComment.replyInReplyComment}, ${replyComment.commentNo})}"></th:block>
+
+								<!-- 		<th:block th:if="${#lists.isEmpty (replyComment.replyInReplyComment) }">
+									<div class="comment_write_wrapper">
+										<textarea name="commentContent" placeholder="답글을 작성하세요"
+											class="comment_content" style="height: 70px;"></textarea>
+										<div class="button_wrapper">
+											<button color="gray" class="cancel_comment">취소</button>
+											<button th:data-comment-no="${replyComment.commentNo}" type="submit"
+												color="teal" class="write_reply mg-left-10">답글 작성</button>
+										</div>
+									</div>
+								</th:block> -->
+
+							</div>
+						</div>
+					</div>
+					<!-- <button class="commnet_reply_write_content active">답글
+								작성하기</button> -->
+					<!-- <th:block th:if="${replyComment.commentLevel < 2}">
+				<hr class="gray_hr">
+				<button class="commnet_reply_write_content active"> 답글 작성하기 </button>
+			</th:block> -->
+
+
+
+					<div class="comment_write_wrapper write_reply_area">
+						<textarea name="commentContent" th:placeholder="${replyComment.userId}+'님에게 답글을 작성하세요'"
+							class="comment_content" style="height: 70px;"></textarea>
+						<div class="button_wrapper">
+							<button color="gray" class="cancel_comment">취소</button>
+							<button th:data-comment-no="${replyComment.commentNo}" type="submit"
+								color="teal" class="write_reply_btn write_reply write_re_reply mg-left-10">답글 작성</button>
+						</div>
+					</div>
+				</div>
+				
+				<th:block th:if="${replyInReplyCommentStat.last}">
+					<hr class="gray_hr">
+					<button class="commnet_reply_write_content active">답글 작성하기</button>
+
+					<div class="comment_write_wrapper">
+						<textarea name="commentContent"  th:placeholder="${comment.userId}+'님에게 답글을 작성하세요'"
+							class="comment_content" style="height: 70px;"></textarea>
+						<div class="button_wrapper">
+							<button color="gray" class="cancel_comment">취소</button>
+							<button th:data-comment-no="${comment.commentNo}" type="submit"
+								color="teal" class="write_reply_btn write_reply mg-left-10">답글 작성</button>
+						</div>
+					</div>
+				</th:block>
+
+			</div>
+		</th:block>
+
+	</th:block>
+</body>
+</html>
