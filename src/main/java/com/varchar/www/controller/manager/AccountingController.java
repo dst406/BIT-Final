@@ -11,4 +11,10 @@ public class AccountingController {
 		
 		return "manager/accounting";
 	}
+	
+	@GetMapping("/test")
+	public String test() {
+		
+		return "include/tables-editable";
+	}
 }
