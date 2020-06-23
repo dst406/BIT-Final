@@ -10,14 +10,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.varchar.www.model.domain.manager.Lecture;
-import com.varchar.www.model.domain.manager.LectureRoom;
-import com.varchar.www.model.domain.manager.LectureState;
-import com.varchar.www.model.domain.manager.LectureSubject;
-import com.varchar.www.model.domain.manager.LectureTimeTable;
-import com.varchar.www.model.domain.manager.LectureVO;
+import com.varchar.www.model.domain.lecture.LectureRoom;
+import com.varchar.www.model.domain.lecture.LectureState;
+import com.varchar.www.model.domain.lecture.LectureSubject;
+import com.varchar.www.model.domain.lecture.LectureVO;
 import com.varchar.www.model.domain.manager.Season;
-import com.varchar.www.model.domain.manager.Teacher;
+import com.varchar.www.model.domain.teacher.Teacher;
 import com.varchar.www.model.service.LectureService;
 import com.varchar.www.model.service.ManagerService;
 
@@ -37,6 +35,13 @@ public class LectureController {
 		return "manager/getManagerLectureList";
 	}
 	
+	//강사가 보는 강의목록
+	@GetMapping("/getTeacehrLectureList")
+	public String getTeacherLectureList(Model model) {
+		model.addAttribute("lectureList",lectureService.getTeacherLectureList());
+		return "teacher/getTeacherLectureList";
+	}
+	
 	// 원장이 하는 강의등록페이지(강사는 불가능합니다.)
 	@GetMapping("/goInsertLecture")
 	public String goInsertLecture(@ModelAttribute LectureVO lectureVO) {
@@ -46,7 +51,7 @@ public class LectureController {
 	//강의 조회 페이지 입니다.
 	@GetMapping("/getLectureInfo/{lecture_code}")
 	public String getLectureInfo(@PathVariable String lecture_code, Model model) {
-		model.addAttribute("lectureInfo", lectureService.getLectureInfo(lecture_code));
+		model.addAttribute("lecture", lectureService.getLectureInfo(lecture_code));
 		return "lecture/getLectureInfo";
 	}
 	
@@ -55,6 +60,25 @@ public class LectureController {
 	public String insertLecture(LectureVO lectureVO) {
 		lectureService.insertLecture(lectureVO);
 		return "redirect:/getManagerLectureList";
+	}
+	
+	//원장이 강의를 삭제
+	@GetMapping("/deleteLecture/{lectureCode}")
+	public String deleteLecture(@PathVariable String lectureCode) {
+		lectureService.deleteLecture(lectureCode);
+		return"redirect:/getManagerLectureList";
+	}
+	
+	//원장이조희할 수 있는 강의실 목록
+	@GetMapping("/getManagerLectureRoomList")
+	public String getManagerLectureRoomList() {
+		return "lecture/getManagerLectureRoomList";
+	}
+	
+	//렉쳐뷰 테스트
+	@GetMapping("/lectureView")
+	public String lectureView() {
+		return "teacher/lectureView";
 	}
 	
 	
@@ -82,6 +106,7 @@ public class LectureController {
 	public List<LectureState> lectureStateList(){
 		return lectureService.getLectureStateList();
 	}
+	
 	
 	
 	

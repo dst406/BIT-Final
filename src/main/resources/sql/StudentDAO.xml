@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.varchar.www.model.dao.StudentDAO">
+	<select id="getStudentList" parameterType="String" resultType="com.varchar.www.model.domain.student.Student">
+		SELECT * FROM academy_user WHERE authority_code = #{authority_code}
+	</select>
+	
+	<select id="getStudentInfo" parameterType="String" resultType="com.varchar.www.model.domain.student.Student">
+		SELECT * FROM academy_user WHERE user_id = #{user_id}
+	</select>
+	
+	<insert id="insertStudent" parameterType="com.varchar.www.model.domain.student.Student">
+		INSERT INTO academy_user(user_id, user_name, authority_code, academic_type_code, user_birth, user_tel, user_parent_tel, school_name, user_address, user_remark, user_registration, user_image) 
+		VALUES ('187-'||userSeq.nextval, #{user_name}, '3',#{academic_type_code},#{user_birth}, #{user_tel}, #{user_parent_tel}, #{school_name}, #{user_address}, #{user_remark}, (select sysdate from dual), #{user_image})
+
+	</insert>
+	
+	<update id="modifyStudent" parameterType="com.varchar.www.model.domain.student.Student">
+		UPDATE academy_user
+		SET user_name = #{user_name}, user_birth = #{user_birth}, user_tel = #{user_tel}, user_parent_tel = #{user_parent_tel}, school_name = #{school_name}, academic_type_code = #{academic_type_code}, user_address = #{user_address}, user_remark = #{user_remark}
+		WHERE user_id = #{user_id}
+	</update>
+	
+	<delete id="deleteStudent" parameterType="String">
+		DELETE FROM academy_user WHERE user_id = #{user_id}
+	</delete>
+</mapper>

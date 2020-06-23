@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.varchar.www.model.dao.TeacherDAO">
+
+	<!-- 원장의 강사등록 -->
+	
+	<insert id="insertTeacher" parameterType="com.varchar.www.model.domain.teacher.TeacherVO">
+		INSERT INTO academy_user(user_id,authority_code,user_password, user_name, user_tel, user_birth, user_email, user_address, user_registration, user_remark)
+		VALUES(#{userId}, #{authorityCode}, #{userPw}, #{userName}, #{userTel}, #{userBirth}, #{userEmail}, #{userAddress}, (select sysdate from dual), #{userRemark})
+	</insert>
+	<insert id="insertCareer" parameterType="com.varchar.www.model.domain.manager.CareerVO">
+		INSERT INTO career 
+		VALUES(SEQ_ID.NEXTVAL,#{userId},#{careerPeriod},#{careerLocation},#{careerContent},#{academicBackGround})
+	</insert>
+	
+	<!-- 원장의 강사조회 (경력제외한 다른부분)-->
+	<select id="getTeacherInfo" parameterType="String" resultType="com.varchar.www.model.domain.teacher.TeacherVO">
+		SELECT * FROM academy_user WHERE user_id = #{userId}
+	</select>
+	<!-- 원장의 강사조회(경력부분) -->
+	<!-- 경력은 여러 행 나올 수 있어 따로 가져와서 나열합니다. -->
+	<select id="getTeacherCareer" parameterType="String" resultType="com.varchar.www.model.domain.manager.CareerVO">
+		SELECT * FROM career WHERE user_id = #{userId}	
+	</select>
+	
+	<!-- 원장의 강사 출퇴근기록부 조회 -->
+	
+	<select id="getManagerTeacherTimeCard" parameterType="String" resultType="com.varchar.www.model.domain.manager.Attendance">
+		SELECT 
+			a.*, 
+			atts.attendance_state_name AS attendance_state_name,
+			ac.user_name AS user_name,
+			ac.user_tel AS user_tel
+		FROM attendance a
+		INNER JOIN attendance_state atts ON a.attendance_state_code = atts.attendance_state_code
+		INNER JOIN academy_user ac ON ac.user_id=a.user_id
+		ORDER BY attendance_go_time DESC
+	</select>
+	
+	<!-- 강사의 본인 출퇴근 기록부 조회 -->
+	<select id="getTeacherTimeCard" parameterType="String" resultType="com.varchar.www.model.domain.manager.Attendance">
+		SELECT 
+			a.*, 
+			atts.attendance_state_name AS attendance_state_name,
+			ac.user_name AS user_name,
+			ac.user_tel AS user_tel
+		FROM attendance a
+		INNER JOIN attendance_state atts ON a.attendance_state_code = atts.attendance_state_code
+		INNER JOIN academy_user ac ON ac.user_id=a.user_id
+		WHERE authority_code = #{authorityCode}
+		ORDER BY attendance_go_time DESC
+	</select>
+	
+	<!-- 원장이 강사를 삭제 -->
+	
+	<delete id="deleteTeacher" parameterType="String">
+		DELETE FROM academy_user WHERE user_id=#{userId}
+	</delete>
+	
+	<select id="getTeacherTimeCardByDate" parameterType="String" resultType="com.varchar.www.model.domain.manager.Attendance">
+		<![CDATA[
+		SELECT 
+			a.*, 
+			atts.attendance_state_name AS attendance_state_name,
+			ac.user_name AS user_name,
+			ac.user_tel AS user_tel
+		FROM attendance a
+		INNER JOIN attendance_state atts ON a.attendance_state_code = atts.attendance_state_code
+		INNER JOIN academy_user ac ON ac.user_id=a.user_id
+		WHERE authority_code = '2' AND a.attendance_go_time >= TO_DATE(#{attendanceGoTime}, 'YY/MM/DD') AND a.attendance_go_time < TO_DATE(#{attendanceGoTime}, 'YY/MM/DD') + 1
+		ORDER BY attendance_go_time DESC
+		]]>
+	</select>
+	
+</mapper>

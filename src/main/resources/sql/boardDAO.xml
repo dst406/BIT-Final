@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.varchar.www.model.dao.BoardDAO">
+	
+	
+	<resultMap type="boardGroup" id="boardGroup_resultMap">
+		<result property="boardGroupNo" column="BOARD_GROUP_NO"/>
+		<result property="boardGroupName" column="BOARD_GROUP_NAME"/>
+		<result property="boardGroupOrder" column="BOARD_GROUP_ORDER"/>
+		<collection property="board" ofType="board" column="boardGroupNo=BOARD_GROUP_NO" 
+					javaType="List" select ="getBoardList"/>
+	</resultMap>
+	
+	<resultMap type="boardGroupList" id="boardGroupList_resultMap">
+		<result property="lectureCode" column="LECTURE_CODE"/>
+		<result property="lectureName" column="LECTURE_NAME"/>
+		<collection property="boardGroup" ofType="boardGroup" column="lectureCode=LECTURE_CODE"
+					javaType="List" select = "getBoardGroupList"/>
+	</resultMap>		
+		
+
+		
+		
+		
+		
+		
+		<!-- <collection property="board" ofType="board" column="BOARD_GROUP_NO" javaType="java.util.ArrayList" select ="getBoardList">
+			<id property="boardNo" column="BOARD_NO"/>
+			<result property="boardName" column="BOARD_NAME"/>
+			<result property="boardIntro" column="BOARD_INTRO"/>
+			<result property="boardOrder" column="BOARD_ORDER"/>
+		</collection> -->
+		
+
+	
+
+	
+<!-- 	<select id="getNavbar" resultMap="boardGroup_resultMap">
+		SELECT * FROM BOARD_GROUP 
+		INNER JOIN BOARD  ON board_group.board_group_no = board.board_group_no
+		INNER JOIN LECTURE ON lecture.lecture_code = board_group.lecture_code
+		
+	</select> -->
+
+
+	
+	
+	<!-- SELECT * FROM BOARD_GROUP BG
+		INNER JOIN LECTURE ON lecture.lecture_code = bg.lecture_code
+		WHERE user_id = #{userId} -->
+	
+	
+	<!-- getBoardGroup start -->
+		
+	<select id="getNavbar" resultMap="boardGroupList_resultMap">
+		SELECT lecture_code,lecture_name FROM lecture WHERE user_id = #{userId}
+		
+	</select>	
+		
+	<select id="getBoardGroupList" resultMap="boardGroup_resultMap">
+	 	SELECT * FROM BOARD_GROUP WHERE lecture_code IN ( #{lectureCode} ) ORDER BY board_group_order
+	</select>
+	
+	<select id="getBoardList" resultType="board">
+		SELECT * FROM board WHERE board_GROUP_NO = #{boardGroupNo}
+	</select>
+	
+	<!-- getBoardGroup end -->
+	
+	
+	<!--  insert BoardGroup -->
+	<insert id="insertBoardGroup" parameterType="Map">
+		INSERT INTO board_group VALUES(SEQ_BOARD_GROUP.nextval, #{lectureCode},#{content},
+			(SELECT NVL( MAX(board_group_order)+1 , 1 ) FROM board_group WHERE lecture_code = #{lectureCode} )
+		)
+	</insert>	
+	
+	<insert id="insertBoard" parameterType="Map">
+		INSERT INTO board VALUES(SEQ_BOARD.nextval,#{boardGroupNo},#{content},null, 
+			(SELECT NVL( MAX(board_order)+1 , 1 ) FROM board WHERE board_group_no = #{boardGroupNo} )
+		)
+	</insert>
+	
+	<update id="updateBoardGroupName" parameterType="Map">
+		Update board_group SET board_group_name = #{changeBoardGroupName}
+		WHERE board_group_no = #{boardGroupNo}
+	</update>
+	
+	
+	
+	<select id="getPostList" resultType="postsList">
+		SELECT ROWNUM,board.board_name, board.board_intro, posts.* FROM posts
+		INNER JOIN board ON board.board_no = posts.board_no AND board.board_no = #{boardNo}
+	</select>
+	
+	<select id="getPost" resultType="posts">
+		SELECT ROWNUM,board.board_name, board.board_intro, posts.* FROM posts
+		INNER JOIN board ON board.board_no = posts.board_no AND board.board_no = '2'
+		WHERE posts.post_no = '3'
+	
+	</select>
+	
+	
+</mapper>
+

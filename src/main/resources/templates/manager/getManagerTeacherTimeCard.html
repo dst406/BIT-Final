@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/managerLayout">
+<head>
+<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/js/managerTeacherTimeCard.js"></script>
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="page-wrapper">
+			<div class="page-content-tab">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box">
+								<h2 class="page-title">출퇴근 기록</h2>
+							</div>
+
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+											<input id="time-card-date" type="date">
+											<select name="attendance" id="attendance-type" style="width:85px;font-size:15px;">
+												<option value="전체" selected="selected">전체</option>
+												<option value="출석">출석</option>
+												<option value="지각">지각</option>
+												<option value="휴가">휴가</option>
+											</select>
+											<table id="datatable" class="table dataTable no-footer"
+												role="grid" aria-describedby="datatable_info">
+												<thead class="thead-light">
+													<tr role="row">
+														<th class="sorting_asc" tabindex="0"
+															aria-controls="datatable" rowspan="1" colspan="1"
+															aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">번호</th>
+														<th class="sorting_asc" tabindex="0"
+															aria-controls="datatable" rowspan="1" colspan="1"
+															aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">강사명</th>
+														<th class="sorting_asc" tabindex="0"
+															aria-controls="datatable" rowspan="1" colspan="1"
+															aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">출근시간</th>
+														<th class="sorting_asc" tabindex="0"
+															aria-controls="datatable" rowspan="1" colspan="1"
+															aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">퇴근시간</th>
+														<th class="sorting_asc" tabindex="0"
+															aria-controls="datatable" rowspan="1" colspan="1"
+															aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">연락처</th>
+														<th class="sorting_asc" tabindex="0"
+															aria-controls="datatable" rowspan="1" colspan="1"
+															aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">상태</th>
+													</tr>
+												</thead>
+												<tbody id="attendance-list" class="time-card-list">
+													<tr th:each="attendance : ${getTeacherTimeCard}">
+														<td th:text="${attendanceStat.count}"></td>
+														<td th:text="${attendance.userName}"></td>
+														<td th:text="${attendance.attendanceComeTime}"></td>
+														<td th:text="${attendance.attendanceGoTime}"></td>
+														<td th:text="${attendance.userTel}"></td>
+														<td th:text="${attendance.attendanceStateName}"></td>
+													</tr>
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

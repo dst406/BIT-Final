@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
+<head>
+<meta charset="UTF-8">
+<title>강사-결재등록</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="page-wrapper">
+			<!-- Page Content-->
+			<div class="page-content-tab">
+				<div class="container">
+
+					<!-- 공간   -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box">
+								<h2 class="page-title" th:text-align="center">결재등록</h2>
+							</div>
+							<!--end page-title-box-->
+						</div>
+						<!--end col-->
+					</div>
+
+					<!-- 강의정보입력 시작  -->
+					<div class="row">
+						<div class="met-profile-main-pic col-lg-4"
+							style="display: list-itemflex; margin: auto;">
+							<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
+								<div class="met-profile-main-pic"></div>
+							</div>
+						</div>
+						<div class="align-self-center  col-lg-12" style="">
+							<div class="met-profile-main">
+
+								<div class="met-profile_user-detail"></div>
+								<div class="col-lg-4" style="margin: auto;">
+
+									<form class="form-horizontal form-material mb-0"
+										th:action="@{/goInsertApproval}" th:object="${approval}"
+										th:method="POST">
+										<div class="form-group">
+											강사명<input type="text" th:field="*{userName}"
+												placeholder="강사명" class="form-control">
+											<p></p>
+
+											<p></p>
+											ID<input id="id" type="text" th:field="*{userId}"
+												placeholder="ID" class="form-control">
+											<!-- <p></p>
+											비밀번호<input id="password" type="password" th:field="*{userId}"
+												placeholder="초기비밀번호는111111로 설정해주세요" class="form-control"> -->
+											<p></p>
+											생년월일<input id="" type="date" th:field="*{userBirth}"
+												placeholder="YYYY-MM-DD" class="form-control">
+											<p></p>
+											연락처<input id="tel" type="tel" th:field="*{userTel}"
+												placeholder="전화번호" class="form-control">
+											<p></p>
+											이메일<input id="email" type="email" th:field="*{userEmail}"
+												placeholder="이메일주소" class="form-control">
+											<p></p>
+											주소<input id="address" type="text" th:field="*{userAddress}"
+												placeholder="주소" class="form-control">
+											<p></p>
+											최종학력<input id="id" type="text"
+												th:field="*{academicBackGround}" placeholder="최종학력"
+												class="form-control">
+											<p></p>
+											담당과목 <input id="id" type="text" th:field="*{userRemark}"
+												placeholder="담당과목" class="form-control">
+											<p></p>
+											경력기간<input id="id" type="text" th:field="*{careerPeriod}"
+												placeholder="YYYY-MM~YYYY-MM" class="form-control">
+											근무처<input id="id" type="text" th:field="*{careerLocation}"
+												placeholder="근무처" class="form-control">
+											<p></p>
+											근무내용
+											<textarea rows="5" placeholder="근무내용" class="form-control"
+												th:field="*{careerContent}"></textarea>
+
+
+										</div>
+										<div class="form-group">
+
+
+											<p></p>
+
+
+
+
+											<input type="submit" value="등록"
+												class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
+												style="margin-left: 10px;">
+											<button type="button"
+												class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
+												onclick="location.href='/getTeacherList'">취소</button>
+										</div>
+									</form>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--  강의등록칸 종료 -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

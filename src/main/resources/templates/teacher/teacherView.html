@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/managerLayout">
 <head>
-    <meta charset="UTF-8">
-    <meta th:include="/include/meta.html">
-    <title>Title</title>
-
+<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
-<div th:include="/include/topbar.html"></div>
-<div th:include="/include/navbar.html"></div>
 
+<div layout:fragment="content">
 
 <div class="page-wrapper"><!-- Page Content-->
     <div class="page-content-tab">
@@ -39,29 +38,7 @@
                                     <a href="" class=""><i class="las la-trash-alt text-danger font-18"></i></a></div>
                             </div>
                         </div><!--end card-body--></div><!--end card--></div><!--end col-->
-                <div class="col-lg-4">
-                    <div class="card profile-card">
-                        <div class="card-body p-0">
-                            <div class="media p-3 align-items-center"><img src="img/teacher1.jpg"
-                                                                           alt="user" class="rounded-circle thumb-lg">
-                                <div class="media-body ml-3 align-self-center"><h5
-                                        class="m-0 font-15 font-weight-semibold">Paul Schmidt</h5>
-                                    <p class="mb-0 text-muted">@SaraHopkins.com</p></div>
-                                <div class="action-btn"><a href="" class=""><i class="las la-pen text-info font-18"></i></a>
-                                    <a href="" class=""><i class="las la-trash-alt text-danger font-18"></i></a></div>
-                            </div>
-                        </div><!--end card-body--></div><!--end card--></div><!--end col-->
-                <div class="col-lg-4">
-                    <div class="card profile-card">
-                        <div class="card-body p-0">
-                            <div class="media p-3 align-items-center"><img src="../assets/images/users/user-8.jpg"
-                                                                           alt="user" class="rounded-circle thumb-lg">
-                                <div class="media-body ml-3 align-self-center"><h5
-                                        class="m-0 font-15 font-weight-semibold">Harry McCall</h5>
-                                    <p class="mb-0 text-muted">@SaraHopkins.com</p></div>
-                                <div class="action-btn"><a href="" class=""><i class="las la-pen text-info font-18"></i></a>
-                                    <a href="" class=""><i class="las la-trash-alt text-danger font-18"></i></a></div>
-                            </div>
+                
                         </div><!--end card-body--></div><!--end card--></div><!--end col--></div><!--end row-->
             <div class="row">
                 <div class="col-lg-4">

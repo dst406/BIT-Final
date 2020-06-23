@@ -4,12 +4,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.varchar.www.model.dao.BoardDAO;
 import com.varchar.www.model.dao.DAOTest;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
 
 @SpringBootTest
+@Log
 class VarcharApplicationTests {
 
 	@Test
@@ -20,9 +22,30 @@ class VarcharApplicationTests {
 	@Autowired
 	private DAOTest daoTest;
 	
+	@Autowired private BoardDAO boardDAO;
+	
+	
+	
 	@Test
-	public void DB_CONNECT_TEST() {
-		System.out.println(daoTest.getDeptNames());
+	public void boardGroupListTest() {
+		try {
+		log.info(boardDAO.getNavbar("jin2020").toString());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+	
+	
+	//@Test
+	public void DB_CONNECT_TEST() {
+		//System.out.println(daoTest.getSeasonId());
+	}
+	
+	public void boardGroup() {
+		
+		
+		
+	}
+	
 	
 }

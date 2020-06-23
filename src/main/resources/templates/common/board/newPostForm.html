@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  layout:decorator="layout/defaultLayout">
+<head>
+<link href="/css/editorStyle.css" rel="stylesheet" type="text/css">
+<script src="https://kit.fontawesome.com/8fe653c8f8.js"
+	crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/editor/editEventTrigger.js"></script>	
+	
+</head>
+<body onload="checkBlockquote();">
+
+<div layout:fragment="content">
+	<div class="page-wrapper">
+		<!-- Page Content-->
+		<div class="page-content-tab">
+			<div class="container">
+
+				<!-- 공간   -->
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="page-title-box"></div>
+					</div>
+				</div>
+				<!-- 공간 끝 -->
+
+				<div class="row">
+					<div class="postForm_header">
+						<div class="postForm_header_board">
+							<a href="#"><b> [엄쌤] 일석이조 : SQLD 스터디룸</b></a>
+						</div>
+						<div class="postForm_header_title">
+							<textarea placeholder="제목을 입력하세요"></textarea>
+						</div>
+						<div class="board_black_line"></div>
+						<div class="postForm_header_board">
+							<button type="button"
+								class="btn btn-info btn-square btn-outline-dashed waves-effect waves-light">
+								<i class="fas fa-share-square"></i> <span class="temp_title">[엄쌤]
+									머리에 쏙쏙 SQLD</span> <span class="temp_date">2020.06.04 12:22</span>
+							</button>
+							<button type="button"
+								class="btn btn-info btn-square btn-outline-dashed waves-effect waves-light">
+								<i class="fas fa-share-square"></i> <span class="temp_title">[확률과통계]2021
+									무조건 나오는 적중기출 100제</span> <span class="temp_date">2020.05.21
+									16:47</span>
+							</button>
+							<button type="button"
+								class="btn btn-info btn-square btn-outline-dashed waves-effect waves-light">
+								<i class="fas fa-share-square"></i> <span class="temp_title">[확률과통계]2021
+									무조건 나오는 적중기출 100제</span> <span class="temp_date">2020.05.21
+									16:48</span>
+							</button>
+							<p>저장된 글은 저장일로부터 30일동안 보관됩니다.</p>
+						</div>
+						<hr class="black-hr">
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div
+						th:replace="~{common/board/fragment/editToolbar :: editToolbar}"></div>
+					<div class="editorDIV" contenteditable="true">
+						<p class="first_editor_contents">내용을 입력해주세요</p>
+					</div>
+				</div>
+
+			</div>
+
+		<div class="editFooterContainer">
+			<div class="editorFooter" >
+				<div class="footerWrapper">
+					<button class="exitEditor">
+						<svg stroke="currentColor" fill="currentColor" stroke-width="0"
+							viewBox="0 0 24 24" height="1em" width="1em"
+							xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg>
+						<span>나가기</span>
+					</button>
+					<div class="savingActions">
+						<button color="lightGray"
+							class="temporarySaveButton">임시저장</button>
+						<button color="teal" class="saveButton">출간하기</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+</div>
+	<script src="js/editor/boardEditor.js" crossorigin="anonymous"></script>
+	
+</body>
+</html>

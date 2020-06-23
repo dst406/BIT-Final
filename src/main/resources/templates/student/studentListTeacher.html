@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>강사 학생목록</title>
+<meta th:include="/include/meta.html">
+<script language="javascript">
+  function studentRegistPopup() { window.open("studentRegist", "학생추가", "width=800, height=800, left=100, top=50"); }
+</script>
+</head>
+<body>	
+<div th:include="/include/topbar.html"></div>
+<div th:include="/include/teacherNavBar.html"></div>
+	<div class="page-wrapper">
+		<!-- Page Content-->
+		<div class="page-content-tab">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="page-title-box">
+
+							<h4 class="page-title">학생목록</h4>
+						</div>
+						<!--end page-title-box-->
+					</div>
+					<!--end col-->
+				</div>
+				<div class="row">
+				
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<button type="button"
+									class="btn btn-primary waves-effect waves-light float-right mb-3"
+									data-toggle="modal" data-animation="bounce"
+									data-target=".bs-example-modal-lg"
+									onclick="studentRegistPopup();">학생 등록</button>
+								<h4 class="header-title mt-0 mb-3">내 학생 목록</h4>
+								<div class="table-responsive dash-social">
+									<div id="datatable_wrapper"
+										class="dataTables_wrapper dt-bootstrap4 no-footer">
+										<div class="row">
+											<div class="col-sm-12 col-md-6">
+												<div class="dataTables_length" id="datatable_length">
+													<label>필터 <select name="datatable_length"
+														aria-controls="datatable"
+														class="custom-select custom-select-sm form-control form-control-sm">
+															<option value="10">전체</option>
+															<option value="25">일자 검색</option>
+															<option value="50">선생 검색</option>
+															<option value="100">과목 검색</option>
+															<option value="100">강의 검색</option>
+															<option value="100">연령대 검색</option>
+													</select>
+													</label>
+												</div>
+											</div>
+											<div class="col-sm-12 col-md-6">
+												<div id="datatable_filter" class="dataTables_filter">
+													<label>Search:<input
+														type="search" class="form-control form-control-sm"
+														placeholder="번호 / 이름 / 강의선생 / 과목"
+														aria-controls="datatable"></label>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-12">
+												<table id="datatable" class="table dataTable no-footer"
+													role="grid" aria-describedby="datatable_info">
+													<thead class="thead-light">
+														<tr role="row">
+															<th class="sorting_asc" style="width: 50px;">학생번호</th>
+															<th class="sorting" style="width: 50px;">이름</th>
+															<th class="sorting" style="width: 35px;">생년월일</th>
+															<th class="sorting" style="width: 80px;">연락처</th>
+															<th class="sorting" style="width: 120px;">수강과목</th>
+															<th class="sorting" style="width: 60px;">출석시간</th>
+															<th class="sorting" style="width: 87px;">담당강사</th>
+														</tr>
+														<!--end tr-->
+													</thead>
+													<tbody>
+														<tr th:each="student : ${studentList}" role="row" class="odd">
+															<td th:text="${student.userId}"></td>
+															<td th:text="${student.userName}"></td>
+															<td th:text="${student.userBirth}"></td>
+															<td th:text="${student.userTel}"></td>
+															<td>고등영어 단기 1반</td>
+															<td><span class="badge badge-soft-danger">지각</span></td>
+															<td>동송현</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-12 col-md-5"></div>
+											<div class="col-sm-12 col-md-7">
+												<div class="dataTables_paginate paging_simple_numbers"
+													id="datatable_paginate">
+													<ul class="pagination">
+														<li class="paginate_button page-item previous disabled"
+															id="datatable_previous"><a href="#"
+															aria-controls="datatable" data-dt-idx="0" tabindex="0"
+															class="page-link"
+															>이전</a></li>
+														<li class="paginate_button page-item active"><a
+															href="#" aria-controls="datatable" data-dt-idx="1"
+															tabindex="0" class="page-link">1</a></li>
+														<li class="paginate_button page-item"><a href="#"
+															aria-controls="datatable" data-dt-idx="1" tabindex="0"
+															class="page-link">2</a></li>
+														<li class="paginate_button page-item"><a href="#"
+															aria-controls="datatable" data-dt-idx="1" tabindex="0"
+															class="page-link">3</a></li>
+														<li class="paginate_button page-item"><a href="#"
+															aria-controls="datatable" data-dt-idx="1" tabindex="0"
+															class="page-link">4</a></li>
+														<li class="paginate_button page-item next"
+															id="datatable_next"><a href="#"
+															aria-controls="datatable" data-dt-idx="2" tabindex="0"
+															class="page-link">다음</a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--end card-body-->
+						</div>
+						<!--end card-->
+					</div>
+					<!--end col-->
+				</div>
+				
+				<div class="row mg-top30">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<button type="button"
+									class="btn btn-primary waves-effect waves-light float-right mb-3"
+									data-toggle="modal" data-animation="bounce"
+									data-target=".bs-example-modal-lg"
+									onclick="studentRegistPopup();">학생 등록</button>
+								<h4 class="header-title mt-0 mb-3">전체 학생 목록</h4>
+								<div class="table-responsive dash-social">
+									<div id="datatable_wrapper"
+										class="dataTables_wrapper dt-bootstrap4 no-footer">
+										<div class="row">
+											<div class="col-sm-12 col-md-6">
+												<div class="dataTables_length" id="datatable_length">
+													<label>필터 <select name="datatable_length"
+														aria-controls="datatable"
+														class="custom-select custom-select-sm form-control form-control-sm">
+															<option value="10">전체</option>
+															<option value="25">일자 검색</option>
+															<option value="50">선생 검색</option>
+															<option value="100">과목 검색</option>
+															<option value="100">강의 검색</option>
+															<option value="100">연령대 검색</option>
+													</select>
+													</label>
+												</div>
+											</div>
+											<div class="col-sm-12 col-md-6">
+												<div id="datatable_filter" class="dataTables_filter">
+													<label>Search:<input
+														type="search" class="form-control form-control-sm"
+														placeholder="번호 / 이름 / 강의선생 / 과목"
+														aria-controls="datatable"></label>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-12">
+												<table id="datatable" class="table dataTable no-footer"
+													role="grid" aria-describedby="datatable_info">
+													<thead class="thead-light">
+														<tr role="row">
+															<th class="sorting_asc" style="width: 50px;">학생번호</th>
+															<th class="sorting" style="width: 50px;">이름</th>
+															<th class="sorting" style="width: 35px;">생년월일</th>
+															<th class="sorting" style="width: 80px;">연락처</th>
+															<th class="sorting" style="width: 120px;">수강과목</th>
+															<th class="sorting" style="width: 60px;">출석시간</th>
+															<th class="sorting" style="width: 87px;">담당강사</th>
+														</tr>
+														<!--end tr-->
+													</thead>
+													<tbody>
+														<tr th:each="student : ${studentList}" role="row" class="odd">
+															<td th:text="${student.userId}"></td>
+															<td th:text="${student.userName}"></td>
+															<td th:text="${student.userBirth}"></td>
+															<td th:text="${student.userTel}"></td>
+															<td>고등영어 단기 1반</td>
+															<td><span class="badge badge-soft-danger">지각</span></td>
+															<td>동송현</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-12 col-md-5"></div>
+											<div class="col-sm-12 col-md-7">
+												<div class="dataTables_paginate paging_simple_numbers"
+													id="datatable_paginate">
+													<ul class="pagination">
+														<li class="paginate_button page-item previous disabled"
+															id="datatable_previous"><a href="#"
+															aria-controls="datatable" data-dt-idx="0" tabindex="0"
+															class="page-link"
+															>이전</a></li>
+														<li class="paginate_button page-item active"><a
+															href="#" aria-controls="datatable" data-dt-idx="1"
+															tabindex="0" class="page-link">1</a></li>
+														<li class="paginate_button page-item"><a href="#"
+															aria-controls="datatable" data-dt-idx="1" tabindex="0"
+															class="page-link">2</a></li>
+														<li class="paginate_button page-item"><a href="#"
+															aria-controls="datatable" data-dt-idx="1" tabindex="0"
+															class="page-link">3</a></li>
+														<li class="paginate_button page-item"><a href="#"
+															aria-controls="datatable" data-dt-idx="1" tabindex="0"
+															class="page-link">4</a></li>
+														<li class="paginate_button page-item next"
+															id="datatable_next"><a href="#"
+															aria-controls="datatable" data-dt-idx="2" tabindex="0"
+															class="page-link">다음</a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--end card-body-->
+						</div>
+						<!--end card-->
+					</div>
+					<!--end col-->
+				</div>
+				
+				
+				
+			</div>
+		</div>
+	</div>
+<div th:include="/include/footer.html"></div>
+</body>
+</html>

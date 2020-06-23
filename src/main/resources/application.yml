@@ -3,7 +3,7 @@ spring:
     livereload:
       enabled: true
 
-# HikariCP 이용
+
   datasource: 
     hikari: 
       pool-name: hikari-cp
@@ -14,10 +14,23 @@ spring:
           prepStmtCacheSize: 250
           prepStmtCacheSqlLimit: 2048
           useServerPrepStmts: true
-      jdbc-url: jdbc:log4jdbc:oracle:thin:@localhost:1521:root
-      username: root
-      password: 1234
-      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:oracle:thin:@localhost:1521:root
+    username: root
+    password: 1234
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:/sql/**/*.xml
+  type-aliases-package: com.varchar.www.model.domain
+
+
+
+
+
+#config-location: classpath:config.DatabaseConfiguration
+
 
 #포트변경              
 server:
