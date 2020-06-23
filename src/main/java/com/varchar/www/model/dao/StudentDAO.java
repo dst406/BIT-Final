@@ -9,9 +9,9 @@ import com.varchar.www.model.domain.student.Student;
 @Mapper
 public interface StudentDAO {
 
-	List<Student> getStudentList(String authority_code);
+	List<Student> getStudentList(String authorityCode);
 	void insertStudent(Student student);
-	Student getStudentInfo(String user_id);
+	Student getStudentInfo(String userId);
 	void modifyStudent(Student student);
-	void deleteStudent(String user_id);
+	void deleteStudent(String userId);
 }

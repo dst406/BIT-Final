@@ -16,28 +16,28 @@ public class StudentServiceImpl implements StudentService {
 	private StudentDAO studentDAO;
 	
 	@Override
-	public List<Student> getStudentList(String authority_code) {
-		// TODO Auto-generated method stub
-		return studentDAO.getStudentList(authority_code);
+	public List<Student> getStudentList(String authorityCode) {
+		return studentDAO.getStudentList(authorityCode);
 	}
 
 	@Override
 	public void insertStudent(Student student) {
-		// TODO Auto-generated method stub
 		studentDAO.insertStudent(student);
 	}
 
 	@Override
-	public Student getStudentInfo(String user_id) {
-		// TODO Auto-generated method stub
-		return studentDAO.getStudentInfo(user_id);
+	public Student getStudentInfo(String userId) {
+		return studentDAO.getStudentInfo(userId);
 	}
 
 	@Override
 	public void modifyStudent(Student student) {
-		// TODO Auto-generated method stub
-		System.out.println(student);
 		studentDAO.modifyStudent(student);
+	}
+
+	@Override
+	public void deleteStudent(String userId) {
+		studentDAO.deleteStudent(userId);
 	}
 
 }

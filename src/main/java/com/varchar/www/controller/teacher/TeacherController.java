@@ -84,6 +84,19 @@ public class TeacherController {
 		return"teacher/teacherView";
 	}
 	
+	//teacherInfo Test
+	@GetMapping("/teacherInfo")
+	public String teacherInfo() {
+		return"/teacher/teacherInfo";
+	}
+	
+	//teacherInfo Test2
+		@GetMapping("/teacherInfo2")
+		public String teacherInfo2() {
+			return"/teacher/teacherInfo2";
+		}
+		
+	
 
 		
 }

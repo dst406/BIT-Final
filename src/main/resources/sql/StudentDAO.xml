@@ -2,26 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.varchar.www.model.dao.StudentDAO">
 	<select id="getStudentList" parameterType="String" resultType="com.varchar.www.model.domain.student.Student">
-		SELECT * FROM academy_user WHERE authority_code = #{authority_code}
+		select * from academy_user where authority_code = #{authorityCode}
 	</select>
 	
 	<select id="getStudentInfo" parameterType="String" resultType="com.varchar.www.model.domain.student.Student">
-		SELECT * FROM academy_user WHERE user_id = #{user_id}
+		select u.user_id, u.user_name, u.school_name, 	u.user_tel, u.user_parent_tel, u.user_birth, u.user_email, u.user_address, u.user_image, u.user_remark,
+		          a.academic_type_name
+		from academy_user u, academic_type a
+		where u.user_id = #{user_id}
+		and u.academic_type_code = a.academic_type_code
 	</select>
 	
+	
+	
 	<insert id="insertStudent" parameterType="com.varchar.www.model.domain.student.Student">
-		INSERT INTO academy_user(user_id, user_name, authority_code, academic_type_code, user_birth, user_tel, user_parent_tel, school_name, user_address, user_remark, user_registration, user_image) 
-		VALUES ('187-'||userSeq.nextval, #{user_name}, '3',#{academic_type_code},#{user_birth}, #{user_tel}, #{user_parent_tel}, #{school_name}, #{user_address}, #{user_remark}, (select sysdate from dual), #{user_image})
+		insert into academy_user(user_id, user_name, authority_code, academic_type_code, user_birth, user_tel, user_parent_tel, school_name, user_address, user_remark, user_registration, user_image) 
+		values ('187-'||userSeq.nextval, #{userName}, '3',#{academicTypeCode},#{userBirth}, #{userTel}, #{userParentTel}, #{schoolName}, #{userAddress}, #{userRemark}, (select sysdate from dual), #{userImage})
 
 	</insert>
 	
 	<update id="modifyStudent" parameterType="com.varchar.www.model.domain.student.Student">
-		UPDATE academy_user
-		SET user_name = #{user_name}, user_birth = #{user_birth}, user_tel = #{user_tel}, user_parent_tel = #{user_parent_tel}, school_name = #{school_name}, academic_type_code = #{academic_type_code}, user_address = #{user_address}, user_remark = #{user_remark}
-		WHERE user_id = #{user_id}
+		update academy_user
+		set user_name = #{userName}, user_birth = #{userBirth}, user_tel = #{userTel}, user_parent_tel = #{userParentTel}, school_name = #{schoolName}, academic_type_code = #{academicTypeCode}, user_address = #{userAddress}, user_remark = #{userRemark}
+		where user_id = #{userId}
 	</update>
 	
 	<delete id="deleteStudent" parameterType="String">
-		DELETE FROM academy_user WHERE user_id = #{user_id}
+		delete from academy_user where user_id = #{userId}
 	</delete>
 </mapper>

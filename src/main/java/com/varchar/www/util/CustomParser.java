@@ -6,15 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-// import com.google.gson.Gson;
+import org.springframework.web.multipart.MultipartRequest;
 
 public class CustomParser {
-	public List<String> fileParser(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException {
+	public List<String> fileParser(MultipartRequest multipartRequest) throws IOException {
 		String filePath = "D:/varchar/images/";
 		//파일들을 List형식으로 보관
-		List<MultipartFile> files = multipartHttpServletRequest.getFiles("files");
+		List<MultipartFile> files = multipartRequest.getFiles("files");
 		
 		File file = new File(filePath);
 		//파일이 없다면 디렉토리를 생성
