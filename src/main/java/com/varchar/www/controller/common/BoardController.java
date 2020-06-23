@@ -22,7 +22,6 @@ import com.varchar.www.model.domain.comment.Comment;
 import com.varchar.www.model.service.BoardService;
 
 @Controller
-@SessionAttributes("userId")
 public class BoardController {
 
 	 @InitBinder
@@ -35,20 +34,19 @@ public class BoardController {
 	@Autowired BoardDAO boardDAO;
 	
 	// 유저에 따른 내비게이션바 호출 
-	//@GetMapping("/getNavbar/{userId}")
-//	@ModelAttribute
-//	public String getNavbar(@ModelAttribute("userId") String userId,Model model){
-//		model.addAttribute("userId", "jin2020");
-//		model.addAttribute("boardGroupList",boardService.getNavbar(userId));
-//		return "include/nav/boardNavbar";
-//	}
-	
 	@GetMapping("/getNavbar/{userId}")
-	public String getNavbar(@PathVariable("userId") @ModelAttribute("userId") String userId,Model model){
-		
+	public String getNavbar(@ModelAttribute("userId") String userId,Model model){
+		model.addAttribute("userId", "jin2020");
 		model.addAttribute("boardGroupList",boardService.getNavbar(userId));
 		return "include/nav/boardNavbar";
 	}
+	
+//	@GetMapping("/getNavbar/{userId}")
+//	public String getNavbar(@PathVariable("userId") @ModelAttribute("userId") String userId,Model model){
+//		
+//		model.addAttribute("boardGroupList",boardService.getNavbar(userId));
+//		return "include/nav/boardNavbar";
+//	}
 	
 	
 	/* 게시판 */
