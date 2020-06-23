@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
 <head>
     <meta charset="UTF-8">
     <meta th:include="/include/meta.html">
@@ -7,8 +9,7 @@
 
 </head>
 <body>
-<div th:include="/include/topbar.html"></div>
-<div th:include="/include/managerNavBar.html"></div>
+<div layout:fragment="content">
 
 
 <div class="page-wrapper"><!-- Page Content-->
@@ -327,6 +328,6 @@
                 class="text-muted d-none d-sm-inline-block float-right">Crafted with <i
                 class="mdi mdi-heart text-danger"></i> by Mannatthemes</span></footer><!--end footer--></div>
     <!-- end page content --></div>
-<div th:include="/include/footer.html"></div>
+    </div>
 </body>
 </html>

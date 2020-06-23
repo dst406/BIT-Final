@@ -1,87 +1,126 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
 <head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
-    <meta th:include="/include/meta.html">
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
 
-<div th:include="/include/topbar.html"></div>
-<div th:include="/include/nav/boardNavBar.html"></div>
+	<div layout:fragment="content">
 
-<div class="page-wrapper">
-    <!-- Page Content-->
-    <div class="page-content-tab">
-        <div class="container">
+		<div class="page-wrapper">
+			<!-- Page Content-->
+			<div class="page-content-tab">
+				<div th:object="${postsList}" class="container">
 
-            <!-- 공간   -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="page-title-box"></div>
-                </div>
-            </div>
-            <!-- 공간  end -->
-
-
-            <!-- 게시판 제목, 설명 start -->
-            <div class="row">
-
-                <div class="col-lg-12">
-                    <h3>[엄쌤] 머리에 쏙쏙 SQLD 들어오는 강의</h3>
-                </div>
-
-                <div class="col-lg-12">
-                    <div class="col-md-7">
-                        <h5>엄쌤의 SQLD자격증을 취득하기 위한 멘토&멘티 일석이조 게시판입니다. 강의게시판 간략 소개를 여기에
-                            쓰시면 됩니다</h5>
-                    </div>
-                    <div class="col-md-5">
-                        <div id="datatable_filter" class="dataTables_filter">
-                            <label>Search:<input type="search"
-                                                 class="form-control form-control-sm" placeholder=""
-                                                 aria-controls="datatable"></label>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-            </div>
-            <!-- 게시판 제목, 설명 end -->
-
-            <div class="row">
-                <ul class="article-post-list">
-                    <li>
-                        <div class="post-list-contents">
-                            <div class="post-list-header">
-                                <a href="#"> <strong>Sql execution plan 문의드려요. 완전 초보입니다ㅠㅠ</strong></a>
-                            </div>
-                            <div class="post-list-info">
-                                <p>부서번호에 Int형이 와야되는데 문자형이 오면 에러 발생하지 않나요? 이게 도메인 무결성 제약조건이랑은 상관없는거같은데..
-                                    4번은 기존의 자재부가 있어서 참조무결성위배 맞지않나요?</p>
-                            </div>
-                            <div class="post-list-contents-bottom">
-                            <div class="col-lg-4">
-                                <a>고재현</a>
-                                <p>2020.05.18</p>
-                                <p>조회수 30</p>
-                                <p>댓글 2</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        </li>
-        </ul>
-    </div>
-
-</div>
-</div>
+					<!-- 공간   -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box"></div>
+						</div>
+					</div>
+					<!-- 공간  end -->
 
 
-<div th:include="/include/footer.html"></div>
+					<!-- 게시판 제목, 설명 start -->
+					<div class="row">
+
+						<div class="col-lg-12">
+							<input th:post-no="*{boardNo}" th:field="*{boardName}" value="게시판 제목을 입력해주세요" type="text"
+								class="board_title_text" maxlength="35">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-7">
+
+							<textarea rows="2" cols="31" maxlength="62"
+								class="board_contents_text">[[*{boardIntro}]]</textarea>
+							<!-- <textarea rows="2" cols="32" maxlength="66" class="board_contents_text" readonly>[엄쌤] 머리에 쏙쏙 SQLD 들어오는 강의</textarea> -->
+						</div>
+						<div class="col-md-5">
+							<div id="search-period-selector"
+								class="opt_selected_g open_layer">
+								<div id="dataTable_dateFilter" class="dataTable_dateFilter">
+									<label class="">일자검색: <input type="text"
+										class="form-control form-control-sm active" placeholder="직접입력">
+									</label>
+								
+									<div
+										th:replace="~{common/board/fragment/selectDate :: selectDate }"></div>
+								</div>
+							</div>
+							<div id="datatable_filter" class="dataTables_filter">
+								<label class="board-search-bar">Search:<input
+									type="search" class="form-control form-control-sm  searchPost"
+									placeholder="제목/내용/이름" aria-controls="datatable"></label>
+							</div>
+						</div>
+
+					</div>
+
+					<hr class="black-hr">
+					<!-- 게시판 제목, 설명 end -->
+
+					<!-- <div  th:each=" posts : ${postsList}" -->
+					<div class="postList">
+					<div
+						th:replace="~{common/board/fragment/postListFragment :: boardPostList( *{posts},*{boardNo} ) }"></div>
+					</div>
+					<div class="mg-top20">
+						<div class="row">
+							<div class="col-lg-2">
+
+								<a
+									th:href="@{/newPostForm/{boardNo}/{boardName}(boardNo=*{boardNo},boardName=*{boardName})}"
+									class="btn btn-md btn-primary px-4">글쓰기</a>
+							</div>
+							<div class="col-lg-8">
+								<div class="pagination_center">
+									<ul class="pagination">
+										<li class="paginate_button page-item previous disabled"
+											id="datatable_previous"><a href="#"
+											aria-controls="datatable" data-dt-idx="0" tabindex="0"
+											class="page-link">이전</a></li>
+										<li class="paginate_button page-item active"><a href="#"
+											aria-controls="datatable" data-dt-idx="1" tabindex="0"
+											class="page-link">1</a></li>
+										<li class="paginate_button page-item "><a href="#"
+											aria-controls="datatable" data-dt-idx="2" tabindex="0"
+											class="page-link">2</a></li>
+										<li class="paginate_button page-item "><a href="#"
+											aria-controls="datatable" data-dt-idx="3" tabindex="0"
+											class="page-link">3</a></li>
+										<li class="paginate_button page-item next disabled"
+											id="datatable_next"><a href="#"
+											aria-controls="datatable" data-dt-idx="7" tabindex="0"
+											class="page-link">다음</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-2">
+								<a
+									th:href="@{/getSearchMyPostList/{boardNo}(boardNo=*{boardNo})}"
+									class="btn btn-md btn-gradient-info waves-effect waves-light px-5 ">내
+									글보기</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+			integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+			crossorigin="anonymous"></script>
+		<script th:src="@{/js/board.js}"></script>
+		<script
+			th:src="@{https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.es6.min.js}"></script>
+	</div>
+
+
+
 </body>
 </html>

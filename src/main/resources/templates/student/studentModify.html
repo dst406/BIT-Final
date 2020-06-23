@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/popupLayout">
 <head>
 <meta charset="UTF-8">
 <title>학생정보수정</title>
-<meta th:include="/include/meta.html">
 </head>
 <body>
+<div layout:fragment="content">
 	<div class="page-wrapper">
 		<!-- Page Content-->
 		<div class="page-content-tab">
@@ -80,6 +82,7 @@
 
 			</div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

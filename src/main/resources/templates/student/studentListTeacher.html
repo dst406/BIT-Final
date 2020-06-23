@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
 <head>
 <meta charset="UTF-8">
 <title>강사 학생목록</title>
@@ -9,8 +11,7 @@
 </script>
 </head>
 <body>	
-<div th:include="/include/topbar.html"></div>
-<div th:include="/include/teacherNavBar.html"></div>
+<div layout:fragment="content">
 	<div class="page-wrapper">
 		<!-- Page Content-->
 		<div class="page-content-tab">
@@ -249,6 +250,6 @@
 			</div>
 		</div>
 	</div>
-<div th:include="/include/footer.html"></div>
+</div>
 </body>
 </html>

@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "datasource.hikari.pool-name",
+  "type": "java.lang.String",
+  "description": "A description for 'datasource.hikari.pool-name'"
+}]}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
+<head>
+<link href="/css/editorStyle.css" rel="stylesheet" type="text/css">
+<script src="https://kit.fontawesome.com/8fe653c8f8.js"
+	crossorigin="anonymous"></script>
+
+
+</head>
+<body onload="checkBlockquote();">
+
+	<div layout:fragment="content">
+
+		<div  class="page-wrapper"  th:object="${temporaryPost}" >
+			<!-- Page Content-->
+			
+			<div class="page-content-tab">
+				<div class="container">
+
+					<!-- 공간   -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box"></div>
+						</div>
+					</div>
+					<!-- 공간 끝 -->
+
+					<div class="row">
+						
+						<div class="postForm_header">
+							<div class="postForm_header_board">
+								 <a th:href="@{/board/postList/{boardNo}(boardNo=*{boardNo})}"> 
+									<b th:text="*{boardName}"> [엄쌤] 일석이조 : SQLD 스터디룸</b> 
+								</a>
+							</div>
+							<div class="postForm_header_title">
+							<!-- form="postsForm" -->
+								<textarea th:inline="text" placeholder="제목을 입력하세요" id="postTitleArea" >[[*{temporaryTitle}]]</textarea>
+							</div>
+							<div class="board_black_line"></div>
+							<div class="postForm_header_temporary" >
+								<!-- <a th:href="@{/getTemporaryPost/{temporaryNo}(temporaryNo=*{temporaryNo})}" 
+								   th:each="temporaryPostList : ${temporaryPostList} "  type="button"
+								   class="btn btn-info btn-square btn-outline-dashed waves-effect waves-light">
+									<i class="fas fa-share-square"></i> 
+									<span th:text="${temporaryPostList.temporaryTitle}" class="temp_title">
+										[엄쌤]머리에 쏙쏙 SQLD</span> 
+									<span th:text="${temporaryPostList.temporaryDate}" class="temp_date">2020.06.04 12:22</span>
+								</a> -->
+								<th:block th:if="${temporaryPostList != null} ">
+									<div th:replace="~{common/board/fragment/temporaryPostList :: temporaryPostList(${temporaryPostList})}"></div>
+								</th:block>
+							</div>
+							<hr class="black-hr">
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div
+							th:replace="~{common/board/fragment/editToolbar :: editToolbar}"></div>
+				
+								
+				 <form th:action="@{/insertPosts}" method="post" id="postsForm">
+				 		<input type="hidden" th:field="*{temporaryTitle}" >
+				 		<input type="hidden" th:field="*{boardNo}" > 								
+						<textarea id="postContents" name="postContents"></textarea>
+							<div class="editorDIV" contenteditable="true" >
+							<th:block th:utext="*{temporaryContents}"></th:block>
+								<div><br></div>
+						</div>
+				 </form> 		
+					</div>
+
+				</div>
+
+				<div class="editFooterContainer">
+					<div class="editorFooter">
+						<div class="footerWrapper">
+							<button class="exitEditor">
+								<svg stroke="currentColor" fill="currentColor" stroke-width="0"
+									viewBox="0 0 24 24" height="1em" width="1em"
+									xmlns="http://www.w3.org/2000/svg">
+							<path
+										d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg>
+								<span>나가기</span>
+							</button>
+							<div class="savingActions">
+								<button color="lightGray" class="temporarySaveButton">임시저장</button>
+								<button color="teal" class="saveButton" >등록하기</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			
+		</div>
+		<script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@9}"></script>
+		<script th:src="@{/js/editor/editEventTrigger.js}"></script>
+		<script th:src="@{/js/editor/boardEditor.js}"></script>
+	</div>
+
+	
+
+</body>
+</html>

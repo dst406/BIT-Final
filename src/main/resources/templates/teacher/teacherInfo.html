@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
 <head>
 <meta charset="UTF-8">
 <title>Title</title>
@@ -7,8 +9,7 @@
 <meta th:include="/include/meta.html">
 </head>
 <body>
-<div th:include="/include/topbar.html"></div>
-<div th:include="/include/managerNavBar.html"></div>
+<div layout:fragment="content">
 	<div class="page-wrapper">
 		<div class="page-content-tab">
 			<div class="container">
@@ -184,6 +185,6 @@
 			</div>
 		</div>
 	</div>
-<div th:include="/include/footer.html"></div>
+</div>
 </body>
 </html>

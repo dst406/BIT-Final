@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.varchar.www.model.domain.student.Student;
+import com.varchar.www.model.service.RecordService;
 import com.varchar.www.model.service.StudentService;
 
 
@@ -20,6 +21,9 @@ public class StudentController {
 	
 	@Autowired
 	private StudentService studentService;
+	
+	@Autowired
+	private RecordService recordService;
 	
 	//student
 	
@@ -44,10 +48,10 @@ public class StudentController {
 			return "redirect:/getStudentList";
 		}
 		
-		@GetMapping("/getStudentList")
+		@GetMapping("/getStudentListManager")
 		public String getStudentList(Model model) {
 			model.addAttribute("studentList", studentService.getStudentList("3"));
-			return "student/studentList";
+			return "student/studentListManager";
 		}	
 		
 		@GetMapping("/getStudentListTeacher")
@@ -59,7 +63,7 @@ public class StudentController {
 		@GetMapping("/studentModify/{userId}")
 		public String studentModify(@PathVariable String userId, Model model) {
 			model.addAttribute("studentInfo", studentService.getStudentInfo(userId) );
-			return "/student/studentModify";
+			return "student/studentModify";
 		}	
 		
 		@GetMapping("/registComplete")
@@ -83,6 +87,7 @@ public class StudentController {
 		@GetMapping("/getStudentInfo/{userId}")
 		public String getStudentInfo(@PathVariable String userId, Model model) {
 			model.addAttribute("studentInfo", studentService.getStudentInfo(userId));
+			model.addAttribute("recordInfo", recordService.getStudentRecord(userId));
 			return "student/studentInfo";
 		}
 }

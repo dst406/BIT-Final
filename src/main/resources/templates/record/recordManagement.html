@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/teacherLayout">
 <head>
 <meta charset="UTF-8">
 <title>성적관리</title>
-<meta th:include="/include/meta.html">
 <script language="javascript">
   function recordRegist() { window.open("recordRegist", "성적등록", "width=800, height=800, left=100, top=50"); }
 </script>
 </head>
+
+<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <body>	
-<div th:include="/include/topbar.html"></div>
-<div th:include="/include/teacherNavbar.html"></div>
+	<div layout:fragment="content">
+
 	<div class="page-wrapper">
 		<!-- Page Content-->
 		<div class="page-content-tab">
@@ -103,165 +108,21 @@
 														<!--end tr-->
 													</thead>
 													<tbody>
-														<tr role="row" class="odd">
-															<td>2039D930A</td>
-															<td>동송현</td>
-															<td>고3</td>
-															<td>세화고</td>
-															<td>1학기 중간고사</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>480</td>
-															<td>80</td>
-															<td>3/30</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td>2039D930A</td>
-															<td>동송현</td>
-															<td>고3</td>
-															<td>세화고</td>
-															<td>1학기 중간고사</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>480</td>
-															<td>80</td>
-															<td>3/30</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td>2039D930A</td>
-															<td>동송현</td>
-															<td>고3</td>
-															<td>세화고</td>
-															<td>1학기 중간고사</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>480</td>
-															<td>80</td>
-															<td>3/30</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td>2039D930A</td>
-															<td>동송현</td>
-															<td>고3</td>
-															<td>세화고</td>
-															<td>1학기 중간고사</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>480</td>
-															<td>80</td>
-															<td>3/30</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td>2039D930A</td>
-															<td>동송현</td>
-															<td>고3</td>
-															<td>세화고</td>
-															<td>1학기 중간고사</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>480</td>
-															<td>80</td>
-															<td>3/30</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td>2039D930A</td>
-															<td>동송현</td>
-															<td>고3</td>
-															<td>세화고</td>
-															<td>1학기 중간고사</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>480</td>
-															<td>80</td>
-															<td>3/30</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td>2039D930A</td>
-															<td>동송현</td>
-															<td>고3</td>
-															<td>세화고</td>
-															<td>1학기 중간고사</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>480</td>
-															<td>80</td>
-															<td>3/30</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td>2039D930A</td>
-															<td>동송현</td>
-															<td>고3</td>
-															<td>세화고</td>
-															<td>1학기 중간고사</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>480</td>
-															<td>80</td>
-															<td>3/30</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td>2039D930A</td>
-															<td>동송현</td>
-															<td>고3</td>
-															<td>세화고</td>
-															<td>1학기 중간고사</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>480</td>
-															<td>80</td>
-															<td>3/30</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td>2039D930A</td>
-															<td>동송현</td>
-															<td>고3</td>
-															<td>세화고</td>
-															<td>1학기 중간고사</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>80</td>
-															<td>480</td>
-															<td>80</td>
-															<td>3/30</td>
+														<tr th:each="record : ${recordList}" role="row" class="odd">
+															<td th:text="${record.userId}"></td>
+															<td th:text="${record.userName}"></td>
+															<td th:text="${record.age}"></td>
+															<td th:text="${record.schoolName}"></td>
+															<td th:text ="${record.testName}"></td>
+															<td th:text="${record.koreanLanguage}"></td>
+															<td th:text="${record.english}"></td>
+															<td th:text="${record.math}"></td>
+															<td th:text="${record.social}"></td>
+															<td th:text="${record.science}"></td>
+															<td th:text="${record.koreanHistory}"></td>
+															<td th:text="${record.sum}"></td>
+															<td th:text="${record.avg}"></td>
+															<td th:text="${record.rank}"></td>
 														</tr>
 													</tbody>
 												</table>
@@ -569,6 +430,6 @@
 			</div>
 		</div>
 	</div>
-<div th:include="/include/footer.html"></div>
+	</div>
 </body>
 </html>

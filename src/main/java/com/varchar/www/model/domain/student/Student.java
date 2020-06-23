@@ -11,8 +11,8 @@ import lombok.Data;
 @Data
 public class Student {
 	private String userId;
-	private int authorityCode;
-	private int academicTypeCode;
+	private String authorityCode;
+	private String academicTypeName;
 	private String userPassword;
 	private String userName;
 	private String userTel;
@@ -24,14 +24,6 @@ public class Student {
 	private Date userRegistration;
 	private String userRemark;
 	private String schoolName;
-	private String recordNo;
-	private String testSpacificationCode;
-	private int koreanLanguage;
-	private int math;
-	private int english;
-	private int social;
-	private int science;
-	private int koreanHistory;
-	private String rank;
+
 	
 }

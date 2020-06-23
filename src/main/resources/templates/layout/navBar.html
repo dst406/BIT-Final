@@ -1,11 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
 
-	<div class="leftbar-tab-menu mm-active active">
+	<div class="topbar" th:fragment="topNavBar">
+		<!-- Navbar -->
+		<nav class="navbar-custom">
+			<ul class="list-unstyled topbar-nav float-right mb-0">
+				<li class="dropdown notification-list"><a
+					class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown"
+					href="#" role="button" aria-haspopup="false" aria-expanded="false"><i
+						class="ti-bell noti-icon"></i> <span
+						class="badge badge-danger badge-pill noti-icon-badge">2</span></a>
+				<div class="dropdown-menu dropdown-menu-right dropdown-lg py-0">
+						<h6
+							class="dropdown-item-text font-15 m-0 py-3 bg-light text-dark d-flex justify-content-between align-items-center">
+							Notifications <span class="badge badge-primary badge-pill">2</span>
+						</h6>
+						<div class="slimScrollDiv"
+							style="position: relative; overflow: hidden; width: auto; height: 969px;">
+							<div class="slimscroll notification-list"
+								style="overflow: hidden; width: auto; height: 969px;">
+								<!-- item-->
+								<a href="#" class="dropdown-item py-3"><small
+									class="float-right text-muted pl-2">2 min ago</small>
+								<div class="media">
+										<div class="avatar-md bg-soft-primary">
+											<i class="la la-cart-arrow-down"></i>
+										</div>
+										<div class="media-body align-self-center ml-2 text-truncate">
+											<h6 class="my-0 font-weight-normal text-dark">Your order
+												is placed</h6>
+											<small class="text-muted mb-0">Dummy text of the
+												printing and industry.</small>
+										</div>
+										<!--end media-body-->
+									</div>
+									<!--end media--> </a>
+								<!--end-item-->
+								<!-- item-->
+								<a href="#" class="dropdown-item py-3"><small
+									class="float-right text-muted pl-2">10 min ago</small>
+								<div class="media">
+										<div class="avatar-md bg-soft-success">
+											<i class="la la-group"></i>
+										</div>
+										<div class="media-body align-self-center ml-2 text-truncate">
+											<h6 class="my-0 font-weight-normal text-dark">Meeting
+												with designers</h6>
+											<small class="text-muted mb-0">It is a long
+												established fact that a reader.</small>
+										</div>
+										<!--end media-body-->
+									</div>
+									<!--end media--> </a>
+								<!--end-item-->
+								<!-- item-->
+								<a href="#" class="dropdown-item py-3"><small
+									class="float-right text-muted pl-2">40 min ago</small>
+								<div class="media">
+										<div class="avatar-md bg-soft-pink">
+											<i class="la la-list-alt"></i>
+										</div>
+										<div class="media-body align-self-center ml-2 text-truncate">
+											<h6 class="my-0 font-weight-normal text-dark">UX 3 Task
+												complete.</h6>
+											<small class="text-muted mb-0">Dummy text of the
+												printing.</small>
+										</div>
+										<!--end media-body-->
+									</div>
+									<!--end media--> </a>
+								<!--end-item-->
+								<!-- item-->
+								<a href="#" class="dropdown-item py-3"><small
+									class="float-right text-muted pl-2">1 hr ago</small>
+								<div class="media">
+										<div class="avatar-md bg-soft-warning">
+											<i class="la la-truck"></i>
+										</div>
+										<div class="media-body align-self-center ml-2 text-truncate">
+											<h6 class="my-0 font-weight-normal text-dark">Your order
+												is placed</h6>
+											<small class="text-muted mb-0">It is a long
+												established fact that a reader.</small>
+										</div>
+										<!--end media-body-->
+									</div>
+									<!--end media--> </a>
+								<!--end-item-->
+								<!-- item-->
+								<a href="#" class="dropdown-item py-3"><small
+									class="float-right text-muted pl-2">2 hrs ago</small>
+								<div class="media">
+										<div class="avatar-md bg-soft-info">
+											<i class="la la-check-circle"></i>
+										</div>
+										<div class="media-body align-self-center ml-2 text-truncate">
+											<h6 class="my-0 font-weight-normal text-dark">Payment
+												Successfull</h6>
+											<small class="text-muted mb-0">Dummy text of the
+												printing.</small>
+										</div>
+										<!--end media-body-->
+									</div>
+									<!--end media--></a>
+								<!--end-item-->
+							</div>
+							<div class="slimScrollBar"
+								style="background: rgba(162, 177, 208, 0.13); width: 7px; position: absolute; top: 0px; opacity: 1; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div>
+							<div class="slimScrollRail"
+								style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+						</div>
+						<!-- All-->
+						<a href="javascript:void(0);"
+							class="dropdown-item text-center text-primary bg-light">View
+							all <i class="fi-arrow-right"></i>
+						</a>
+					</div></li>
+				<li class="dropdown"><a
+					class="nav-link dropdown-toggle nav-user" data-toggle="dropdown"
+					href="#" role="button" aria-haspopup="false" aria-expanded="false"><img
+						src="../assets/images/users/user-1.jpg" alt="profile-user"
+						class="rounded-circle"> <span
+						class="ml-1 nav-user-name hidden-sm">Robert <i
+							class="mdi mdi-chevron-down"></i></span></a>
+				<div class="dropdown-menu dropdown-menu-right" style="">
+						<a class="dropdown-item" href="#"><i
+							class="dripicons-user text-muted mr-2"></i> Profile</a> <a
+							class="dropdown-item" href="#"><i
+							class="dripicons-wallet text-muted mr-2"></i> My Wallet</a> <a
+							class="dropdown-item" href="#"><i
+							class="dripicons-gear text-muted mr-2"></i> Settings</a> <a
+							class="dropdown-item" href="#"><i
+							class="dripicons-lock text-muted mr-2"></i> Lock screen</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item bg-light" href="#"><i
+							class="dripicons-exit text-muted mr-2"></i> Logout</a>
+					</div></li>
+			</ul>
+			<!--end topbar-nav-->
+			<ul class="list-unstyled topbar-nav mb-0">
+				
+				<li class="hide-phone app-search"><div role="search" class="">
+						<input type="text" id="AllCompo" placeholder="Search..."
+							class="form-control ui-autocomplete-input" autocomplete="off">
+						<a href=""><i class="fas fa-search"></i></a>
+					</div></li>
+			</ul>
+		</nav>
+		<!-- end navbar-->
+	</div>
+
+
+
+<!--  topBar END -->
+
+
+
+
+<!--  LEFT NAVBAR START -->
+
+	<div class="leftbar-tab-menu mm-active active" th:fragment="leftNavBar">
 		<div class="main-icon-menu in mm-show">
 			<a href="../crm/crm-index.html"
 				class="logo logo-metrica d-block text-center"><span><img
 					src="../assets/images/logo-sm.png" alt="logo-small" class="logo-sm"></span></a>
 			<nav class="nav">
-				<a href="#MetricaCRM" class="nav-link active"
+				<a href="#MetricaCRM" class="nav-link leftbar-tab-icon active"
 					data-toggle="tooltip-custom" data-placement="right" title=""
 					data-original-title="CRM" data-trigger="hover"><svg
 						xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -15,7 +180,7 @@
 						<path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
 						<path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg> </a>
 				<!--end MetricaCRM-->
-				<a href="#MetricaApps" class="nav-link" data-toggle="tooltip-custom"
+				<a href="#MetricaApps" class="nav-link leftbar-tab-icon" data-toggle="tooltip-custom"
 					data-placement="right" title="" data-original-title="Apps"
 					data-trigger="hover"><svg xmlns="http://www.w3.org/2000/svg"
 						width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -27,7 +192,7 @@
 						<rect x="14" y="14" width="7" height="7"></rect>
 						<rect x="3" y="14" width="7" height="7"></rect></svg> </a>
 				<!--end MetricaApps-->
-				<a href="#MetricaUikit" class="nav-link"
+				<a href="#MetricaUikit" class="nav-link leftbar-tab-icon"
 					data-toggle="tooltip-custom" data-placement="right" title=""
 					data-original-title="UI Kit" data-trigger="hover"><svg
 						xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -40,7 +205,7 @@
 						<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
 						<line x1="12" y1="22.08" x2="12" y2="12"></line></svg> </a>
 				<!--end MetricaUikit-->
-				<a href="#MetricaPages" class="nav-link"
+				<a href="#MetricaPages" class="nav-link leftbar-tab-icon"
 					data-toggle="tooltip-custom" data-placement="right" title=""
 					data-original-title="Pages" data-trigger="hover"><svg
 						xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -51,7 +216,7 @@
 						<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 				</a>
 				<!--end MetricaPages-->
-				<a href="#MetricaAuthentication" class="nav-link"
+				<a href="#MetricaAuthentication" class="nav-link leftbar-tab-icon"
 					data-toggle="tooltip-custom" data-placement="right" title=""
 					data-original-title="Authentication" data-trigger="hover"><svg
 						xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -94,24 +259,18 @@
 					style="overflow: hidden; width: auto; height: 969px;">
 					<div id="MetricaCRM" class="main-icon-menu-pane mm-active active">
 						<div class="title-box active">
-							<h6 class="menu-title">강의조회</h6>
+							<h6 class="menu-title">학생관리</h6>
 						</div>
 						<ul class="nav in mm-show">
 							<li class="nav-item"><a class="nav-link"
-								href="../crm/crm-index.html">강의목록</a></li>
+								href="../crm/crm-index.html">학생목록</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="../crm/crm-contacts.html">수강목록</a></li>
-						</ul>
-					</div>
-					<div id="MetricaCRM" class="main-icon-menu-pane mm-active active">
-						<div class="title-box active">
-							<h6 class="menu-title">일정관리</h6>
-						</div>
-						<ul class="nav in mm-show">
+								href="../crm/crm-contacts.html">출결관리</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="../crm/crm-index.html">일정조회</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../crm/crm-contacts.html">시간표관리</a></li>
+								href="../crm/crm-opportunities.html">출석부</a></li>
+								<li class="nav-item"><a class="nav-link"
+								href="../crm/crm-opportunities.html">성적관리</a></li>
+
 						</ul>
 					</div>
 					<!-- end CRM -->
@@ -333,3 +492,10 @@
 		</div>
 		<!-- end main-menu-inner-->
 	</div>
+
+
+
+
+
+</body>
+</html>

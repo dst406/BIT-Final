@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<th:block th:fragment="selectDate">
+		<div class="inner_search">
+			<div class="box_opt_menu calendar_type">
+
+				<div  class="menu_item">
+					<a  href="javascript:void(0)"
+						class="link_menu">전체기간</a>
+				</div>
+				<div class="menu_item">
+					<a  th:date="0" href="javascript:void(0)"
+						class="link_menu">오늘</a>
+				</div>
+				<div class="menu_item">
+					<a th:date="7" href="javascript:void(0)"
+						class="link_menu">최근 1주</a>
+				</div>
+				<div class="menu_item">
+					<a th:date="30" href="javascript:void(0)"
+						class="link_menu">최근 1달</a>
+				</div>
+				<div class="cont_calendar">
+					<span class="txt_direct link_item">달력보기</span>
+					<div class="wrap_calendar">
+						<div class="box_date">
+							<label class="date_picker"> <span class="sr_only">시작
+									날짜 선택</span> <input type="text" id="search-start-date" 
+								name="reservation_date"
+								class="inp_style" size="10">
+								<!-- id="search-start-date" -->
+							</label>
+						</div>
+						<span class="txt_hyphen">-</span>
+						<div class="box_date">
+							<label class="date_picker"> <span class="sr_only">종료
+									날짜 선택</span> 
+									<input type="text" id="search-end-date"
+								name="reservation_date"
+								class="inp_style" size="10">
+							</label>
+						</div>
+						<div id="search-date-picker" class="ui_datepicker"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+
+
+</body>
+</html>

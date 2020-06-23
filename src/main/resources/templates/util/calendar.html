@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
 <head>
 <meta charset="UTF-8">
 <title>일정</title>
 <link href="/css/main.css" rel="stylesheet" type="text/css">
-<meta th:include="/include/meta.html">
 <script language="javascript">
   function calendarRegist() { window.open("calendarRegist", "일정등록", "width=800, height=800, left=100, top=50"); }
 </script>
 </head>
 
 <body>
+	<div layout:fragment="content">
 
-<div th:include="/include/topbar.html"></div>
-	<div th:include="/include/studentNavBar.html"></div>
 
 
 				<h5 class="met-user-name">일정관리</h5>
@@ -583,6 +583,6 @@
 					<!--end col-->
 				</div>
 				<!--  캘린더 끝 -->
-<div th:include="/include/footer.html"></div>
+</div>
 </body>
 </html>

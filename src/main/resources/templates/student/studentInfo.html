@@ -1,28 +1,124 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/teacherLayout">
+
+
 <head>
 <meta charset="UTF-8">
+
 <title>학생정보</title>
-<meta th:include="/include/meta.html">
-<script src="/js/sampleChart.js" >
-</script>
+
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script language="javascript">
 	
   function studentModifyPopup() {
-	 /*  var userId = $('#userId').val(); */
 	  var userId = document.getElementById('userId').value;
 	  window.open("/studentModify/"+userId, "학생정보수정", "width=800, height=800, left=100, top=50"); 
 	  }
-  function recordModify() { window.open("/recordModify", "성적수정", "width=800, height=800, left=100, top=50"); }
-  function recordRegist() { window.open("/recordRegist", "성적등록", "width=800, height=800, left=100, top=50"); }
+  function recordModify() { 
+	  var userId = document.getElementById('userId').value;
+	  window.open("/recordModify/"+userId, "성적수정", "width=800, height=800, left=100, top=50"); 
+	  }
+  function recordRegist() { 
+	  var userId = document.getElementById('userId').value;
+	  window.open("/recordRegist/"+userId, "성적등록", "width=800, height=800, left=100, top=50"); 
+	  }
   function deleteStudent(){ 
 	  var userId = document.getElementById('userId').value;
 	  location.href="/deleteStudent/"+userId}
+  
+  window.onload = function() {
+		google.charts.load('current', {packages: ['corechart', 'bar']});
+		//google.charts.setOnLoadCallback(drawColColors);
+		 google.charts.setOnLoadCallback(drawTopX);
+		 var sum1 = document.getElementsByClassName('sum')[1].textContent;
+			var sum1 = document.getElementsByClassName('sum')[1].textContent;
+ 			var avg1 = document.getElementsByClassName('avg')[1].textContent;
+ 			var rank1 = document.getElementsByClassName('rank')[1].textContent;
+			var sum2 = document.getElementsByClassName('sum')[2].textContent;
+			var avg2 = document.getElementsByClassName('avg')[2].textContent;  
+ 			var rank2 = document.getElementsByClassName('rank')[2].textContent;
+			var sum3 = document.getElementsByClassName('sum')[3].textContent;
+			var avg3 = document.getElementsByClassName('avg')[3].textContent;
+ 			var rank3= document.getElementsByClassName('rank')[3].textContent;
+		function drawTopX() {
+		
+		      var data = new google.visualization.DataTable();
+		      data.addColumn('timeofday', '최근 3개월 성적');
+		      data.addColumn('number', '총점');
+		      data.addColumn('number', '평균');
+		      data.addColumn('number', '등수');
+
+		      data.addRows([
+		        [{v: [8, 0, 0], f: '9월 '}, parseInt(sum1), parseInt(avg1), parseInt(rank1)],
+		        [{v: [9, 0, 0], f: '3월 '}, parseInt(sum2), parseInt(avg2), parseInt(rank2)],
+		        [{v: [10, 0, 0], f:'6월'}, parseInt(sum3), parseInt(avg3), parseInt(rank3)],
+		      ]);
+
+		      var options = {
+		    		  width: 600,
+		    	        height: 250,
+		        axes: {
+		          x: {
+		            0: {side: 'top'}
+		          }
+		        },
+		        hAxis: {
+		          title: 'Time of Day',
+		          format: 'h:mm a',
+		          viewWindow: {
+		            min: [7, 30, 0],
+		            max: [17, 30, 0]
+		          }
+		        },
+		      };
+
+		      var materialChart = new google.charts.Bar(document.getElementById('chart_div'));
+		      materialChart.draw(data, options);
+		    }
+		
+		var ctx = document.getElementById('avgChart').getContext('2d');
+		var koreanLanguage = document.getElementsByClassName('koreanLanguage')[0].textContent;
+		var english = document.getElementsByClassName('english')[0].textContent;
+		var math = document.getElementsByClassName('math')[0].textContent;
+		var social = document.getElementsByClassName('social')[0].textContent;
+		var science = document.getElementsByClassName('science')[0].textContent;
+		var koreanHistory = document.getElementsByClassName('koreanHistory')[0].textContent;
+		console.log(koreanLanguage);
+		var chart = new Chart(ctx, {
+		    // The type of chart we want to create
+		    type: 'bar',
+		    
+		    // The data for our dataset
+		    data: {
+		        labels: ['국어', '영어', '수학', '사회', '과학', '한국사'],
+		        datasets: [{
+		            label: '가장 최근 성적',
+		            backgroundColor: 'rgb(255, 99, 132)',
+		            borderColor: 'rgb(255, 99, 132)',
+		            data: [koreanLanguage, english, math, social, science, koreanHistory]
+		        }]
+		    },
+
+		    // Configuration options go here
+		    options: {
+		        scales: {
+		            xAxes: [{
+		                stacked: true
+		            }],
+		            yAxes: [{
+		                stacked: true
+		            }]
+		        }
+		    }
+		});
+	};
 </script>
 </head>
 <body>
-	<div th:include="/include/topbar.html"></div>
-	<div th:include="/include/studentNavBar.html"></div>
+	<div layout:fragment="content">
 	<div class="page-wrapper">
 		<!-- Page Content-->
 		<div class="page-content-tab">
@@ -57,12 +153,13 @@
 											</div>
 										</div>
 										<!--end col-->
-										<div class="col-lg-8 ml-auto">
+								<div class="col-lg-8 ml-auto">
 											<ul class="list-unstyled personal-detail">
 												<li>
 														<div class="col-lg-6" style="display: inline-block;">
-														<i class="fas fa-file-signature"></i> 
+														<i class="fas fa-file-signature"></i>
 														<input th:value="${studentInfo.userId}" type="hidden" id="userId">
+														
 														<b>이름 </b>: <span th:text="${studentInfo.userName}"></span>
 													</div>
 													<div class="col-lg-5" style="display: inline-block;">
@@ -105,8 +202,7 @@
 														종합A반
 													</div>
 													<div class="col-lg-5" style="display: inline-block;">
-														<i class="fas fa-money-check"></i> <b>문/이과 </b>: <span th:if="${studentInfo.academicTypeCode == '1'}" th:text="문과"></span>
-														<span th:unless="${studentInfo.academicTypeCode == '2'}" th:text="이과"></span>
+														<i class="fas fa-money-check"></i> <b>문/이과 </b>: <span th:text="${studentInfo.academicTypeName}"></span>
 													</div>
 												</li>
 												<li>
@@ -210,7 +306,6 @@
 															<td>추가</td>
 															<td>추가</td>
 														</tr>
-
 													</tbody>
 												</table>
 											</div>
@@ -317,55 +412,22 @@
 													<!--end tr-->
 												</thead>
 												<tbody>
-													<tr role="row" class="odd">
-														<td>2039D930A</td>
-														<td>동송현</td>
-														<td>고3</td>
-														<td>세화고</td>
-														<td>1학기 중간고사</td>
-														<td>80</td>
-														<td>80</td>
-														<td>80</td>
-														<td>80</td>
-														<td>80</td>
-														<td>80</td>
-														<td>480</td>
-														<td>80</td>
-														<td>3/30</td>
+													<tr th:each="record : ${recordInfo}" role="row" class="odd">
+														<td th:text="${record.userId}"></td>
+														<td th:text="${record.userName}"></td>
+														<td th:text="${record.age}"></td>
+														<td th:text="${record.schoolName}"></td>
+														<td th:text="${record.testName}"></td>
+														<td th:text="${record.koreanLanguage}" th:value="${record.koreanLanguage}" class="koreanLanguage"></td>
+														<td th:text="${record.english}" th:value="${record.english}" class="english"></td>
+														<td th:text="${record.math}" th:value="${record.math}" class="math"></td>
+														<td th:text="${record.social}" th:value="${record.social}" class="social"></td>
+														<td th:text="${record.science}" th:value="${record.science}" class="science"></td>
+														<td th:text="${record.koreanHistory}" th:value="${record.koreanHistory}" class="koreanHistory"></td>
+														<td th:text="${record.sum}" th:value="${record.sum}" class="sum"></td>
+														<td th:text="${record.avg}" th:value="${record.avg}" class="avg"></td>
+														<td th:text="${record.rank}" th:value="${record.rank}" class="rank"></td>
 													</tr>
-													<tr role="row" class="even">
-														<td>2039D930A</td>
-														<td>동송현</td>
-														<td>고3</td>
-														<td>세화고</td>
-														<td>1학기 중간고사</td>
-														<td>80</td>
-														<td>80</td>
-														<td>80</td>
-														<td>80</td>
-														<td>80</td>
-														<td>80</td>
-														<td>480</td>
-														<td>80</td>
-														<td>3/30</td>
-													</tr>
-													<tr role="row" class="odd">
-														<td>2039D930A</td>
-														<td>동송현</td>
-														<td>고3</td>
-														<td>세화고</td>
-														<td>1학기 중간고사</td>
-														<td>80</td>
-														<td>80</td>
-														<td>80</td>
-														<td>80</td>
-														<td>80</td>
-														<td>80</td>
-														<td>480</td>
-														<td>80</td>
-														<td>3/30</td>
-													</tr>
-
 												</tbody>
 											</table>
 										</div>
@@ -418,22 +480,17 @@
 				<div class="col-lg-6">
 					<div class="card">
 						<div class="card-body">
-							<h4 class="header-title mt-0 mb-4">최근 3개월 성적</h4>
+							<h4 class="header-title mt-0 mb-4"></h4>
 							<div class="chart-demo" style="position: relative;">
 								<div class="apex-charts" style="min-height: 395px;">
 									<div
 										class="apexcharts-canvas apexcharts6d8ff4 apexcharts-theme-light"
 										style="width: 580px; height: 380px;">
-
 										<div id="chart_div"></div>
-
-
 									</div>
 								</div>
-
 							</div>
 						</div>
-
 						<!--end card-body-->
 					</div>
 					<!--end card-->
@@ -448,17 +505,13 @@
 								<div class="apex-charts" style="min-height: 395px;">
 									<div class="apexcharts-canvas apexcharts6d8ff4 apexcharts-theme-light"
 										style="width: 580px; height: 380px;">
-
 										<canvas id="avgChart"
 											style="display: block; width: 1428px; height: 714px;"
 											width="1428" height="714" class="chartjs-render-monitor"></canvas>
-
 									</div>
 								</div>
-
 							</div>
 						</div>
-
 						<!--end card-body-->
 					</div>
 					<!--end card-->
@@ -468,6 +521,6 @@
 			<!-- 총점 현황 그래프 끝  -->
 		</div>
 	</div>
-	<div th:include="/include/footer.html"></div>
+</div>
 </body>
 </html>

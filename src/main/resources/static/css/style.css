@@ -1,71 +1,122 @@
-.mg-top10{
-    margin-top : 10px;
+.container {
+	max-width: 1200px;
 }
-.mg-top20{
-    margin-top : 20px;
+
+.mg-top10 {
+	margin-top: 10px;
 }
-.mg-top30{
-    margin-top : 30px;
+
+.mg-top20 {
+	margin-top: 20px;
 }
-.mg-top40{
-    margin-top : 40px;
+
+.mg-top30 {
+	margin-top: 30px;
 }
-.mg-top50{
-    margin-top : 50px;
+
+.mg-top40 {
+	margin-top: 40px;
 }
-.mg-top60{
-    margin-top : 60px;
+
+.mg-top50 {
+	margin-top: 50px;
 }
-.mg-top70{
-    margin-top : 70px;
+
+.mg-top60 {
+	margin-top: 60px;
 }
-.mg-top80{
-    margin-top : 80px;
+
+.mg-top70 {
+	margin-top: 70px;
 }
-.mg-top90{
-    margin-top : 90px;
+
+.mg-top80 {
+	margin-top: 80px;
 }
-.col-inline-block{
+
+.mg-top90 {
+	margin-top: 90px;
+}
+.mg-auto{
+	margin:auto;
+}
+
+.col-inline-block {
 	display: inline-block;
 }
 
-.article-post-list{
-    list-style: none;
-    padding-left: 15px;
-    padding-right: 15px;
-    width : 100%;  
+.black-hr {
+	border-top: 1px solid #8c8a8a;
+	margin-bottom: 30px;
 }
 
-.article-post-list li {
-    display: block;
-    padding: 16px 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    border-bottom: 1px solid #eeeeef;
+
+.menu-body h6{
+	cursor:pointer;
 }
 
-.article-post-list li post-list-contents {
-    display: table;
-    position: relative;
-    width: 100%;
-    table-layout: fixed;
+.main-icon-menu-pane ul{
+	display: none;
 }
 
-.article-post-list li post-list-header {
-
-	
-}
-
-.article-post-list li .post-list-header strong {
+.main-icon-menu-pane .active {
 	display: block;
-    height: 22px;
-    font-size: 16px;
-    line-height: 22px;
-    display: block;
-    overflow: hidden;
 }
 
 
-.article-post-list li .post-list-info {
+.nav-link{
+	margin-bottom:10px;
+}
 
+.nav-second-level .nav-item{
+	margin-bottom:12px;
+}
+
+.title-box-icons{
+	text-align:right;
+}
+.group_icon{
+	display:none;
+	position:absolute;
+	right:12px;
+	padding : 10px 3px 0px 3px;
+	cursor : pointer;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	
+	/* position:absolute; */
+}
+
+.main-icon-menu {
+	z-index : 1400 !important;
+}
+.main-menu-inner{
+	z-index : 1400;
+}
+
+
+.menu-title{
+	max-height: 27px;
+    overflow-y: hidden;
+}
+
+.metismenu .nav-link{
+	width:140px;
+	padding-right:0px;
+}
+
+.popup-link{
+	padding-left:2px;
+	padding-right:2px;
+}
+
+.nav-item .on{
+	display:block;
+}
+
+.title-box > .lecture{
+	display: block ;
+	padding:0 !important;
 }

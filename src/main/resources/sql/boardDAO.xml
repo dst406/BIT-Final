@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.varchar.www.model.dao.BoardDAO">
+	
+	
+	<resultMap type="boardGroup" id="boardGroup_resultMap">
+		<id property="boardGroupNo" column="BOARD_GROUP_NO"/>
+		<result property="boardGroupName" column="BOARD_GROUP_NAME"/>
+		<result property="boardGroupOrder" column="BOARD_GROUP_ORDER"/>
+		<collection property="board" ofType="board" column="boardGroupNo=BOARD_GROUP_NO" 
+					javaType="List" select ="getBoardList"/>
+	</resultMap>
+	
+	<resultMap type="boardGroupList" id="boardGroupList_resultMap">
+		<id property="lectureCode" column="LECTURE_CODE"/>
+		<result property="lectureName" column="LECTURE_NAME"/>
+		<collection property="boardGroup" ofType="boardGroup" column="lectureCode=LECTURE_CODE"
+					javaType="List" select = "getBoardGroupList"/>
+	</resultMap>		
+		
+	
+	<resultMap type="postDetail" id="postDetail_resultMap">
+		<id property="postNo" column="post_no" />
+		<result property="boardNo" column="board_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="boardName" column="board_name"/>
+		<result property="postTitle" column="post_title"/>
+		<result property="postContents" column="post_contents"/>
+		<result property="postsDate" column="posts_date"/>
+		<result property="postViews" column="post_views"/>
+		<collection property="postsDetailList" ofType="postsDetailList" column="boardNo=BOARD_NO"
+					javaType="List" select="getPostListInDetail"/>
+		<collection property="commentList" ofType="comment" column="postNo=POST_NO"
+					javaType="List" select="getCommentList"/>			
+	</resultMap>
+		
+	<resultMap type="comment" id="commentList_resultMap">
+		<id property="commentNo" column="comment_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="commentContent" column="comment_content"/>
+		<result property="commentDate" column="comment_date"/>
+		<result property="commentImage" column="comment_image"/>
+		<collection property="replyCommentList" ofType="replyComment" column="replyNo=COMMENT_NO"
+					javaType="List" select="getReplyList"/>	
+	</resultMap>	
+		
+	<resultMap type="replyComment" id="replyComment_resultMap">
+		<id property="commentNo" column="comment_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="commentContent" column="comment_content"/>
+		<result property="commentDate" column="comment_date"/>
+		<result property="commentImage" column="comment_image"/>
+		<collection property="replyInReplyComment" ofType="replyComment" column="replyNo=COMMENT_NO"
+					javaType="List" select="getReplyInReply"/>	
+
+	
+	</resultMap>
+		
+		
+	<resultMap type="postsList" id="postList_resultMap">
+		<id property="boardNo" column="board_no"/>
+		<result property="boardName" column="board_name"/>
+		<result property="boardIntro" column="board_intro"/>
+		<collection property="posts" ofType="posts" column="boardNo=BOARD_NO"
+					javaType="List" select="postList"/>
+
+	</resultMap>	
+	
+	<!-- 내비게이션 바 게시판 그룹, 게시판 조회 start -->
+		
+	<select id="getNavbar" resultMap="boardGroupList_resultMap">
+		SELECT lecture_code,lecture_name FROM lecture WHERE user_id = #{userId}
+		
+	</select>	
+		
+	<select id="getBoardGroupList" resultMap="boardGroup_resultMap">
+	 	SELECT * FROM BOARD_GROUP WHERE lecture_code IN ( #{lectureCode} ) ORDER BY board_group_order
+	</select>
+	
+	<select id="getBoardList" resultType="board">
+		SELECT * FROM board WHERE board_GROUP_NO = #{boardGroupNo}
+	</select>
+	
+	<!-- 내비게이션 바 게시판 그룹, 게시판 조회 end -->
+	
+	
+	<!--  게시판 그룹 등록 Start -->
+	<insert id="insertBoardGroup" parameterType="Map">
+		INSERT INTO board_group VALUES(SEQ_BOARD_GROUP.nextval, #{lectureCode},#{content},
+			(SELECT NVL( MAX(board_group_order)+1 , 1 ) FROM board_group WHERE lecture_code = #{lectureCode} )
+		)
+	</insert>	
+	<!--  게시판 그룹 등록 End -->
+	
+	<!-- 게시판 그룹 이름 수정 Start -->
+	<update id="updateBoardGroupName" parameterType="Map">
+		Update board_group SET board_group_name = #{changeBoardGroupName}
+		WHERE board_group_no = #{boardGroupNo}
+	</update>
+	<!-- 게시판 그룹 이름 수정 End -->
+	
+	
+	<!-- 게시판 등록 Start -->
+	<insert id="insertBoard" parameterType="Map">
+		INSERT INTO board VALUES(SEQ_BOARD.nextval,#{boardGroupNo},#{content},null, 
+			(SELECT NVL( MAX(board_order)+1 , 1 ) FROM board WHERE board_group_no = #{boardGroupNo} )
+		)
+	</insert>
+	<!-- 게시판 등록 End -->
+	
+	<select id="getSearchDatePostList" resultType = "posts" parameterType="Map">
+		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.* FROM posts
+		WHERE board_no = #{boardNo} AND 
+		posts_date
+		<choose>
+			<when test="startDate == null"> &gt; </when>
+			<when test="startDate != null">
+				 &gt; TO_CHAR(concat(#{startDate},' 00:00:00')) AND	
+			</when>
+		</choose>
+		
+		<choose>
+		<when test='endDate == null || endDate =="" '> 
+				posts_date &lt;  TO_CHAR(concat(TO_CHAR(SYSDATE,'yyyymmdd') ,' 23:59:59') )
+			</when>
+			<when test="endDate != null">
+				posts_date &lt;  TO_CHAR(concat(#{endDate} ,' 23:59:59') )
+			</when>
+		</choose>
+		
+	</select>
+	
+	
+	<!-- postList  Start -->
+	<select id="getPostList" resultMap="postList_resultMap">
+		SELECT * FROM board WHERE board_no= #{boardNo}
+	</select>
+	
+	
+	<select id="postList" resultType="posts">
+		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.* FROM posts
+		WHERE board_no = #{boardNo}
+	</select>
+	<!-- postList  end -->
+	
+	
+	<!--  postDetail Start -->
+	<select id="getPost" resultMap="postDetail_resultMap">
+		SELECT 
+		ROWNUM,board.board_name, board.board_intro, posts.* FROM posts
+		INNER JOIN board ON board.board_no = posts.board_no AND board.board_no = #{boardNo}
+		WHERE posts.post_no = #{postNo}
+	</select>
+	
+	<select id="getPostListInDetail" resultType="postsDetailList">
+		SELECT COUNT(post_no) OVER(PARTITION BY board_no) AS postListCount, 
+		ROW_NUMBER() OVER (ORDER BY posts_date DESC) postRownum, post_title, post_No FROM posts 
+		WHERE board_no = #{boardNo}
+	</select>
+	
+	<select id="getCommentList" resultMap="commentList_resultMap">
+		SELECT * FROM board_comment 
+		WHERE post_no = #{postNo} AND comment_re_parent IS NULL
+		ORDER BY comment_date
+	</select>
+	
+	<select id="getReplyList" resultMap="replyComment_resultMap">
+		SELECT LEVEL, board_comment.*
+		from board_comment 
+		WHERE LEVEL = 1
+		START WITH comment_re_parent = #{replyNo}
+		CONNECT BY PRIOR comment_no = comment_re_parent 
+		ORDER SIBLINGS BY comment_date
+	</select>
+	
+	<select id="getReplyInReply" resultType="replyComment">
+		SELECT LEVEL, board_comment.*
+		from board_comment 
+		START WITH comment_re_parent = #{replyNo}
+		CONNECT BY PRIOR comment_no = comment_re_parent
+	</select>
+		
+
+	<!--  postDetail End  = #{commentNo} 최 상위노드 설정 부모노드와 자식노드 연결 --> 
+	
+	<!--  게시판 등록  Start-->
+	
+	<insert id="insertPosts" parameterType="posts">
+		INSERT INTO posts VALUES(
+			SEQ_POSTS.nextval, #{boardNo}, #{userId} ,  #{postTitle} , #{postContents} ,
+			TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'), 0 )
+	</insert>
+	<!--  게시판 등록  End-->
+		
+	<!-- 임시저장 리스트 불러오기 -->		
+	<select id="getTemporaryPostList" resultType="temporaryPostList">
+		SELECT temporary_no, user_id, temporary_title, temporary_date FROM temporary
+		WHERE user_id = #{userId} 
+		AND TO_DATE(temporary_date, 'YYYY-MM-DD HH24:MI:SS' ) > SYSDATE - 30
+	</select>
+	<!-- 임시저장 리스트 불러오기 -->
+	
+	<!-- 게시글 임시저장 Start -->
+	<insert id="insertTemporaryPost" parameterType="temporaryPost">
+		INSERT INTO temporary VALUES(
+			SEQ_TEMPORARY.nextval, #{boardNo}, #{userId}, #{temporaryTitle}, #{temporaryContents},
+			TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS')
+		)
+	</insert>
+	<!-- 게시글 임시저장 End -->
+	
+	<!--  임시저장된 글 조회 Start-->
+	<select id="getTemporaryPost" resultType="temporaryPost">
+		SELECT * FROM temporary WHERE temporary_No = #{temporaryNo}
+	</select>
+	
+	
+	<select id="getBoardName" resultType="String">
+		SELECT board_name FROM board WHERE board_no = #{boardNo}
+	</select>
+	<!--  임시저장된 글 조회 End -->
+
+
+
+	<!-- 댓글 -->
+	
+	<!-- 댓글등록 Start -->	
+	<insert id="insertPostComment" parameterType="Map">
+		INSERT INTO board_comment
+		VALUES (SEQ_BOARD_COMMENT.nextval, #{postNo}, #{comment.userId}, #{comment.commentContent}, 
+				TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'), null, null )
+	</insert>
+	
+	<!-- 댓글등록 End -->
+	
+	<!-- 답글 등록 Start -->
+	
+	<insert id="insertReply" parameterType="Map">
+		INSERT INTO board_comment
+		VALUES (SEQ_BOARD_COMMENT.nextval, #{postNo}, #{comment.userId}, #{comment.commentContent}, 
+				TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'), null, #{comment.commentNo} )
+	</insert>
+	<!-- 답글 등록 End -->
+	
+	
+</mapper>
+

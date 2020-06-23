@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
+<head>
+<link href="/css/editorStyle.css" rel="stylesheet" type="text/css">
+<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
+<script src="https://kit.fontawesome.com/8fe653c8f8.js"
+	crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="page-wrapper">
+			<!-- Page Content-->
+			<div class="page-content-tab">
+				<div th:object="${posts}" class="container">
+
+					<!-- 공간   -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box"></div>
+						</div>
+					</div>
+					<!-- 공간 끝 -->
+
+					<div class="row">
+						<div class="postForm_header">
+							<div class="postForm_header_board">
+
+								<a
+									th:href="@{/board/postList/{boardNo}(boardNo=${posts.boardNo})}">
+									<input type="hidden" th:value="${postNo}" name="postNo"
+									id="postNo"> <b th:text="*{boardName}"> [엄쌤] 일석이조 :
+										SQLD 스터디룸</b>
+								</a>
+							</div>
+							<div class="postForm_header_title">
+								<!--  <textarea  placeholder="제목을 입력하세요"  readonly="readonly">
+								[[${posts.postTitle}]]
+							</textarea>  -->
+
+								<textarea th:inline="text" id="postTitle"
+									placeholder="제목을 입력하세요" readonly="readonly">[[*{postTitle}]]
+							</textarea>
+								<div class="row">
+									<div class="post-list-contents-bottom">
+										<div class="col-lg-12">
+											<a th:text="*{userId}">고재현</a>
+											<p th:text="*{postsDate}">2020.05.18</p>
+											<p>댓글 2</p>
+										</div>
+									</div>
+
+								</div>
+
+
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="row">
+						<!--  게시글 목록 시작 -->
+						<div class="postListContainer">
+							<div class="postListInPostContainer">
+								<h2>
+									<a th:text="${posts.boardName}"
+										th:href="@{/board/postList/{boardNo}(boardNo=*{boardNo})}">게시판
+										이름</a>
+								</h2>
+								<svg width="32" height="48" fill="none" viewBox="0 0 32 48"
+									class="corner-ribbon">
+										<path fill="#7680ff" d="M32 0H0v48h.163l16-16L32 47.836V0z"></path></svg>
+								<ol class="postListWrapper">
+									<li th:each="postList: *{postsDetailList}"><a
+										th:text="${postList.postTitle}"
+										th:data-number="${postList.postRowNum}" aria-current="page"
+										class=""
+										th:href="@{/getPost/{boardNo}/{postNo}(boardNo=${posts.boardNo},postNo=${postList.postNo})}">시리즈1</a></li>
+
+
+								</ol>
+								<div class="postListBottomWrapper">
+									<div class="postListViewGuide">
+										<svg stroke="currentColor" fill="currentColor"
+											stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em"
+											xmlns="http://www.w3.org/2000/svg">
+											<path d="M7 10l5 5 5-5z"></path></svg>
+										<p class="morePostList">목록보기</p>
+									</div>
+									<div class="postListGuidePagingWrapper">
+										<div class="postNumber">
+											<span id="thisPostNumber"></span> / <span
+												th:text="*{postsDetailList[0].postListCount}">2</span>
+
+										</div>
+										<div class="postListNavButton">
+											<button class="postListBtn postListPrevBtn" disabled="">
+												<svg stroke="currentColor" fill="currentColor"
+													stroke-width="0" viewBox="0 0 24 24" height="1em"
+													width="1em" xmlns="http://www.w3.org/2000/svg">
+														<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg>
+											</button>
+											<button class="postListBtn postListNextBtn">
+												<svg stroke="currentColor" fill="currentColor"
+													stroke-width="0" viewBox="0 0 24 24" height="1em"
+													width="1em" xmlns="http://www.w3.org/2000/svg">
+														<path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--  게시글 목록 끝 -->
+					</div>
+					<div class="board_black_line"></div>
+
+					<hr class="black-hr">
+
+					<div class="row">
+
+						<div class="editorDIV" contenteditable="false">
+							<p th:utext="${posts.postContents}" class="first_editor_contents">내용을
+								입력해주세요</p>
+						</div>
+					</div>
+
+					<hr class="gray_hr">
+
+					<div class="row comment_line ">
+						<h4 th:text="${#lists.size(posts.commentList)}+' 개의 댓글'">29개의
+							댓글</h4>
+						<div class="comment_container">
+							<!-- <form th:action="@{/insertPostComment}" method="post">-->
+
+							<div class="comment_write_wrapper">
+								<textarea id="commentContent" name="commentConetent" placeholder="댓글을 작성하세요"
+									class="comment_content" style="height: 70px;"></textarea>
+								<div class="button_wrapper">
+									<button type="submit" color="teal" class="write_comment">댓글
+										작성</button>
+								</div>
+							</div>
+							<!-- 	</form> -->
+							<div class="comment_read_wrapper">
+							<th:block
+								th:replace="~{common/board/fragment/commentList :: getCommentList(${posts.commentList})}"></th:block>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		 <script th:src="@{/js/board.js}"></script> 
+		<script th:src="@{/js/editor/boardEditor.js}"></script>
+		<script th:src="@{/js/editor/editEventTrigger.js}"></script>
+	</div>
+</body>
+</html>

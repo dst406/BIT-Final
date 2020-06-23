@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
 <head>
 <meta charset="utf-8">
 <title>시간표</title>
 <link href="/css/main.css" rel="stylesheet" type="text/css">
 <link href="/css/styleSchedule.css" rel="stylesheet" type="text/css">
-<meta th:include="/include/meta.html">
 <script language="javascript">
   function calendarRegist() { window.open("calendarRegist", "일정등록", "width=800, height=800, left=100, top=50"); }
 </script>
 </head>
 <body>
-	<div th:include="/include/topbar.html"></div>
-	<div th:include="/include/studentNavBar.html"></div>
+<div layout:fragment="content">
 	<div class="page-wrapper">
 		<div class="page-content-tab">
 			<div class="container">
@@ -519,6 +519,7 @@
 				<!-- End row -->
 			</div>
 		</div>
+	</div>
 	</div>
 </body>
 

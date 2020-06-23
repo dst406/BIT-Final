@@ -6,7 +6,11 @@
 	</select>
 	
 	<select id="getStudentInfo" parameterType="String" resultType="com.varchar.www.model.domain.student.Student">
-		select * from academy_user where user_id = #{userId}
+		select u.user_id, u.user_name, u.school_name, 	u.user_tel, u.user_parent_tel, u.user_birth, u.user_email, u.user_address, u.user_image, u.user_remark,
+		          a.academic_type_name
+		from academy_user u, academic_type a
+		where u.user_id = #{user_id}
+		and u.academic_type_code = a.academic_type_code
 	</select>
 	
 	<insert id="insertStudent" parameterType="com.varchar.www.model.domain.student.Student">
