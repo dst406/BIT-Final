@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+#<<<<<<< HEAD
 spring:
   devtools:
     livereload:
@@ -71,6 +71,6 @@ server:
   
   # SQL Log
 logging:
->>>>>>> refs/remotes/origin/master
+#>>>>>>> refs/remotes/origin/master
   file:
     path: logback-spring.xml
