@@ -10,119 +10,123 @@
 <meta name="description" content="">
 <meta name="author" contentnt="">
 
-    
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script language="javascript">
-//function studentRegistClose() {window.close();}
+	//function studentRegistClose() {window.close();}
 
-var sel_file;
+	var sel_file;
 
-$(document).ready(function() {
-    $("#inputImg").on("change", handleImgFileSelect);
-}); 
+	$(document).ready(function() {
+		$("#inputImg").on("change", handleImgFileSelect);
+	});
 
-function handleImgFileSelect(e) {
-    var files = e.target.files;
-    var filesArr = Array.prototype.slice.call(files);
+	function handleImgFileSelect(e) {
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
 
-    filesArr.forEach(function(f) {
-        if(!f.type.match("image.*")) {
-            alert("확장자는 이미지 확장자만 가능합니다.");
-            return;
-        }
+		filesArr.forEach(function(f) {
+			if (!f.type.match("image.*")) {
+				alert("확장자는 이미지 확장자만 가능합니다.");
+				return;
+			}
 
-        sel_file = f;
+			sel_file = f;
 
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $("#img").attr("src", e.target.result);
-        }
-        reader.readAsDataURL(f);
-    });
-}
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$("#img").attr("src", e.target.result);
+			}
+			reader.readAsDataURL(f);
+		});
+	}
 </script>
 </head>
 <body>
-	<div class="page-wrapper">
-		<!-- Page Content-->
-		<div class="page-content-tab">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="text-center">
-							<h4 class="page-title">학생정보 등록</h4>
-						</div>
-						<!--end page-title-box-->
-					</div>
-					<!--end col-->
-				</div>
-				<form class="form-horizontal form-material mb-0"
-					th:action="@{/insertStudent}" th:object="${student}"
-					th:method="POST">
-					<!-- 학생 정보 입력칸 시작  -->
+	<div layout:fragment="content">
+		<div class="page-wrapper">
+			<!-- Page Content-->
+			<div class="page-content-tab">
+				<div class="container">
 					<div class="row">
-						<div class="met-profile-main-pic col-lg-4"
-							style="display: list-itemflex; margin: auto;">
-							<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
-								<div>
-							        <h2><b>이미지 미리보기</b></h2>
-							        <p class="title">이미지 업로드</p>
-							        <input type="file" th:field="*{userImage}" id="inputImg" />
-							    </div>
-							 
-							    <div>
-							        <div class="img_wrap">
-							            <img id="img" />
-							        </div>
-							    </div>
+						<div class="col-sm-12">
+							<div class="text-center">
+								<h4 class="page-title">학생정보 등록</h4>
 							</div>
+							<!--end page-title-box-->
 						</div>
-						<div class="align-self-center  col-lg-12" style="">
-							<div class="met-profile-main">
+						<!--end col-->
+					</div>
+					<form class="form-horizontal form-material mb-0"
+						th:action="@{/insertStudent}" th:object="${student}"
+						th:method="POST">
+						<!-- 학생 정보 입력칸 시작  -->
+						<div class="row">
+							<div class="met-profile-main-pic col-lg-4"
+								style="display: list-itemflex; margin: auto;">
+								<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
+									<div>
+										<h2>
+											<b>이미지 미리보기</b>
+										</h2>
+										<p class="title">이미지 업로드</p>
+										<input type="file" th:field="*{userImage}" id="inputImg" />
+									</div>
 
-								<div class="met-profile_user-detail"></div>
-								<div class="col-lg-4" style="margin: auto;">
-									<form class="form-horizontal form-material mb-0">
-										<div class="form-group">
-											이름 <input type="text" th:field="*{userName}"
-												placeholder="이름" class="form-control">
-											<p></p>
-											생년월일 <input type="date" th:field="*{userBirth}"
-												placeholder="생년월일" class="form-control">
-											<p></p>
-											연락처 <input type="text" th:field="*{userTel}"
-												placeholder="연락처" class="form-control">
-											<p></p>
-											보호자연락처 <input type="text" th:field="*{userParentTel}"
-												placeholder="보호자연락처" class="form-control">
-											<p></p>
-											학교명 <input type="text" th:field="*{schoolName}"
-												placeholder="학교명" class="form-control">
-											<p></p>
-											문/이과 <select class="form-control"
-												th:field="*{academicTypeCode}">
-												<option value="0">선택</option>
-												<option value="1">문과</option>
-												<option value="2">이과</option>
-											</select> 주소 <input type="text" th:field="*{userAddress}"
-												placeholder="주소" class="form-control">
-											<p></p>
+									<div>
+										<div class="img_wrap">
+											<img id="img" />
 										</div>
-										특이사항
-										<div class="form-group">
-											<textarea rows="5" th:field="*{userRemark}"
-												placeholder="특이사항" class="form-control"></textarea>
-											<button
-												class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
-												onclick="studentRegistClose();">학생등록</button>
-										</div>
-									</form>
+									</div>
+								</div>
+							</div>
+							<div class="align-self-center  col-lg-12" style="">
+								<div class="met-profile-main">
+
+									<div class="met-profile_user-detail"></div>
+									<div class="col-lg-4" style="margin: auto;">
+										<form class="form-horizontal form-material mb-0">
+											<div class="form-group">
+												이름 <input type="text" th:field="*{userName}"
+													placeholder="이름" class="form-control">
+												<p></p>
+												생년월일 <input type="date" th:field="*{userBirth}"
+													placeholder="생년월일" class="form-control">
+												<p></p>
+												연락처 <input type="text" th:field="*{userTel}"
+													placeholder="연락처" class="form-control">
+												<p></p>
+												보호자연락처 <input type="text" th:field="*{userParentTel}"
+													placeholder="보호자연락처" class="form-control">
+												<p></p>
+												학교명 <input type="text" th:field="*{schoolName}"
+													placeholder="학교명" class="form-control">
+												<p></p>
+												문/이과 <select class="form-control"
+													th:field="*{academicTypeCode}">
+													<option value="0">선택</option>
+													<option value="1">문과</option>
+													<option value="2">이과</option>
+												</select> 주소 <input type="text" th:field="*{userAddress}"
+													placeholder="주소" class="form-control">
+												<p></p>
+											</div>
+											특이사항
+											<div class="form-group">
+												<textarea rows="5" th:field="*{userRemark}"
+													placeholder="특이사항" class="form-control"></textarea>
+												<button
+													class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
+													onclick="studentRegistClose();">학생등록</button>
+											</div>
+										</form>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</form>
-				<!--  학생입력칸 종료 -->
+					</form>
+					<!--  학생입력칸 종료 -->
+				</div>
 			</div>
 		</div>
 	</div>

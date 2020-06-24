@@ -9,6 +9,7 @@ public class Student {
 	private String userId;
 	private String authorityCode;
 	private String academicTypeName;
+	private String academicTypeCode;
 	private String userPassword;
 	private String userName;
 	private String userTel;

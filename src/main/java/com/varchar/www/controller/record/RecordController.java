@@ -49,6 +49,6 @@ public class RecordController {
 	public String rdeleteRecord(@PathVariable String recordNo, Model model) {
 		recordService.deleteRecord(recordNo);
 		
-		return "/getRecordList";
+		return "record/recordManagement";
 	}
 }
