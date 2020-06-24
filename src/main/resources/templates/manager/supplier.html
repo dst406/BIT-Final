@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
 <head>
 <meta charset="UTF-8">
 <title>거래처</title>
-<meta th:include="/include/meta.html">
 </head>
 <body>
-	<div th:include="/include/topbar.html"></div>
-	<div th:include="/include/navbar.html"></div>
+<div layout:fragment="content" >
 	<div class="page-wrapper">
 		<!-- Page Content-->
 		<div class="page-content-tab">
@@ -80,11 +80,11 @@
 													<tbody>
 														
 														<tr th:each="supplier : ${supplier}" role="row" class="odd">
-															<td th:text="${supplier.supplier_no}"></td>
-															<td th:text="${supplier.supplier_name}"></td>
-															<td th:text="${supplier.supplier_address}"></td>
-															<td th:text="${supplier.supplier_tel}"></td>
-															<td th:text="${supplier.supplier_date}"></td>
+															<td th:text="${supplier.supplierNo}"></td>
+															<td th:text="${supplier.supplierName}"></td>
+															<td th:text="${supplier.supplierAddress}"></td>
+															<td th:text="${supplier.supplierTel}"></td>
+															<td th:text="${supplier.supplierDate}"></td>
 															<td name="buttons">
 																<div class="pull-right">																
 																	<button id="bEdit" type="button" class="btn btn-sm btn-soft-success btn-circle mr-2" onclick="rowEdit(this);">
@@ -161,8 +161,7 @@
 			</div>
 		</div>
 	</div>
-	<div th:include="/include/footer.html"></div>
 	<!-- js Plugin -->
-	<script src=></script>
+	</div>
 </body>
 </html>

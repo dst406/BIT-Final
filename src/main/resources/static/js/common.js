@@ -10,7 +10,8 @@ $(function(){
 	
 	
 	
-		$('#board').on('click',function(event){
+//		$('#board').on('click',function(event){
+	$('.nav-link').on('click',function(event){
 		$.ajax({
 			url: "/getNavbar/jin2020"
 		}).done(function(data){
