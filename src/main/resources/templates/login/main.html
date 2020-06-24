@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>메인</title>
+</head>
+<body>
+
+
+
+<div>
+	<div>
+		<div>
+			<div>
+				<h3>원장</h3>
+				<form sec:authorize="hasRole('MANAGER')" action="/manager/manager" th:action="@{manager/manager}" method="get">
+					<button>Go</button>
+				</form>
+				 <a sec:authorize="hasRole('MANAGER')" th:href="@{/manager/manager}">내정보</a>
+				 
+			
+			</div>
+		</div>
+	</div>
+	<div>
+		<div>
+			<div>
+				<h3>강사</h3>
+					<a sec:authorize="hasRole('TEACHER')" th:href="@{/teacher/teacher}">내정보</a>
+				<form action="/teacher" th:action="@{/teacher/teacher}" method="get">
+			
+					<button>Go</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div>
+		<div>
+			<div>
+				<h3>학생</h3>
+				<a sec:authorize="hasRole('STUDENT')" th:href="@{/student/student}">내정보</a>
+				<form action="/student/student" th:action="@{/student/student}" method="get">
+					<button>Go</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+</html>

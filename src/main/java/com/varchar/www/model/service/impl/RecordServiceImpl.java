@@ -31,6 +31,12 @@ public class RecordServiceImpl implements RecordService {
 	public void insertRecord(Record record) {
 		recordDAO.insertRecord(record);
 	}
+
+	@Override
+	public void deleteRecord(String recordNo) {
+		// TODO Auto-generated method stub
+		recordDAO.deleteRecord(recordNo);
+	}
 	
 
 

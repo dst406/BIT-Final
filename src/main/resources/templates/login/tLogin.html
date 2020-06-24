@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>원장/강사 로그인</title>
+<meta th:include="/include/meta.html">
+</head>
+<body>
+	<div class="container">
+		<div class="row vh-100 d-flex justify-content-center">
+			<div class="col-12 align-self-center">
+				<div class="">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-lg-5 mx-auto">
+								<div class="card">
+									<div class="card-body">
+										<div class="media mb-3">
+											<a href="../analytics/analytics-index.html"
+												class="logo logo-admin"><img
+												src="img/logo-sm.png" height="40" alt="logo"
+												class="auth-logo"></a>
+											<div class="media-body align-self-center text-truncate ml-2">
+												<h4 class="mt-0 mb-1 font-weight-semibold text-dark font-18">원장/강사
+													로그인</h4>
+												<p class="text-muted mb-0">학원관리 서비스에 로그인하세요.</p>
+											</div>
+											<!--end media-body-->
+										</div>
+										<form class="form-horizontal auth-form my-4"
+											action="login" method="post">
+											<div class="form-group">
+												<label for="username">ID</label>
+												<div class="input-group mb-3">
+													<input type="text" class="form-control" id="id"
+														placeholder="아이디를 입력하세요.">
+												</div>
+											</div>
+											<!--end form-group-->
+											<div class="form-group">
+												<label for="userpassword">Password</label>
+												<div class="input-group mb-3">
+													<input type="password" class="form-control"
+														id="pw" placeholder="패스워드를 입력하세요.">
+												</div>
+											</div>
+											<!--end form-group-->
+											<!--end form-group-->
+											<div class="form-group mb-0 row">
+												<div class="col-12 mt-2">
+													<button
+														class="btn btn-primary btn-block waves-effect waves-light"
+														type="button">
+														Log In <i class="fas fa-sign-in-alt ml-1"></i>
+													</button>
+												</div>
+												<!--end col-->
+											</div>
+											<!--end form-group-->
+										</form>
+										<!--end form-->
+									</div>
+								</div>
+							</div>
+							<!--end col-->
+						</div>
+						<!--end row-->
+					</div>
+					<!--end card-body-->
+				</div>
+				<!--end card-->
+			</div>
+			<!--end col-->
+		</div>
+		<!--end row-->
+	</div>
+</body>
+</html>

@@ -45,10 +45,10 @@ public class RecordController {
 		return "record/recordModify";
 	}
 	
-	@GetMapping("/deleteRecord/{userId}")
-	public String rdeleteRecord(@PathVariable String userId, Model model) {
+	@GetMapping("/deleteRecord/{recordNo}")
+	public String rdeleteRecord(@PathVariable String recordNo, Model model) {
+		recordService.deleteRecord(recordNo);
 		
-		
-		return "record/recordModify";
+		return "/getRecordList";
 	}
 }

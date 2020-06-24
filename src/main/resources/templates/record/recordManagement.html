@@ -10,11 +10,6 @@
 		window.open("recordRegist", "성적등록",
 				"width=800, height=800, left=100, top=50");
 	}
-	
-	function recordDelete() {
-		var userId = document.getElementById('userId').value;
-		location.href = "/deleteRecord/" + userId
-	}
 </script>
 </head>
 <link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
@@ -114,10 +109,9 @@
 														</thead>
 														<tbody>
 															<tr th:each="record : ${recordList}" role="row"	class="odd">
-																<td th:if="${record.testNo} < 5" th:text="${record.userId}"></td>
-																<td th:if="${record.testNo} < 5" th:text="${record.userName}"
-																	   onclick="recordDelete()"></td>
-																<td th:if="${record.testNo} < 5" th:text="${record.age}"></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.userId}">
+																<td th:if="${record.testNo} < 5"><a th:href="@{/deleteRecord/{recordNo}(recordNo=${record.recordNo})}"  th:text="${record.userName}"></a></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.age}"></td> 
 																<td th:if="${record.testNo} < 5" th:text="${record.schoolName}"></td>
 																<td th:if="${record.testNo} < 5" th:text="${record.testName}"></td>
 																<td th:if="${record.testNo} < 5" th:text="${record.koreanLanguage}"></td>
@@ -251,11 +245,10 @@
 															<!--end tr-->
 														</thead>
 														<tbody>
-															<tr th:each="record : ${recordList}" role="row"
-																class="odd">
-																<td th:if="${record.testNo} >= 5" th:text="${record.userId}" id="userId"></td>
-																<td th:if="${record.testNo} >= 5" th:text="${record.userName}"
-																	   onclick="recordDelete()"></td>
+															<tr th:each="record : ${recordList}" role="row"	class="odd">
+																<td th:if="${record.testNo} >= 5" th:text="${record.userId}" ></td>
+																<td th:if="${record.testNo} >= 5">
+																<a th:href="@{/deleteRecord/{recordNo}(recordNo=${record.recordNo})}"  th:text="${record.userName}"></a></td>
 																<td th:if="${record.testNo} >= 5" th:text="${record.age}"></td>
 																<td th:if="${record.testNo} >= 5" th:text="${record.schoolName}"></td>
 																<td th:if="${record.testNo} >= 5" th:text="${record.testName}"></td>
@@ -312,13 +305,9 @@
 						</div>
 						<!--end col-->
 					</div>
-
-
-
 				</div>
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

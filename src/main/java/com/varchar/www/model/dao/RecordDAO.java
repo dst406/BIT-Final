@@ -9,4 +9,5 @@ public interface RecordDAO {
 	List<Record> getRecordList();
 	List<Record> getStudentRecord(String userId);
 	void insertRecord(Record record);
+	void deleteRecord(String recordNo);
 }

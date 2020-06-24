@@ -243,10 +243,10 @@ function searchDateLatelyPost(){
 
 function searchDate($startDate, $endDate, text){
 	 $.ajax({
-		 url:"/getSearchDatePostList",
-		 type:"POST",
+		 url:"/board/getSearchDatePostList",
+		 type:"post",
 		 data:{
-			 boardNo : $('#boardName').attr('post-no'),
+			 boardNo : $('#boardName').attr('data-board-no'),
 			 startDate : $startDate,
 			 endDate : $endDate
 		 }

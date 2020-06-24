@@ -35,4 +35,9 @@
 		insert into record(record_no, user_id, age, test_no, korean_language, english, math, social, science, korean_history, sum) 
 		values (recordSeq.nextval, #{userId}, #{age}, #{testNo}, #{koreanLanguage}, #{english}, #{math}, #{social}, #{science}, #{koreanHistory}, #{koreanLanguage}+#{english}+#{math}+#{social}+#{science}+#{koreanHistory})
 	</insert>
+	
+	<delete id="deleteRecord" parameterType="String">
+		delete from record where record_no = #{recordNo}
+	</delete>
+	
 </mapper>

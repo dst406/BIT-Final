@@ -11,8 +11,9 @@ public class Record {
 	private String age;
 	private String schoolName;
 	private String testName;
-	private String testSpacificationCode;
+	private String testKindCode;
 	private String testNo;
+	private String recordNo;
 	private int koreanLanguage;
 	private int english;
 	private int math;
