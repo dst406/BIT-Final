@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.varchar.www.model.dao.BoardDAO;
 import com.varchar.www.model.domain.board.Posts;
@@ -70,7 +71,10 @@ public class BoardController {
 	
 	/* 게시글 */
 	
-	@PostMapping("/getSearchDatePostList")
+	// 게시글 일자로 검색
+	
+	//@RequestMapping(value="/getSearchDatePostList", method= {RequestMethod.GET,RequestMethod.POST})
+	@PostMapping("/board/getSearchDatePostList")
 	public String getSearchDatePostList( int boardNo, String startDate, String endDate, Model model) {
 		System.out.println(boardNo+"  " +startDate+"  "+ endDate);
 		

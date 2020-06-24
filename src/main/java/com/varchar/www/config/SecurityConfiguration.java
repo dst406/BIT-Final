@@ -31,10 +31,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	
 
-		http.authorizeRequests()
+		http.csrf().disable().authorizeRequests()
+				
 				// 페이지 권한 설정
-				.antMatchers("/","/login","/new","/login/**").permitAll()
-			
+				.antMatchers("/","/login","/new","/login/**","/board/**").permitAll()
+				
 				// /manager으로 시작하는 경로는 MANABER롤을 가진 사용자만 접근 가능
 				.antMatchers("/manager/**").hasRole("MANAGER")
 				// /teacher으로 시작하는 경로는 TEACHER롤을 가진 사용자만 접근 가능
