@@ -32,18 +32,18 @@ public class LoginController {
 	@GetMapping("/login")
 	public String selectLogin() {
 		System.out.println("===> dispLogin()");
-		return "/login/login";
+		return "login/login";
 	}
 
 	// 접근 거부페이지
 	@GetMapping("/login/denied")
 	public String loginDenied() {
-		return "/login/denied";
+		return "login/denied";
 	}
 	//로그인 실패
 	@GetMapping("/login/loginfail")
 	public String loginfail() {
-		return "/login/loginfail";
+		return "login/loginfail";
 	}
 	// 모든사용자 로그인 성공 시 공통 기본페이지
 	/*
@@ -54,7 +54,7 @@ public class LoginController {
 		List<Member> members = memberRepository.findAll();
 		//model.put("members", members);
 		//model.put("currentMemberId", user.getUsername());
-		return "/login/main";
+		return "login/main";
 	}
 
 	@GetMapping("/main")
@@ -62,7 +62,7 @@ public class LoginController {
 		List<Member> members = memberRepository.findAll();
 		//model.put("members", members);
 		//model.put("currentMemberId", user.getUsername());
-		return "/login/main";
+		return "login/main";
 	}
 	
 	/*
@@ -85,7 +85,7 @@ public class LoginController {
 	public String managerPage(@AuthenticationPrincipal User user, Map<String, Object> model) {
 		System.out.println("33333333333333");
 		model.put("currentAdminId", user.getUsername());
-		return "/login/manager";
+		return "login/manager";
 	}
 
 	// 강사
@@ -94,7 +94,7 @@ public class LoginController {
 	public String loginTeacher(@AuthenticationPrincipal User user, Map<String, Object> model) {
 		
 		model.put("currentAdminId", user.getUsername());
-		return "/login/teacher";
+		return "login/teacher";
 	}
 	
 	//학생
@@ -103,7 +103,7 @@ public class LoginController {
 	public String loginStudent(@AuthenticationPrincipal User user, Map<String, Object> model) {
 		
 		model.put("currentAdminId", user.getUsername());
-		return "/login/student";
+		return "login/student";
 	}
 	
 	@GetMapping("/signup")

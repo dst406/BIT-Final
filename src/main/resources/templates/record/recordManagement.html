@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout/teacherLayout">
 <head>
 <meta charset="UTF-8">
 <title>성적관리</title>
-<script language="javascript">
+<script th:inline="javascript" >
 	function recordRegist() {
 		window.open("recordRegist", "성적등록",
 				"width=800, height=800, left=100, top=50");
