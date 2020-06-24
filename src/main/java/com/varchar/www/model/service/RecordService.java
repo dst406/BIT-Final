@@ -10,4 +10,5 @@ public interface RecordService {
 	
 	List<Record> getRecordList();
 	List<Record> getStudentRecord(String userId);
+	void insertRecord(Record record);
 }

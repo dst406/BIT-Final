@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout/teacherLayout">
@@ -10,6 +9,11 @@
 	function recordRegist() {
 		window.open("recordRegist", "성적등록",
 				"width=800, height=800, left=100, top=50");
+	}
+	
+	function recordDelete() {
+		var userId = document.getElementById('userId').value;
+		location.href = "/deleteRecord/" + userId
 	}
 </script>
 </head>
@@ -109,22 +113,22 @@
 															<!--end tr-->
 														</thead>
 														<tbody>
-															<tr th:each="record : ${recordList}" role="row"
-																class="odd">
-																<td th:text="${record.userId}"></td>
-																<td th:text="${record.userName}"></td>
-																<td th:text="${record.age}"></td>
-																<td th:text="${record.schoolName}"></td>
-																<td th:text="${record.testName}"></td>
-																<td th:text="${record.koreanLanguage}"></td>
-																<td th:text="${record.english}"></td>
-																<td th:text="${record.math}"></td>
-																<td th:text="${record.social}"></td>
-																<td th:text="${record.science}"></td>
-																<td th:text="${record.koreanHistory}"></td>
-																<td th:text="${record.sum}"></td>
-																<td th:text="${record.avg}"></td>
-																<td th:text="${record.rank}"></td>
+															<tr th:each="record : ${recordList}" role="row"	class="odd">
+																<td th:if="${record.testNo} < 5" th:text="${record.userId}"></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.userName}"
+																	   onclick="recordDelete()"></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.age}"></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.schoolName}"></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.testName}"></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.koreanLanguage}"></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.english}"></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.math}"></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.social}"></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.science}"></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.koreanHistory}"></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.sum}"></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.avg}"></td>
+																<td th:if="${record.testNo} < 5" th:text="${record.rank}"></td>
 															</tr>
 														</tbody>
 													</table>
@@ -247,165 +251,23 @@
 															<!--end tr-->
 														</thead>
 														<tbody>
-															<tr role="row" class="odd">
-																<td>2039D930A</td>
-																<td>동송현</td>
-																<td>고3</td>
-																<td>세화고</td>
-																<td>1학기 중간고사</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>480</td>
-																<td>80</td>
-																<td>3/30</td>
-															</tr>
-															<tr role="row" class="odd">
-																<td>2039D930A</td>
-																<td>동송현</td>
-																<td>고3</td>
-																<td>세화고</td>
-																<td>1학기 중간고사</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>480</td>
-																<td>80</td>
-																<td>3/30</td>
-															</tr>
-															<tr role="row" class="odd">
-																<td>2039D930A</td>
-																<td>동송현</td>
-																<td>고3</td>
-																<td>세화고</td>
-																<td>1학기 중간고사</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>480</td>
-																<td>80</td>
-																<td>3/30</td>
-															</tr>
-															<tr role="row" class="odd">
-																<td>2039D930A</td>
-																<td>동송현</td>
-																<td>고3</td>
-																<td>세화고</td>
-																<td>1학기 중간고사</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>480</td>
-																<td>80</td>
-																<td>3/30</td>
-															</tr>
-															<tr role="row" class="odd">
-																<td>2039D930A</td>
-																<td>동송현</td>
-																<td>고3</td>
-																<td>세화고</td>
-																<td>1학기 중간고사</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>480</td>
-																<td>80</td>
-																<td>3/30</td>
-															</tr>
-															<tr role="row" class="odd">
-																<td>2039D930A</td>
-																<td>동송현</td>
-																<td>고3</td>
-																<td>세화고</td>
-																<td>1학기 중간고사</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>480</td>
-																<td>80</td>
-																<td>3/30</td>
-															</tr>
-															<tr role="row" class="odd">
-																<td>2039D930A</td>
-																<td>동송현</td>
-																<td>고3</td>
-																<td>세화고</td>
-																<td>1학기 중간고사</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>480</td>
-																<td>80</td>
-																<td>3/30</td>
-															</tr>
-															<tr role="row" class="odd">
-																<td>2039D930A</td>
-																<td>동송현</td>
-																<td>고3</td>
-																<td>세화고</td>
-																<td>1학기 중간고사</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>480</td>
-																<td>80</td>
-																<td>3/30</td>
-															</tr>
-															<tr role="row" class="odd">
-																<td>2039D930A</td>
-																<td>동송현</td>
-																<td>고3</td>
-																<td>세화고</td>
-																<td>1학기 중간고사</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>480</td>
-																<td>80</td>
-																<td>3/30</td>
-															</tr>
-															<tr role="row" class="odd">
-																<td>2039D930A</td>
-																<td>동송현</td>
-																<td>고3</td>
-																<td>세화고</td>
-																<td>1학기 중간고사</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>80</td>
-																<td>480</td>
-																<td>80</td>
-																<td>3/30</td>
+															<tr th:each="record : ${recordList}" role="row"
+																class="odd">
+																<td th:if="${record.testNo} >= 5" th:text="${record.userId}" id="userId"></td>
+																<td th:if="${record.testNo} >= 5" th:text="${record.userName}"
+																	   onclick="recordDelete()"></td>
+																<td th:if="${record.testNo} >= 5" th:text="${record.age}"></td>
+																<td th:if="${record.testNo} >= 5" th:text="${record.schoolName}"></td>
+																<td th:if="${record.testNo} >= 5" th:text="${record.testName}"></td>
+																<td th:if="${record.testNo} >= 5" th:text="${record.koreanLanguage}"></td>
+																<td th:if="${record.testNo} >= 5" th:text="${record.english}"></td>
+																<td th:if="${record.testNo} >= 5" th:text="${record.math}"></td>
+																<td th:if="${record.testNo} >= 5" th:text="${record.social}"></td>
+																<td th:if="${record.testNo} >= 5" th:text="${record.science}"></td>
+																<td th:if="${record.testNo} >= 5" th:text="${record.koreanHistory}"></td>
+																<td th:if="${record.testNo} >= 5" th:text="${record.sum}"></td>
+																<td th:if="${record.testNo} >= 5" th:text="${record.avg}"></td>
+																<td th:if="${record.testNo} >= 5" th:text="${record.rank}"></td>
 															</tr>
 														</tbody>
 													</table>

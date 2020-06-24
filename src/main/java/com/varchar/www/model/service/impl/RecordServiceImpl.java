@@ -26,6 +26,11 @@ public class RecordServiceImpl implements RecordService {
 
 		return recordDAO.getStudentRecord(userId);
 	}
+
+	@Override
+	public void insertRecord(Record record) {
+		recordDAO.insertRecord(record);
+	}
 	
 
 

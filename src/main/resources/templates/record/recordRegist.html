@@ -22,47 +22,48 @@
 					<!--end col-->
 				</div>
 
-				<!-- 학생 정보 입력칸 시작  -->
+				<!-- 성적 정보 입력칸 시작  -->
 				<div class="row">
-					<div class="met-profile-main-pic col-lg-4"
-						style="display: list-itemflex; margin: auto;">
-						<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
-						<div class="met-profile-main-pic">
-							<img src="img/human.png" alt="" height="100"
-								class="rounded-circle"> <span
-								class="fro-profile_main-pic-change"><i
-								class="fas fa-camera" aria-hidden="true"></i></span>
-						</div>
-						</div>
-					</div>
 					<div class="align-self-center  col-lg-12" style="">
 						<div class="met-profile-main">
 
 							<div class="met-profile_user-detail"></div>
 							<div class="col-lg-4" style="margin: auto;">
-								<form class="form-horizontal form-material mb-0">
+								<form class="form-horizontal form-material mb-0" th:action="@{/insertRecord}" th:object="${record}" th:method="POST">
 									<div class="form-group">
-										<input type="text" placeholder="학생번호" class="form-control">
+										학생번호
+										<input type="text" placeholder="학생번호" th:field="*{userId}" class="form-control">
 										<p></p>
-										<input type="text" placeholder="이름" class="form-control">
+										학년
+										<input type="text" placeholder="학년" th:field="*{age}" class="form-control">
 										<p></p>
-										<input type="text" placeholder="학년" class="form-control">
+										시험명 <select class="form-control" th:field="*{testNo}">
+												<option value="1">세화고 1학기 중간고사</option>
+												<option value="2">휘문고 1학기 중간고사</option>
+												<option value="3">경문고 1학기 중간고사</option>
+												<option value="4">경기고 1학기 중간고사</option>
+												<option value="5">2019년 9월 모의평가</option>
+												<option value="6">2020년 3월 모의평가</option>
+												<option value="7">2020년 6월 모의평가</option>
+												</select>
 										<p></p>
-										<input type="text" placeholder="학교" class="form-control">
+										국어
+										<input type="text" placeholder="국어" th:field="*{koreanLanguage}" class="form-control">
 										<p></p>
-										<input type="text" placeholder="시험명" class="form-control">
+										영어
+										<input type="text" placeholder="영어" th:field="*{english}"class="form-control">
 										<p></p>
-										<input type="text" placeholder="국어" class="form-control">
+										수학
+										<input type="text" placeholder="수학" th:field="*{math}" class="form-control">
 										<p></p>
-										<input type="text" placeholder="영어" class="form-control">
+										사회
+										<input type="text" placeholder="사회" th:field="*{social}" class="form-control">
 										<p></p>
-										<input type="text" placeholder="수학" class="form-control">
+										과학
+										<input type="text" placeholder="과학" th:field="*{science}" class="form-control">
 										<p></p>
-										<input type="text" placeholder="사회" class="form-control">
-										<p></p>
-										<input type="text" placeholder="과학" class="form-control">
-										<p></p>
-										<input type="text" placeholder="한국사" class="form-control">
+										한국사
+										<input type="text" placeholder="한국사" th:field="*{koreanHistory}" class="form-control">
 										<p></p>
 											<button	class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0">성적등록</button>
 									</div>
@@ -71,7 +72,7 @@
 						</div>
 					</div>
 				</div>
-				<!--  학생입력칸 종료 -->
+				<!--  성적입력칸 종료 -->
 
 			</div>
 		</div>

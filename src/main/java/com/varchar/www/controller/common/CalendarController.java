@@ -11,6 +11,11 @@ public class CalendarController {
 		return "/util/calendar";
 	}
 	
+	@GetMapping("/calendarDefault")
+	public String calendarDefault() {
+		return "/util/calendarDefaultForm";
+	}
+	
 	@GetMapping("/schedule")
 	public String schedule() {
 			
