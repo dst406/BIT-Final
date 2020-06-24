@@ -92,11 +92,11 @@ compile group: 'org.hibernate.validator', name: 'hibernate-validator', version: 
 	}
 	//can security test
 	//testImplementation 'org.springframework.security:spring-security-test'
-//<<<<<<< HEAD
+<<<<<<< HEAD
 	
-//=======
+=======
 	implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
-//>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/master
 }
 
 test {
