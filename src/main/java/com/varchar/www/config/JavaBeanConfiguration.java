@@ -8,12 +8,15 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 import com.varchar.www.model.domain.board.Board;
 import com.varchar.www.model.domain.board.BoardGroup;
 import com.varchar.www.model.domain.board.BoardGroupList;
-
 import com.varchar.www.model.domain.board.PostDetail;
 import com.varchar.www.model.domain.board.Posts;
 import com.varchar.www.model.domain.board.PostsDetailList;
 import com.varchar.www.model.domain.board.PostsList;
 import com.varchar.www.model.domain.comment.ReplyComment;
+import com.varchar.www.model.login.AcademyUser;
+import com.varchar.www.model.login.LoginAuthenticationProvider;
+import com.varchar.www.model.login.UserDetailsServiceImpl;
+import com.varchar.www.model.login.VarcharLoginSuccessHandler;
 
 @Configuration
 public class JavaBeanConfiguration {
@@ -32,6 +35,12 @@ public class JavaBeanConfiguration {
 	 @Bean public PostDetail postDetail() {return new PostDetail();}
 	 @Bean public PostsDetailList postsDetailList() {return new PostsDetailList();}
 	 @Bean public ReplyComment replyComment() {return new ReplyComment();}
+	 
+	 // Login
+	 @Bean public AcademyUser academyUser() {return new AcademyUser();}
+	 @Bean public UserDetailsServiceImpl userService() {return new UserDetailsServiceImpl();}
+	 @Bean public LoginAuthenticationProvider loginAuthenticationProvider() {return new LoginAuthenticationProvider();}
+	 @Bean public VarcharLoginSuccessHandler varcharLoginSuccessHandler() {return new VarcharLoginSuccessHandler();}
 	 
 	 @Bean
 	 public MultipartResolver multipartResolver() {

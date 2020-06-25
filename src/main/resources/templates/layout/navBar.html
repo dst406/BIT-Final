@@ -2,11 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
 </head>
 <body>
 
 	<div class="topbar" th:fragment="topNavBar">
+	
 		<!-- Navbar -->
 		<nav class="navbar-custom">
 			<ul class="list-unstyled topbar-nav float-right mb-0">
@@ -164,13 +166,14 @@
 
 <!--  LEFT NAVBAR START -->
 
-	<div class="leftbar-tab-menu mm-active active" th:fragment="leftNavBar">
+<th:block th:fragment="leftNavBar(boardGroupList)">
+	<div class="leftbar-tab-menu mm-active active" >
 		<div class="main-icon-menu in mm-show">
 			<a href="../crm/crm-index.html"
 				class="logo logo-metrica d-block text-center"><span><img
 					src="../assets/images/logo-sm.png" alt="logo-small" class="logo-sm"></span></a>
 			<nav class="nav">
-				<a href="#MetricaCRM" class="nav-link leftbar-tab-icon active"
+				<a href="#MetricaCRM" class="nav-link leftbar-tab-icon"
 					data-toggle="tooltip-custom" data-placement="right" title=""
 					data-original-title="CRM" data-trigger="hover"><svg
 						xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -257,231 +260,75 @@
 				style="position: relative; overflow: hidden; width: auto; height: 969px;">
 				<div class="menu-body slimscroll mm-show"
 					style="overflow: hidden; width: auto; height: 969px;">
-					<div id="MetricaCRM" class="main-icon-menu-pane mm-active active">
-						<div class="title-box active">
-							<h6 class="menu-title">학생관리</h6>
-						</div>
-						<ul class="nav in mm-show">
-							<li class="nav-item"><a class="nav-link"
-								href="../crm/crm-index.html">학생목록</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../crm/crm-contacts.html">출결관리</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../crm/crm-opportunities.html">출석부</a></li>
-								<li class="nav-item"><a class="nav-link"
-								href="../crm/crm-opportunities.html">성적관리</a></li>
+					
+					
+			
+			<!-- 강의별 게시판 그룹, 게시판 List Start -->
+				<div th:each="boardGroupList : ${boardGroupList}" id="MetricaApps"
+					class="main-icon-menu-pane active">
+					<input th:value="${boardGroupList.lectureCode}" type="hidden" class="hidden-lectureCode">
+					<div class="title-box">
+						<div class="group_icon lecture" >			
+							 <a href="#" data-mfp-src=".insertBoardGroupContainer"
+									class="insertPage-popup-link popup-link insert-board-group"> 
+									<i class="fas fa-plus group_plus"></i>
+							</a>
+						</div>	
+						
+						
+						<h6 th:text="${boardGroupList.lectureName}" class="menu-title edit-able">[엄쌤]
+							익석이조: 문학,독서 휘어잡기</h6>
+					</div>
+					<ul 
+						class="nav metismenu">
+						<!--end nav-item-->
+						<li th:each="boardGroup: ${boardGroupList.boardGroup}" class="nav-item mm-active active">
+						
+						<span class="nav-link-more-group" th:if="${not boardGroup.board.isEmpty()}">
+								<i class="fas fa-chevron-right"></i>
+						 </span>
+					<div class="group_icon">			
+						 <a href="#" data-mfp-src=".insertBoardContainer"
+								class="insertPage-popup-link popup-link insert-board"> 
+								<i class="fas fa-plus group_plus"></i>
+						</a>
+						
+						<a href="#" data-mfp-src=".editBoardGroupPanelWrapper"
+								class="editBoardGroup-popup-link popup-link"> <i
+								class="fas fa-ellipsis-h"></i>
+							</a>
+						</div>	
+						<a th:text="${boardGroup.boardGroupName}" th:data="${boardGroup.boardGroupNo}" 
+						class="nav-link edit-able board-group" href="javascript: void(0);" aria-expanded="true"> </a>								
+								
+							
+								
+								
+							<ul class="nav-second-level mm-collapse mm-show"
+								aria-expanded="false" style="">
+								<li th:each="board : ${boardGroup.board}">
+								<a th:text="${board.boardName}" th:href="@{/board/postList/{boardNo}(boardNo=${board.boardNo})}">5월 문법노트+독서노트</a></li> 
+								
+								<!-- <a th:text="${board.boardName}" th:href="@{/postList(boardNo=${board.boardNo})}">5월 문법노트+독서노트</a></li> -->
+							</ul></li>
+					</ul>
+				</div>
+			<!-- 강의별 게시판 그룹, 게시판 List End -->
 
-						</ul>
-					</div>
-					<!-- end CRM -->
-					<div id="MetricaApps" class="main-icon-menu-pane">
-						<div class="title-box">
-							<h6 class="menu-title">Apps</h6>
-						</div>
-						<ul class="nav metismenu">
-							<li class="nav-item"><a class="nav-link"
-								href="javascript: void(0);"><span class="w-100">Email</span><span
-									class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
-							<ul class="nav-second-level mm-collapse" aria-expanded="false">
-									<li><a href="../apps/email-inbox.html">Inbox</a></li>
-									<li><a href="../apps/email-read.html">Read Email</a></li>
-								</ul></li>
-							<!--end nav-item-->
-							<li class="nav-item"><a class="nav-link"
-								href="../apps/chat.html">Chat</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../apps/contact-list.html">Contact List</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../apps/calendar.html">Calendar</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../apps/invoice.html">Invoice</a></li>
-						</ul>
-					</div>
-					<!-- end Crypto -->
-					<div id="MetricaUikit" class="main-icon-menu-pane">
-						<div class="title-box">
-							<h6 class="menu-title">UI Kit</h6>
-						</div>
-						<ul class="nav metismenu">
-							<li class="nav-item"><a class="nav-link" href="#"><span
-									class="w-100">UI Elements</span><span class="menu-arrow"><i
-										class="mdi mdi-chevron-right"></i></span></a>
-							<ul class="nav-second-level mm-collapse" aria-expanded="false">
-									<li><a href="../others/ui-bootstrap.html">Bootstrap</a></li>
-									<li><a href="../others/ui-animation.html">Animation</a></li>
-									<li><a href="../others/ui-avatar.html">Avatar</a></li>
-									<li><a href="../others/ui-clipboard.html">Clip Board</a></li>
-									<li><a href="../others/ui-files.html">File Manager</a></li>
-									<li><a href="../others/ui-ribbons.html">Ribbons</a></li>
-									<li><a href="../others/ui-dragula.html">Dragula</a></li>
-									<li><a href="../others/ui-check-radio.html">Check
-											&amp; Radio</a></li>
-								</ul></li>
-							<!--end nav-item-->
-							<li class="nav-item"><a class="nav-link" href="#"><span
-									class="w-100">Advanced UI</span><span class="menu-arrow"><i
-										class="mdi mdi-chevron-right"></i></span></a>
-							<ul class="nav-second-level mm-collapse" aria-expanded="false">
-									<li><a href="../others/advanced-rangeslider.html">Range
-											Slider</a></li>
-									<li><a href="../others/advanced-sweetalerts.html">Sweet
-											Alerts</a></li>
-									<li><a href="../others/advanced-nestable.html">Nestable
-											List</a></li>
-									<li><a href="../others/advanced-ratings.html">Ratings</a></li>
-									<li><a href="../others/advanced-highlight.html">Highlight</a></li>
-									<li><a href="../others/advanced-session.html">Session
-											Timeout</a></li>
-									<li><a href="../others/advanced-idle-timer.html">Idle
-											Timer</a></li>
-								</ul></li>
-							<!--end nav-item-->
-							<li class="nav-item"><a class="nav-link" href="#"><span
-									class="w-100">Forms</span><span class="menu-arrow"><i
-										class="mdi mdi-chevron-right"></i></span></a>
-							<ul class="nav-second-level mm-collapse" aria-expanded="false">
-									<li><a href="../others/forms-elements.html">Basic
-											Elements</a></li>
-									<li><a href="../others/forms-advanced.html">Advance
-											Elements</a></li>
-									<li><a href="../others/forms-validation.html">Validation</a></li>
-									<li><a href="../others/forms-wizard.html">Wizard</a></li>
-									<li><a href="../others/forms-editors.html">Editors</a></li>
-									<li><a href="../others/forms-repeater.html">Repeater</a></li>
-									<li><a href="../others/forms-x-editable.html">X
-											Editable</a></li>
-									<li><a href="../others/forms-uploads.html">File Upload</a></li>
-									<li><a href="../others/forms-img-crop.html">Image Crop</a></li>
-								</ul></li>
-							<!--end nav-item-->
-							<li class="nav-item"><a class="nav-link" href="#"><span
-									class="w-100">Charts</span><span class="menu-arrow"><i
-										class="mdi mdi-chevron-right"></i></span></a>
-							<ul class="nav-second-level mm-collapse" aria-expanded="false">
-									<li><a href="../others/charts-apex.html">Apex</a></li>
-									<li><a href="../others/charts-morris.html">Morris</a></li>
-									<li><a href="../others/charts-chartist.html">Chartist</a></li>
-									<li><a href="../others/charts-flot.html">Flot</a></li>
-									<li><a href="../others/charts-peity.html">Peity</a></li>
-									<li><a href="../others/charts-chartjs.html">Chartjs</a></li>
-									<li><a href="../others/charts-sparkline.html">Sparkline</a></li>
-									<li><a href="../others/charts-knob.html">Jquery Knob</a></li>
-									<li><a href="../others/charts-justgage.html">JustGage</a></li>
-								</ul></li>
-							<!--end nav-item-->
-							<li class="nav-item"><a class="nav-link" href="#"><span
-									class="w-100">Tables</span><span class="menu-arrow"><i
-										class="mdi mdi-chevron-right"></i></span></a>
-							<ul class="nav-second-level mm-collapse" aria-expanded="false">
-									<li><a href="../others/tables-basic.html">Basic</a></li>
-									<li><a href="../others/tables-datatable.html">Datatables</a></li>
-									<li><a href="../others/tables-responsive.html">Responsive</a></li>
-									<li><a href="../others/tables-footable.html">Footable</a></li>
-									<li><a href="../others/tables-jsgrid.html">Jsgrid</a></li>
-									<li><a href="../others/tables-dragger.html">Dragger</a></li>
-									<li><a href="../others/tables-editable.html">Editable</a></li>
-								</ul></li>
-							<!--end nav-item-->
-							<li class="nav-item"><a class="nav-link" href="#"><span
-									class="w-100">Icons</span><span class="menu-arrow"><i
-										class="mdi mdi-chevron-right"></i></span></a>
-							<ul class="nav-second-level mm-collapse" aria-expanded="false">
-									<li><a href="../others/icons-materialdesign.html">Material
-											Design</a></li>
-									<li><a href="../others/icons-dripicons.html">Dripicons</a></li>
-									<li><a href="../others/icons-fontawesome.html">Font
-											awesome</a></li>
-									<li><a href="../others/icons-themify.html">Themify</a></li>
-									<li><a href="../others/icons-feather.html">Feather</a></li>
-									<li><a href="../others/icons-typicons.html">Typicons</a></li>
-									<li><a href="../others/icons-emoji.html">Emoji <i
-											class="em em-ok_hand"></i></a></li>
-								</ul></li>
-							<!--end nav-item-->
-							<li class="nav-item"><a class="nav-link" href="#"><span
-									class="w-100">Maps</span><span class="menu-arrow"><i
-										class="mdi mdi-chevron-right"></i></span></a>
-							<ul class="nav-second-level mm-collapse" aria-expanded="false">
-									<li><a href="../others/maps-google.html">Google Maps</a></li>
-									<li><a href="../others/maps-leaflet.html">Leaflet Maps</a></li>
-									<li><a href="../others/maps-vector.html">Vector Maps</a></li>
-								</ul></li>
-							<!--end nav-item-->
-							<li class="nav-item"><a class="nav-link" href="#"><span
-									class="w-100">Email Templates</span><span class="menu-arrow"><i
-										class="mdi mdi-chevron-right"></i></span></a>
-							<ul class="nav-second-level mm-collapse" aria-expanded="false">
-									<li><a href="../others/email-templates-basic.html">Basic
-											Action Email</a></li>
-									<li><a href="../others/email-templates-alert.html">Alert
-											Email</a></li>
-									<li><a href="../others/email-templates-billing.html">Billing
-											Email</a></li>
-								</ul></li>
-							<!--end nav-item-->
-						</ul>
-						<!--end nav-->
-					</div>
-					<!-- end Others -->
-					<div id="MetricaPages" class="main-icon-menu-pane">
-						<div class="title-box">
-							<h6 class="menu-title">Pages</h6>
-						</div>
-						<ul class="nav">
-							<li class="nav-item"><a class="nav-link"
-								href="../pages/pages-profile.html">Profile</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../pages/pages-tour.html">Tour</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../pages/pages-timeline.html">Timeline</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../pages/pages-treeview.html">Treeview</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../pages/pages-starter.html">Starter Page</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../pages/pages-pricing.html">Pricing</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../pages/pages-blogs.html">Blogs</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../pages/pages-faq.html">FAQs</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../pages/pages-gallery.html">Gallery</a></li>
-						</ul>
-					</div>
-					<!-- end Pages -->
-					<div id="MetricaAuthentication" class="main-icon-menu-pane">
-						<div class="title-box">
-							<h6 class="menu-title">Authentication</h6>
-						</div>
-						<ul class="nav">
-							<li class="nav-item"><a class="nav-link"
-								href="../authentication/auth-login.html">Log in</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../authentication/auth-login-alt.html">Log in alt</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../authentication/auth-register.html">Register</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../authentication/auth-register-alt.html">Register-alt</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../authentication/auth-recover-pw.html">Re-Password</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../authentication/auth-recover-pw-alt.html">Re-Password-alt</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../authentication/auth-lock-screen.html">Lock Screen</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../authentication/auth-lock-screen-alt.html">Lock
-									Screen</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../authentication/auth-404.html">Error 404</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../authentication/auth-404-alt.html">Error 404-alt</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../authentication/auth-500.html">Error 500</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../authentication/auth-500-alt.html">Error 500-alt</a></li>
-						</ul>
-					</div>
-					<!-- end Authentication-->
+
+
+<!--  <div th:replace="~{common/board/fragment/editPage :: editPage}"></div> -->
+
+<script th:src="@{/js/lib/micromodal.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/lib/magnific-popup.js}" type="text/javascript"></script>
+<script th:src="@{/js/navScript.js}"></script>
+<div th:replace="~{/common/board/fragment/editPage :: editPage}"></div>
+<div th:replace="~{/common/board/fragment/insertBoardGroup :: insertBoardGroup}"></div>
+<div th:replace="~{/common/board/fragment/insertBoard :: insertBoard}"></div>
+
+					
+					
+					
 				</div>
 				<div class="slimScrollBar"
 					style="background: rgba(162, 177, 208, 0.13); width: 7px; position: absolute; top: 0px; opacity: 1; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 901px;"></div>
@@ -493,7 +340,7 @@
 		<!-- end main-menu-inner-->
 	</div>
 
-
+</th:block>
 
 
 

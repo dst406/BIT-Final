@@ -16,7 +16,7 @@ import com.varchar.www.model.domain.board.TemporaryPostList;
 import com.varchar.www.model.domain.comment.Comment;
 import com.varchar.www.model.service.BoardService;
 
-@Service("boardServiceImpl")
+@Service
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired BoardDAO boardDAO;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 
 <head>
 <meta charset="UTF-8">
@@ -37,7 +37,7 @@
 								
 																
 										<form class="form-horizontal auth-form my-4"
-											th:action="@{/login}" method="post">
+											th:action="@{/login}" th:method="post">
 											 
 											
 											<div class="form-group">
@@ -50,11 +50,21 @@
 											<!--end form-group-->
 											
 											<div class="form-group">
-												<label for="userpassword">비밀번호</label>
+												<label for="userPassword">비밀번호</label>
 												<div class="input-group mb-3">
 													<input type="password" name="password" class="form-control"
-														id="userpassword" placeholder="비밀번호를 입력해주세요">
+														id="userPassword" placeholder="비밀번호를 입력해주세요">
 												</div>
+											</div>
+											<div class="form-group"> 
+												<th:block th:if="${session}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION']}">
+												<font color="red">
+												
+													 <p th:text="${errorMsg}">아이디 또는 비밀번호가 틀렸습니다.<p/>
+												</font>
+													 
+												</th:block>
+
 											</div>
 											<!--end form-group-->
 											<!--end form-group-->

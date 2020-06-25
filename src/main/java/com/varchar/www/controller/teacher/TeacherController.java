@@ -27,9 +27,17 @@ public class TeacherController {
 	
 	//강사의 메인페이지 입니다.
 	@GetMapping("/teacherIndex")
-	public String teacherIndex() {
+	public String teacher() {
 		return "main/teacherIndex";
 	}
+	
+	//강사의 메인페이지 입니다.
+	@GetMapping("/teacher/teacherIndex")
+	public String teacherIndex() {
+		return "teacher/teacherIndex";
+	}
+	
+	
 	//강사목록페이지 입니다.
 	@GetMapping("/getTeacherList")
 	public String getTeacherList(Model model) {

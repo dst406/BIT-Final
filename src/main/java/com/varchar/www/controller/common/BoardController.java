@@ -39,7 +39,14 @@ public class BoardController {
 	public String getNavbar(@ModelAttribute("userId") String userId,Model model){
 		model.addAttribute("userId", "jin2020");
 		model.addAttribute("boardGroupList",boardService.getNavbar(userId));
-		return "include/nav/boardNavbar";
+		return "layout/navBar :: leftNavBar";
+	}
+	
+	// 유저에 따른 내비게이션바 호출 
+	@ModelAttribute
+	public void getBoardNavbar(Model model){
+		model.addAttribute("userId", "jin2020");
+		model.addAttribute("boardGroupList",boardService.getNavbar("jin2020"));
 	}
 	
 //	@GetMapping("/getNavbar/{userId}")

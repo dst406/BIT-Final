@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.varchar.www.model.dao.LoginDAO">
+	
+	<select id="getLoginUser" resultType="com.varchar.www.model.login.AcademyUser">
+		SELECT * FROM academy_user 
+		WHERE user_id = #{userId}
+	</select>
+	
+	<insert id="signUpUser">
+		INSERT INTO ACADEMY_USER ( USER_ID, AUTHORITY_CODE, PASSWORD, USER_NAME )
+		VALUES( #{userId}, #{authorityCode}  , #{password} , #{userName}   )
+	</insert>
+	
+</mapper>

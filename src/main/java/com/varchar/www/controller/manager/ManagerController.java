@@ -20,9 +20,15 @@ public class ManagerController {
 	
 	//원장의 메인화면입니다.
 	@GetMapping("/managerIndex")
-	public String managerIndex() {
-		return"main/managerIndex";
+	public String manager() {
+		return "main/managerIndex";
 	}
+	
+	@GetMapping("/manager/managerIndex")
+	public String managerIndex() {
+		return "manager/managerIndex";
+	}
+	
 	
 	//원장이 자신의 정보를 조회 
 	@GetMapping("/getManagerInfo/{authorityCode}")
