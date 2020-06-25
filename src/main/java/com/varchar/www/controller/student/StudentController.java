@@ -30,8 +30,6 @@ public class StudentController {
 		@PostMapping("/insertStudent")
 		public String insertStudent(@ModelAttribute Student student) {
 			studentService.insertStudent(student);	
-			
-			 
 			return "redirect:/registComplete";
 		}
 		
@@ -45,7 +43,7 @@ public class StudentController {
 		@RequestMapping("/deleteStudent/{userId}")
 		public String deleteStudent(@PathVariable String userId) {
 			studentService.deleteStudent(userId);
-			return "redirect:/getStudentList";
+			return "redirect:/getStudentListManager";
 		}
 		
 		@GetMapping("/getStudentListManager")

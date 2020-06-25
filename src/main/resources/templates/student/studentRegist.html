@@ -12,7 +12,9 @@
 
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script language="javascript">
+<script type="text/javascript" src="/js/insertStudent.js"></script>
+<!-- <script language="javascript">
+
 	//function studentRegistClose() {window.close();}
 
 	var sel_file;
@@ -40,7 +42,7 @@
 			reader.readAsDataURL(f);
 		});
 	}
-</script>
+</script> -->
 </head>
 <body>
 	<div layout:fragment="content">
@@ -65,19 +67,6 @@
 							<div class="met-profile-main-pic col-lg-4"
 								style="display: list-itemflex; margin: auto;">
 								<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
-									<div>
-										<h2>
-											<b>이미지 미리보기</b>
-										</h2>
-										<p class="title">이미지 업로드</p>
-										<input type="file" th:field="*{userImage}" id="inputImg" />
-									</div>
-
-									<div>
-										<div class="img_wrap">
-											<img id="img" />
-										</div>
-									</div>
 								</div>
 							</div>
 							<div class="align-self-center  col-lg-12" style="">
@@ -85,8 +74,15 @@
 
 									<div class="met-profile_user-detail"></div>
 									<div class="col-lg-4" style="margin: auto;">
-										<form class="form-horizontal form-material mb-0">
 											<div class="form-group">
+											<p class="title">이미지 업로드</p>
+										<input id="student-file" type="file" th:field="*{userImage}">
+										<img
+												class="rounded-circle thumb-lg" id="student-Img"
+												th:data-img="${student.userImage}"
+												th:src="'/img/' + ${student.userImage}"
+												style="width: 100px; height: 100px; margin-top: 10px;"><br>
+												<p></p>
 												이름 <input type="text" th:field="*{userName}"
 													placeholder="이름" class="form-control">
 												<p></p>
@@ -115,17 +111,20 @@
 											<div class="form-group">
 												<textarea rows="5" th:field="*{userRemark}"
 													placeholder="특이사항" class="form-control"></textarea>
-												<button
+												<input type="button" value="등록"
 													class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
-													onclick="studentRegistClose();">학생등록</button>
+													id="student-insert-btn">
 											</div>
-										</form>
+										
+										
 									</div>
 								</div>
 							</div>
 						</div>
 					</form>
 					<!--  학생입력칸 종료 -->
+					
+					
 				</div>
 			</div>
 		</div>
