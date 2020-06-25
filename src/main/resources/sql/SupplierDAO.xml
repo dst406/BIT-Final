@@ -4,9 +4,12 @@
 <mapper namespace="com.varchar.www.model.dao.SupplierDAO">
 	
 	<select id="getSupplier" resultType="com.varchar.www.model.domain.manager.Supplier">
-		SELECT * FROM supplier
+		SELECT * FROM supplier ORDER BY supplier_no DESC
 	</select>
 	
+	<select id="searchSupplier" resultType="com.varchar.www.model.domain.manager.Supplier">
+		SELECT * FROM supplier WHERE #{filter} LIKE %#{searchSupplier}% DESC;
+	</select>
 		
 	
 </mapper>
