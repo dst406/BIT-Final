@@ -1,4 +1,4 @@
-package com.varchar.www.model.login;
+package com.varchar.www.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -45,11 +45,11 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
 	            throw new BadCredentialsException(username);
 	        }
 	        
-	        System.out.println("비밀번호 TOKEN !!   : "+
-	        		new UsernamePasswordAuthenticationToken(username, password, user.getAuthorities())
+	        System.out.println(" TOKEN !!   : "+
+	        		new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities())
 	        		);
 	        
-	        return new UsernamePasswordAuthenticationToken(username, password, user.getAuthorities());
+	        return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 	}
 	
 

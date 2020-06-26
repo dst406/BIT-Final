@@ -1,10 +1,6 @@
-package com.varchar.www.model.login;
-
-import java.util.ArrayList;
+package com.varchar.www.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.varchar.www.model.dao.LoginDAO;
-import com.varchar.www.model.domain.user.Role;
 //@Service
 //@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService{
@@ -27,8 +22,10 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		System.out.println("userId="+userId);
 		
 		AcademyUser academyUser = loginDAO.getLoginUser(userId);
-				
+		
 		if( academyUser == null) {throw new UsernameNotFoundException(userId); }
+		
+		
 		
 		
 		 System.out.println("academyUser ===  >"+academyUser); 

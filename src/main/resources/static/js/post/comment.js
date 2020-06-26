@@ -1,22 +1,16 @@
 $(function(){
-	console.log('아제발 ㅠㅠ');
 	insertReply();
 	viewComment();
-	//writeReplyInReply();
 	insertComment();
 	commentWriteEvent();
 	viewReplyComment();
 	viewWriteCommentAreaFirst();
-//	$('.write_reply').handle(insertReply());
-//	$('.comment_reply_container').handle(viewComment());
-//	$('.comment_read_wrapper').handle(writeReplyInReply());
 })
 
 
 
 function insertComment(){
 	$('.comment_container').on('click','.write_comment',function(event){
-		 console.log('흠 왜 두번올까요 ? ');
 		$.ajax({
 			url:"/insertPostComment" ,
 			type:"POST",
@@ -31,7 +25,6 @@ function insertComment(){
 			$('.comment_line h4').text($commentCount+$commentCountText);
 			$('.countComment').text( "댓글 "+(parseInt( $('.countComment').text().substr(-1))+1) )
 			$('.comment_read_wrapper').html(data);
-			console.log('호옹이..');
 		})
 	})
 }
@@ -60,7 +53,6 @@ function insertReply(){
 			var isFirst = $(event.target).closest('.comment_read_container').find('.comment_reply_container span').attr("data-comment-length") == 0 ?
 							true:false;
 			var isComment =  $(event.target).hasClass('comment_rep');
-			console.log(isFirst);
 			 $appendTarget = isReReply ?
 					//답글의 답글					
 					$(event.target).closest('.comment_write_wrapper').parent().find('.comment_read_wrapper .comment_read_container') 
@@ -88,7 +80,6 @@ function insertReply(){
 										: $(event.target).closest('.comment_read_wrapper').parent().children().find('span');
 				commentReplyCount.attr("data-comment-length", parseInt( commentReplyCount.attr("data-comment-length"))+1);
 			}
-			console.log($appendTarget);
 			$appendTarget.html(data);	
 			
 			if(!isReReply && isFirst && isComment ){
@@ -107,13 +98,7 @@ function commentWriteEvent(){
 	$('.comment_read_wrapper').on('click','.commnet_reply_write_content',function(event){
 		$target = $(event.target);
 		$target.removeClass('active');
-		
-		console.log($(event.target));
-		console.log($target.closest('.comment_reply_view_wrapper ').find('.comment_write_wrapper'));
-		
 		$target.closest('.comment_reply_view_wrapper ').find('.comment_write_wrapper').last().addClass('active');
-		
-		//showCommentWrite($(event.target));
 	})
 	
 	// 취소 버튼 누를 떄
@@ -125,8 +110,6 @@ function commentWriteEvent(){
 		// *개의 답글, 답글보기로 바뀜
 		var $commentCountText = target.closest('.comment_write_wrapper').parent().find('.comment_reply_container span');
 		var $length = $commentCountText.attr("data-comment-length");
-		console.log( $commentCountText);
-		console.log( $length);
 		$length != 0 ? $commentCountText.text($length+' 개의 댓글' ) : $commentCountText.text('답글달기');
 		$icon.attr('d','M5.5 2.5h1v3h3v1h-3v3h-1v-3h-3v-1h3v-3z');
 		
@@ -155,7 +138,6 @@ function hideCommentWrite($target){
 
 function viewReplyComment(){
 	$('.comment_container').on('click','.reply_comment',function(event){
-		console.log($(this).closest('.comment_read_container '));
 		$(this).closest('.comment_read_container ').find('.comment_write_wrapper').toggleClass('active');
 	})
 }
@@ -163,10 +145,7 @@ function viewReplyComment(){
 
 function viewWriteCommentAreaFirst(){
 	$('.comment_container').on('click','comment',function(event){
-		console.log("여기왔음");
-		console.log($(event.target).find('span').data("comment-length"));
 		if ( $(event.target).find('span').data("comment-length") == 0 ){
-			console.log("띠용 ? ");
 			$(event.target).closest('.coment_reply_wrapper').parent().find('.comment_write_wrapper').addClass('active');
 		}
 	})
@@ -175,7 +154,6 @@ function viewWriteCommentAreaFirst(){
 function viewComment(){
 	$('.comment_container ').on('click','.comment_reply_container',function(event){
 		$target = $(event.target);
-		
 
 		
 		// 댓글 입력창 찾기
@@ -193,42 +171,22 @@ function viewComment(){
 		// +, -  아이콘 찾기
 		$icon =  $target.closest('.comment_reply_container').find('path').first();
 		
-		
-		console.log("여기왔음");
-		console.log($(event.target).closest('.comment_reply_container ').find('span').data("comment-length"));
 		if ( $(event.target).closest('.comment_reply_container ').find('span').hasClass("comment_first") ){
-			console.log("띠용 ? ");
-			console.log($(event.target).closest('.coment_reply_wrapper').parent().find('.comment_write_wrapper'));
 			$(event.target).closest('.comment_reply_wrapper').parent().find('.comment_write_wrapper').addClass('active');
 		}
-		
-		
+
 		// ↓ 댓글 보이기 이벤트임
 		if(! $showViewTarget.hasClass('active')){
 			$commentCountText.text('숨기기');
 			$icon.attr('d','M9.5 6.5v-1h-7v1h7z');
-			//$showWriteTarget.addClass('active');
 			$showViewTarget.addClass('active');
-			//showCommentWrite(event);
 		// ↓ 댓글 숨기기 이벤트임
 		}else{
-			console.log('여기옴 ? ');
 			$length = $commentCountText.attr("data-comment-length");
-			console.log($length);
 			$length != 0 ? $commentCountText.text($length+' 개의 댓글' ) : $commentCountText.text('답글달기');
 			$icon.attr('d','M5.5 2.5h1v3h3v1h-3v3h-1v-3h-3v-1h3v-3z');
-			//$showWriteTarget.removeClass('active');
 			$showViewTarget.removeClass('active');
 		}
-		
-
-		
-		//$showWriteTarget.toggleClass('active');
-		
-		//$viewCommentTarget.get(0).className  += " "+"active";
-		//$viewCommentTarget.get(1).className  += " "+"active";
-		 
-		
 	})
 	
 }
@@ -236,13 +194,7 @@ function viewComment(){
 // 답글의 답글 입력창 보이기
 function writeReplyInReply(){
 	$('.comment_read_wrapper').on('click','.commnet_reply_write_content',function(event){
-		console.log($(event.target));
-		console.log($(event.target).closest('.comment_reply_view_wrapper').find('.comment_write_wrapper'));
 		$target = $(event.target).closest('.comment_reply_view_wrapper').find('.comment_write_wrapper');
-		console.log($target);
-		//(event.target).closest('.comment_read_container').find('.username > a').text();
 		$target.toggleClass('active');
-		
-		
 	})
 }

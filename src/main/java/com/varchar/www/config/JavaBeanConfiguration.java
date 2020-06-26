@@ -5,6 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
+import com.varchar.www.login.AcademyUser;
+import com.varchar.www.login.LoginAuthenticationProvider;
+import com.varchar.www.login.UserDetailsServiceImpl;
+import com.varchar.www.login.VarcharLoginSuccessHandler;
 import com.varchar.www.model.domain.board.Board;
 import com.varchar.www.model.domain.board.BoardGroup;
 import com.varchar.www.model.domain.board.BoardGroupList;
@@ -13,10 +17,6 @@ import com.varchar.www.model.domain.board.Posts;
 import com.varchar.www.model.domain.board.PostsDetailList;
 import com.varchar.www.model.domain.board.PostsList;
 import com.varchar.www.model.domain.comment.ReplyComment;
-import com.varchar.www.model.login.AcademyUser;
-import com.varchar.www.model.login.LoginAuthenticationProvider;
-import com.varchar.www.model.login.UserDetailsServiceImpl;
-import com.varchar.www.model.login.VarcharLoginSuccessHandler;
 
 @Configuration
 public class JavaBeanConfiguration {

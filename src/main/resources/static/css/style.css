@@ -120,3 +120,15 @@
 	display: block ;
 	padding:0 !important;
 }
+
+.profile-area{
+    position: relative;
+    right: 170px;
+}
+
+
+.nav-user-name{
+	font-size : 1rem;
+	margin-left: .75rem !important;
+}
+

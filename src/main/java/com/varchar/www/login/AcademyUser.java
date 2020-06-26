@@ -1,4 +1,4 @@
-package com.varchar.www.model.login;
+package com.varchar.www.login;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;

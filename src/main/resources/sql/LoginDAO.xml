@@ -3,7 +3,7 @@
 
 <mapper namespace="com.varchar.www.model.dao.LoginDAO">
 	
-	<select id="getLoginUser" resultType="com.varchar.www.model.login.AcademyUser">
+	<select id="getLoginUser" resultType="com.varchar.www.login.AcademyUser">
 		SELECT * FROM academy_user 
 		WHERE user_id = #{userId}
 	</select>

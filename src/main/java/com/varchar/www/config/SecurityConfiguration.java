@@ -11,9 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
-import com.varchar.www.model.login.LoginAuthenticationProvider;
-import com.varchar.www.model.login.UserDetailsServiceImpl;
-import com.varchar.www.model.login.VarcharLoginSuccessHandler;
+import com.varchar.www.login.LoginAuthenticationProvider;
+import com.varchar.www.login.UserDetailsServiceImpl;
+import com.varchar.www.login.VarcharLoginSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -63,6 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.csrf()
 					.disable()
 					.httpBasic();
+			
 
 	}
 

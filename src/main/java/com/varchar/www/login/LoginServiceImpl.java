@@ -1,4 +1,4 @@
-package com.varchar.www.model.login;
+package com.varchar.www.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,5 +16,12 @@ public class LoginServiceImpl implements LoginService{
 	@Override
 	public AcademyUser getLoginUser(String userId) {
 		return loginDAO.getLoginUser(userId);
+	}
+
+
+	@Override
+	public void signUpUser(AcademyUser user) {
+		loginDAO.signUpUser(user);
+		
 	}
 }

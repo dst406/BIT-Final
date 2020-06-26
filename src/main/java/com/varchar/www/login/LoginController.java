@@ -1,4 +1,4 @@
-package com.varchar.www.controller.login;
+package com.varchar.www.login;
 
 import java.util.Enumeration;
 import java.util.Map;
@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.varchar.www.model.domain.user.Member;
-import com.varchar.www.model.login.AcademyUser;
-import com.varchar.www.model.login.UserDetailsServiceImpl;
 import com.varchar.www.model.service.LoginService;
 
 @Controller
@@ -41,10 +39,6 @@ public class LoginController {
 	// 학원로그인페이지
 	@RequestMapping(value = "/login" , method = { RequestMethod.GET, RequestMethod.POST })
 	public String selectLogin(	HttpServletRequest request, Authentication auth) {
-		
-	//	model.addAttribute("user", loginService.getLoginUser(user.getUsername()));
-		// model.put("members", members);
-		// model.put("currentMemberId", user.getUsername());
 		
 		return "login/login";
 	}
@@ -134,9 +128,8 @@ public class LoginController {
 	// 강사
 	// 메인에서 이동
 	@GetMapping("/teacher/teacher")
-	public String loginTeacher(@AuthenticationPrincipal User user, Map<String, Object> model) {
-
-		model.put("currentAdminId", user.getUsername());
+	public String loginTeacher(@AuthenticationPrincipal User user, Map<String, Object> model,Authentication auth) {
+		System.out.println("login cont   : "+auth.getPrincipal());
 		return "login/teacher";
 	}
 

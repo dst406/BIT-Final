@@ -99,7 +99,8 @@
 									<div class="postListGuidePagingWrapper">
 										<div class="postNumber">
 											<span id="thisPostNumber"></span> / <span
-												th:text="*{postsDetailList[0].postListCount / 10 +1}">2</span>
+												th:text="*{postsDetailList[0].postListCount % 10 != 0 
+												? postsDetailList[0].postListCount / 10 +1 : postsDetailList[0].postListCount / 10}">2</span>
 
 										</div>
 										<div class="postListNavButton">

@@ -27,6 +27,18 @@ function updateBoardInfo(){
 	})
 }
 
+// 페이징 하드코딩 안하고 .. 다시 짜기 
+function getPostListPaging(visiblePageCount){
+	 
+	var lastPageNumber = visiblePageCount + 10;
+	
+	 $('.article-post-list li').hide().slice(0,10).show();
+	 
+	 $('.next').on('click',function(event){
+		 
+	 })
+	 
+}
 
 function getMyPostList(){
 	$('.getPost').on('click',function(evnet){
@@ -74,6 +86,8 @@ function pagingNumbers(target ){
 						parseInt( $('.page-item.active a').last().data('dt-idx') ) + 4 : 
 						paging;
 	
+	console.log(startCount);					
+						
 	viewPagingNumber(startCount, endCount, paging);
 	
 	
@@ -114,17 +128,18 @@ function nextPage(){
 
 
 function viewPagingNumber(startCount, endCount, maxCount){
-	var isFirst = startCount == 0 ? "disabled" : "";
+	var isFirst = parseInt(startCount) == 0 ? "disabled" : "";
+	console.log(isFirst);
 	maxCount = maxCount == 0 ? parseInt( $('#datatable_next a').attr('data-dt-max') ) : maxCount;
 	$('.pagination').html(
-			'<li class="paginate_button page-item previous " '+isFirst+' id="datatable_previous">'+
+			'<li class="paginate_button page-item previous '+isFirst+'" id="datatable_previous">'+
 			'<a href="javascript:void(0)"  data-dt-idx="'+startCount+'" class="page-link">이전</a></li>'
 			)
 	endCount = maxCount-startCount < 4 ? ( endCount = maxCount-endCount != 0 ? endCount : startCount+ 1 )  : endCount ;
 	for(var i = startCount ; i <= endCount; i++){
 		$('.pagination').append(	
 		'<li class="paginate_button page-item ">'+
-				'<a href="javascript:void(0)" a data-dt-idx="'+i+'" class="page-link">'+(i+1)+'</a></li>'
+				'<a href="javascript:void(0)" data-dt-idx="'+i+'" class="page-link">'+(i+1)+'</a></li>'
 				)
 		}
 	$('.page-item:nth-child(2)').addClass('active');
@@ -153,10 +168,6 @@ function limitPaging(pagingNum){
 	function preNextBtnControll(btn){
 		btn.removeClass("disabled");
 		btn.removeClass("active");
-		
-		console.log(  btn.children().attr('data-dt-idx')  == 0 && pagingNum == 0 ? true : false );
-		console.log(  (  btn.children().attr('data-dt-idx') == $('.isLast').children().attr('data-dt-max') )   );
-		
 				// 이전  버튼
 		if ( btn.children().attr('data-dt-idx')  == 0 && pagingNum == 0 ? true : false ||
 					// 마지막 버튼을 눌렀는지

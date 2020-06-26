@@ -34,7 +34,7 @@ public class TeacherController {
 	//강사의 메인페이지 입니다.
 	@GetMapping("/teacher/teacherIndex")
 	public String teacherIndex() {
-		return "teacher/teacherIndex";
+		return "teacher/getTeacherList";
 	}
 	
 	

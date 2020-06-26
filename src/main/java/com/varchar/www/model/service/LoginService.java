@@ -1,7 +1,10 @@
 package com.varchar.www.model.service;
 
-import com.varchar.www.model.login.AcademyUser;
+import org.apache.ibatis.annotations.Param;
+
+import com.varchar.www.login.AcademyUser;
 
 public interface LoginService {
-	AcademyUser getLoginUser(String userId);
+	AcademyUser getLoginUser(@Param("userId") String userId);
+	void signUpUser(AcademyUser user);
 }

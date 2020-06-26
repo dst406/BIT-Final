@@ -11,12 +11,11 @@
 	
 		<!-- Navbar -->
 		<nav class="navbar-custom">
-			<ul class="list-unstyled topbar-nav float-right mb-0">
+			<ul class="list-unstyled topbar-nav float-right mb-0 profile-area">
 				<li class="dropdown notification-list"><a
 					class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown"
-					href="#" role="button" aria-haspopup="false" aria-expanded="false"><i
-						class="ti-bell noti-icon"></i> <span
-						class="badge badge-danger badge-pill noti-icon-badge">2</span></a>
+					href="#" role="button" aria-haspopup="false" aria-expanded="false">
+					<i class="far fa-bell fa-2x noti-icon"></i></a>
 				<div class="dropdown-menu dropdown-menu-right dropdown-lg py-0">
 						<h6
 							class="dropdown-item-text font-15 m-0 py-3 bg-light text-dark d-flex justify-content-between align-items-center">
@@ -126,8 +125,9 @@
 				<li class="dropdown"><a
 					class="nav-link dropdown-toggle nav-user" data-toggle="dropdown"
 					href="#" role="button" aria-haspopup="false" aria-expanded="false"><img
-						src="../assets/images/users/user-1.jpg" alt="profile-user"
-						class="rounded-circle"> <span
+						src="/img/human.png" alt="profile-user"
+						class="rounded-circle"> 
+						<span sec:authentication="name"
 						class="ml-1 nav-user-name hidden-sm">Robert <i
 							class="mdi mdi-chevron-down"></i></span></a>
 				<div class="dropdown-menu dropdown-menu-right" style="">

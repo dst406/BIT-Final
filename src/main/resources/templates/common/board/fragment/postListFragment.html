@@ -28,7 +28,8 @@
 									</div>
 								</div>
 								<div th:if="${post.postThumbnail != null}" class="col-lg-2">
-									<img  th:src="@{${post.postThumbnail}}">
+									<a th:href="@{/getPost/{boardNo}/{postNo}(boardNo=${boardNo},postNo=${post.postNo})}">
+									<img  th:src="@{${post.postThumbnail}}"></a>
 								</div>
 							</div>
 						</div>
