@@ -20,16 +20,15 @@
 						<div class="header_td logo_wrapper">
 							<a href="/" ><img
 								class="bootpay_logo" 
-								src="img/logo.png"></a>
+								th:src="@{/img/logo-full.png}"></a>
 						</div>
 						<div class="header_td menu_wrapper">
 							<div class="main_menu menu_hide" id="main_menu">
 								<ul class="menu_ul">
 									<li class="menu_li ng-scope selected menu_hide">살펴보기</li>
-									<li class="menu_li ng-scope menu_hide">PG 가입하기</li>
-									<li class="menu_li ng-scope menu_hide">결제 연동하기</li>
+									<li class="menu_li ng-scope menu_hide">서비스 가입하기</li>
 									<li class="menu_li ng-scope menu_hide">데이터 분석</li>
-									<li class="menu_li ng-scope menu_hide">가맹점관리</li>
+									<li class="menu_li ng-scope menu_hide">가맹점 관리</li>
 									<li class="menu_li ng-scope menu_hide">도움말</li>
 								</ul> 
 							</div>
@@ -49,7 +48,6 @@
 <!--  top navbar  end  -->
 
 
-		<ng-view class="ng-scope">
 		<div class="common_wrapper reseller_index ng-scope"
 			ng-class="{mobile: mobile}">
 			<div class="boot_section section_1">
@@ -61,7 +59,7 @@
 					<div class="sec_table" ng-class="{mobile: mobile}">
 						<div class="sec_td td_info">
 							<div class="boot_title fw300">
-								플랫폼에 입점한<br>모든 가맹점의&nbsp;
+								플랫폼에 입점한<br>모든 학원의&nbsp;
 								<!-- ngIf: mobile -->
 								<span class="fw700">데이터를&nbsp;</span>
 								<!-- ngIf: !mobile -->
@@ -147,26 +145,25 @@
 				</div>
 			</div>
 		</div>
-		</ng-view>
 		<!-- ngInclude: 'layouts/footer.html' -->
 		<footer ng-include="'layouts/footer.html'" class="ng-scope">
 			<div class="boot_section footer_section ng-scope">
 				<div class="boot_container boot_narrow">
 					<div class="row">
 						<div class="col-xs-12 logo_wrapper">
-							<img class="img_9_logo" src="/assets/logo/bootpay_gray">
+							<img class="img_9_logo" src="/img/logo-full.png">
 						</div>
 						<div class="col-xs-12 info_wrapper">
 							<div class="row">
 								<div class="col-xs-12 col-md-6 address_wrapper">
 									<p class="boot_text sec_9_text">
-										(주)부트페이&nbsp;&nbsp;|&nbsp;&nbsp;사업자 등록번호
-										618-87-00495&nbsp;&nbsp;|&nbsp;&nbsp;대표 윤태섭<br>서울시 금천구
-										벚꽃로 286, 507-293호 | bootpay.co.kr@gmail.com
+										(주)VARCHAR&nbsp;&nbsp;|&nbsp;&nbsp;사업자 등록번호
+										241-85-24928&nbsp;&nbsp;|&nbsp;&nbsp;대표 조현정<br>서울시 서초구
+										강남대로 456 (서초동, 백암빌딩) | varchar.co.kr@gmail.com
 									</p>
 								</div>
 								<div class="col-xs-6 col-md-3">
-									<span class="fw700">CONTACT</span>
+									<span class="fw700">문의사항</span>
 									<div class="blank_5"></div>
 									<p class="boot_text sec_9_text">
 										TEL.&nbsp;<span class="sec_9_text">1599-4062</span><br>FAX.&nbsp;<span
@@ -174,15 +171,15 @@
 									</p>
 								</div>
 								<div class="col-xs-6 col-md-3">
-									<span class="fw700">LINKS</span>
+									<span class="fw700">담당자</span>
 									<div class="blank_5"></div>
 									<p class="boot_text sec_9_text">
 										<span class="sec_9_text"><a
-											href="https://admin.bootpay.co.kr" title="부트페이 관리자">부트페이
+											href="https://admin.bootpay.co.kr" title="Varchar 관리자">Varchar
 												관리자</a></span><br>
 										<span class="sec_9_text"><a
-											href="https://docs.bootpay.co.kr" title="부트페이 개발문서">부트페이
-												개발문서</a></span>
+											href="https://docs.bootpay.co.kr" title="Varchar 개발문서">Varchar
+												영업팀</a></span>
 									</p>
 								</div>
 							</div>

@@ -24,6 +24,7 @@
 		<id property="postNo" column="post_no" />
 		<result property="boardNo" column="board_no"/>
 		<result property="userId" column="user_id"/>
+		<result property="userName" column="user_name"/>
 		<result property="boardName" column="board_name"/>
 		<result property="postTitle" column="post_title"/>
 		<result property="postContents" column="post_contents"/>
@@ -132,12 +133,13 @@
 	
 	<!-- 게시글 일자 검색  Start-->
 	<select id="getSearchDatePostList" resultType = "posts" parameterType="Map">
-		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.*,cnt.countComment 
+		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.*,cnt.countComment, academy_user.user_name
 		FROM posts
 			LEFT OUTER JOIN	(SELECT post_no, count(comment_no) countComment FROM board_comment 
 				 WHERE comment_re_parent IS NULL 
 				 GROUP BY post_no) cnt
 				 ON  cnt.post_no = posts.post_no
+			INNER JOIN academy_user ON posts.user_id = academy_user.user_id
 		WHERE board_no = #{boardNo} AND 
 		posts_date
 		<choose>
@@ -160,19 +162,40 @@
 	
 	<!-- postList  Start -->
 	<select id="getPostList" resultMap="postList_resultMap">
-		SELECT * FROM board WHERE board_no= #{boardNo} 
+		SELECT * FROM board WHERE board_no= 
+		
+			<choose>
+			<when test="boardNo lt 1">
+				(
+					SELECT board.board_no from lecture
+						INNER JOIN board_group ON lecture.lecture_code = board_group.lecture_code
+						INNER JOIN board ON board_group.board_group_no = board.board_group_no        
+					WHERE lecture.user_id = #{user_id} AND ROWNUM =1 
+					ORDER BY board.board_group_no
+					)
+			</when>
+			
+			<otherwise>
+					#{boardNo} 
+			</otherwise>
+		</choose>
+		
+	
 		
 	</select>
 	
 	<select id="postList" resultType="posts">
-		SELECT ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, posts.*, cnt.countComment 
+		SELECT  ROW_NUMBER() OVER (ORDER BY posts_date DESC) AS postRowNum, 
+				academy_user.user_name , posts.*, cnt.countComment 
 		FROM posts
-		LEFT OUTER JOIN (SELECT post_no, count(comment_no) countComment FROM board_comment 
-		 				 WHERE comment_re_parent IS NULL GROUP BY post_no) cnt
-		 	 ON cnt.post_no = posts.post_no
-		WHERE board_no = #{boardNo}
+			LEFT OUTER JOIN (SELECT post_no, count(comment_no) countComment FROM board_comment 
+			 				 WHERE comment_re_parent IS NULL GROUP BY post_no) cnt
+			 	 ON cnt.post_no = posts.post_no
+		 	INNER JOIN academy_user ON posts.user_id = academy_user.user_id
+		WHERE posts.board_no = #{boardNo}
+		
 		<if test="userId != null">
-			AND user_id = #{userId}
+			AND posts.user_id = #{userId}
 		</if>
 	</select>
 	
@@ -204,11 +227,12 @@
 	<!--  postDetail Start -->
 	<select id="getPost" resultMap="postDetail_resultMap">
 		SELECT 
-		ROWNUM,board.board_name, board.board_intro, posts.*, cnt.count_comment FROM posts
+		ROWNUM,board.board_name, board.board_intro, academy_user.user_name, posts.*, cnt.count_comment FROM posts
         LEFT JOIN (SELECT post_no, count(comment_no) count_comment FROM board_comment 
         			 WHERE comment_re_parent IS NULL GROUP BY post_no) cnt 
         ON cnt.post_no = posts.post_no
 		INNER JOIN board ON board.board_no = posts.board_no AND board.board_no = #{boardNo}
+		INNER JOIN academy_user ON posts.user_id = academy_user.user_id
 		WHERE posts.post_no = #{postNo}
 	</select>
 	

@@ -15,16 +15,25 @@ $(function(){
 })
 
 function updateBoardInfo(){
-	$(".container").on('focusout','.board_contents_text, .board_title_text',function(){
-		var boardNo = $('#boardName').attr('data-board-no') ;
-		var boardName = $('#boardName').val();
-		var boardIntro = $('textarea#boardIntro').val() ; 
-		$.ajax({
-			url: "/updateBoard/"+boardNo+"/"+boardName+"/"+boardIntro
+	if( ! $('.board_contents_text').attr('readonly') ){
+		$(".container").on('focusout','.board_contents_text, .board_title_text',function(){
+			var boardNo = $('#boardName').attr('data-board-no') ;
+			var boardName = $('#boardName').val();
+			var boardIntro = $('textarea#boardIntro').val() ; 
+			$.ajax({
+				url: "/board/updateBoard/"+boardNo+"/"+boardName+"/"+boardIntro
+			}).done(function(){
+				$('.nav-second-level').find('a').each(function(index,item){
+					console.log(item);
+					if( $(this).attr('data-board-no') == boardNo){
+						$(this).text(boardName);
+					}
+				})
+			})
+			
+			
 		})
-		
-		
-	})
+	}
 }
 
 // 페이징 하드코딩 안하고 .. 다시 짜기 
@@ -44,7 +53,7 @@ function getMyPostList(){
 	$('.getPost').on('click',function(evnet){
 		$target = $(this);
 		$targetId = $target.attr('id');
-		var url = "/getSearchMyPostList/"+$('#boardName').attr('data-board-no');
+		var url = "/board/getSearchMyPostList/"+$('#boardName').attr('data-board-no');
 		
 		if( $targetId == 'getAllPost' ){
 			location.reload();

@@ -32,7 +32,7 @@ public interface BoardDAO {
 	void updateBoard(@Param("boardNo") int boardNo,@Param("boardName") String boardName, @Param("boardIntro") String boardIntro); 
 	
 	// 게시글 리스트
-	PostsList getPostList(@Param("boardNo") int boardNo);
+	PostsList getPostList(@Param("boardNo") int boardNo,@Param("userId") String userId);
 	// 내 게시글 리스트
 	List<Posts> postList(@Param("boardNo") int boardNo,@Param("userId") String userId);
 	

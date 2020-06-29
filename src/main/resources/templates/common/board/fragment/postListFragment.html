@@ -15,7 +15,7 @@
 								<div class="col-lg-10">
 									<div class="post-list-title">
 									
-										<a th:href="@{/getPost/{boardNo}/{postNo}(boardNo=${boardNo},postNo=${post.postNo})}"> 
+										<a th:href="@{/board/getPost/{boardNo}/{postNo}(boardNo=${boardNo},postNo=${post.postNo})}"> 
 										<strong th:text="${post.postTitle}">Sql execution plan 문의드려요. 완전
 												초보입니다ㅠㅠ</strong></a>
 									</div>
@@ -28,15 +28,19 @@
 									</div>
 								</div>
 								<div th:if="${post.postThumbnail != null}" class="col-lg-2">
-									<a th:href="@{/getPost/{boardNo}/{postNo}(boardNo=${boardNo},postNo=${post.postNo})}">
+									<a th:href="@{/board/getPost/{boardNo}/{postNo}(boardNo=${boardNo},postNo=${post.postNo})}">
 									<img  th:src="@{${post.postThumbnail}}"></a>
 								</div>
 							</div>
 						</div>
+						<!-- th:if="${not #lists.isEmpty(comment.replyCommentList) }" -->
+
+						
+						
 						<div class="row">
 							<div class="post-list-contents-bottom">
 								<div class="col-lg-12">
-									<a th:text="${post.userId}">고재현</a>
+									<a th:text="${post.userName}">고재현</a>
 									<p class="postDate" th:text="${post.postsDate}">2020.05.18</p>
 									<p th:text="'조회수 &nbsp;'+${post.postViews}">조회수 30</p>
 									<p th:text="'댓글 '+${post.countComment}">댓글 2</p>

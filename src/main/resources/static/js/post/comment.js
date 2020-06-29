@@ -12,7 +12,7 @@ $(function(){
 function insertComment(){
 	$('.comment_container').on('click','.write_comment',function(event){
 		$.ajax({
-			url:"/insertPostComment" ,
+			url:"/board/insertPostComment" ,
 			type:"POST",
 			data:{
 				commentContent: $('textarea#commentContent').val(),
@@ -39,7 +39,7 @@ function insertReply(){
 		$targetTextarea=$(event.target).closest('.comment_write_wrapper')
 		.find('textarea[name="commentContent"]');
 		 isReReply = $(event.target).closest('.button_wrapper').find('.write_reply').hasClass('write_re_reply');
-		var url = ! isReReply ? "/insertReply" : "/insertReplyInReply";
+		var url = ! isReReply ? "/board/insertReply" : "/board/insertReplyInReply";
 		$.ajax({
 			url:url ,
 			type:"POST",
@@ -154,16 +154,8 @@ function viewWriteCommentAreaFirst(){
 function viewComment(){
 	$('.comment_container ').on('click','.comment_reply_container',function(event){
 		$target = $(event.target);
-
 		
 		// 댓글 입력창 찾기
-		//$writeComment = $target.closest('.comment_read_container').find('.comment_write_wrapper');
-		//$showWriteTarget = $writeComment.first();
-		//$showWriteTarget = $target.closest('.comment_read_container').find('.comment_write_wrapper').first();
-		
-		// 답글 있는 영역 
-		//$viewCommentTarget = $target.closest('.comment_reply_wrapper').find('.comment_read_wrapper');
-		//$showViewTarget = $viewCommentTarget.first();
 		$showViewTarget = $target.closest('.comment_reply_wrapper').find('.comment_read_wrapper').first();
 
 		// * 개의 답글, 답글달기	

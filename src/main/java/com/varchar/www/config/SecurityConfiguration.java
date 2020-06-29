@@ -30,8 +30,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-	
-
 		http.authorizeRequests()
 				
 				// 페이지 권한 설정
@@ -40,9 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/manager/**").hasRole("MANAGER")
 				// /teacher으로 시작하는 경로는 TEACHER롤을 가진 사용자만 접근 가능
 				.antMatchers("/teacher/**").hasRole("TEACHER")
-				.antMatchers("/student/**").hasRole("STUDENT")
 				.antMatchers("/board/**").hasAnyRole("MANAGER","TEACHER","STUDENT")
-//				.antMatchers("/**").permitAll()
 				.and() // 로그인 설정
 				.formLogin().loginPage("/login")
 				// 로그인 성공할 경우 기본페이지
@@ -78,7 +74,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	
 	// 페이지 권한 설정
-
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// security인증 없이 무조건 통과

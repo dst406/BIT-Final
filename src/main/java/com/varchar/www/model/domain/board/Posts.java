@@ -10,6 +10,7 @@ public class Posts {
 	private int postNo;
 	private int boardNo;
 	private String userId;
+	private String userName;
 	private String postTitle;	
 	private String postContents;
 	private String postPreview;

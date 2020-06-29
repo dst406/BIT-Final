@@ -2,6 +2,7 @@ package com.varchar.www.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
@@ -41,6 +42,8 @@ public class JavaBeanConfiguration {
 	 @Bean public UserDetailsServiceImpl userService() {return new UserDetailsServiceImpl();}
 	 @Bean public LoginAuthenticationProvider loginAuthenticationProvider() {return new LoginAuthenticationProvider();}
 	 @Bean public VarcharLoginSuccessHandler varcharLoginSuccessHandler() {return new VarcharLoginSuccessHandler();}
+	 @Bean public BCryptPasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
+	 
 	 
 	 @Bean
 	 public MultipartResolver multipartResolver() {

@@ -47,8 +47,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public PostsList getPostList(int boardNo) {
-		return boardDAO.getPostList(boardNo);
+	public PostsList getPostList(int boardNo,String userId) {
+		return boardDAO.getPostList(boardNo,userId);
 	}
 
 

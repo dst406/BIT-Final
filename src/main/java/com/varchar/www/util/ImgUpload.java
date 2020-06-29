@@ -4,13 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-public class CustomParser {
-	public List<String> fileParser(MultipartHttpServletRequest  multipartHttpServletRequest ) throws IOException {
-		String filePath = "C:/varchar/uploadImg/";
+public class ImgUpload {
+	public List<String> uploadMultiFile(MultipartHttpServletRequest  multipartHttpServletRequest ,int boardNo) throws Exception {
+		String filePath = "C:/varchar/uploadImg/"+boardNo;
 		//파일들을 List형식으로 보관
 		List<MultipartFile> files = multipartHttpServletRequest.getFiles("files");
 		
@@ -31,12 +33,26 @@ public class CustomParser {
 		List<String> imageList = new ArrayList<String>();
 		for (int i = 0; i < files.size(); i++) {
 			//파일 업로드 소스 여기에 삽입
-			file = new File(filePath+files.get(i).getOriginalFilename());
+			file = new File(filePath, randomFileName( files.get(i).getOriginalFilename() ) );
+			//.substring(files.get(i).getOriginalFilename().length()-4 )) 
 			files.get(i).transferTo(file);	
 			imageList.add(file.getName());
 		}		
 		//new Gson().toJson(imageList)
 		return imageList;
 	}
+	
+    // 파일명 랜덤생성 메서드
+    private String randomFileName(String fileName) throws Exception{
+        // uuid 생성(Universal Unique IDentifier, 범용 고유 식별자)
+        UUID uuid = UUID.randomUUID();
+        // 랜덤생성+파일이름 저장
+        String savedName =  uuid.toString()+"_"+fileName;
+        
+        return savedName;
+    }
+	
 }
+
+
 

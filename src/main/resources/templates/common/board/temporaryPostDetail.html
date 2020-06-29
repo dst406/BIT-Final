@@ -49,7 +49,7 @@
 							th:replace="~{common/board/fragment/editToolbar :: editToolbar}"></div>
 				
 								
-				 <form th:action="@{/insertPosts}" method="post" id="postsForm">
+				 <form th:action="@{/board/insertPosts}" method="post" id="postsForm">
 						<input type="hidden" id="postTitle" name="postTitle" >
 				 		<input type="hidden" th:field="*{boardNo}" > 
 				 		<input type="hidden" id="postPreview" name="postPreview"  maxlength="190" >

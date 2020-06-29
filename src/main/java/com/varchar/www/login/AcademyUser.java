@@ -80,10 +80,15 @@ public class AcademyUser implements UserDetails{
 		return password;
 	}
 	
+	public String getUserId() {
+		return userId;
+	}
+
 	public String getUserName() {
 		return userName;
 	}
-
+	
+	
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub

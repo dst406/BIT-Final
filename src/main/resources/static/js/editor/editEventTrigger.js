@@ -116,23 +116,18 @@ function preview(file, idx, event) {
 		formData.append('files', file);
 	});
 	//formData.append('upload-file', uploadFiles);
-	uploadImage(formData);
+	imgUpload( formData );
+
+//	 function preview(index, item) {
+//		 	console.log(index);
+//		 	console.log(item)
+//		 	
+//			var div = '<div> '+'<img src="/uploadImg/'+$('#boardNo').val()+"/" + item
+//					+ '" title="' + item[index] + '"/> \ </div>';
+//			$(event.target).closest('div').append(div);
+//			$(event.target).closest('div').append('<br><br>');
+//		};
 	
-	uploadFiles = [];
-	formData.delete("files");
-	
-	var reader = new FileReader();
-	reader.onload = (function(f, idx) {
-		return function(e) {
-			var div = '<div> '
-	+'<img src="/uploadImg/' + file.name
-					+ '" title="' + escape(f.name) + '"/> \
-	</div>';
-			$(event.target).closest('div').append(div);
-			$(event.target).closest('div').append('<br><br>');
-		};
-	})(file, idx);
-	reader.readAsDataURL(file);
 	
 }
 
@@ -160,10 +155,10 @@ function preview(file, idx, event) {
 //}
 
 
-function uploadImage(formData){
-	console.log(formData);
+var imgUpload = function uploadImage(formData){
+	
 	$.ajax({
-		url : '/rest/board/imageUpload',
+		url : '/board/imageUpload/'+$('#boardNo').val(),
 		enctype: 'multipart/form-data',
 		data : formData,
 		type : 'post',
@@ -171,13 +166,13 @@ function uploadImage(formData){
 		processData : false,
 	}).done(function(result){
 		$.each(result, function(index, item){
-				console.log(item);
-				document.execCommand("insertImage",false,"/uploadImg/"+item);
+				document.execCommand("insertImage",false,"/uploadImg/"+$('#boardNo').val()+"/"+item);
 				document.execCommand('InsertParagraph');
 				document.execCommand('Outdent');
 				
+				//callback != null ? callback(index,item) : null;
 		})
-	});
+	})
 	
 }
 
@@ -251,18 +246,14 @@ function imageUploadAjax() {
 						//$('#editorForm').focus();
 						//$('#editorForm').setSelectionRange($('div').length,$('div').length);
 		                var formData = new FormData($('#image_form')[0]);
-		                var files = $("#files")[0].files;
 						
-		                console.log(files);
 						for(var i = 0 ; i<files.length; i++){
 							formData.append("fileObj", files[i]);
 							
 						}
 						
-						console.log(formData);
-						
 						// Ajax call for file uploaling
-						uploadImage(formData);
+						imgUpload(formData);
 								
 					})
 }

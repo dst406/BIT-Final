@@ -27,27 +27,15 @@ public class VarcharLoginSuccessHandler implements AuthenticationSuccessHandler{
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication auth) throws IOException, ServletException {
-			
-		System.out.println("auth name : "+auth.getName());
-		
-		System.out.println("auth principal : "+auth.getPrincipal());
-		
-		System.out.println("auth authority: "+auth.getAuthorities().toString());
-		
-		System.out.println("auth :       "+auth);
-		
+	
 		HttpSession session  = request.getSession();
 		String url = "";
 		
-		System.out.println("DB 유저값  : " +   auth.getPrincipal());
-		session.setAttribute("user", auth.getPrincipal());
-		System.out.println("session : "+session.getAttribute("user"));
-		
-		
+		//session.setAttribute("user", auth.getPrincipal());
 		
 		switch (auth.getAuthorities().toString()) {
 		case "[ROLE_STUDENT]":
-			url = "/student/studentIndex";
+			url = "/board/postList";
 			break;
 		case "[ROLE_TEACHER]":
 			//url = "/teacher/teacher";
@@ -58,7 +46,6 @@ public class VarcharLoginSuccessHandler implements AuthenticationSuccessHandler{
 			//url = "/manager/managerIndex";
 			break;
 		}
-		System.out.println("url  "+url);
 		
 		response.sendRedirect(url);
 		}

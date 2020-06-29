@@ -26,7 +26,7 @@ function deleteTemporaryPost(){
 		event.preventDefault();
 		var $target = $(this).find('i');
 		$.ajax({
-			url:"/deleteTemporaryPost",
+			url:"/board/deleteTemporaryPost",
 			data : {
 				temporaryNo:$target.attr('temporaryno')
 			}
@@ -76,7 +76,7 @@ function addTemporaryPostSubmit(){
 		$('#postTitle').val( $('textarea#postTitleArea').val() );
 		$.ajax({
 			type:'POST',
-			url:'/insertTemporaryPost',
+			url:'/board/insertTemporaryPost',
 			data:{
 				boardNo : $('#boardNo').val(),
 				temporaryTitle: $('#postTitle').val(),

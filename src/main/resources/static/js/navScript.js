@@ -56,7 +56,7 @@ function getModalFormAddBoardGroup(){
 	
 	$(".insertBoardGroupContainer .itemSaveButton").on('click',function(){
 		$.ajax({
-			url:"/insertBoardGroup",
+			url:"/board/insertBoardGroup",
 			type:"POST",
 			data: { 
 				content : $('.itemCardBodyContent').val(),
@@ -96,7 +96,7 @@ function getModalFormAddBoard(){
 		content : $('.itemCardBodyContent').val();
 		
 		$.ajax({
-			url:"/insertBoard",
+			url:"/board/insertBoard",
 			type:"POST",
 			data: { 
 				content : $('.itemCardBodyContent').val(),
@@ -156,7 +156,7 @@ function editBoardGroupTitle(){
       }
       
       $.ajax({
-         url:"/updateBoardGroupName",
+         url:"/board/updateBoardGroupName",
          type:"POST",
          data: {
             boardGroupName : boardGroupName,

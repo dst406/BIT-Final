@@ -15,7 +15,7 @@ public interface BoardService {
 	void insertBoardGroup(String content, String lectureCode);
 	void updateBoardGroupName(String boardGroupName, String changeName,int boardGroupNo);
 	void insertBoard (String content, int boardGroupNo);
-	PostsList getPostList( int boardNo);
+	PostsList getPostList( int boardNo,String userId);
 	PostDetail getPost(int boardNo, int postNo);
 	void insertPosts(Posts posts);
 	List<TemporaryPostList> getTemporaryPostList(String userId);

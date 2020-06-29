@@ -15,39 +15,20 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-    
     
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		    String username = (String) authentication.getPrincipal();
 	        String password = (String) authentication.getCredentials();
 	        
-	        System.out.println("getPrincipal  : "+username);
 	        AcademyUser user = (AcademyUser) userDetailsServiceImpl.loadUserByUsername(username);
 	        
-	        
-	        System.out.println("토큰에 있는 비번 :  "+password);
-	        System.out.println("DB 있는 비번  :  "+user.getPassword());
-	        System.out.println("권한 : "+user.getAuthorities());
-	        if(! passwordEncoder().matches(password, user.getPassword())) {
-	        	System.out.println("여기는 1  ");
+	        if(! new BCryptPasswordEncoder().matches(password, user.getPassword())) 
 	            throw new BadCredentialsException(username);
-	        }
 	        
-	        System.out.println(user.isEnabled());
-	        
-	        if(! user.isEnabled()) {
-	        	
+	        if(! user.isEnabled()) 
 	            throw new BadCredentialsException(username);
-	        }
-	        
-	        System.out.println(" TOKEN !!   : "+
-	        		new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities())
-	        		);
+
 	        
 	        return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 	}
@@ -58,11 +39,7 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
     public boolean supports(Class<?> authentication) {
         return true;
     }
-    
-//    private boolean matchPassword(String loginPwd, String password) {
-//        return loginPwd.equals(password);
-//    }
-	
+
  
 }
 
