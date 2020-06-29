@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.varchar.www.model.dao.StudentDAO;
 import com.varchar.www.model.domain.page.Criteria;
+import com.varchar.www.model.domain.student.Payment;
 import com.varchar.www.model.domain.student.Student;
 import com.varchar.www.model.service.StudentService;
 
@@ -71,6 +72,12 @@ public class StudentServiceImpl implements StudentService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+	@Override
+	public void insertLectureForPayment(Payment payment) {
+			studentDAO.insertLectureForPayment(payment);
 		
 	}
 

@@ -8,11 +8,14 @@
 <body>
 
 	<div class="topbar" th:fragment="topNavBar">
+
+	
+				
 	
 		<!-- Navbar -->
 		<nav class="navbar-custom">
 			<ul class="list-unstyled topbar-nav float-right mb-0 profile-area">
-				<li class="dropdown notification-list"><a
+				<li class="dropdown notification-list"><a 
 					class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown"
 					href="#" role="button" aria-haspopup="false" aria-expanded="false">
 					<i class="far fa-bell fa-2x noti-icon"></i></a>
@@ -41,75 +44,8 @@
 										<!--end media-body-->
 									</div>
 									<!--end media--> </a>
-								<!--end-item-->
-								<!-- item-->
-								<a href="#" class="dropdown-item py-3"><small
-									class="float-right text-muted pl-2">10 min ago</small>
-								<div class="media">
-										<div class="avatar-md bg-soft-success">
-											<i class="la la-group"></i>
-										</div>
-										<div class="media-body align-self-center ml-2 text-truncate">
-											<h6 class="my-0 font-weight-normal text-dark">Meeting
-												with designers</h6>
-											<small class="text-muted mb-0">It is a long
-												established fact that a reader.</small>
-										</div>
-										<!--end media-body-->
-									</div>
-									<!--end media--> </a>
-								<!--end-item-->
-								<!-- item-->
-								<a href="#" class="dropdown-item py-3"><small
-									class="float-right text-muted pl-2">40 min ago</small>
-								<div class="media">
-										<div class="avatar-md bg-soft-pink">
-											<i class="la la-list-alt"></i>
-										</div>
-										<div class="media-body align-self-center ml-2 text-truncate">
-											<h6 class="my-0 font-weight-normal text-dark">UX 3 Task
-												complete.</h6>
-											<small class="text-muted mb-0">Dummy text of the
-												printing.</small>
-										</div>
-										<!--end media-body-->
-									</div>
-									<!--end media--> </a>
-								<!--end-item-->
-								<!-- item-->
-								<a href="#" class="dropdown-item py-3"><small
-									class="float-right text-muted pl-2">1 hr ago</small>
-								<div class="media">
-										<div class="avatar-md bg-soft-warning">
-											<i class="la la-truck"></i>
-										</div>
-										<div class="media-body align-self-center ml-2 text-truncate">
-											<h6 class="my-0 font-weight-normal text-dark">Your order
-												is placed</h6>
-											<small class="text-muted mb-0">It is a long
-												established fact that a reader.</small>
-										</div>
-										<!--end media-body-->
-									</div>
-									<!--end media--> </a>
-								<!--end-item-->
-								<!-- item-->
-								<a href="#" class="dropdown-item py-3"><small
-									class="float-right text-muted pl-2">2 hrs ago</small>
-								<div class="media">
-										<div class="avatar-md bg-soft-info">
-											<i class="la la-check-circle"></i>
-										</div>
-										<div class="media-body align-self-center ml-2 text-truncate">
-											<h6 class="my-0 font-weight-normal text-dark">Payment
-												Successfull</h6>
-											<small class="text-muted mb-0">Dummy text of the
-												printing.</small>
-										</div>
-										<!--end media-body-->
-									</div>
-									<!--end media--></a>
-								<!--end-item-->
+							
+							
 							</div>
 							<div class="slimScrollBar"
 								style="background: rgba(162, 177, 208, 0.13); width: 7px; position: absolute; top: 0px; opacity: 1; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div>
@@ -159,6 +95,7 @@
 			</ul>
 		</nav>
 		<!-- end navbar-->
+	
 	</div>
 
 
@@ -281,6 +218,7 @@
 						<span class="nav-link-more-group" th:if="${not boardGroup.board.isEmpty()}">
 								<i class="fas fa-chevron-right"></i>
 						 </span>
+				<th:block th:if=" ${ #authentication.Principal.authorityCode != '3' } ">
 					<div class="group_icon">			
 						 <a href="#" data-mfp-src=".insertBoardContainer"
 								class="insertPage-popup-link popup-link insert-board"> 
@@ -291,7 +229,9 @@
 								class="editBoardGroup-popup-link popup-link"> <i
 								class="fas fa-ellipsis-h"></i>
 							</a>
-						</div>	
+					</div>	
+				</th:block>		
+						
 						<a th:text="${boardGroup.boardGroupName}" th:data="${boardGroup.boardGroupNo}" 
 						class="nav-link edit-able board-group" href="javascript: void(0);" aria-expanded="true"> </a>								
 								

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.varchar.www.model.domain.page.Criteria;
+import com.varchar.www.model.domain.student.Payment;
 import com.varchar.www.model.domain.student.Student;
 
 public interface StudentService {
@@ -14,4 +15,8 @@ public interface StudentService {
 	void modifyStudent(Student student);
 	void deleteStudent(String userId);
 	void uploadStudentImage(MultipartFile imgFile);
+	
+	// 학생이 강의 결제
+		void insertLectureForPayment(Payment payment);
+	
 }

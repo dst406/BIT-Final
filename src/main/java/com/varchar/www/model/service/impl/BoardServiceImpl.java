@@ -22,9 +22,9 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired BoardDAO boardDAO;
 	
 	@Override
-	public List<BoardGroupList> getNavbar(String userId) {
+	public List<BoardGroupList> getNavbar(String userId,String authorityCode) {
 		
-		return boardDAO.getNavbar(userId);
+		return boardDAO.getNavbar(userId,authorityCode);
 	}
 
 	@Override

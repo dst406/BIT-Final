@@ -18,6 +18,7 @@ import com.varchar.www.model.domain.board.Posts;
 import com.varchar.www.model.domain.board.PostsDetailList;
 import com.varchar.www.model.domain.board.PostsList;
 import com.varchar.www.model.domain.comment.ReplyComment;
+import com.varchar.www.model.domain.student.Payment;
 
 @Configuration
 public class JavaBeanConfiguration {
@@ -44,6 +45,9 @@ public class JavaBeanConfiguration {
 	 @Bean public VarcharLoginSuccessHandler varcharLoginSuccessHandler() {return new VarcharLoginSuccessHandler();}
 	 @Bean public BCryptPasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
 	 
+	 
+	 //Student 
+	 @Bean public Payment payment(){ return new Payment();}
 	 
 	 @Bean
 	 public MultipartResolver multipartResolver() {

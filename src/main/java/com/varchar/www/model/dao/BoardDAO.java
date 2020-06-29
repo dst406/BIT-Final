@@ -16,7 +16,7 @@ import com.varchar.www.model.domain.comment.ReplyComment;
 
 public interface BoardDAO {
 	// 게시판 내비게이션 바 조회
-	List<BoardGroupList> getNavbar(String userId);
+	List<BoardGroupList> getNavbar(@Param("userId") String userId,@Param("authorityCode") String authorityCode);
 	//게시판 그룹 등록
 	void insertBoardGroup(@Param("content")String content, @Param("lectureCode")String lectureCode);
 	//게시판 그룹 수정

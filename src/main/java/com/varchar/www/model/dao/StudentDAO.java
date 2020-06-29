@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.varchar.www.model.domain.page.Criteria;
+import com.varchar.www.model.domain.student.Payment;
 import com.varchar.www.model.domain.student.Student;
 
 @Mapper
@@ -15,4 +16,8 @@ public interface StudentDAO {
 	Student getStudentInfo(String userId);
 	void modifyStudent(Student student);
 	void deleteStudent(String userId);
+	
+	// 학생이 강의 결제
+	void insertLectureForPayment(Payment payment);
+	
 }
