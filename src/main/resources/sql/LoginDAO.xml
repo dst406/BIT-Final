@@ -9,7 +9,7 @@
 	</select>
 	
 	<insert id="signUpUser">
-		INSERT INTO ACADEMY_USER ( USER_ID, AUTHORITY_CODE, PASSWORD, USER_NAME )
+		INSERT INTO ACADEMY_USER ( USER_ID, AUTHORITY_CODE, USER_PASSWORD, USER_NAME )
 		VALUES( #{userId}, #{authorityCode}  , #{password} , #{userName}   )
 	</insert>
 	

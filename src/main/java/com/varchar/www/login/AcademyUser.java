@@ -23,7 +23,7 @@ public class AcademyUser implements UserDetails{
 	private String userId;
 	private String authorityCode;
 	private String academyCode;
-	private String password ;
+	private String userPassword ;
 	private String userName;
 	private String tel;
 	private String parentTel;
@@ -77,7 +77,7 @@ public class AcademyUser implements UserDetails{
 	}
 	@Override
 	public String getPassword() {
-		return password;
+		return userPassword;
 	}
 	
 	public String getUserId() {

@@ -144,7 +144,6 @@ public class LoginController {
 
 	@GetMapping("/signup")
 	public String userSignUpForm(@ModelAttribute AcademyUser academyUser) {
-		System.out.println("?");
 		return "login/signUp";
 	}
 	

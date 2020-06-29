@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	public void joinUser(AcademyUser user) {
 		//비번 암호화
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setUserPassword(passwordEncoder.encode(user.getPassword()));
 		System.out.println("loadUserByUsername: encoder===>"+ user.getPassword());
 		System.out.println("userId                   "+user.getUserId());
 		loginDAO.signUpUser(user);
