@@ -18,34 +18,34 @@ public class RecordController {
 	@Autowired
 	private RecordService recordService;
 	
-	@GetMapping("/getRecordList")
+	@GetMapping("/teacher/getRecordList")
 	public String getRecordList(Model model) {
 		model.addAttribute("recordList", recordService.getRecordList());
 		
 		return "record/recordManagement";
 	}
 	
-	@GetMapping("/recordRegist")
+	@GetMapping("/teacher/recordRegist")
 	public String recordRegist(@ModelAttribute Record record) {
 		
 		
 		return "record/recordRegist";
 	}
 	
-	@PostMapping("/insertRecord")
+	@PostMapping("/teacher/insertRecord")
 	public String insertStudent(@ModelAttribute Record record) {
 		 recordService.insertRecord(record);
 		return "redirect:/registComplete";
 	}
 	
-	@GetMapping("/recordModify/{userId}")
+	@GetMapping("/teacher/recordModify/{userId}")
 	public String recordModify(@PathVariable String userId, Model model) {
 		model.addAttribute("recordInfo", recordService.getStudentRecord(userId));
 		
 		return "record/recordModify";
 	}
 	
-	@GetMapping("/deleteRecord/{recordNo}")
+	@GetMapping("/teacher/deleteRecord/{recordNo}")
 	public String rdeleteRecord(@PathVariable String recordNo, Model model) {
 		recordService.deleteRecord(recordNo);
 		

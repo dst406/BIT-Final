@@ -9,38 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" contentnt="">
-
-
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script language="javascript">
-	//function studentRegistClose() {window.close();}
-
-	var sel_file;
-
-	$(document).ready(function() {
-		$("#inputImg").on("change", handleImgFileSelect);
-	});
-
-	function handleImgFileSelect(e) {
-		var files = e.target.files;
-		var filesArr = Array.prototype.slice.call(files);
-
-		filesArr.forEach(function(f) {
-			if (!f.type.match("image.*")) {
-				alert("확장자는 이미지 확장자만 가능합니다.");
-				return;
-			}
-
-			sel_file = f;
-
-			var reader = new FileReader();
-			reader.onload = function(e) {
-				$("#img").attr("src", e.target.result);
-			}
-			reader.readAsDataURL(f);
-		});
-	}
-</script>
+<script type="text/javascript" src="/js/insertStudent.js"></script>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -57,7 +27,7 @@
 						</div>
 						<!--end col-->
 					</div>
-					<form class="form-horizontal form-material mb-0"
+					<form id="insertStudentForm" class="form-horizontal form-material mb-0"
 						th:action="@{/insertStudent}" th:object="${student}"
 						th:method="POST">
 						<!-- 학생 정보 입력칸 시작  -->
@@ -65,19 +35,6 @@
 							<div class="met-profile-main-pic col-lg-4"
 								style="display: list-itemflex; margin: auto;">
 								<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
-									<div>
-										<h2>
-											<b>이미지 미리보기</b>
-										</h2>
-										<p class="title">이미지 업로드</p>
-										<input type="file" th:field="*{userImage}" id="inputImg" />
-									</div>
-
-									<div>
-										<div class="img_wrap">
-											<img id="img" />
-										</div>
-									</div>
 								</div>
 							</div>
 							<div class="align-self-center  col-lg-12" style="">
@@ -85,10 +42,20 @@
 
 									<div class="met-profile_user-detail"></div>
 									<div class="col-lg-4" style="margin: auto;">
-										<form class="form-horizontal form-material mb-0">
 											<div class="form-group">
+										<!-- 	<p class="title">이미지 업로드</p>
+										<input id="student-file" type="file" th:field="*{userImage}">
+										<img
+												class="rounded-circle thumb-lg" id="student-Img"
+												th:data-img="${studentInfo.userImage}"
+												th:src="'/img/' + ${studentInfo.userImage}"
+												style="width: 100px; height: 100px; margin-top: 10px;"><br>
+												<p></p> -->
 												이름 <input type="text" th:field="*{userName}"
 													placeholder="이름" class="form-control">
+												<p></p>
+												비밀번호 <input type="password" th:field="*{userPassword}"
+													placeholder="비밀번호" class="form-control">
 												<p></p>
 												생년월일 <input type="date" th:field="*{userBirth}"
 													placeholder="생년월일" class="form-control">
@@ -115,17 +82,20 @@
 											<div class="form-group">
 												<textarea rows="5" th:field="*{userRemark}"
 													placeholder="특이사항" class="form-control"></textarea>
-												<button
+												<input type="submit" value="등록"
 													class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
-													onclick="studentRegistClose();">학생등록</button>
+													id="student-insert-btn">
 											</div>
-										</form>
+										
+										
 									</div>
 								</div>
 							</div>
 						</div>
 					</form>
 					<!--  학생입력칸 종료 -->
+					
+					
 				</div>
 			</div>
 		</div>

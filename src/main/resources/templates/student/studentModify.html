@@ -4,6 +4,7 @@
 	layout:decorator="layout/popupLayout">
 <head>
 <meta charset="UTF-8">
+
 <title>학생정보수정</title>
 </head>
 <body>
@@ -24,25 +25,33 @@
 
 					<!-- 학생 정보 입력칸 시작  -->
 					<div class="row">
-						<div class="met-profile-main-pic col-lg-4"
+						<!-- <div class="met-profile-main-pic col-lg-4"
 							style="display: list-itemflex; margin: auto;">
 							<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
 								<div class="met-profile-main-pic">
 									<img src="img/human.png" alt="" height="100"
 										class="rounded-circle"> <span
-										class="fro-profile_main-pic-change"><i
-										class="fas fa-camera" aria-hidden="true"></i></span>
+										class="fro-profile_main-pic-change"></span>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<div class="align-self-center  col-lg-12" style="">
 							<div class="met-profile-main">
 
 								<div class="met-profile_user-detail"></div>
 								<div class="col-lg-4" style="margin: auto;">
 									<form class="form-horizontal form-material mb-0"
-										th:action="@{/modifyStudent}" th:method="POST">
-										<div class="form-group">
+										th:action="@{/teacher/modifyStudent}" th:method="POST" >
+										<!-- <div class="form-group">
+											<p class="title">이미지 업로드</p>
+										<input id="student-file" type="file" th:field="*{userImage}">
+										<img
+												class="rounded-circle thumb-lg" id="student-Img"
+												th:data-img="${student.userImage}"
+												th:src="'/img/' + ${student.userImage}"
+												style="width: 100px; height: 100px; margin-top: 10px;"><br>
+												<p></p> -->
+										
 											<input th:value="${studentInfo.userId}" type="hidden"
 												name="userId"> 이름 <input type="text"
 												class="form-control" th:value="${studentInfo.userName}"
@@ -73,8 +82,7 @@
 											<textarea rows="5" th:value="${studentInfo.userRemark}"
 												name="userRemark" class="form-control"></textarea>
 											<button
-												class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
-												onclick="studentRegistClose();">수정완료</button>
+												class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0">수정완료</button>
 										</div>
 									</form>
 								</div>

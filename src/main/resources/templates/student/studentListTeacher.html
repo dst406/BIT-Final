@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>강사 학생목록</title>
-<meta th:include="/include/meta.html">
 <script language="javascript">
-  function studentRegistPopup() { window.open("studentRegist", "학생추가", "width=800, height=800, left=100, top=50"); }
+  function studentRegistPopup() { window.open("teacher/studentRegist", "학생추가", "width=800, height=800, left=100, top=50"); }
 </script>
+<script src="/js/page/page.js"></script>
 </head>
 <body>	
 <div layout:fragment="content">
@@ -84,7 +84,9 @@
 													<tbody>
 														<tr th:each="student : ${studentList}" role="row" class="odd">
 															<td th:text="${student.userId}"></td>
-															<td th:text="${student.userName}"></td>
+															<td><a
+																				th:href="'/teacher/getStudentInfo/'+${student.userId}"
+																				th:text="${student.userName}"></a></td>
 															<td th:text="${student.userBirth}"></td>
 															<td th:text="${student.userTel}"></td>
 															<td>고등영어 단기 1반</td>

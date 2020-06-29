@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.varchar.www.model.dao.StudentDAO">
-	<select id="getStudentList" parameterType="String" resultType="com.varchar.www.model.domain.student.Student">
-		select * from academy_user where authority_code = #{authorityCode}
-	</select>
-	
 	<select id="getStudentInfo" parameterType="String" resultType="com.varchar.www.model.domain.student.Student">
 		select u.user_id, u.user_name, u.school_name, 	u.user_tel, u.user_parent_tel, u.user_birth, u.user_email, u.user_address, u.user_image, u.user_remark,
 		          a.academic_type_name
@@ -13,9 +9,24 @@
 		and u.academic_type_code = a.academic_type_code
 	</select>
 	
+	<select id="getStudentList" resultType="com.varchar.www.model.domain.student.Student">
+	<![CDATA[
+	select *
+	from (
+			select rownum rn, a.*, b.academic_type_name 
+			from academy_user a
+					inner join academic_type b
+					on a.academic_type_code = b.academic_type_code
+			where authority_code = #{authority_code} 
+			and rownum <= #{cri.pageNum} * #{cri.amount}
+			)
+	WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount} 
+	]]>
+	</select>
+	
 	<insert id="insertStudent" parameterType="com.varchar.www.model.domain.student.Student">
-		insert into academy_user(user_id, user_name, authority_code, academic_type_code, user_birth, user_tel, user_parent_tel, school_name, user_address, user_remark, user_registration, user_image) 
-		values ('187-'||userSeq.nextval, #{userName}, '3',#{academicTypeCode},#{userBirth}, #{userTel}, #{userParentTel}, #{schoolName}, #{userAddress}, #{userRemark}, (select sysdate from dual), #{userImage})
+		insert into academy_user(user_id, user_password, user_name, authority_code, academic_type_code, user_birth, user_tel, user_parent_tel, school_name, user_address, user_remark, user_registration, user_image) 
+		values ('187-'||userSeq.nextval, #{userPassword}, #{userName}, '3',#{academicTypeCode},#{userBirth}, #{userTel}, #{userParentTel}, #{schoolName}, #{userAddress}, #{userRemark}, (select sysdate from dual), #{userImage})
 
 	</insert>
 	
