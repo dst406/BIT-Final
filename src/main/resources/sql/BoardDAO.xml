@@ -166,13 +166,13 @@
 		
 			<choose>
 			<when test="boardNo lt 1">
-				(
+				 <!-- (
 					SELECT board.board_no from lecture
 						INNER JOIN board_group ON lecture.lecture_code = board_group.lecture_code
 						INNER JOIN board ON board_group.board_group_no = board.board_group_no        
 					WHERE lecture.user_id = #{user_id} AND ROWNUM =1 
 					ORDER BY board.board_group_no
-					)
+					) -->
 			</when>
 			
 			<otherwise>
