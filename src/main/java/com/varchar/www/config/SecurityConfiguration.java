@@ -34,14 +34,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeRequests()
 				
 				// 페이지 권한 설정
-				.antMatchers("/login","/new","/login/**","/board/**").permitAll()
+				.antMatchers("/**","/login","/new","/login/**","/board/**").permitAll()
 				
 				// /manager으로 시작하는 경로는 MANABER롤을 가진 사용자만 접근 가능
 				.antMatchers("/manager/**").hasRole("MANAGER")
 				// /teacher으로 시작하는 경로는 TEACHER롤을 가진 사용자만 접근 가능
 				.antMatchers("/teacher/**").hasRole("TEACHER")
 				.antMatchers("/student/**").hasRole("STUDENT")
-				.antMatchers("/**").permitAll()
 			.and() // 로그인 설정
 				.formLogin().loginPage("/login")
 				// 로그인 성공할 경우 기본페이지

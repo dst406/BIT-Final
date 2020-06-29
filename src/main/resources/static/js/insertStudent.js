@@ -4,8 +4,8 @@ $(function(){
 })
 
 function studentImgUpload(){
-	$('#student-insert-btn').on('click', function(){
-		
+	$('#student-insert-btn').on('click', function(event){
+	
 		var file = $('#student-file')[0].files[0];
 		var fileName = '';
 		if(file != null) fileName = file.name;
@@ -13,6 +13,7 @@ function studentImgUpload(){
 		
 		var formData = new FormData();
 		formData.append("imgFile", file);
+		
 		$.ajax({
 			url: '/student/image/upload',
 			type: 'post',
@@ -22,11 +23,13 @@ function studentImgUpload(){
 			processData: false,
 			cache: false
 		}).done(function(){
-			alert('이미지 업로드 성공')
+			alert('이미지 업로드 성공');
 			//location.reload();
-			$('#student-insert-btn').submit();
+			$('#insertStudentForm').submit();
 		}).fail(function(){
-			alert('student img upload fail')
+			alert('student img upload fail');
+		}).always(function(){
+			alert("always 왔음");
 		})
 	})
 }

@@ -4,28 +4,18 @@
 	layout:decorator="layout/teacherLayout">
 <head>
 <meta charset="UTF-8">
-
 <title>학생정보</title>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script language="javascript">
 	function studentModifyPopup() {
 		var userId = document.getElementById('userId').value;
-		window.open("/studentModify/" + userId, "학생정보수정",
+		window.open("/teacher/studentModify/" + userId, "학생정보수정",
 				"width=800, height=800, left=100, top=50");
 	}
-	function recordModify() {
-		var userId = document.getElementById('userId').value;
-		window.open("/recordModify/" + userId, "성적수정",
-				"width=800, height=800, left=100, top=50");
-	}
-	function recordRegist() {
-		var userId = document.getElementById('userId').value;
-		window.open("/recordRegist/" + userId, "성적등록",
-				"width=800, height=800, left=100, top=50");
-	}
+
 	function deleteStudent() {
 		var userId = document.getElementById('userId').value;
-		location.href = "/deleteStudent/" + userId
+		location.href = "/teacher/deleteStudent/" + userId
 	}
 
 	window.onload = function() {
@@ -48,20 +38,20 @@
 
 			var data = new google.visualization.DataTable();
 			data.addColumn('timeofday', '최근 3개월 성적');
-			data.addColumn('number', '총점');
-			data.addColumn('number', '평균');
 			data.addColumn('number', '등수');
+			data.addColumn('number', '평균');
+			data.addColumn('number', '총점');
 
 			data.addRows([ [ {
 				v : [ 8, 0, 0 ],
 				f : '9월 '
-			}, parseInt(sum1), parseInt(avg1), parseInt(rank1) ], [ {
+			}, parseInt(rank1), parseInt(avg1), parseInt(sum1) ], [ {
 				v : [ 9, 0, 0 ],
 				f : '3월 '
-			}, parseInt(sum2), parseInt(avg2), parseInt(rank2) ], [ {
+			}, parseInt(rank2), parseInt(avg2), parseInt(sum2) ], [ {
 				v : [ 10, 0, 0 ],
 				f : '6월'
-			}, parseInt(sum3), parseInt(avg3), parseInt(rank3) ], ]);
+			}, parseInt(rank3), parseInt(avg3), parseInt(sum3) ], ]);
 
 			var options = {
 				width : 600,
@@ -152,10 +142,10 @@
 											<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
 												<div class="met-profile-main">
 													<div class="met-profile-main-pic">
-														<img src="img/human.png" alt="" height="100"
-															class="rounded-circle"> <span
-															class="fro-profile_main-pic-change"><i
-															class="fas fa-camera"></i></span>
+										
+														<img th:src="'/img/' + ${studentInfo.userImage}" alt="" height="100"
+															class="rounded-circle"> 
+															
 													</div>
 												</div>
 											</div>
@@ -385,19 +375,6 @@
 													</label>
 												</div>
 											</div>
-											<div class="col-sm-12 col-md-6">
-												<button type="button"
-													class="btn btn-primary waves-effect waves-light float-right mb-3"
-													data-toggle="modal" data-target=".bs-example-modal-lg"
-													style="display: inline-block; margin-left: 10px;"
-													onclick="recordRegist()">성적등록</button>
-												<button type="button"
-													class="btn btn-primary waves-effect waves-light float-right mb-3"
-													data-toggle="modal" data-target=".bs-example-modal-lg"
-													style="display: inline-block;" onclick="recordModify()">성적
-													수정</button>
-											</div>
-
 											<div class="col-lg-12">
 												<table id="datatable" class="table dataTable no-footer"
 													role="grid" aria-describedby="datatable_info">

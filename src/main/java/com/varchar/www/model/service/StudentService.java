@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.varchar.www.model.domain.page.Criteria;
 import com.varchar.www.model.domain.student.Student;
 
 public interface StudentService {
-	List<Student> getStudentList(String authorityCode);
+	List<Student> getStudentList(Criteria cri, String authorityCode);
 	Student getStudentInfo(String userId);
 	void insertStudent(Student student);
 	void modifyStudent(Student student);

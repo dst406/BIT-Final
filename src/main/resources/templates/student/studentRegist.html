@@ -9,40 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" contentnt="">
-
-
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="/js/insertStudent.js"></script>
-<!-- <script language="javascript">
-
-	//function studentRegistClose() {window.close();}
-
-	var sel_file;
-
-	$(document).ready(function() {
-		$("#inputImg").on("change", handleImgFileSelect);
-	});
-
-	function handleImgFileSelect(e) {
-		var files = e.target.files;
-		var filesArr = Array.prototype.slice.call(files);
-
-		filesArr.forEach(function(f) {
-			if (!f.type.match("image.*")) {
-				alert("확장자는 이미지 확장자만 가능합니다.");
-				return;
-			}
-
-			sel_file = f;
-
-			var reader = new FileReader();
-			reader.onload = function(e) {
-				$("#img").attr("src", e.target.result);
-			}
-			reader.readAsDataURL(f);
-		});
-	}
-</script> -->
 </head>
 <body>
 	<div layout:fragment="content">
@@ -59,7 +27,7 @@
 						</div>
 						<!--end col-->
 					</div>
-					<form class="form-horizontal form-material mb-0"
+					<form id="insertStudentForm" class="form-horizontal form-material mb-0"
 						th:action="@{/insertStudent}" th:object="${student}"
 						th:method="POST">
 						<!-- 학생 정보 입력칸 시작  -->
@@ -75,16 +43,19 @@
 									<div class="met-profile_user-detail"></div>
 									<div class="col-lg-4" style="margin: auto;">
 											<div class="form-group">
-											<p class="title">이미지 업로드</p>
+										<!-- 	<p class="title">이미지 업로드</p>
 										<input id="student-file" type="file" th:field="*{userImage}">
 										<img
 												class="rounded-circle thumb-lg" id="student-Img"
-												th:data-img="${student.userImage}"
-												th:src="'/img/' + ${student.userImage}"
+												th:data-img="${studentInfo.userImage}"
+												th:src="'/img/' + ${studentInfo.userImage}"
 												style="width: 100px; height: 100px; margin-top: 10px;"><br>
-												<p></p>
+												<p></p> -->
 												이름 <input type="text" th:field="*{userName}"
 													placeholder="이름" class="form-control">
+												<p></p>
+												비밀번호 <input type="password" th:field="*{userPassword}"
+													placeholder="비밀번호" class="form-control">
 												<p></p>
 												생년월일 <input type="date" th:field="*{userBirth}"
 													placeholder="생년월일" class="form-control">
@@ -111,7 +82,7 @@
 											<div class="form-group">
 												<textarea rows="5" th:field="*{userRemark}"
 													placeholder="특이사항" class="form-control"></textarea>
-												<input type="button" value="등록"
+												<input type="submit" value="등록"
 													class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
 													id="student-insert-btn">
 											</div>

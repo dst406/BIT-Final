@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.varchar.www.model.dao.StudentDAO;
+import com.varchar.www.model.domain.page.Criteria;
 import com.varchar.www.model.domain.student.Student;
 import com.varchar.www.model.service.StudentService;
 
@@ -23,9 +24,9 @@ public class StudentServiceImpl implements StudentService {
 	private static final String uploadDirectory = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
 	
 	@Override
-	public List<Student> getStudentList(String authorityCode) {
+	public List<Student> getStudentList(Criteria cri, String authorityCode) {
 
-		return studentDAO.getStudentList(authorityCode);
+		return studentDAO.getStudentList(cri, authorityCode);
 	}
 
 	@Override

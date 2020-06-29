@@ -39,5 +39,4 @@
 	<delete id="deleteRecord" parameterType="String">
 		delete from record where record_no = #{recordNo}
 	</delete>
-	
 </mapper>

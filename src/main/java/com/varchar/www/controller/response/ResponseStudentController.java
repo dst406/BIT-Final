@@ -22,6 +22,9 @@ public class ResponseStudentController {
 	
 		@PostMapping("/student/image/upload")
 		public void putStudentImage(@RequestBody MultipartFile imgFile) {
+			System.out.println("rest Cont"+imgFile.getName().toString());
 			studentService.uploadStudentImage(imgFile);
 		}
+		
+		
 }
