@@ -24,10 +24,10 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
 	        AcademyUser user = (AcademyUser) userDetailsServiceImpl.loadUserByUsername(username);
 	        
 	        if(! new BCryptPasswordEncoder().matches(password, user.getPassword())) 
-	            throw new BadCredentialsException(username);
+	        	throw new BadCredentialsException("잘못된 아이디이거나 비밀번호가 일치하지 않습니다.");
 	        
 	        if(! user.isEnabled()) 
-	            throw new BadCredentialsException(username);
+	            throw new BadCredentialsException("잘못된 아이디이거나 비밀번호가 일치하지 않습니다.");
 
 	        
 	        return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());

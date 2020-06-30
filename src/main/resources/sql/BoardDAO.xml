@@ -137,6 +137,11 @@
 		WHERE board_no = #{boardNo}
 	</update>
 	
+	<!-- 게시판 수정  END -->
+	
+
+	
+	
 	<!-- 게시판 삭제 Start -->
 	<delete id="deletePost">
 		DELETE FROM posts
@@ -289,6 +294,26 @@
 	</select>
 		
 	<!--  postDetail End  = #{commentNo} 최 상위노드 설정 부모노드와 자식노드 연결 --> 
+	
+	<!-- 게시글 수정  폼 시작-->
+	<select id="getPostUpdateForm" resultType="posts">
+	 	SELECT  posts.post_no, posts.board_no, posts.post_title, 
+	 			posts.post_contents, board.board_name
+		FROM posts
+		INNER JOIN board ON board.board_no = posts.board_no
+	 	WHERE post_no = #{postNo}
+	</select>
+	<!-- 게시글 수정 폼  끝-->
+	
+	<!-- 게시글 수정  시작-->
+	<update id="updatePost">
+		UPDATE posts SET post_title = #{ postTitle }, post_preview = #{ postPreview }, 
+						 post_thumbnail = #{postThumbnail}, post_contents = #{ postContents }
+		WHERE post_no = #{postNo} 
+	</update>
+	
+	<!-- 게시글 수정  끝-->
+	
 	<!--  게시글 조회수 증가 -->
 	<update id="updatePostViewCount">
 		UPDATE posts SET post_views = (SELECT post_views from posts where post_no = #{postNo} )+1

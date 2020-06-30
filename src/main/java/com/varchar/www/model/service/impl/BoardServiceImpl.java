@@ -68,7 +68,17 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 	}
-
+	
+	@Override
+	public Posts getPostUpdateForm( int postNo ) {
+		return boardDAO.getPostUpdateForm(postNo);
+	}
+	
+	@Override
+	public void updatePost(Posts post) {
+		boardDAO.updatePost(post);
+	}
+	
 	@Override
 	public List<TemporaryPostList> getTemporaryPostList(String userId) {
 		return boardDAO.getTemporaryPostList(userId);

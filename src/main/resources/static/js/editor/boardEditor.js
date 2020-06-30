@@ -36,25 +36,10 @@ function deleteTemporaryPost(){
 	})
 }
 
-//function editorScroll(){
-//	 console.log( $('.editorDIV').height());
-//	$('.editorDIV *').on('change',function(){
-//		console.log('edit change');
-//		if( $('.editorDIV').height() > 552 ){
-//			console.log('min !!');	
-//			$('.editorDIV').attr('style','overflow-y:scroll');
-//		}else{
-//			console.log('maX !!');	
-//			$('.editorDIV').attr('style','overflow-y:hidden');
-//		}
-//	})
-//	
-//}
-
-
 //게시글 등록
 function addPostSubmit(){
-	$('.saveButton').on('click',function(){
+	$('body').on('click','#saveButton , #updateButton',function(){
+		console.log('왔얼');
 		addContentsAsTextarea();
 		$('#postTitle').val( $('textarea#postTitleArea').val() );
 		var previewText = $('.editorDIV *').text();
@@ -113,7 +98,6 @@ function qlHeadercursor(){
 	
 	//H1, H2, H3, H4
 	$('.ql_header').on('click',function(event){
-		console.log(window.getSelection());
 		document.execCommand("formatBlock",null,'H'+$(event.target).closest('button').val());
 	})
 	
@@ -122,11 +106,20 @@ function qlHeadercursor(){
 		document.execCommand($(this).val(),null,document.getSelection());
 	})
 	
+	
+	//algin
+	$('.ql_text_align').on('click',function(){
+		document.execCommand($(this).val());
+	})
 
 	// BlackQuote
 	$('.ql_quote').on('click',function(event){
 		document.execCommand("formatBlock",null,"BLOCKQUOTE");
 	})
+	
+	
+	
+	
 	
 	//link ql_link
 	$('.ql_link').on('click',function(event){

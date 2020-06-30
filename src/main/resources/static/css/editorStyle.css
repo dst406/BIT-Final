@@ -254,7 +254,8 @@ img { width:100%; }
     border-radius: 4px;
 }
 
-.editorFooter .footerWrapper .savingActions .saveButton{
+
+.editorFooter .footerWrapper .savingActions .activeButton{
 	margin-left: 0.75rem;
 	height: 2.5rem;
     font-size: 1.125rem;
@@ -277,6 +278,7 @@ img { width:100%; }
     border-image: initial;
     background: #7680ff;
     border-radius: 4px;
+	
 }
 
 
