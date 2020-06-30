@@ -17,10 +17,13 @@ public class Attendance {
 	private String attendanceStateCode; //출결상태를 나타내는 코드입니다.
 	private String attendanceStateName;
 	
-	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="Asia/Seoul")
+	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
 	private Date attendanceComeTime; //출근시간
 	
-	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="Asia/Seoul")
+	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
 	private Date attendanceGoTime; //퇴근시간
+	
+	private String attendanceComeTimeEnco;
+	private String attendanceGoTimeEnco;
 
 }

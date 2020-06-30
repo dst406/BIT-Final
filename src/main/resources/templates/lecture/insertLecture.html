@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	layout:decorator="layout/defaultLayout">
+	layout:decorator="layout/managerLayout">
 <head>
 <link href="/css/lecture.css" rel="stylesheet" type="text/css">
 	<script src="https://canvasjs.com/asssets/script/canvasjs.min.js"></script>
@@ -72,8 +72,12 @@
 												th:text="${season.seasonName}"></option>
 												
 											</select>
-											
 											<p></p>
+											
+											<!-- 할당 시간
+											<input class="form-control" type="number"> -->
+											
+											<!-- <p></p>
 											<div class="lecture-day-div">
 												요일<p></p>
 												<input id="mon" type="checkbox"/><label for="mon">월요일</label>
@@ -85,34 +89,8 @@
 											
 											<div id="lecture-time-div">
 												시간<p></p>
-												
 											</div>
-											
-											
-										
-										<!-- <p></p>
-										강의시작일 <input type="date" th:field="*{season_start_date}"placeholder="강의시작일"
-											class="form-control" id="currentDate">
-										<script>
-											document
-													.getElementById('currentDate').value = new Date()
-													.toISOString().substring(0,
-															10);
-											;
-										</script>
-										<p></p>
-										<form>
-											강의종료일<input type="date" th:field="*{season_end_date}" placeholder="강의종료일"
-												class="form-control" id="currentDate">
-											<script>
-												document
-														.getElementById('currentDate').value = new Date()
-														.toISOString()
-														.substring(0, 10);
-												;
-											</script>
-											<p></p>
-										</form> -->
+									 -->
 										<p></p>
 										
 											강의실 <select name="language" th:field="*{lectureRoomNo}" class="form-control">
@@ -128,16 +106,17 @@
 										
 									<p></p>
 									
-										강의상태 <select name="language" th:field="*{lectureStateCode}"class="form-control">
+									<!-- 	강의상태 <select name="language" th:field="*{lectureStateCode}"class="form-control">
 											<option value="" selected>강의상태</option>
 											<option th:each="lectureState : ${lectureStateList}" th:value="${lectureState.lectureStateCode}"
 											th:text="${lectureState.lectureStateName}"></option>
 											
-										</select>
+										</select> -->
 											
 											
 										<input type="submit" value="등록"
 											class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
+											id="lecture-update-btn"
 											style="margin-left: 10px;">
 										<button
 											class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"

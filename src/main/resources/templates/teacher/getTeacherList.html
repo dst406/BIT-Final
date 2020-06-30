@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	layout:decorator="layout/managerLayout">
+	layout:decorator="layout/teacherLayout">
 <head>
 <link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="/js/page/page.js"></script>
 </head>
 <body>
 
@@ -31,34 +32,29 @@
 
 											<!-- 원장정보시작 -->
 											<div class="media p-1 align-items-center">
-												<img src="img/user.png" class="rounded-circle thumb-lg">
-												<div th:each="manager : ${managerList}"
-													class="media-body ml-3 align-self-center">
+												<div class="media-body ml-3 align-self-center">
+													<img th:src="'/img/' + ${manager.userImage}"
+														class="rounded-circle thumb-lg">
 													<h5
 														th:text="${manager.userRemark} + ' ' + ${manager.userName}"
 														class="m-0 font-25 font-weight-semibold">원장 진보형</h5>
 													<br>
-													<a th:href="'/getManagerInfo/'+${manager.authorityCode}">내정보보기</a>
+													<a href="/getManagerInfo">내정보보기</a>
 												</div>
 												<!-- 원장정보 끝 -->
 
 
-												<div class="action-btn">
-													<a href="" class=""><i
-														class="las la-pen text-info font-18"></i></a> <a href=""
-														class="">ddd<i
-														class="las la-trash-alt text-danger font-18"></i></a>
-												</div>
+
 											</div>
 										</div>
 										<!--end card-body-->
 									</div>
 									<!--end card-->
-									<button type="button"
+									<!-- <button type="button"
 										class="btn btn-primary waves-effect waves-light float-right mb-3"
 										data-toggle="modal" data-animation="bounce"
 										data-target=".bs-example-modal-lg"
-										onclick="location.href='/goInsertTeacher'">+ 강사등록</button>
+										onclick="location.href='/goInsertTeacher'">+ 강사등록</button> -->
 								</div>
 							</div>
 
@@ -66,11 +62,11 @@
 								<div th:each="teacher : ${teacherList}" class="col-lg-3">
 									<div class="card client-card">
 										<div class="card-body text-center">
-											<img src="img/user.png" class="rounded-circle thumb-lg">
+											<img th:src="'/img/' + ${teacher.userImage}"
+												class="rounded-circle thumb-lg" style="margin-bottom: 10px;">
+
 											<h5 th:text="${teacher.userName}" class="client-name"></h5>
-											<span th:text="${teacher.userRemark}" class="text-muted mr-3">
-											<i class="dripicons-location mr-2 text-info"></i>
-											<i class="dripicons-phone mr-2 text-info"></i></span>
+											<span th:text="${teacher.userRemark}" class="text-muted mr-3"></span>
 											<a th:href="'/getTeacherInfo/'+${teacher.userId}">정보보기</a>
 										</div>
 										<!--end card-body-->
@@ -79,6 +75,50 @@
 								</div>
 								<!--end col-->
 							</div>
+
+							<!-- paging -->
+							<br>
+							<div class="row">
+								<!-- <div class="col-sm-12 col-md-5">
+		                            <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">
+		                                <p th:text="'Showing 1 to ' +${teacherList.size()}+ ' of '+${teacherList.size()} +' entries'">
+		
+		                            </div>
+		                        </div> -->
+								<div class="col-sm-12 col-md-7">
+									<div class="dataTables_paginate paging_simple_numbers"
+										id="dataTable_paginate">
+										<ul class="pagination justify-content-end">
+											<li class="paginate_button page-item previous"
+												id="dataTable_previous" th:if="${pageMaker.prev}"><a
+												th:href="${pageMaker.endPage -1}" aria-controls="dataTable"
+												data-dt-idx="0" tabindex="0" class="page-link">Prev</a></li>
+											<th:block
+												th:each="number: ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
+												<li class="paginate_button page-item"
+													th:classappend="${pageMaker.cri.pageNum eq number} ? active : ''">
+													<a th:href="${number}" aria-controls="dataTable"
+													data-dt-idx="1" tabindex="0" class="page-link"
+													th:text="${number}">1</a>
+												</li>
+											</th:block>
+
+											<li class="paginate_button page-item next"
+												id="dataTable_next" th:if="${pageMaker.next}"><a
+												th:href="${pageMaker.endPage +1}" aria-controls="dataTable"
+												data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- paging end-->
+
+							<form id='actionForm' action="/getTeacherList" method='get'>
+								<input type='hidden' name='pageNum'
+									th:value="${pageMaker.cri.pageNum}"> <input
+									type='hidden' name='amount' th:value="${pageMaker.cri.amount}">
+							</form>
 							<!-- container -->
 							<!--  Modal content for the above example -->
 

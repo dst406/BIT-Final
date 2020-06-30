@@ -1,51 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.varchar.www.model.dao.ApprovalDAO">
+	<select id="getApprovalAccount" resultType="int">
+		SELECT
+			count(*)
+		FROM approval ap
+			INNER JOIN approval_type at on ap.approval_type_code = at.approval_type_code
+			INNER JOIN approval_state apst on apst.approval_state_code = ap.approval_state_code
+			INNER JOIN academy_user au on ap.user_id = au.user_id
+		ORDER BY 
+			approval_register_date DESC
+	</select>
 	<!-- 원장이 조회하는 전체 결재목록 -->
 	<select id="getApprovalList" resultType="com.varchar.www.model.domain.approval.ApprovalVO">
-		SELECT
-		ap.*,
-		at.approval_type_name as approval_type_name,
-		apst.approval_state_name as approval_state_name,
-		au.user_name as user_name
-		FROM approval ap
-		INNER JOIN approval_type at on ap.approval_type_code =
-		at.approval_type_code
-		INNER JOIN approval_state apst on apst.approval_state_code =
-		ap.approval_state_code
-		INNER JOIN academy_user au on ap.user_id = au.user_id
-		ORDER BY approval_register_date DESC
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				(SELECT 
+					rownum rn,
+					ap.*,
+					at.approval_type_name as approval_type_name,
+					apst.approval_state_name as approval_state_name,
+					au.user_name as user_name
+				FROM approval ap
+					INNER JOIN approval_type at on ap.approval_type_code = at.approval_type_code
+					INNER JOIN approval_state apst on apst.approval_state_code = ap.approval_state_code
+					INNER JOIN academy_user au on ap.user_id = au.user_id
+				WHERE rownum <= #{cri.pageNum} * #{cri.amount}
+				ORDER BY 
+					ap.approval_register_date DESC, ap.approval_state_code DESC)
+			WHERE 
+				rn > (#{cri.pageNum} - 1) * #{cri.amount}
+		]]>
 		
 	</select>
 
 	<!-- 강사가 조회하는 자신의 결재목록 -->
 	<select id="getMyApprovalList" parameterType="String" resultType="com.varchar.www.model.domain.approval.ApprovalVO">
 		SELECT
-		ap.*,
-		at.approval_type_name as approval_type_name,
-		apst.approval_state_name as approval_state_name
+			ap.*,
+			at.approval_type_name as approval_type_name,
+			apst.approval_state_name as approval_state_name
 		FROM approval ap
-		INNER JOIN approval_type at on ap.approval_type_code =
-		at.approval_type_coder
-		INNER JOIN approval_state apst on apst.approval_state_code =
-		ap.approval_state_code 
+			INNER JOIN approval_type at on ap.approval_type_code = at.approval_type_code
+			INNER JOIN approval_state apst on apst.approval_state_code = ap.approval_state_code 
 		WHERE user_id= #{userId}
 	</select>
 	
-	<select id="getApprovalType" parameterType="String" resultType="com.varchar.www.model.domain.approval.ApprovalVO">
-		SELECT
-		ap.*,
-		at.approval_type_name as approval_type_name,
-		apst.approval_state_name as approval_state_name,
-		au.user_name as user_name
-		FROM approval ap
-		INNER JOIN approval_type at on ap.approval_type_code =
-		at.approval_type_code
-		INNER JOIN approval_state apst on apst.approval_state_code =
-		ap.approval_state_code
-		INNER JOIN academy_user au on ap.user_id = au.user_id
-		WHERE apst.approval_state_name = #{approvalType}
-		ORDER BY approval_register_date DESC
+	<select id="getApprovalType" resultType="com.varchar.www.model.domain.approval.ApprovalVO">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				(SELECT
+					rownum rn,
+					ap.*,
+					at.approval_type_name as approval_type_name,
+					apst.approval_state_name as approval_state_name,
+					au.user_name as user_name
+				FROM approval ap
+					INNER JOIN approval_type at on ap.approval_type_code = at.approval_type_code
+					INNER JOIN approval_state apst on apst.approval_state_code = ap.approval_state_code
+					INNER JOIN academy_user au on ap.user_id = au.user_id
+				WHERE apst.approval_state_name = #{approvalType} AND rownum <= #{cri.pageNum} * #{cri.amount})
+			WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount}
+			ORDER BY approval_register_date DESC
+		]]>
+	</select>
+	
+	<select id="getApprovalTypeTeacher" resultType="com.varchar.www.model.domain.approval.ApprovalVO">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				(SELECT
+					rownum rn,
+					ap.*,
+					at.approval_type_name as approval_type_name,
+					apst.approval_state_name as approval_state_name,
+					au.user_name as user_name
+				FROM approval ap
+					INNER JOIN approval_type at on ap.approval_type_code = at.approval_type_code
+					INNER JOIN approval_state apst on apst.approval_state_code = ap.approval_state_code
+					INNER JOIN academy_user au on ap.user_id = au.user_id
+				WHERE apst.approval_state_name = #{approvalType} AND au.user_id = #{userId} AND rownum <= #{cri.pageNum} * #{cri.amount})
+			WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount}
+			ORDER BY approval_register_date DESC
+		]]>
 	</select>
 	
 	<!-- 원장이 하는 결재승인 -->
@@ -57,4 +99,27 @@
 	<update id="updateApprovalReject" parameterType="String">
 		UPDATE approval SET approval_state_code = 'APPROVAL_REJECT' WHERE approval_no = #{approvalNo}
 	</update>
+	
+	<!-- 강사가 결제를 제출 -->
+	
+	<insert id="insertApproval" parameterType="com.varchar.www.model.domain.approval.ApprovalVO">
+		
+		INSERT INTO approval (approval_no, approval_type_code, approval_state_code, user_id, approval_content, approval_register_date)
+		VALUES ('AP'||seq_id.nextval, #{approvalTypeCode}, 'APPROVAL_WAIT', #{userId}, #{approvalContent}, (select sysdate from dual))
+		
+	</insert>
+	
+	<select id="getApprovalWaitList" parameterType="String" resultType="com.varchar.www.model.domain.approval.ApprovalVO">
+		SELECT
+			 a.*,
+			 aps.approval_state_name AS approval_state_name,
+			 at.approval_type_name AS approval_type_name
+		FROM approval a
+			INNER JOIN approval_state aps on a.approval_state_code = aps.approval_state_code
+			INNER JOIN approval_type at on a.approval_type_code = at.approval_type_code
+		WHERE
+			a.user_id = #{userId} AND
+			aps.approval_state_code = 'APPROVAL_WAIT'
+	</select>
+	
 </mapper>

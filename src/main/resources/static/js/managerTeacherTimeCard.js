@@ -1,16 +1,30 @@
 $(function(){
-	dateSearch();
-	attendanceTypeSearch();
+	dateSearchVer2();
 })
+
+function dateSearchVer2(){
+	$('#time-card-date').on('change', function(){
+		var timeDate = $(this).val();
+		if(timeDate == '') timeDate = '0';
+		location.href = "/manager/attendance/search/" + timeDate + "/" + $('#attendance-type').val();
+	})
+	
+	$('#attendance-type').on('change', function(){
+		var timeDate = $('#time-card-date').val();
+		if(timeDate == '') timeDate = '0';
+		location.href = "/manager/attendance/search/" + timeDate + "/" + $(this).val();
+	})
+}
 
 function dateSearch(){
 	$('#time-card-date').on('change', function(){
-		console.log($(this).val());
-		console.log($.type($(this).val()));
 		$.ajax({
-			url: '/teacher/timeCard/dateSearch',
+			url: '/manager/attendance/search',
 			type: 'get',
-			data: {attendanceGoTime: $(this).val()},
+			data: {
+				attendanceGoTime: $(this).val(),
+				attendanceStateName : $('#attendance-type').val()
+			},
 			dataType: 'json'
 		}).done(function(list){
 			console.log(list)
@@ -46,7 +60,8 @@ function attendanceTypeSearch() {
 					url : '/manager/attendance/search',
 					type : 'GET',
 					data : {
-						attendanceType : attendanceType
+						attendanceStateName : attendanceType,
+						attendanceGoTime : $('#time-card-date').val()
 					},
 					dataType : 'json'
 				}).done(
@@ -54,16 +69,17 @@ function attendanceTypeSearch() {
 							$('#attendance-list').empty();
 							$('#attendance-list div').empty();
 							$.each(list, function(index, value) {
+								if(value.attendanceComeTime == null) value.attendanceComeTime = '';
+								if(value.attendanceGoTime == null) value.attendanceGoTime = '';
 								var example = '<tr>' + 
 										'<td>' + (index + 1) + '</td>' +
 										'<td>' + value.userName + '</td>' + 
 										'<td>' + value.attendanceComeTime +  '</td>' +
 										'<td>' + value.attendanceGoTime + '</td>' +
 										'<td>' + value.userTel + '</td>' +
-										'<td>' + value.attendanceStateName
-										+ '</a></td>' + 
-										'<td>'+ value.approvalRegisterDate + '</td> </tr>';
-								$('#approval-list').append(example);
+										'<td>' + value.attendanceStateName + '</td>' 
+										+ '</tr>';
+								$('#attendance-list').append(example);
 								/*var modal = '<div id="' + value.approvalNo + '" class="white-popup mfp-hide">' +
 												'<h5>결재종류</h5> <span>' + value.approvalTypeName + '</span>' +
 												'<h5>결재상태</h5> <span>' + value.approvalStateName + '</span>' +

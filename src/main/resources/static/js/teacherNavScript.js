@@ -5,16 +5,20 @@ $(function(){
 /* 보형 NavBar Slide */
 
 function navBarSlide(){
+	$('#teacher-manage').on('click', function(){
+		var teacher = $('#teacher-ul');
+		teacher.slideToggle('fast');
+	})
+	
 	$('#lecture-manage').on('click', function(){
-		var lecture = $('#lecture-ul');
-		lecture.slideToggle('fast');
+		$('#lecture-ul').slideToggle('fast');
 	})
 	
 	$('#student-manage').on('click', function(){
 		$('#student-ul').slideToggle('fast');
 	})
 	
-	$('#schedule-manage').on('click', function(){
+	$('#schedule-manage').on('click',function(){
 		$('#schedule-ul').slideToggle('fast');
 	})
 	
@@ -22,4 +26,7 @@ function navBarSlide(){
 		$('#approval-ul').slideToggle('fast');
 	})
 	
+	$('#account-manage').on('click',function(){
+		$('#account-ul').slideToggle('fast');
+	})
 }
