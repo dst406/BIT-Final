@@ -22,7 +22,7 @@ public interface TeacherDAO {
 	List<Teacher> getTeacherList(String authority_code);
 	TeacherVO getTeacherInfo(String userId);
 	List<CareerVO> getTeacherCareer(String userId);
-	List<Attendance> getTeacherTimeCard(String userId);
+	List<Attendance> getTeacherTimeCard(@Param("cri") Criteria cri,@Param("userId") String userId);
 	
 	List<Attendance> getManagerTeacherTimeCard(@Param("cri")Criteria cri, @Param("authorityCode") String authorityCode);
 	List<Attendance> getTeacherTimeCardByDate(@Param("cri")Criteria cri, @Param("attendanceGoTime") String attendanceGoTime);

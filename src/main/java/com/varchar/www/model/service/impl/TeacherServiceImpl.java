@@ -47,8 +47,8 @@ public class TeacherServiceImpl implements TeacherService{
 
 	//강사-강사의 출퇴근 Id를 통해서 조회
 	@Override
-	public List<Attendance> getTeacherTimeCard(String userId) {
-		return teacherdao.getTeacherTimeCard(userId);
+	public List<Attendance> getTeacherTimeCard(Criteria cri, String userId) {
+		return teacherdao.getTeacherTimeCard(cri, userId);
 	}
 
 	//원장-강사 출퇴근 기록을 코드넘버"2"를 통해서 조회
