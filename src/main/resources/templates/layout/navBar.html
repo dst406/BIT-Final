@@ -87,7 +87,10 @@
 						
 				<div class="dropdown-menu dropdown-menu-right" style="">
 						<a class="dropdown-item" th:href=" ${#authentication.Principal.authorityCode} == 1 ? 
-															@{/getManagerInfo} : @{/getTeacherInfo/{userId}(userId = ${#authentication.Principal.userId} )} "><i
+															@{/getManagerInfo} : 
+															( ${#authentication.Principal.authorityCode} == 2 ?
+															@{/getTeacherInfo/{userId}(userId = ${#authentication.Principal.userId} )} :
+															@{/teacher/getStudentInfo/{userId}(userId = ${#authentication.Principal.userId} )} ) "><i
 							class="dripicons-user text-muted mr-2"></i> 내 정보</a> <a
 							class="dropdown-item" href=""><i
 							class="dripicons-wallet text-muted mr-2"></i> 내 강의</a> <a
@@ -215,7 +218,7 @@
 					class="main-icon-menu-pane active">
 					<input th:value="${boardGroupList.lectureCode}" type="hidden" class="hidden-lectureCode">
 					<div class="title-box">
-						<div class="group_icon lecture" >			
+						<div th:if="${#authentication.Principal.authorityCode} != 3" class="group_icon lecture" >			
 							 <a href="#" data-mfp-src=".insertBoardGroupContainer"
 									class="insertPage-popup-link popup-link insert-board-group"> 
 									<i class="fas fa-plus group_plus"></i>

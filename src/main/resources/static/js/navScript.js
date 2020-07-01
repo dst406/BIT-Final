@@ -17,10 +17,12 @@ $(function(){
 function getModalFormEditPage(){
 
 	$('.editBoardGroup-popup-link').on('click',function(event){
-		var title = $(event.target).closest('.nav-item').find('.edit-able').text();
+		var target = $(event.target).closest('.nav-item').find('.edit-able');
+		var title = target.text();
+		var boardGroupNo = target.attr('data');
 		$('.formInputWrapper .inputInnerMedium').get(0).value = title;
 		$('.inputInnerMedium').get(1).value="";
-		
+		$('.deleteBoardGroup').attr("href","/board/deleteBoardGroup/"+boardGroupNo);
 //		$('#originalTitle').val(title);
 //		$('#changeTitle').val("");
 		
@@ -54,25 +56,19 @@ function getModalFormAddBoardGroup(){
 		getModalForm(".insert-board-group",".itemCloseButton");
 	
 	
-	$(".insertBoardGroupContainer .itemSaveButton").on('click',function(){
+	$("body").on('click','.insertBoardGroupContainer .itemSaveButton',function(){
 		$.ajax({
 			url:"/board/insertBoardGroup",
 			type:"POST",
 			data: { 
 				content : $('.itemCardBodyContent').val(),
 				lectureCode: lectureCode
-			},
-			success:function(data){
-				alert('야쓰');
-				console.log(data);
+			}
+		}).done(function(data){
 				$.magnificPopup.close();
 				$('.menu-body').html(data);
 				$('.hidden-lectureCode[value='+lectureCode+']').
 				closest('.main-icon-menu-pane').find('.metismenu').addClass('active');
-				//$('.main-icon-menu-pane:first-child .metismenu').addClass('active');
-				
-			}
-			
 		})
 	})
 	
@@ -80,18 +76,14 @@ function getModalFormAddBoardGroup(){
 
 
 function getModalFormAddBoard(){
-	$('.insert-board').on('click',function(event){
+	$('body').on('click','.insert-board',function(event){
 		$('.itemCardBodyContent').val('');
 		boardGroupNo = $(event.target).closest('.nav-item').find('.board-group').attr("data");
 		console.log(boardGroupNo);
 	})
 	getModalForm(".insert-board",".itemCloseButton");
 	
-	
-	
-	//console.log(order.closest('.main-icon-menu-pane').find('.metismenu'));
-	
-	$(".insertBoardContainer .itemSaveButton").on('click',function(){
+	$("body").on('click','.insertBoardContainer .itemSaveButton',function(){
 		
 		content : $('.itemCardBodyContent').val();
 		
@@ -101,17 +93,7 @@ function getModalFormAddBoard(){
 			data: { 
 				content : $('.itemCardBodyContent').val(),
 				boardGroupNo: boardGroupNo
-			},
-			success:function(data){
-				alert('야쓰');
-				$.magnificPopup.close();
-				$('.menu-body').html(data);
-				
-				$boardGroup = $('.board-group[data='+boardGroupNo+']');
-				
-				$boardGroup.addClass('active');
-				$boardGroup.closest('.main-icon-menu-pane').find('.metismenu ').addClass('active');
-				$boardGroup.closest('li').find('ul').addClass('active');
+			}
 				
 				// 변수 var , 없이 : https://hue9010.github.io/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C/JavaScript-var/
 				//    L Scope 체인
@@ -120,13 +102,18 @@ function getModalFormAddBoard(){
 				
 				//$('.main-icon-menu-pane:first-child .metismenu').addClass('active');
 				
-			}
+			}).done(function(data){
+				$.magnificPopup.close();
+				$('.menu-body').html(data);
+				
+				$boardGroup = $('.board-group[data='+boardGroupNo+']');
+				
+				$boardGroup.addClass('active');
+				$boardGroup.closest('.main-icon-menu-pane').find('.metismenu ').addClass('active');
+				$boardGroup.closest('li').find('ul').addClass('active');
+			})
 			
 		})
-	})
-	//$('.insertPage-popup-link').on('click',function(event){})
-	//getModalFormEditPage("insertPage-popup-link",".itemCloseButton");
-	
 }
 
 function editAbleBoard(){
@@ -142,7 +129,7 @@ function editAbleBoard(){
 }
 
 function editBoardGroupTitle(){
-   $('.buttonMediumBlueBase').on('click',function(event){
+   $('body').on('click','.buttonMediumBlueBase',function(event){
       const boardGroupName = $('#originalTitle').val();
       const changeName = $('#changeTitle').val();
       

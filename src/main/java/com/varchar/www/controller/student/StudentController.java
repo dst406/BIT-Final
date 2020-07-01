@@ -55,7 +55,10 @@ public class StudentController {
 		
 		@GetMapping("/teacher/getStudentList")
 		public String getStudentList(Criteria cri, Model model, @AuthenticationPrincipal AcademyUser user) {
-			model.addAttribute("studentList", studentService.getStudentList(cri, user.getAuthorityCode()));
+			System.out.println("권한 : "+user.getAuthorityCode());
+			System.out.println(studentService.getStudentList(cri,"3"));
+			model.addAttribute("studentList", studentService.getStudentList(cri, "3"));
+			
 			return "student/studentList";
 		}	
 		
