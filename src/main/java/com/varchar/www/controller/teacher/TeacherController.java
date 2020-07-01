@@ -33,7 +33,7 @@ public class TeacherController {
 	//강사의 메인페이지 입니다.
 	@GetMapping("/teacherIndex")
 	public String teacherIndex(@AuthenticationPrincipal AcademyUser user ,Model model) {
-		model.addAttribute("lectureList", lectureService.getLectureList());
+		model.addAttribute("lectureList", lectureService.getMyLectureList(user.getUserId()));
 		model.addAttribute("approvalList", approvalService.getApprovalWaitList(user.getUserId()));
 		return "main/teacherIndex";
 	}

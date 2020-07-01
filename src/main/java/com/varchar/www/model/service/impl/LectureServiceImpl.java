@@ -110,6 +110,17 @@ public class LectureServiceImpl implements LectureService{
 		
 	}
 
+	@Override
+	public List<Lecture> getMyLectureList(String userId) {
+		// TODO Auto-generated method stub
+		return lecturedao.getMyLectureList(userId);
+	}
+
+	@Override
+	public List<Lecture> getLectureListByState(String lectureState) {
+		return lecturedao.getLectureListByState(lectureState);
+	}
+
 	
 
 }

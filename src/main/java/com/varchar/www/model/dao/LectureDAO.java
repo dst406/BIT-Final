@@ -35,4 +35,6 @@ public interface LectureDAO {
 	List<LectureStatus> getLectureStatusChart();
 	List<Lecture> getLectureList();
 
+	List<Lecture> getMyLectureList(String userId);
+	List<Lecture> getLectureListByState(String lectureState);
 }

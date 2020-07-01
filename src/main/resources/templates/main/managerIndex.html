@@ -18,14 +18,17 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="page-title-box">
-								<h2 class="page-title">강의목록</h2>
+								<h2 class="page-title">원장메인</h2>
+								<hr>
 							</div>
 
 							<!-- row -->
 							<div class="row">
 								<div class="col-12">
 									<div class="card">
-										<div class="card-body"></div>
+										<div class="card-body">
+										<hr>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -36,6 +39,7 @@
 								<div class="col-12">
 									<div class="card">
 										<div class="card-body"></div>
+										<hr>
 									</div>
 								</div>
 							</div>
@@ -47,41 +51,37 @@
 								<div class="col-12">
 									<div class="card">
 										<div class="card-body">
+											<h5 class="page-title">
+												결재목록<a th:href="@{/getManagerApprovalList}"
+													style="float: right;"> 더보기</a>
+											</h5><hr>
 											<table id="datatable" class="table dataTable no-footer"
 												role="grid" aria-describedby="datatable_info">
-												<a th:href="@{/getManagerApprovalList}">결재목록</a>
-
 												<thead class="thead-light">
-													<tr>
-														<th class="" tabindex="0"
-															aria-controls="datatable" rowspan="1" colspan="1"
-															aria-sort="ascending"
+													<tr role="row">
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
 															aria-label="Lead: activate to sort column descending"
 															style="width: 40px;">번호</th>
 														<!-- <th>결재번호</th> -->
-														<th class="" tabindex="0"
-															aria-controls="datatable" rowspan="1" colspan="1"
-															aria-sort="ascending"
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
 															aria-label="Lead: activate to sort column descending"
 															style="width: 40px;">결재종류</th>
-														<th class="" tabindex="0"
-															aria-controls="datatable" rowspan="1" colspan="1"
-															aria-sort="ascending"
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
 															aria-label="Lead: activate to sort column descending"
 															style="width: 40px;">결재상태</th>
-														<th class="" tabindex="0"
-															aria-controls="datatable" rowspan="1" colspan="1"
-															aria-sort="ascending"
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
 															aria-label="Lead: activate to sort column descending"
 															style="width: 40px;">신청자</th>
-														<th class="" tabindex="0"
-															aria-controls="datatable" rowspan="1" colspan="1"
-															aria-sort="ascending"
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
 															aria-label="Lead: activate to sort column descending"
 															style="width: 40px;">신청내용</th>
-														<th class="" tabindex="0"
-															aria-controls="datatable" rowspan="1" colspan="1"
-															aria-sort="ascending"
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
 															aria-label="Lead: activate to sort column descending"
 															style="width: 40px;">신청일자</th>
 													</tr>

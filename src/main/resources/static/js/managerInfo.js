@@ -17,7 +17,7 @@ function imgUpload(){
 			console.log('들어옴?')
 			$.ajax({
 				url: '/manager/image/upload',
-				type: 'post',
+				type: 'POST',
 				data: formData,
 				enctype: 'multipart/form-data',
 				contentType: false,
@@ -40,6 +40,7 @@ function imgUpload(){
 		obj.userEmail = $('#manager-email').val()
 		obj.userAddress = $('#manager-address').val()
 		obj.userRemark = $('#manager-remark').val()
+		obj.userRegistration = $('#manager-registration').val()
 		formData.append("manager", obj);
 		
 		$.ajax({

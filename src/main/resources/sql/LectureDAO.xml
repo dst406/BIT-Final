@@ -157,15 +157,38 @@
 			ls.lecture_state_name AS lecture_state_name,
 			l.lecture_name AS lecture_name,
 			l.lectureroom_no AS lectureroom_no,
+			lr.capacity AS capacity,
+			lr.student_grade AS student_grade,
+			(SELECT au.user_name FROM academy_user au WHERE au.user_id = l.user_id) AS user_name,
+			lsub.lecture_subject_name AS lecture_subject_name,
+			s.season_start_date AS lecture_start_date,
+			s.season_end_date As lecture_finish_date,
+			s.season_name AS season_name
+		FROM 
+			lecture l
+			INNER JOIN lectureroom lr ON l.lectureroom_no = lr.lectureroom_no
+			INNER JOIN lecturestate ls ON l.lecture_state_code = ls.lecture_state_code
+			INNER JOIN lecture_subject lsub ON l.lecture_subject_code = lsub.lecture_subject_code
+			INNER JOIN season s ON l.season_id  = s.season_id
+		ORDER BY l.lectureroom_no
+	</select>
+	
+	<select id="getMyLectureList" parameterType="String" resultType="com.varchar.www.model.domain.lecture.Lecture">
+		SELECT 
+			l.lecture_code AS lecture_code,
+			ls.lecture_state_name AS lecture_state_name,
+			l.lecture_name AS lecture_name,
+			l.lectureroom_no AS lectureroom_no,
 			lsub.lecture_subject_name AS lecture_subject_name,
 			s.season_start_date AS lecture_start_date,
 			s.season_end_date As lecture_finish_date
 		FROM 
 			lecture l
-		INNER JOIN lectureroom lr ON l.lectureroom_no = lr.lectureroom_no
-		INNER JOIN lecturestate ls ON l.lecture_state_code = ls.lecture_state_code
-		INNER JOIN lecture_subject lsub ON l.lecture_subject_code = lsub.lecture_subject_code
-		INNER JOIN season s ON l.season_id  = s.season_id
+			INNER JOIN lectureroom lr ON l.lectureroom_no = lr.lectureroom_no
+			INNER JOIN lecturestate ls ON l.lecture_state_code = ls.lecture_state_code
+			INNER JOIN lecture_subject lsub ON l.lecture_subject_code = lsub.lecture_subject_code
+			INNER JOIN season s ON l.season_id  = s.season_id
+		WHERE l.user_id = #{userId}
 		ORDER BY l.lectureroom_no
 	</select>
 	
@@ -174,4 +197,27 @@
 		VALUES(#{lectureDay}, #{lectureCode}, (SELECT season_id FROM lecture WHERE lecture_code = #{lectureCode}), #{lectureAllocationTime},
 		TO_CHAR(#{lectureStartTime})||':00', TO_CHAR(#{lectureStartTime} + #{lectureAllocationTime})||':00', SEQ_ID.NEXTVAL)
 	</insert>
+	
+	<select id="getLectureListByState" parameterType="String" resultType="com.varchar.www.model.domain.lecture.Lecture">
+		SELECT 
+			l.lecture_code AS lecture_code,
+			ls.lecture_state_name AS lecture_state_name,
+			l.lecture_name AS lecture_name,
+			l.lectureroom_no AS lectureroom_no,
+			lr.capacity AS capacity,
+			lr.student_grade AS student_grade,
+			(SELECT au.user_name FROM academy_user au WHERE au.user_id = l.user_id) AS user_name,
+			lsub.lecture_subject_name AS lecture_subject_name,
+			s.season_start_date AS lecture_start_date,
+			s.season_end_date As lecture_finish_date,
+			s.season_name AS season_name
+		FROM 
+			lecture l
+			INNER JOIN lectureroom lr ON l.lectureroom_no = lr.lectureroom_no
+			INNER JOIN lecturestate ls ON l.lecture_state_code = ls.lecture_state_code
+			INNER JOIN lecture_subject lsub ON l.lecture_subject_code = lsub.lecture_subject_code
+			INNER JOIN season s ON l.season_id  = s.season_id
+		WHERE ls.lecture_state_name = #{lectureState}
+		ORDER BY l.lectureroom_no
+	</select>
 </mapper>

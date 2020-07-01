@@ -39,27 +39,12 @@ public class ResponseManagerController {
 		System.err.println(approvalType);
 		return approvalService.getApprovalTeacherType(cri, approvalType, userId);
 	}
-	
-	//원장이 강의상태별로 드롭다운해서 보기
-	@GetMapping("/lecture/search/{userId}")
-	public List<ApprovalVO> getLectureListByType(@PathVariable String userId, Criteria cri, String approvalType){
-		System.err.println(approvalType);
-		return null;
-//		return approvalService.getlectureType(cri, approvalType, userId);
-	}
 		
 	@GetMapping("/approval/search")
 	public List<ApprovalVO> getApprovalListByType(Criteria cri, String approvalType){
 		System.err.println(approvalType);
 		return approvalService.getApprovalType(cri, approvalType);
 	}
-	
-	/*
-	 * @GetMapping("/attendance/search") public List<Attendance>
-	 * getAttendanceListByType(String attendanceStateName, String attendanceGoTime){
-	 * System.err.println(attendanceStateName); return
-	 * teacherService.getAttendanceType(attendanceStateName, attendanceGoTime); }
-	 */
 	
 	//원장이 본인 이미지를 업로드
 	@PostMapping("/image/upload")
@@ -70,6 +55,7 @@ public class ResponseManagerController {
 	//원장의 본인정보 수정
 	@PutMapping("/update")
 	public void updateManagerInfo(@RequestBody TeacherVO manager) {
+		System.err.println(manager);
 		managerService.updateManagerInfo(manager);
 	}
 

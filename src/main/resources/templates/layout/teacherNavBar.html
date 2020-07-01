@@ -120,8 +120,8 @@
 					<li class="dropdown"><a
 						class="nav-link dropdown-toggle nav-user" data-toggle="dropdown"
 						href="#" role="button" aria-haspopup="false" aria-expanded="false"><img
-							src="img/user.png" alt="profile-user" class="rounded-circle">
-							<span class="ml-1 nav-user-name hidden-sm">진보형 원장님 <i
+							src="/img/라이언.jpg" alt="profile-user" class="rounded-circle">
+							<span class="ml-1 nav-user-name hidden-sm" th:text="${#authentication.Principal.userName} + '강사님'"> <i
 								class="mdi mdi-chevron-down"></i></span></a>
 						<div class="dropdown-menu dropdown-menu-right" style="">
 							<a class="dropdown-item" href="managerStudentList"><i
@@ -233,8 +233,8 @@
 
 		<div class="leftbar-tab-menu mm-active active">
 			<div class="main-icon-menu in mm-show">
-				<a href="/teacherIndex" class="logo logo-metrica d-block text-center"><span><img
-						src="" alt="logo-small" class="logo-sm"></span></a>
+				<a href="/teacherIndex" class="logo logo-metrica d-block text-center" height="34" width="45"><span><img
+						src="/img/logo2.png" alt="logo-small" class="logo-sm"></span></a>
 				<nav class="nav">
 					<a href="#" class="nav-link active teacher-nav-1"
 						data-toggle="tooltip-custom" data-placement="right" title=""
@@ -303,7 +303,7 @@
 							class="feather feather-message-circle align-self-center menu-icon icon-md icon-dual mb-4">
 						<path
 								d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-					</a><a href="" class="profile active"><img src="img/bh.png"
+					</a><a href="" class="profile active"><img th:src="'/img/' + ${#authentication.Principal.userImage}"
 						alt="profile-user" class="rounded-circle thumb-sm"></a>
 				</div>
 			</div>
@@ -312,8 +312,8 @@
 				<!-- LOGO -->
 				<div class="topbar-left">
 					<a href="/teacherIndex" class="logo"><span><img
-							src="img/logo2.png" alt="logo-large" class="logo-lg logo-dark" style="margin-top:20px; height: 70px; width:180px;">
-							<img src="img/logo5.png" alt="logo-large"
+							src="/img/logo2.png" alt="logo-large" class="logo-lg logo-dark" style="margin-top:20px; height: 70px; width:180px;">
+							<img src="/img/logo5.png" alt="logo-large"
 							class="logo-lg logo-light"></span></a>
 				</div>
 				<!--end logo-->
@@ -345,6 +345,8 @@
 								<h6 class="menu-title">강의관리</h6>
 							</div>
 							<ul class="nav in mm-show" id="lecture-ul">
+							<li class="nav-item"><a class="nav-link"
+									href="/getLectureList">전체강의목록</a></li>
 								<li class="nav-item"><a class="nav-link"
 									href="/getTeacherLectureList">나의강의목록</a></li>
 								<li class="nav-item"><a class="nav-link"
