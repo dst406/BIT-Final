@@ -37,7 +37,7 @@ function lecturePay(){
 		IMP.init('imp89102236');
 		
 		IMP.request_pay({
-		    pg : 'inicis', // version 1.1.0부터 지원.
+		    pg : 'html5_inicis', // version 1.1.0부터 지원.
 		    pay_method : 'card',
 		    merchant_uid : 'merchant_' + new Date().getTime(),
 		    name : '주문명:결제테스트',
