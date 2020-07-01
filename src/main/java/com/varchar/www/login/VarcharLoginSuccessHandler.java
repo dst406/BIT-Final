@@ -39,10 +39,10 @@ public class VarcharLoginSuccessHandler implements AuthenticationSuccessHandler{
 			break;
 		case "[ROLE_TEACHER]":
 			//url = "/teacher/teacher";
-			url = "/teacher/teacherIndex";
+			url = "/teacherIndex";
 			break;
 		case "[ROLE_MANAGER]":
-			url = "/getStudentListManager";
+			url = "/managerIndex";
 			//url = "/manager/managerIndex";
 			break;
 		}

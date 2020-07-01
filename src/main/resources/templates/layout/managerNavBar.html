@@ -7,15 +7,16 @@
 <body>
 
 	<div class="topbar" th:fragment="topNavBar">
-	
+
 		<!-- Navbar -->
 		<nav class="navbar-custom">
 			<ul class="list-unstyled topbar-nav float-right mb-0 profile-area">
 				<li class="dropdown notification-list"><a
 					class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown"
 					href="#" role="button" aria-haspopup="false" aria-expanded="false">
-					<i class="far fa-bell fa-2x noti-icon"></i></a>
-				<div class="dropdown-menu dropdown-menu-right dropdown-lg py-0">
+						<i class="far fa-bell fa-2x noti-icon"></i>
+				</a>
+					<div class="dropdown-menu dropdown-menu-right dropdown-lg py-0">
 						<h6
 							class="dropdown-item-text font-15 m-0 py-3 bg-light text-dark d-flex justify-content-between align-items-center">
 							Notifications <span class="badge badge-primary badge-pill">2</span>
@@ -27,7 +28,7 @@
 								<!-- item-->
 								<a href="#" class="dropdown-item py-3"><small
 									class="float-right text-muted pl-2">2 min ago</small>
-								<div class="media">
+									<div class="media">
 										<div class="avatar-md bg-soft-primary">
 											<i class="la la-cart-arrow-down"></i>
 										</div>
@@ -38,13 +39,12 @@
 												printing and industry.</small>
 										</div>
 										<!--end media-body-->
-									</div>
-									<!--end media--> </a>
+									</div> <!--end media--> </a>
 								<!--end-item-->
 								<!-- item-->
 								<a href="#" class="dropdown-item py-3"><small
 									class="float-right text-muted pl-2">10 min ago</small>
-								<div class="media">
+									<div class="media">
 										<div class="avatar-md bg-soft-success">
 											<i class="la la-group"></i>
 										</div>
@@ -55,13 +55,12 @@
 												established fact that a reader.</small>
 										</div>
 										<!--end media-body-->
-									</div>
-									<!--end media--> </a>
+									</div> <!--end media--> </a>
 								<!--end-item-->
 								<!-- item-->
 								<a href="#" class="dropdown-item py-3"><small
 									class="float-right text-muted pl-2">40 min ago</small>
-								<div class="media">
+									<div class="media">
 										<div class="avatar-md bg-soft-pink">
 											<i class="la la-list-alt"></i>
 										</div>
@@ -72,13 +71,12 @@
 												printing.</small>
 										</div>
 										<!--end media-body-->
-									</div>
-									<!--end media--> </a>
+									</div> <!--end media--> </a>
 								<!--end-item-->
 								<!-- item-->
 								<a href="#" class="dropdown-item py-3"><small
 									class="float-right text-muted pl-2">1 hr ago</small>
-								<div class="media">
+									<div class="media">
 										<div class="avatar-md bg-soft-warning">
 											<i class="la la-truck"></i>
 										</div>
@@ -89,13 +87,12 @@
 												established fact that a reader.</small>
 										</div>
 										<!--end media-body-->
-									</div>
-									<!--end media--> </a>
+									</div> <!--end media--> </a>
 								<!--end-item-->
 								<!-- item-->
 								<a href="#" class="dropdown-item py-3"><small
 									class="float-right text-muted pl-2">2 hrs ago</small>
-								<div class="media">
+									<div class="media">
 										<div class="avatar-md bg-soft-info">
 											<i class="la la-check-circle"></i>
 										</div>
@@ -106,8 +103,7 @@
 												printing.</small>
 										</div>
 										<!--end media-body-->
-									</div>
-									<!--end media--></a>
+									</div> <!--end media--></a>
 								<!--end-item-->
 							</div>
 							<div class="slimScrollBar"
@@ -123,21 +119,21 @@
 					</div></li>
 				<li class="dropdown"><a
 					class="nav-link dropdown-toggle nav-user" data-toggle="dropdown"
-					href="javascript:void(0)" role="button" aria-haspopup="false" aria-expanded="false"><img
-						src="/img/human.png" alt="profile-user"
-						class="rounded-circle">
-						 
-						<span sec:authentication="name"
-						class="ml-1 nav-user-name hidden-sm">Robert 
-						
-						<i class="mdi mdi-chevron-down"></i></span> </a>
-						
-						
-				<div class="dropdown-menu dropdown-menu-right" style="">
-						<a class="dropdown-item" href=""><i
+					href="javascript:void(0)" role="button" aria-haspopup="false"
+					aria-expanded="false"><img src="/img/human.png"
+						alt="profile-user" class="rounded-circle"> 
+						<span
+						th:text="${#authentication.Principal.userName}" class="ml-1 nav-user-name hidden-sm">Robert
+
+							<i class="mdi mdi-chevron-down"></i>
+					</span> </a>
+
+
+					<div class="dropdown-menu dropdown-menu-right" style="">
+						<a class="dropdown-item" href="/getManagerInfo"><i
 							class="dripicons-user text-muted mr-2"></i> 내 정보</a> <a
-							class="dropdown-item" href=""><i
-							class="dripicons-wallet text-muted mr-2"></i> 내 강의</a> <a
+							class="dropdown-item" href="/getManagerLectureList"><i
+							class="dripicons-wallet text-muted mr-2"></i> 전체 강의</a> <a
 							class="dropdown-item" href=""><i
 							class="dripicons-gear text-muted mr-2"></i> Settings</a> <a
 							class="dropdown-item" href="javascript:void(0)"><i
@@ -149,7 +145,7 @@
 			</ul>
 			<!--end topbar-nav-->
 			<ul class="list-unstyled topbar-nav mb-0">
-				
+
 				<li class="hide-phone app-search"><div role="search" class="">
 						<input type="text" id="AllCompo" placeholder="Search..."
 							class="form-control ui-autocomplete-input" autocomplete="off">
@@ -173,8 +169,9 @@
 
 		<div class="leftbar-tab-menu mm-active active">
 			<div class="main-icon-menu in mm-show">
-				<a href="managerIndex" class="logo logo-metrica d-block text-center"><span><img
-						th:src="@{/img/logo.png}"  alt="logo-small" class="logo-sm"></span></a>
+				<a href="/managerIndex"
+					class="logo logo-metrica d-block text-center"><span>
+					<img src="img/logo4.png" alt="logo-small" class="logo-sm"></span></a>
 				<nav class="nav">
 					<a href="#MetricaCRM" class="nav-link active"
 						data-toggle="tooltip-custom" data-placement="right" title=""
@@ -251,9 +248,9 @@
 			<div class="main-menu-inner active">
 				<!-- LOGO -->
 				<div class="topbar-left">
-					<a href="managerIndex" class="logo"><span><img
-							th:src="@{/img/logo-dark.png}" alt="logo-large" class="logo-lg logo-dark">
-							<img th:src="@{/img/logo-dark.png}" alt="logo-large"
+					<a href="/managerIndex" class="logo"><span><img
+							src="img/logo4.png" alt="logo-large" class="logo-lg logo-dark" style="height: 70px;">
+							<img src="img/logo4.png" alt="logo-large"
 							class="logo-lg logo-light"></span></a>
 				</div>
 				<!--end logo-->
@@ -267,7 +264,7 @@
 							</div>
 							<ul id="teacher-ul" class="nav in mm-show">
 								<li class="nav-item"><a class="nav-link"
-									href="/getTeacherList">강사목록</a></li>
+									href="/getManagerTeacherList">강사목록</a></li>
 								<li class="nav-item"><a class="nav-link"
 									href="/getManagerTeacherTimeCard">강사출퇴근부</a></li>
 							</ul>
@@ -276,9 +273,10 @@
 								<h6 class="menu-title">학생관리</h6>
 							</div>
 							<ul class="nav in mm-show" id="student-ul">
-								<li class="nav-item"><a class="nav-link" href="/teacher/getStudentList">학생목록</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">등하원기록부</a></li>
-								<li class="nav-item"><a class="nav-link" href="/teacher/getRecordList">성적관리</a></li>
+								<li class="nav-item"><a class="nav-link" href="#">학생목록</a></li>
+								<li class="nav-item"><a class="nav-link"
+									href="/getManagerStudentTimeCard">등하원기록부</a></li>
+								<li class="nav-item"><a class="nav-link" href="#">성적관리</a></li>
 							</ul>
 
 							<div class="title-box active" id="lecture-manage">
@@ -295,8 +293,8 @@
 								<h6 class="menu-title">일정관리</h6>
 							</div>
 							<ul class="nav in mm-show" id="schedule-ul">
-								<li class="nav-item"><a class="nav-link" href="/calendar">학원일정</a></li>
-								<li class="nav-item"><a class="nav-link" href="/schedule">강의일정</a></li>
+								<li class="nav-item"><a class="nav-link" href="#">학원일정</a></li>
+								<li class="nav-item"><a class="nav-link" href="#">강의일정</a></li>
 								<li class="nav-item"><a class="nav-link" href="#">나의일정</a></li>
 							</ul>
 

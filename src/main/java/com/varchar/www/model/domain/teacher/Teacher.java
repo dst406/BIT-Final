@@ -8,23 +8,27 @@ import lombok.Data;
 @Data
 public class Teacher {
 	
-	public String userImage; //강사 이미지
-	public String authorityCode;
-	public String userName;
-	public String userId;
-	public String userPw;
-	public String userBirth;
-	public String userTel;
-	public String userEmail;
-	public String userAddress;
-	public String userRemark;
-	public String lectureSubjectCode;
-	public String lectureSubjectName;
-	public Date userRegistration; //입사일
-	public String academicBackGround; //최종학력
-	public String careerPeriod; //경력기간
-	public String careerLocation; //근무처
-	public String careerContent; //근무내용
+	private String userImage; //강사 이미지
+	private String authorityCode;
+	private String authorityName;
+	private String userName;
+	private String userId;
+	private String userPw;
+	private String userBirth;
+	private String userBirthEnco;
+	private String userTel;
+	private String userEmail;
+	private String userAddress;
+	private String userRemark;
+	private String lectureSubjectCode;
+	private String lectureSubjectName;
+	private Date userRegistration; //입사일
+	
+	
+	private String academicBackGround; //최종학력
+	private String careerPeriod; //경력기간
+	private String careerLocation; //근무처
+	private String careerContent; //근무내용
 	
 	
 }

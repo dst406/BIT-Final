@@ -4,6 +4,9 @@
 	layout:decorator="layout/managerLayout">
 <head>
 <meta charset="UTF-8">
+<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	<script type="text/javascript" src="/js/insertTeacher.js"></script> 
 <title>원장-강사등록</title>
 </head>
 <body>
@@ -26,7 +29,7 @@
 						<!--end col-->
 					</div>
 
-					<!-- 강의정보입력 시작  -->
+					<!-- 강사정보입력시작  -->
 					<div class="row">
 						<div class="met-profile-main-pic col-lg-4"
 							style="display: list-itemflex; margin: auto;">
@@ -44,26 +47,24 @@
 										th:action="@{/insertTeacher}" th:object="${teacher}"
 										th:method="POST">
 										<div class="form-group">
+											<h5>사진</h5>
+											<input id="teacher-file" th:field="*{userImage}" type="file"> <br> 
+											<img class="rounded-circle thumb-lg" id="teacher-img"
+												th:data-img="${teacher.userImage}"
+												th:src="'/img/' + ${teacher.userImage}"
+												style="width: 100px; height: 100px; margin-top: 10px;"><br>
+											<p></p>
 											강사명<input type="text" th:field="*{userName}"
 												placeholder="강사명" class="form-control">
 											<p></p>
-
-											<!-- 담당과목 <select name="language" th:field="*{userRemark}"class="form-control">
-												<option value="">강의과목명</option>
-												<option th:each="lectureSubject : ${lectureSubjectList}" th:value="${lectureSubject.lectureSubjectCode}"
-												 th:text="${lectureSubject.lectureSubjectName}"></option>
-											</select> -->
-
 											<p></p>
 											ID<input id="id" type="text" th:field="*{userId}"
 												placeholder="ID" class="form-control">
-											<!-- <p></p>
-											비밀번호<input id="password" type="password" th:field="*{userId}"
-												placeholder="초기비밀번호는111111로 설정해주세요" class="form-control"> -->
+										
 											<p></p>
 											생년월일<input id="" type="date" th:field="*{userBirth}"
 												placeholder="YYYY-MM-DD" class="form-control">
-												<p></p>
+											<p></p>
 											연락처<input id="tel" type="tel" th:field="*{userTel}"
 												placeholder="전화번호" class="form-control">
 											<p></p>
@@ -72,50 +73,29 @@
 											<p></p>
 											주소<input id="address" type="text" th:field="*{userAddress}"
 												placeholder="주소" class="form-control">
-											
+
 											<p></p>
-											담당과목 <input id="id" type="text"
-												th:field="*{userRemark}" placeholder="담당과목"
-												class="form-control">
-											
-											
+
+											담당과목 <input id="id" type="text" th:field="*{userRemark}"
+												placeholder="담당과목" class="form-control">
+
 											<p></p>
 											최종학력<input id="id" type="text"
 												th:field="*{academicBackGround}" placeholder="최종학력"
 												class="form-control">
-											
+
 											<p></p>
 											경력기간<input id="id" type="text" th:field="*{careerPeriod}"
 												placeholder="YYYY-MM~YYYY-MM" class="form-control">
-											<!-- 경력기간<input type="date" th:field="*{careerPeriod}"
-												placeholder="강의시작일" class="form-control" id="currentDate">
-											<script>
-												document
-														.getElementById('currentDate').value = new Date()
-														.toISOString()
-														.substring(0, 10);
-												;
-											</script>
-											<p></p>
-											<form>
-												~<input type="date" th:field="*{careerPeriod}"
-													placeholder="강의종료일" class="form-control" id="currentDate">
-												<script>
-													document
-															.getElementById('currentDate').value = new Date()
-															.toISOString()
-															.substring(0, 10);
-													;
-												</script>
-												<p></p>
-											</form> -->
+											
 											<p></p>
 											근무처<input id="id" type="text" th:field="*{careerLocation}"
 												placeholder="근무처" class="form-control">
 											<p></p>
 											근무내용
-											<textarea rows="5" placeholder="근무내용" class="form-control" th:field="*{careerContent}"></textarea>
-												
+											<textarea rows="5" placeholder="근무내용" class="form-control"
+												th:field="*{careerContent}"></textarea>
+
 
 										</div>
 										<div class="form-group">
@@ -124,18 +104,17 @@
 											<p></p>
 
 
-
-
 											<input type="submit" value="등록"
 												class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
+												id="teacher-update-btn"
 												style="margin-left: 10px;">
 											<button type="button"
 												class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
 												onclick="location.href='/getTeacherList'">취소</button>
 										</div>
 									</form>
-									
-									
+
+
 								</div>
 							</div>
 						</div>

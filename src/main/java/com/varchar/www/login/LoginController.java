@@ -130,7 +130,7 @@ public class LoginController {
 	@GetMapping("/teacher/teacher")
 	public String loginTeacher(@AuthenticationPrincipal User user, Map<String, Object> model,Authentication auth) {
 		System.out.println("login cont   : "+auth.getPrincipal());
-		return "login/teacher";
+		return "teacher/teacherIndex";
 	}
 
 	// 학생

@@ -1,10 +1,283 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/managerLayout">
 <head>
-<meta charset="UTF-8">
-<title>원장-강의실</title>
+<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
+<link href="/css/lectureRoom.css" rel="stylesheet" type="text/css">
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript" src="/js/lectureRoom.js"></script>
 </head>
 <body>
-<h1>강의실현황입니다.</h1>
+
+	<div layout:fragment="content">
+
+		<div class="page-wrapper">
+			<!-- Page Content-->
+			<div class="page-content-tab">
+				<div class="container">
+
+					<!-- 공간   -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box">
+								<h2 class="page-title">강의실 현황</h2>
+							</div>
+							<!-- 201호 -->
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+										
+											<div class="row">
+												<div class="col-sm-12">
+													<select
+														style="width: 10%; height: 30px; margin-bottom: 10px;">
+														<option value="all">전체</option>
+														<option th:each="lectureRoom : ${lectureRoomList}"
+															th:value="${lectureRoom.lectureRoomNo}"
+															th:text="${lectureRoom.lectureRoomNo} + '호   (' + ${lectureRoom.studentGrade} + ')'"></option>
+													</select>
+		
+		
+													<button type="button" id="lectureRoom-add"
+														class="btn btn-primary waves-effect waves-light float-right mb-3"
+														data-toggle="modal" data-animation="bounce"
+														data-target=".bs-example-modal-lg" data-mfp-src="#lectureRoom-add-modal">+ 강의실 배정</button>
+												
+												</div>
+											</div>
+											
+											<div id="lectureRoom-add-modal" class="white-popup mfp-hide">
+												<h4>강의실 배정</h4>
+												<hr>
+												
+												<div class="detail-input">
+													<h5>강의 선택</h5>
+													<select id="lecture">
+														<option value="">전체</option>
+														<option th:each="lecture : ${lectureList}" th:value="${lecture.lectureCode}"
+														th:text="${lecture.lectureName}"></option>
+													</select>
+													
+													<h5>강의실 선택</h5>
+													<select id="lectureRoom" class="room-list">
+														<option value="all">전체</option>
+														<option th:each="lectureRoom : ${lectureRoomList}"
+															th:value="${lectureRoom.lectureRoomNo}"
+															th:text="${lectureRoom.lectureRoomNo} + '호   (' + ${lectureRoom.studentGrade} + ')'"></option>
+													</select>
+													
+													<h5>요일 선택</h5>
+													<select id="lecture-day">
+														<option value="월">월</option>
+														<option value="화">화</option>
+														<option value="수">수</option>
+														<option value="목">목</option>
+														<option value="금">금</option>
+													</select>
+													
+													<h5>할당시간</h5>
+													<input id="lecture-allocation-time" type="number">
+													
+													<h5>시간 선택</h5>
+													<select id="lecture-time">
+														<option value="18:00">18:00</option>
+														<option value="19:00">19:00</option>
+														<option value="20:00">20:00</option>
+														<option value="21:00">21:00</option>
+														<option value="22:00">22:00</option>
+													</select>
+												</div>
+												<button type="button" id="lectureRoom-insert-btn"
+														class="btn btn-primary waves-effect waves-light float-right mb-3"
+														data-toggle="modal" data-animation="bounce"
+														data-target=".bs-example-modal-lg">등록</button>
+												
+											</div>
+
+											<div class="row">
+												<div class="col-sm-12">
+													<table id="datatable" class="table dataTable no-footer"
+														role="grid" aria-describedby="datatable_info">
+														<thead class="thead-light">
+															<tr role="row">
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">번호</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Action: activate to sort column ascending"
+																	style="width: 90px;">강의실</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 30px;">요일</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Email: activate to sort column ascending"
+																	style="width: 100px;">시즌</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 80px;">할당시간</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Phone No: activate to sort column ascending"
+																	style="width: 80px;">시작시간</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Company: activate to sort column ascending"
+																	style="width: 95px;">종료시간</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Status: activate to sort column ascending"
+																	style="width: 200px;">강의명</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Action: activate to sort column ascending"
+																	style="width: 90px;">강의대상</th>
+															</tr>
+															<!-- end tr -->
+														</thead>
+														<tbody>
+															<tr th:each="lectureRoom : ${getTimeTableList}">
+																<td th:text="${lectureRoomStat.count}"></td>
+																<td th:text="${lectureRoom.lectureroomNo} + '호'"></td>
+																<td th:text="${lectureRoom.lectureDay}"></td>
+																<td th:text="${lectureRoom.lectureSeasonId}"></td>
+																<td th:text="${lectureRoom.lectureAllocationTime}"></td>
+																<td th:text="${lectureRoom.lectureStartTimeEnco}"></td>
+																<td th:text="${lectureRoom.lectureEndTimeEnco}"></td>
+																<td th:text="${lectureRoom.lectureName}"></td>
+																<td th:text="${lectureRoom.studentGrade}"></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+							<!-- 201호 끝 -->
+
+							<!-- 202호 -->
+							<!-- <div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+
+											<h3>202호</h3>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+							202호 끝
+							
+							203호
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+
+											<h3>203호</h3>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+							203호 끝
+							
+							204호
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+
+											<h3>204호</h3>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+							204호 끝
+							
+							301호
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+
+											<h3>301호</h3>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+							301호 끝
+							
+							302호
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+
+											<h3>302호</h3>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+							302호 끝
+							
+							303호
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+
+											<h3>303호</h3>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+							303호 끝
+							
+							304호
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+
+											<h3>304호</h3>
+										</div>
+
+
+									</div>
+								</div>
+							</div> -->
+							<!-- 304호 끝 -->
+
+
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

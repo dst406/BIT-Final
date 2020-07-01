@@ -24,6 +24,9 @@ public class Lecture {
 	private String seasonId;
 	private String lectureStartTime;
 	private String lectureEndTime;
+	private String lectureSubjectName;
+	private Date lectureStartDate;
+	private Date lectureFinishDate;
 	
 
 }

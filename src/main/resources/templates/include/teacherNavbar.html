@@ -82,7 +82,7 @@
 		<div class="topbar-left">
 			<a href="teacherIndex" class="logo"><span><img
 					src="img/bh.png" alt="logo-large" class="logo-lg logo-dark">
-					<img src="img/logo-dark.png" alt="logo-large" class="logo-lg logo-light"></span></a>
+					<img src="img/bh.png" alt="logo-large" class="logo-lg logo-light"></span></a>
 		</div>
 		<!--end logo-->
 		<div class="slimScrollDiv mm-active active"
@@ -106,7 +106,7 @@
 						<li class="nav-item"><a class="nav-link"
 							href="/teacherStudentList">학생목록</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="/teacherStudentTimeCard">등하원기록부</a></li>
+							href="/getStudentTimeCard">등하원기록부</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="../jinbohyeong">성적관리</a></li>
 
@@ -131,7 +131,7 @@
 						<li class="nav-item"><a class="nav-link"
 							href="/jinbohyeong">결재신청</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="/teacherApprovalList">나의 결재목록</a></li>
+							th:href="'/getTeacherApprovalList/' + ${#authentication.Principal.userId}">나의 결재목록</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="/jinbohyeong">미정</a></li>
 					</ul>

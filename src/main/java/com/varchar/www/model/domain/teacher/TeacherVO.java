@@ -13,7 +13,7 @@ public class TeacherVO {
 	private String userName; //강사명
 	private String userPw;
 	private String userTel; 
-	private String userBirth;
+	private Date userBirth;
 	private String userEmail;
 	private String userAddress;
 	private Date userRegistration; //입사일

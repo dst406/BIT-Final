@@ -3,10 +3,16 @@
 <mapper namespace="com.varchar.www.model.dao.ManagerDAO">
 
 <!-- 강사 목록을 불러오는 쿼리문 입니다. -->
-	<select id="getTeacherList" parameterType="String" resultType="com.varchar.www.model.domain.teacher.Teacher">
-		SELECT * FROM academy_user WHERE authority_code = #{authorityCode}
+	<select id="getManagerTeacherList" resultType="com.varchar.www.model.domain.teacher.Teacher">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM
+				(SELECT rownum rn, au.*, a.authority_name FROM academy_user au INNER JOIN authority a ON a.authority_code = au.authority_code  
+				WHERE a.authority_code = #{authority_code} AND rownum <= #{cri.pageNum} * #{cri.amount})
+			WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount} 
+		]]>
 	</select>
-	
 <!-- 시즌을 불러오는 쿼리문 입니다. -->
 	<select id="getSeasonList" resultType="com.varchar.www.model.domain.manager.Season">
 		SELECT * FROM season
@@ -14,13 +20,32 @@
 	
 	<!-- 원장이 자신의 정보를 조회 -->
 	<select id="getManagerInfo" parameterType="String" resultType="com.varchar.www.model.domain.teacher.Teacher">
-		SELECT * FROM academy_user WHERE authority_code = #{authorityCode}
+		SELECT
+			academy_user.*,
+			to_char(academy_user.user_birth, 'yyyy-MM-dd') AS user_birth_enco
+		FROM academy_user WHERE authority_code = #{authorityCode}
 	</select>
 	<!-- 원장의 강사조회(경력부분) -->
 	<!-- 경력은 여러 행 나올 수 있어 따로 가져와서 나열합니다. -->
 	<select id="getManagerCareer" parameterType="String" resultType="com.varchar.www.model.domain.manager.CareerVO">
 		SELECT * FROM career WHERE user_id = #{userId}	
 	</select>
+	
+	<!-- 원장이 자신의 정보를 수정 -->
+	<update id="updateManagerInfo" parameterType="com.varchar.www.model.domain.teacher.TeacherVO">
+		UPDATE 
+			academy_user
+		SET
+			user_name = #{userName},
+			user_tel = #{userTel},
+			user_birth = #{userBirth},
+			user_email = #{userEmail},
+			user_address = #{userAddress},
+			user_remark = #{userRemark},
+			user_image = #{userImage}
+		WHERE
+			user_id = #{userId}
+	</update>
 	
 	
 </mapper>

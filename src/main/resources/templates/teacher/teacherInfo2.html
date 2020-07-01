@@ -34,14 +34,15 @@
 											<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
 												<div class="met-profile-main">
 													<div class="met-profile-main-pic">
-														<img src="img/human.png" alt="" height="100"
+														<img src="img/어피치2.png" alt="" height="150"
 															class="rounded-circle"> <span
 															class="fro-profile_main-pic-change"><i
 															class="fas fa-camera" aria-hidden="true"></i></span>
 													</div>
 													<div class="met-profile_user-detail">
 														<h5 class="met-user-name">고재현</h5>
-														<p class="mb-0 met-user-name-post">영어선생</p><br>
+														<p class="mb-0 met-user-name-post">영어선생</p>
+														<br>
 													</div>
 												</div>
 											</div>
@@ -109,19 +110,51 @@
 
 					<!-- 경력 시작 -->
 
-					<div class="row mg-top10">
-						<div class="col-lg-12">
-							<div class="form-group mb-0">
-								<label for="exampleFormControlTextarea1">경력</label>
-								<textarea class="form-control" id="exampleFormControlTextarea1"
-									rows="3"
-									style="margin-top: 0px; margin-bottom: 0px; height: 157px;"
-									disabled="false">에듀윌 단기강사 전문 (2006.07.23~2010.10.11)
-비트캠프 자바 풀스택 웹개발자 강사 (2010.12.10~2019.03.03)
-								</textarea>
-							</div>
+					<!-- 경력 리스트 -->
+					<div class="row">
+						<div class="col-sm-12">
+							<table id="datatable" class="table dataTable no-footer"
+								role="grid" aria-describedby="datatable_info">
+								<thead class="thead-light">
+									<tr role="row">
+										<th class="sorting_asc" tabindex="0" aria-controls="datatable"
+											rowspan="1" colspan="1" aria-sort="ascending"
+											aria-label="Lead: activate to sort column descending"
+											style="width: 40px;">번호</th>
+										<th class="sorting_asc" tabindex="0" aria-controls="datatable"
+											rowspan="1" colspan="1" aria-sort="ascending"
+											aria-label="Lead: activate to sort column descending"
+											style="width: 40px;">최종학력</th>
+										<th class="sorting_asc" tabindex="0" aria-controls="datatable"
+											rowspan="1" colspan="1" aria-sort="ascending"
+											aria-label="Lead: activate to sort column descending"
+											style="width: 40px;">경력기간</th>
+										<th class="sorting_asc" tabindex="0" aria-controls="datatable"
+											rowspan="1" colspan="1" aria-sort="ascending"
+											aria-label="Lead: activate to sort column descending"
+											style="width: 40px;">근무처</th>
+										<th class="sorting_asc" tabindex="0" aria-controls="datatable"
+											rowspan="1" colspan="1" aria-sort="ascending"
+											aria-label="Lead: activate to sort column descending"
+											style="width: 40px;">근무내용</th>
+									<tr>
+								</thead>
+								<tbody>
+									<tr th:each="career : ${careerList}">
+										<td th:text="${careerStat.count}"></td>
+										<td th:text="${career.academicBackGround}"></td>
+										<td th:text="${career.careerPeriod}"></td>
+										<td th:text="${career.careerLocation}"></td>
+										<td th:text="${career.careerContent}"></td>
+									</tr>
+
+
+								</tbody>
+							</table>
+
 						</div>
 					</div>
+					<!-- 경력 리스트 -->
 
 					<!--  경력 끝 -->
 
@@ -137,12 +170,12 @@
 										<footer class="blockquote-footer font-14"> 26일 </footer>
 									</blockquote>
 								</div> -->
-								<!--end card-body-->
-							<!-- </div> -->
-							<!--end card-->
-						</div>
-						<!--end col-->
-						<!-- <div class="col-lg-4">
+					<!--end card-body-->
+					<!-- </div> -->
+					<!--end card-->
+				</div>
+				<!--end col-->
+				<!-- <div class="col-lg-4">
 							<div class="card text-white bg-soft-warning">
 								<div class="card-body">
 									<blockquote class="card-bodyquote mb-0">
@@ -150,12 +183,12 @@
 										<footer class="blockquote-footer font-14"> 2일 </footer>
 									</blockquote>
 								</div> -->
-								<!--end card-body-->
-							<!-- </div> -->
-							<!--end card-->
-						<!-- </div> -->
-						<!--end col-->
-						<!-- <div class="col-lg-4">
+				<!--end card-body-->
+				<!-- </div> -->
+				<!--end card-->
+				<!-- </div> -->
+				<!--end col-->
+				<!-- <div class="col-lg-4">
 							<div class="card bg-soft-pink" id="bg_colorCard">
 								<div class="card-body">
 									<blockquote class="card-bodyquote mb-0">
@@ -163,21 +196,21 @@
 										<footer class="blockquote-footer font-14"> 0일 </footer>
 									</blockquote>
 								</div> -->
-								<!--end card-body-->
-							<!-- </div> -->
-							<!--end card-->
-						<!-- </div> -->
-						<!--end col-->
-					<!-- </div> -->
+				<!--end card-body-->
+				<!-- </div> -->
+				<!--end card-->
+				<!-- </div> -->
+				<!--end col-->
+				<!-- </div> -->
 
-					<!-- 출석, 지각, 결석 끝 -->
+				<!-- 출석, 지각, 결석 끝 -->
 
-					<!-- 캘린더 시작 -->
-					<!-- <div th:include="/util/calendarDefaultForm.html"></div> -->
-					<!--  캘린더 끝 -->
-				</div>
+				<!-- 캘린더 시작 -->
+				<!-- <div th:include="/util/calendarDefaultForm.html"></div> -->
+				<!--  캘린더 끝 -->
 			</div>
 		</div>
+	</div>
 
 	<div th:include="/include/footer.html"></div>
 </body>
