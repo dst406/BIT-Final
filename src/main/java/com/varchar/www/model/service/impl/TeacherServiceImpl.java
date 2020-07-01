@@ -48,6 +48,7 @@ public class TeacherServiceImpl implements TeacherService{
 	//강사-강사의 출퇴근 Id를 통해서 조회
 	@Override
 	public List<Attendance> getTeacherTimeCard(Criteria cri, String userId) {
+		cri.setAmount(20);
 		return teacherdao.getTeacherTimeCard(cri, userId);
 	}
 
@@ -130,6 +131,12 @@ public class TeacherServiceImpl implements TeacherService{
 		List<AttendanceState> list = teacherdao.getAttendanceState();
 		//System.err.println(list);
 		return list;
+	}
+
+	@Override
+	public int getTeacherTimeCardAccount(String userId) {
+		// TODO Auto-generated method stub
+		return teacherdao.getTeacherTimeCardAccount(userId);
 	}
 
 	

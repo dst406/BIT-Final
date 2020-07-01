@@ -30,5 +30,5 @@ public interface TeacherService {
 	int getTeacherAccount(String authorityCode);
 	int getManagerTeacherTimdCardAccount(String authorityCode);
 	int getAttendanceTypeAccount(String attendanceStateName,String attendanceGoTime);
-
+	int getTeacherTimeCardAccount(String userId);
 }

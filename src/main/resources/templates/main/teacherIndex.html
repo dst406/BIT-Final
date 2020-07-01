@@ -28,7 +28,7 @@
 									<div class="card">
 										<div class="card-body">
 											<h5 class="page-title">
-												강의 현황 <a href="/getTeacherLectureList" style="float: right;">
+												강의 현황 <a href="/getLectureList" style="float: right;">
 													더보기</a>
 											</h5>
 
@@ -45,7 +45,8 @@
 								<div class="col-12">
 									<div class="card">
 										<div class="card-body">
-											<h5 class="page-title">전체 강의 목록</h5>
+											<h5 class="page-title">내 강의 목록 <a href="/getTeacherLectureList" style="float: right;">
+													더보기</a></h5>
 											<hr>
 
 											<div class="row">
@@ -118,7 +119,8 @@
 								<div class="col-12">
 									<div class="card">
 										<div class="card-body">
-											<h5 class="page-title">대기중인 내 결제</h5>
+											<h5 class="page-title">대기중인 내 결제 <a th:href="'/getTeacherApprovalList/' + ${#authentication.Principal.userId}" style="float: right;">
+													더보기</a></h5>
 											<hr>
 											<div class="row">
 												<div class="col-sm-12">

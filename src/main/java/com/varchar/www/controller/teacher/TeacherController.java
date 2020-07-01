@@ -33,7 +33,7 @@ public class TeacherController {
 	//강사의 메인페이지 입니다.
 	@GetMapping("/teacherIndex")
 	public String teacherIndex(@AuthenticationPrincipal AcademyUser user ,Model model) {
-		model.addAttribute("lectureList", lectureService.getLectureList());
+		model.addAttribute("lectureList", lectureService.getMyLectureList(user.getUserId()));
 		model.addAttribute("approvalList", approvalService.getApprovalWaitList(user.getUserId()));
 		return "main/teacherIndex";
 	}
@@ -108,6 +108,7 @@ public class TeacherController {
 	@GetMapping("/getTeacherTimeCard/{userId}")
 	public String getTeacherTimeCard(@PathVariable String userId,Criteria cri, Model model) {
 		model.addAttribute("getTeacherTimeCard", teacherService.getTeacherTimeCard(cri, userId));
+		model.addAttribute("pageMaker", new PageDTO(cri, teacherService.getTeacherTimeCardAccount(userId)));
 		return "teacher/getTeacherTimeCard";
 	}
 	

@@ -34,4 +34,7 @@ public interface LectureService {
 	void postLectureTimeTable(LectureTimeTable lectureTimeTable);
 	
 	List<Lecture> getLectureList();
+	List<Lecture> getMyLectureList(String userId);
+	List<Lecture> getLectureListByState(String lectureState);
+	
 }

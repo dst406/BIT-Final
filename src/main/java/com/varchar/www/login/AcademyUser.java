@@ -30,7 +30,7 @@ public class AcademyUser implements UserDetails{
 	private String birth;
 	private String email;
 	private String address;
-	private String image;
+	private String userImage;
 	private Date registration;
 	private String remark;
 	private String schoolName;

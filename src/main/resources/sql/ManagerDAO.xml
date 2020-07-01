@@ -42,7 +42,8 @@
 			user_email = #{userEmail},
 			user_address = #{userAddress},
 			user_remark = #{userRemark},
-			user_image = #{userImage}
+			user_image = #{userImage},
+			user_registration = #{userRegistration}
 		WHERE
 			user_id = #{userId}
 	</update>
