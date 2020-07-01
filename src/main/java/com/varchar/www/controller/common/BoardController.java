@@ -148,10 +148,18 @@ public class BoardController {
 	
 	// 게시글 수정폼
 	@GetMapping("/updatePostForm/{postNo}")
-	public String updatePostForm(@PathVariable @ModelAttribute int postNo,Model model) {
+	public String updatePostForm(@PathVariable @ModelAttribute int postNo,
+			  					 @ModelAttribute String userId, Model model) {
 		// DB접근 후 게시글 디테일 가져오기 1:다 필요없으니까 새로 가져오기
-		
-		return "";
+		model.addAttribute("post", boardService.getPostUpdateForm(postNo));
+		model.addAttribute("temporaryPostList", boardService.getTemporaryPostList(userId));
+		return "common/board/updatePostForm";
+	}
+	
+	@PostMapping("/updatePost")
+	public String updatePost(Posts post, Authentication auth) {
+		boardService.updatePost(post);
+		return "redirect:/board/getPost/"+post.getBoardNo()+"/"+post.getPostNo();
 	}
 	
 	

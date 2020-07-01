@@ -106,8 +106,8 @@ public class TeacherController {
 	
 	//강사가 보는 자신의 출퇴근 기록부 페이지 입니다.
 	@GetMapping("/getTeacherTimeCard/{userId}")
-	public String getTeacherTimeCard(@PathVariable String userId, Model model) {
-		model.addAttribute("getTeacherTimeCard", teacherService.getTeacherTimeCard(userId));
+	public String getTeacherTimeCard(@PathVariable String userId,Criteria cri, Model model) {
+		model.addAttribute("getTeacherTimeCard", teacherService.getTeacherTimeCard(cri, userId));
 		return "teacher/getTeacherTimeCard";
 	}
 	

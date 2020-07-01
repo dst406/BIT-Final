@@ -18,6 +18,8 @@ public interface BoardService {
 	PostsList getPostList( int boardNo,String userId);
 	PostDetail getPost(int boardNo, int postNo);
 	void insertPosts(Posts posts);
+	Posts getPostUpdateForm( int postNo );
+	void updatePost(Posts post);
 	List<TemporaryPostList> getTemporaryPostList(String userId);
 	List<Posts> getSearchDatePostList(int boardNo, String startDate, String endDate);
 	void insertTemporaryPost(TemporaryPost temporaryPost);

@@ -17,7 +17,7 @@ public interface TeacherService {
 	
 	List<Teacher> getTeacherList(String authority_code);
 	List<CareerVO> getTeacherCareer(String userId);
-	List<Attendance> getTeacherTimeCard(String userId);
+	List<Attendance> getTeacherTimeCard(Criteria cri, String userId);
 	//List<Attendance> getTeacherTimeCardByDate(String attendanceGoTime);
 	List<Attendance> getManagerTeacherTimeCard(Criteria cri, String authorityCode);
 	List<Attendance> getAttendanceType (Criteria cri,String attendanceStateName, String attendanceGoTime);

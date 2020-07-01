@@ -52,7 +52,7 @@
 										
 										<th:block th:if = "${#authentication.Principal.userId} == *{userId} "  >
 											<a th:data-post-no=*{postNo} class="deletePost">삭제</a>
-											<a th:data-post-no=*{postNo} class="updatePost">수정 </a>
+											<a th:href="@{/board/updatePostForm/{postNo}(postNo=${postNo})}" th:data-post-no=*{postNo} class="updatePost">수정 </a>
 											</th:block>
 											
 									</div>

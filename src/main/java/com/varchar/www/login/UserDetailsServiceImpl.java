@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 		AcademyUser academyUser = loginDAO.getLoginUser(userId);
 		
-		if( academyUser == null) {throw new UsernameNotFoundException(userId); }
+		if( academyUser == null) {throw new UsernameNotFoundException("잘못된 아이디이거나 비밀번호가 일치하지 않습니다."); }
 	   
 		return academyUser;
 	}

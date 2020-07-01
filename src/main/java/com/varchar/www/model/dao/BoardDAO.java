@@ -3,6 +3,8 @@ package com.varchar.www.model.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.varchar.www.model.domain.board.BoardGroupList;
 import com.varchar.www.model.domain.board.PostDetail;
@@ -35,9 +37,13 @@ public interface BoardDAO {
 	PostsList getPostList(@Param("boardNo") int boardNo,@Param("userId") String userId);
 	// 내 게시글 리스트
 	List<Posts> postList(@Param("boardNo") int boardNo,@Param("userId") String userId);
+	// 게시글 Detail - 수정, 게시글 정보 
+	Posts getPostUpdateForm( int postNo );
+	// 게시글 수정
+	void updatePost(Posts post);
 	
-	// 게시글 Detail
-	PostDetail getPost(@Param("boardNo") int boardNo,@Param("postNo") int postNo);
+	// 게시글 Detail - 조회, 게시글 정보 + 해당 게시판의 게시글 리스트 
+	PostDetail getPost(@Param("boardNo") int boardNo, @Param("postNo") int postNo);
 	// 게시글 삭제
 	void deletePost(int postNo);
 	// 게시글 조회수 증가

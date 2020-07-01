@@ -9,6 +9,7 @@ public class Posts {
 	private int postRowNum;
 	private int postNo;
 	private int boardNo;
+	private String boardName;
 	private String userId;
 	private String userName;
 	private String postTitle;	

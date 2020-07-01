@@ -65,7 +65,7 @@
 	</select>
 	
 	<!-- 강사의 본인 출퇴근 기록부 조회 -->
-	<select id="getTeacherTimeCard" parameterType="String" resultType="com.varchar.www.model.domain.manager.Attendance">
+	<select id="getTeacherTimeCard" resultType="com.varchar.www.model.domain.manager.Attendance">
 	<![CDATA[
 		SELECT * 
 		FROM
