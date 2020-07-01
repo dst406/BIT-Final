@@ -39,26 +39,27 @@ public class BoardController {
 	@Autowired BoardService boardService;
 	@Autowired BoardDAO boardDAO;
 	
-	// 유저에 따른 내비게이션바 호출 
+	// 유저에 따른 내비게이션바 호출  (처음에만 호출)
 	@GetMapping("/getNavbar")
-	public String getNavbar(@ModelAttribute String userId, Model model){
-		model.addAttribute("boardGroupList",boardService.getNavbar(userId));
+	public String getNavbar(@AuthenticationPrincipal AcademyUser user, Model model){
+		model.addAttribute("boardGroupList",boardService.getNavbar( user.getUserId() , user.getAuthorityCode() ) );
 		return "layout/navBar :: leftNavBar";
+	}
+	
+
+	// ModelAttribute method Level에서  게시판 상태값 유지  
+	@ModelAttribute
+	public void getBoardNavbar(@AuthenticationPrincipal AcademyUser user ,Model model ){
+		model.addAttribute("boardGroupList",boardService.getNavbar(user.getUserId() , user.getAuthorityCode()));
 	}
 	
 	// 토큰으로 userId 꺼냄. 매번 요청   
 	@ModelAttribute
 	public String userId(@AuthenticationPrincipal AcademyUser user) {
 		return user.getUserId();
-		//return ((AcademyUser) auth.getPrincipal()).getUserId();
 	}
 	
 	
-	// 유저에 따른 내비게이션바 호출 
-	@ModelAttribute
-	public void getBoardNavbar(Model model , @ModelAttribute String userId ){
-		model.addAttribute("boardGroupList",boardService.getNavbar(userId));
-	}
 	
 	
 	
@@ -92,13 +93,14 @@ public class BoardController {
 	@GetMapping({"/postList","/postList/{boardNo}"})
 	public String getPostList(@ModelAttribute @PathVariable(name="boardNo",required = false) Optional<Integer> boardNo,
 								@ModelAttribute String userId, Model model) {
-		
+		// 학생이 접속하면 Pathvariable로 못받으니  boardNo가 없어서 
 		if(! boardNo.isPresent()) {
+			// Default로 0으로 셋팅해주고
 			boardNo = Optional.of(0);
-			System.out.println("if안에 들어왔으 ~  " +boardNo.get().intValue());
+			// 0으로 DB로 접근해서 동적으로 결제내역으로 lectureCode를 구한 후 boardNo를 구한다.
 			model.addAttribute("postsList",boardService.getPostList(boardNo.get().intValue(),userId));
-			
 		}else {
+			// 그냥 접속하는거면 Pathvariable로 접근.  boardNo 가 있음. Integer 로 받아서 int로 형변환
 		model.addAttribute("postsList",boardService.getPostList(boardNo.get().intValue(), userId));
 		}
 		return "common/board/postList";
@@ -144,7 +146,24 @@ public class BoardController {
 		return "common/board/postInfo";
 	}
 	
-	//게시글 삭제
+	// 게시글 수정폼
+	@GetMapping("/updatePostForm/{postNo}")
+	public String updatePostForm(@PathVariable @ModelAttribute int postNo,
+			  					 @ModelAttribute String userId, Model model) {
+		// DB접근 후 게시글 디테일 가져오기 1:다 필요없으니까 새로 가져오기
+		model.addAttribute("post", boardService.getPostUpdateForm(postNo));
+		model.addAttribute("temporaryPostList", boardService.getTemporaryPostList(userId));
+		return "common/board/updatePostForm";
+	}
+	
+	@PostMapping("/updatePost")
+	public String updatePost(Posts post, Authentication auth) {
+		boardService.updatePost(post);
+		return "redirect:/board/getPost/"+post.getBoardNo()+"/"+post.getPostNo();
+	}
+	
+	
+	// 게시글 삭제
 	@GetMapping("/deletePost/{postNo}/{boardNo}")
 	public String deletePost(@PathVariable int postNo, @PathVariable int boardNo) {
 		boardDAO.deletePost(postNo);

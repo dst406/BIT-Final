@@ -11,13 +11,15 @@ import com.varchar.www.model.domain.board.TemporaryPostList;
 import com.varchar.www.model.domain.comment.Comment;
 
 public interface BoardService {
-	List<BoardGroupList> getNavbar(String userId);
+	List<BoardGroupList> getNavbar(String userId,String authorityCode);
 	void insertBoardGroup(String content, String lectureCode);
 	void updateBoardGroupName(String boardGroupName, String changeName,int boardGroupNo);
 	void insertBoard (String content, int boardGroupNo);
 	PostsList getPostList( int boardNo,String userId);
 	PostDetail getPost(int boardNo, int postNo);
 	void insertPosts(Posts posts);
+	Posts getPostUpdateForm( int postNo );
+	void updatePost(Posts post);
 	List<TemporaryPostList> getTemporaryPostList(String userId);
 	List<Posts> getSearchDatePostList(int boardNo, String startDate, String endDate);
 	void insertTemporaryPost(TemporaryPost temporaryPost);

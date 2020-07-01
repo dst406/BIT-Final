@@ -77,7 +77,22 @@
 	<!-- 내비게이션 바 게시판 그룹, 게시판 조회 start -->
 		
 	<select id="getNavbar" resultMap="boardGroupList_resultMap">
-		SELECT lecture_code,lecture_name FROM lecture WHERE user_id = #{userId}
+		SELECT 
+		<choose>
+			<!-- 권한이 3 이하인 것 -->
+			<when test="authorityCode lt 3">
+				lecture_code,lecture_name FROM lecture WHERE user_id = #{userId}	
+			</when>
+				
+			<!-- 권한이 3 이상인 것 -->	
+			<when test="authorityCode gte 3">
+				 lecture.lecture_code,lecture.lecture_name FROM lecture 
+                 INNER JOIN academy_payment 
+                 ON lecture.lecture_code = academy_payment.lecture_code 
+                 AND academy_payment.user_id = #{userId}	
+			</when>
+		</choose>
+		
 		
 	</select>	
 		
@@ -121,6 +136,11 @@
 		UPDATE board SET board_name = #{boardName} ,board_intro = #{boardIntro}
 		WHERE board_no = #{boardNo}
 	</update>
+	
+	<!-- 게시판 수정  END -->
+	
+
+	
 	
 	<!-- 게시판 삭제 Start -->
 	<delete id="deletePost">
@@ -173,6 +193,15 @@
 					WHERE lecture.user_id = #{user_id} AND ROWNUM =1 
 					ORDER BY board.board_group_no
 					) -->
+            ( 
+            SELECT board.board_no from academy_payment 
+			LEFT OUTER JOIN lecture on lecture.lecture_code = academy_payment.lecture_code
+			LEFT OUTER JOIN board_group ON lecture.lecture_code = board_group.lecture_code
+			LEFT OUTER JOIN board ON board_group.board_group_no = board.board_group_no    
+			WHERE ROWNUM = 1 AND academy_payment.user_id = #{userId} 
+			)
+					
+					
 			</when>
 			
 			<otherwise>
@@ -265,6 +294,26 @@
 	</select>
 		
 	<!--  postDetail End  = #{commentNo} 최 상위노드 설정 부모노드와 자식노드 연결 --> 
+	
+	<!-- 게시글 수정  폼 시작-->
+	<select id="getPostUpdateForm" resultType="posts">
+	 	SELECT  posts.post_no, posts.board_no, posts.post_title, 
+	 			posts.post_contents, board.board_name
+		FROM posts
+		INNER JOIN board ON board.board_no = posts.board_no
+	 	WHERE post_no = #{postNo}
+	</select>
+	<!-- 게시글 수정 폼  끝-->
+	
+	<!-- 게시글 수정  시작-->
+	<update id="updatePost">
+		UPDATE posts SET post_title = #{ postTitle }, post_preview = #{ postPreview }, 
+						 post_thumbnail = #{postThumbnail}, post_contents = #{ postContents }
+		WHERE post_no = #{postNo} 
+	</update>
+	
+	<!-- 게시글 수정  끝-->
+	
 	<!--  게시글 조회수 증가 -->
 	<update id="updatePostViewCount">
 		UPDATE posts SET post_views = (SELECT post_views from posts where post_no = #{postNo} )+1

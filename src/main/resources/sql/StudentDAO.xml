@@ -43,4 +43,13 @@
 	<delete id="deleteStudent" parameterType="String">
 		delete from academy_user where user_id = #{userId}
 	</delete>
+	
+	
+	<insert id="insertLectureForPayment">
+		INSERT INTO ACADEMY_PAYMENT VALUES(
+			SEQ_ACADEMY_PAYMENT.nextval, #{paymentMethodNo}, #{userId}, #{lectureCode},
+			TO_DATE( SYSDATE , 'YYYY-MM-DD HH24:MI:SS' )
+		)
+	</insert>
+	
 </mapper>

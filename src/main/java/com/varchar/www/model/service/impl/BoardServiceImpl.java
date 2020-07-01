@@ -22,9 +22,9 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired BoardDAO boardDAO;
 	
 	@Override
-	public List<BoardGroupList> getNavbar(String userId) {
+	public List<BoardGroupList> getNavbar(String userId,String authorityCode) {
 		
-		return boardDAO.getNavbar(userId);
+		return boardDAO.getNavbar(userId,authorityCode);
 	}
 
 	@Override
@@ -68,7 +68,17 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 	}
-
+	
+	@Override
+	public Posts getPostUpdateForm( int postNo ) {
+		return boardDAO.getPostUpdateForm(postNo);
+	}
+	
+	@Override
+	public void updatePost(Posts post) {
+		boardDAO.updatePost(post);
+	}
+	
 	@Override
 	public List<TemporaryPostList> getTemporaryPostList(String userId) {
 		return boardDAO.getTemporaryPostList(userId);

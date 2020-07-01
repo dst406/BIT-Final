@@ -30,7 +30,7 @@ class VarcharApplicationTests {
 	public void boardGroupListTest() {
 		try {
 		//log.info();
-			System.out.println(boardDAO.getNavbar("jin2020").toString());
+			System.out.println(boardDAO.getNavbar("jin2020","2").toString());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

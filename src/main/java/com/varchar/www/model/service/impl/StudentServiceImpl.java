@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.varchar.www.model.dao.StudentDAO;
 import com.varchar.www.model.domain.page.Criteria;
+import com.varchar.www.model.domain.student.Payment;
 import com.varchar.www.model.domain.student.Student;
 import com.varchar.www.model.service.StudentService;
 
@@ -78,6 +79,11 @@ public class StudentServiceImpl implements StudentService {
 	public int getStudentAccount(String authorityCode) {
 		// TODO Auto-generated method stub
 		return studentDAO.getStudentAccount(authorityCode);
+	}
+	
+	public void insertLectureForPayment(Payment payment) {
+			studentDAO.insertLectureForPayment(payment);
+		
 	}
 
 }
