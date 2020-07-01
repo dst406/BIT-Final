@@ -36,16 +36,11 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 	@Override
-	public List<Record> getRecordList(Criteria cri) {
+	public List<Record> getRecordList() {
 		// TODO Auto-generated method stub
-		return recordDAO.getRecordList(cri);
+		return recordDAO.getRecordList();
 	}
 
-	@Override
-	public int getRecordAccount() {
-		// TODO Auto-generated method stub
-		return recordDAO.getRecordAccount();
-	}
 	
 
 

@@ -9,9 +9,7 @@ import com.varchar.www.model.domain.record.Record;
 
 
 public interface RecordService {
-	
-	int getRecordAccount();
-	List<Record> getRecordList(@Param("cri") Criteria cri);
+	List<Record> getRecordList();
 	List<Record> getStudentRecord(String userId);
 	void insertRecord(Record record);
 	void deleteRecord(String recordNo);

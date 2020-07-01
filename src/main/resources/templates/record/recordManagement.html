@@ -15,7 +15,7 @@
 <link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="/js/page/page.js"></script>
+<!-- <script src="/js/page/page.js"></script> -->
 <body>
 	<div layout:fragment="content">
 		<div class="page-wrapper">
@@ -111,7 +111,7 @@
 														<tbody>
 															<tr th:each="record : ${recordList}" role="row"	class="odd">
 																<td th:if="${record.testNo} < 5" th:text="${record.userId}">
-																<td th:if="${record.testNo} < 5"><a th:href="@{/deleteRecord/{recordNo}(recordNo=${record.recordNo})}"  th:text="${record.userName}"></a></td>
+																<td th:if="${record.testNo} < 5"><a th:href="@{/teacher/deleteRecord/{recordNo}(recordNo=${record.recordNo})}"  th:text="${record.userName}"></a></td>
 																<td th:if="${record.testNo} < 5" th:text="${record.age}"></td> 
 																<td th:if="${record.testNo} < 5" th:text="${record.schoolName}"></td>
 																<td th:if="${record.testNo} < 5" th:text="${record.testName}"></td>
@@ -134,7 +134,7 @@
 												<div class="col-sm-12 col-md-7">
 													<div class="dataTables_paginate paging_simple_numbers"
 														id="datatable_paginate">
-														<ul class="pagination justify-content-end">
+														<!-- <ul class="pagination justify-content-end">
 																		<li class="paginate_button page-item previous"
 																			id="dataTable_previous" th:if="${pageMaker.prev}"><a
 																			th:href="${pageMaker.endPage -1}"
@@ -155,18 +155,18 @@
 																			th:href="${pageMaker.endPage +1}"
 																			aria-controls="dataTable" data-dt-idx="7"
 																			tabindex="0" class="page-link">Next</a></li>
-																	</ul>
+																	</ul> -->
 													</div>
 												</div>
 											</div>
 											<!--  paging end -->
-											<form id='actionForm' action="/teacher/getStudentList"
+					<!-- 						<form id='actionForm' action="/teacher/getStudentList"
 															method='get'>
 															<input type='hidden' name='pageNum'
 																th:value="${pageMaker.cri.pageNum}"> <input
 																type='hidden' name='amount'
 																th:value="${pageMaker.cri.amount}">
-											</form>
+											</form> -->
 										</div>
 									</div>
 								</div>
@@ -257,7 +257,8 @@
 															<tr th:each="record : ${recordList}" role="row"	class="odd">
 																<td th:if="${record.testNo} >= 5" th:text="${record.userId}" ></td>
 																<td th:if="${record.testNo} >= 5">
-																<a th:href="@{/deleteRecord/{recordNo}(recordNo=${record.recordNo})}"  th:text="${record.userName}"></a></td>
+																<a th:href="@{/teacher/deleteRecord/{recordNo}(recordNo=${record.recordNo})}"  
+																th:text="${record.userName}"></a></td>
 																<td th:if="${record.testNo} >= 5" th:text="${record.age}"></td>
 																<td th:if="${record.testNo} >= 5" th:text="${record.schoolName}"></td>
 																<td th:if="${record.testNo} >= 5" th:text="${record.testName}"></td>
@@ -280,7 +281,7 @@
 												<div class="col-sm-12 col-md-7">
 													<div class="dataTables_paginate paging_simple_numbers"
 														id="datatable_paginate">
-														<ul class="pagination justify-content-end">
+														<!-- <ul class="pagination justify-content-end">
 																		<li class="paginate_button page-item previous"
 																			id="dataTable_previous" th:if="${pageMaker.prev}"><a
 																			th:href="${pageMaker.endPage -1}"
@@ -301,18 +302,18 @@
 																			th:href="${pageMaker.endPage +1}"
 																			aria-controls="dataTable" data-dt-idx="7"
 																			tabindex="0" class="page-link">Next</a></li>
-																	</ul>
+																	</ul> -->
 													</div>
 												</div>
 											</div>
 											<!-- paging end -->
-											<form id='actionForm' action="/teacher/getStudentList"
+									<!-- 			<form id='actionForm' action="/teacher/getStudentList"
 															method='get'>
 															<input type='hidden' name='pageNum'
 																th:value="${pageMaker.cri.pageNum}"> <input
 																type='hidden' name='amount'
 																th:value="${pageMaker.cri.amount}">
-											</form>
+											</form> -->
 										</div>
 									</div>
 								</div>

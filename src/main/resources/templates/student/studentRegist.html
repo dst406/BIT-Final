@@ -47,8 +47,8 @@
 										<input id="student-file" type="file" th:field="*{userImage}">
 										<img
 												class="rounded-circle thumb-lg" id="student-Img"
-												th:data-img="${studentInfo.userImage}"
-												th:src="'/img/' + ${studentInfo.userImage}"
+												th:data-img="${student.userImage}"
+												th:src="'/img/' + ${student.userImage}"
 												style="width: 100px; height: 100px; margin-top: 10px;"><br>
 												<p></p>
 												이름 <input type="text" th:field="*{userName}"

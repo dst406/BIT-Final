@@ -21,9 +21,8 @@ public class RecordController {
 	private RecordService recordService;
 	
 	@GetMapping("/teacher/getRecordList")
-	public String getRecordList(Criteria cri, Model model) {
-		model.addAttribute("recordList", recordService.getRecordList(cri));
-		model.addAttribute("pageMaker", new PageDTO(cri, recordService.getRecordAccount()));
+	public String getRecordList(Model model) {
+		model.addAttribute("recordList", recordService.getRecordList());
 		
 		return "record/recordManagement";
 	}
@@ -49,9 +48,9 @@ public class RecordController {
 	}
 	
 	@GetMapping("/teacher/deleteRecord/{recordNo}")
-	public String rdeleteRecord(@PathVariable String recordNo, Model model) {
+	public String deleteRecord(@PathVariable String recordNo) {
 		recordService.deleteRecord(recordNo);
 		
-		return "record/recordManagement";
+		return "redirect:/teacher/getRecordList";
 	}
 }
