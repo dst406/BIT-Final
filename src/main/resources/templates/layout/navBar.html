@@ -58,20 +58,36 @@
 							all <i class="fi-arrow-right"></i>
 						</a>
 					</div></li>
+					
+					
 				<li class="dropdown"><a
 					class="nav-link dropdown-toggle nav-user" data-toggle="dropdown"
 					href="javascript:void(0)" role="button" aria-haspopup="false" aria-expanded="false"><img
 						src="/img/human.png" alt="profile-user"
 						class="rounded-circle">
 						 
-						<span sec:authentication="name"
-						class="ml-1 nav-user-name hidden-sm">Robert 
+						 
+						  <th:block th:if=" ${#authentication.Principal.authorityCode} == 1">
+								<span th:text="${#authentication.Principal.userName} + '원장님'"
+								class="ml-1 nav-user-name hidden-sm">Robert 
+						</th:block>
+						 
+						 <th:block th:if=" ${#authentication.Principal.authorityCode} == 2">
+								<span th:text="${#authentication.Principal.userName} + '&nbsp; 강사님'"
+								class="ml-1 nav-user-name hidden-sm">Robert 
+						</th:block>
 						
-						<i class="mdi mdi-chevron-down"></i></span> </a>
+							 <th:block th:if=" ${#authentication.Principal.authorityCode} == 3">
+								<span th:text="${#authentication.Principal.userName} + '님'"
+								class="ml-1 nav-user-name hidden-sm">Robert 
+						</th:block>
+						
+						
 						
 						
 				<div class="dropdown-menu dropdown-menu-right" style="">
-						<a class="dropdown-item" href=""><i
+						<a class="dropdown-item" th:href=" ${#authentication.Principal.authorityCode} == 1 ? 
+															@{/getManagerInfo} : @{/getTeacherInfo/{userId}(userId = ${#authentication.Principal.userId} )} "><i
 							class="dripicons-user text-muted mr-2"></i> 내 정보</a> <a
 							class="dropdown-item" href=""><i
 							class="dripicons-wallet text-muted mr-2"></i> 내 강의</a> <a
