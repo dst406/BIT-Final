@@ -132,6 +132,12 @@ public class TeacherServiceImpl implements TeacherService{
 		return list;
 	}
 
+	@Override
+	public int getTeacherTimeCardAccount(String userId) {
+		// TODO Auto-generated method stub
+		return teacherdao.getTeacherTimeCardAccount(userId);
+	}
+
 	
 	
 

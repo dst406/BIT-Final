@@ -195,4 +195,13 @@
 	<select id="getAttendanceState" resultType="com.varchar.www.model.domain.teacher.AttendanceState">
 		SELECT * FROM attendance_state
 	</select>
+	
+	<select id="getTeacherTimeCardAccount" parameterType="String" resultType="int">
+		SELECT 
+			count(*)
+		FROM attendance a
+			INNER JOIN attendance_state atts ON a.attendance_state_code = atts.attendance_state_code
+			INNER JOIN academy_user ac ON ac.user_id = a.user_id
+		WHERE a.user_id = #{userId}
+	</select>
 </mapper>

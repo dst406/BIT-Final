@@ -39,5 +39,5 @@ public interface TeacherDAO {
 	int getTeacherTimeCardByDateAccount(String attendanceGoTime);
 	int getAttendanceSearchAccount(@Param("attendanceStateName") String attendanceStateName,
 			@Param("attendanceGoTime") String attendanceGoTime);
-
+	int getTeacherTimeCardAccount(String userId);
 }

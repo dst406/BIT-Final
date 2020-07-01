@@ -108,6 +108,7 @@ public class TeacherController {
 	@GetMapping("/getTeacherTimeCard/{userId}")
 	public String getTeacherTimeCard(@PathVariable String userId,Criteria cri, Model model) {
 		model.addAttribute("getTeacherTimeCard", teacherService.getTeacherTimeCard(cri, userId));
+		model.addAttribute("pageMaker", new PageDTO(cri, teacherService.getTeacherTimeCardAccount(userId)));
 		return "teacher/getTeacherTimeCard";
 	}
 	
