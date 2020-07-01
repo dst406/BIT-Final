@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.varchar.www.login.AcademyUser;
 import com.varchar.www.model.domain.page.Criteria;
+import com.varchar.www.model.domain.page.PageDTO;
 import com.varchar.www.model.domain.student.Student;
 import com.varchar.www.model.service.RecordService;
 import com.varchar.www.model.service.StudentService;
@@ -55,16 +56,15 @@ public class StudentController {
 		
 		@GetMapping("/teacher/getStudentList")
 		public String getStudentList(Criteria cri, Model model, @AuthenticationPrincipal AcademyUser user) {
-			System.out.println("권한 : "+user.getAuthorityCode());
-			System.out.println(studentService.getStudentList(cri,"3"));
-			model.addAttribute("studentList", studentService.getStudentList(cri, "3"));
-			
+			model.addAttribute("studentList", studentService.getStudentList(cri, user.getAuthorityCode()));
+			model.addAttribute("pageMaker", new PageDTO(cri, studentService.getStudentAccount("3")));
 			return "student/studentList";
 		}	
 		
 		@GetMapping("/teacher/getStudentListTeacher")
-		public String getStudentListManager(Criteria cri, Model model) {
+		public String getStudentListTeacher(Criteria cri, Model model) {
 			model.addAttribute("studentList", studentService.getStudentList(cri, "3"));
+			model.addAttribute("pageMaker", new PageDTO(cri, studentService.getStudentAccount("3")));
 			return "student/studentListTeacher";
 		}
 		

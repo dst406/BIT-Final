@@ -37,6 +37,7 @@ public class TeacherController {
 		model.addAttribute("approvalList", approvalService.getApprovalWaitList(user.getUserId()));
 		return "main/teacherIndex";
 	}
+	
 	//원장이 보는 강사목록페이지 입니다.
 	@GetMapping("/getManagerTeacherList")
 	public String getManagerTeacherList(Criteria cri, Model model) {

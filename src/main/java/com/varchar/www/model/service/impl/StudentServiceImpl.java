@@ -76,6 +76,11 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
+	public int getStudentAccount(String authorityCode) {
+		// TODO Auto-generated method stub
+		return studentDAO.getStudentAccount(authorityCode);
+	}
+	
 	public void insertLectureForPayment(Payment payment) {
 			studentDAO.insertLectureForPayment(payment);
 		
