@@ -98,4 +98,18 @@ public class StudentController {
 			model.addAttribute("recordInfo", recordService.getStudentRecord(userId));
 			return "student/studentInfo";
 		}
+		
+		//원장이 조회하는 학생의 등원기록부
+		//권한 : 원장
+		@GetMapping("/manager/getManagerStudentTimeCard")
+		public String getManagerStudentTimeCard() {
+			return "student/getManagerStudentTimeCard";
+		}
+		
+		//강사 조회하는 학생의 등원기록부
+		//권한 : 강사
+		@GetMapping("/teacher/getTeacherStudentTimeCard")
+		public String getTeacherStudentTimeCard() {
+			return "student/getTeacherStudentTimeCard";
+		}
 }

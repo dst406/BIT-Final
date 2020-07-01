@@ -25,7 +25,7 @@
 					</div>
 					<!-- 공간  end -->
 
-
+			<th:block th:if =" ${postsList} != null" >
 					<!-- 게시판 제목, 설명 start -->
 					<div class="row">
 
@@ -124,6 +124,15 @@
 							</div>
 						</div>
 					</div>
+					</th:block>
+					<th:block th:if="${postsList} == null">
+						<div class="row">
+							강의를 등록해주세요 
+						
+						
+						</div>
+					</th:block>	
+					
 				</div>
 			</div>
 		</div>

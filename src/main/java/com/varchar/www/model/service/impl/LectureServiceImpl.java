@@ -9,8 +9,11 @@ import com.varchar.www.model.dao.LectureDAO;
 import com.varchar.www.model.domain.lecture.Lecture;
 import com.varchar.www.model.domain.lecture.LectureRoom;
 import com.varchar.www.model.domain.lecture.LectureState;
+import com.varchar.www.model.domain.lecture.LectureStatus;
 import com.varchar.www.model.domain.lecture.LectureSubject;
+import com.varchar.www.model.domain.lecture.LectureTimeTable;
 import com.varchar.www.model.domain.lecture.LectureVO;
+import com.varchar.www.model.domain.student.Student;
 import com.varchar.www.model.service.LectureService;
 
 @Service
@@ -25,8 +28,8 @@ public class LectureServiceImpl implements LectureService{
 	}
 	
 	@Override
-	public List<Lecture> getTeacherLectureList() {
-		return lecturedao.getTeacherLectureList();
+	public List<Lecture> getTeacherLectureList(String userId) {
+		return lecturedao.getTeacherLectureList(userId);
 	}
 
 	@Override
@@ -58,6 +61,64 @@ public class LectureServiceImpl implements LectureService{
 	public void deleteLecture(String lectureCode) {
 		lecturedao.deleteLecture(lectureCode);
 		
+	}
+
+	@Override
+	public List<LectureTimeTable> getMangerTimeTableList() {
+		return lecturedao.getMangerTimeTableList();
+	}
+
+	@Override
+	public List<Student> getStudentNoLecture() {
+		// TODO Auto-generated method stub
+		return lecturedao.getStudentNoLecture();
+	}
+
+	@Override
+	public List<Student> getStudentLecture(String lectureCode) {
+		// TODO Auto-generated method stub
+		return lecturedao.getStudentLecture(lectureCode);
+	}
+
+	@Override
+	public void postLectureStudent(String userId, String lectureCode) {
+		lecturedao.postLectureStudent(userId, lectureCode);
+		
+	}
+
+	@Override
+	public void deleteLectureStudent(String userId, String lectureCode) {
+		lecturedao.deleteLectureStudent(userId, lectureCode);
+		
+	}
+
+	@Override
+	public List<LectureStatus> getLectureStatusChart() {
+		// TODO Auto-generated method stub
+		return lecturedao.getLectureStatusChart();
+	}
+
+	@Override
+	public List<Lecture> getLectureList() {
+		// TODO Auto-generated method stub
+		return lecturedao.getLectureList();
+	}
+
+	@Override
+	public void postLectureTimeTable(LectureTimeTable lectureTimeTable) {
+		lecturedao.postLectureTimeTable(lectureTimeTable);
+		
+	}
+
+	@Override
+	public List<Lecture> getMyLectureList(String userId) {
+		// TODO Auto-generated method stub
+		return lecturedao.getMyLectureList(userId);
+	}
+
+	@Override
+	public List<Lecture> getLectureListByState(String lectureState) {
+		return lecturedao.getLectureListByState(lectureState);
 	}
 
 	

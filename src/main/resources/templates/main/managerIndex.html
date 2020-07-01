@@ -1,32 +1,127 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/managerLayout">
 <head>
-<meta charset="UTF-8">
-<title>원장메인</title>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
-<h1>원장의 메인페이지 입니다.</h1>
-<h4>강사관리</h4>
-<a href="/getManagerInfo">내정보보기</a><br>
-<a href="/getTeacherList">강사목록</a><br>
-<a href="/getManagerTeacherTimeCard">강사출퇴근부</a><br><br>
 
-<h4>학생관리</h4>
-<a href="#">학생목록</a><br>
-<a href="#">등하원기록부</a><br>
-<a href="#">성적관리</a><br><br>
-<h4>강의관리</h4>
-<a href="/getManagerLectureList">강의목록</a><br><br>
-<h4>일정관리</h4>
-<a href="#">학원일정</a><br>
-<a href="#">강의일정</a><br>
-<a href="#">나의일정</a><br><br>
-<h4>결재관리</h4>
-<a href="/getManagerApprovalList">결재목록</a>
-<h4>회계관리</h4>
-<a href="#">수입</a><br>
-<a href="#">지출</a><br>
-<a href="#">비품</a><br>
+	<div layout:fragment="content">
 
+		<div class="page-wrapper">
+			<!-- Page Content-->
+			<div class="page-content-tab">
+				<div class="container">
+
+					<!-- 공간   -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box">
+								<h2 class="page-title">원장메인</h2>
+								<hr>
+							</div>
+
+							<!-- row -->
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+										<hr>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- row -->
+
+							<!-- row -->
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body"></div>
+										<hr>
+									</div>
+								</div>
+							</div>
+							<!-- row -->
+
+							<!-- row -->
+
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+											<h5 class="page-title">
+												결재목록<a th:href="@{/getManagerApprovalList}"
+													style="float: right;"> 더보기</a>
+											</h5><hr>
+											<table id="datatable" class="table dataTable no-footer"
+												role="grid" aria-describedby="datatable_info">
+												<thead class="thead-light">
+													<tr role="row">
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">번호</th>
+														<!-- <th>결재번호</th> -->
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">결재종류</th>
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">결재상태</th>
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">신청자</th>
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">신청내용</th>
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">신청일자</th>
+													</tr>
+												</thead>
+
+												<tbody id="approval-list">
+													<tr th:each="approval : ${approvalList}">
+														<td th:text="${approvalStat.count}"></td>
+														<td th:text="${approval.approvalTypeName}"></td>
+														<td class="approval-state"
+															th:text="${approval.approvalStateName}"></td>
+														<td th:text="${approval.userName}"></td>
+														<td><a class="approval-modal"
+															th:data-no="${approval.approvalNo}"
+															th:data-mfp-src="'#' + ${approval.approvalNo}"
+															th:text="${approval.approvalContent}"></a></td>
+														<td th:text="${approval.approvalRegisterDate}"></td>
+													</tr>
+
+												</tbody>
+
+											</table>
+
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- row -->
+
+						</div>
+						<!-- col -->
+					</div>
+					<!-- 공간 끝 -->
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- content End -->
 </body>
 </html>

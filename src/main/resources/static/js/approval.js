@@ -1,5 +1,6 @@
 $(function() {
 	approvalModal('.approval-modal');
+	approvalModal('.approval-insert-modal');
 	approvalType();
 	approvalAllow();
 	approvalReject();
@@ -48,17 +49,14 @@ function approvalModal(target) {
 		type : 'inline',
 		midClick : true
 	})
-
 }
 
 function approvalType() {
-	$('#approval-type').on(
-			'change',
-			function() {
+	$('#approval-type').on('change', function() {
 				var approvalType = $(this).val()
 				// ajax
 				$.ajax({
-					url : '/manager/approval/search',
+					url : '/manager/approval/search/' + $('#user-id').val(),
 					type : 'GET',
 					data : {
 						approvalType : approvalType
@@ -66,27 +64,23 @@ function approvalType() {
 					dataType : 'json'
 				}).done(
 						function(list) {
+							$('.pagination').hide();
 							$('#approval-list').empty();
 							$('#approval-list div').empty();
 							$.each(list, function(index, value) {
 								var example = '<tr>' + 
 										'<td>' + (index + 1) + '</td>' +
-										'<td>' + value.approvalTypeName + '</td>' + 
-										'<td>' + value.approvalStateName +  '</td>' +
-										'<td>' + value.userName + '</td>' +
-										'<td>' + '<a class="approval-modal" data-mfp-src="#'+value.approvalNo+'" style="cursor: pointer;">' + value.approvalContent
-										+ '</a></td>' + 
-										'<td>'+ value.approvalRegisterDate + '</td> </tr>';
+										'<td>' + value.userId + '</td>' + 
+										'<td>' + value.approvalRegisterDate +  '</td>' +
+										'<td>' + value.approvalContent + '</a></td>' +
+										'<td>' + value.approvalStateName
+										+ '</a></td></tr>'
 								$('#approval-list').append(example);
-								/*var modal = '<div id="' + value.approvalNo + '" class="white-popup mfp-hide">' +
-												'<h5>결재종류</h5> <span>' + value.approvalTypeName + '</span>' +
-												'<h5>결재상태</h5> <span>' + value.approvalStateName + '</span>' +
-												'<h5>신청자</h5> <span>' + value.userName + '</span>' +
-												'<h5>결재내용</h5> <span>' + value.approvalContent + '</span>' +
-												'<h5>결재일자</h5> <span>' + value.approvalRegisterDate + '</span>' +
-											'</div>';
-								$('#approval-list').append(modal);*/
+								
 								approvalModal('.approval-modal');
+								approvalAllow()
+								approvalReject()
+								
 							})
 							console.log(list)
 
