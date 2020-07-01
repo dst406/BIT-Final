@@ -5,7 +5,7 @@
 <head>
 <link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<script src="/js/page/pageTimeCard.js"></script>
+<script src="/js/page/page.js"></script>
 </head>
 <body>
 
@@ -108,7 +108,7 @@
 							</div>
 							<!-- paging end-->
 
-							<form id='actionForm' action="/getManagerTeacherList"
+							<form id='actionForm' th:action="'/getTeacherTimeCard/' + ${#authentication.Principal.userId}"
 								method='get'>
 								<input type='hidden' name='pageNum'
 									th:value="${pageMaker.cri.pageNum}"> <input
