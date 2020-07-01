@@ -14,7 +14,7 @@ public interface SupplierDAO {
 	//@Select("SELECT eName FROM emp WHERE empNo = #{empNo}")
 	List<Supplier> getSupplier();
 	
-	List<Supplier> searchSupplier(/* String filter, */String searchSupplier);
+	List<Supplier> searchSupplier(String filter, String searchSupplier);
 	
 //	@Insert("INSERT INTO supplier (supplier_no, supplier_name, "
 //			+ "supplier_address, supplier_tel, supplier_date) "

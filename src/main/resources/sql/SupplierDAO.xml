@@ -8,8 +8,25 @@
 	</select>
 	
 	<select id="searchSupplier" resultType="com.varchar.www.model.domain.manager.Supplier">
-		SELECT * FROM supplier WHERE #{filter} LIKE %#{searchSupplier}% DESC;
+		SELECT * FROM supplier WHERE #{filter} LIKE #{searchSupplier} DESC
 	</select>
-		
+	
+	<insert id="insertSupplier" >
+		INSERT INTO supplier VALUES (supplier_seq.NEXTVAL, #{supplierName}, #{supplierAddress}, #{supplierTel}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'))
+	</insert>
+	
+	<update id="updateSupplier" >
+		<!-- UPDATE 테이블명 SET 컬럼2 = '수정할 값1'  WHERE 컬럼1 = '값1' -->
+		UPDATE supplier SET supplierName = #{supplierName}, 
+			supplierAddress = #{supplierAddress}, 
+			supplierTel = #{supplierTel}, 
+			supplierDate = TO_CHAR(SYSDATE, 'YYYY-MM-DD'))
+		WHERE supplierNo = #{supplierNo}
+	</update>
+	
+	<delete id="deleteSupplier" >
+		<!-- DELETE 테이블명 WHERE 컬럼1 = '값1' -->
+		DELETE supplier WHERE supplierNo = #{supplierNo}
+	</delete>
 	
 </mapper>

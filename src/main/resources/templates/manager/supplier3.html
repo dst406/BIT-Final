@@ -691,32 +691,38 @@ to {
 								<div class="card-body">
 									<h4 class="mt-0 header-title">거래처 목록</h4>
 									<p class="text-muted mb-3">이건 거래처 목록임</p>
-									<button class="btn btn-sm btn-primary mb-3" id="submit_data">Submit</button>
-									<button type="button" class="btn btn-success waves-effect waves-light">Success</button>		
-									<!-- <div class="col-sm-12 col-md-6">
-									<div id="datatable_filter" class="dataTables_filter">
-										<form th:action="@{/searchSupplier}" th:object="searchSupplier" method="get">
+									<!-- 적용버튼 이 버튼을 눌러야 생성,수정,삭제 된게 저장된다 -->
+									<button class="btn btn-sm btn-primary mb-3" id="submit_data">적용</button>
+									<!-- <button type="button" class="btn btn-success waves-effect waves-light">Success</button> -->		
+									<div class="col-sm-12 col-md-6">
+										<div id="datatable_filter" class="dataTables_filter">
+										<form action="/searchSupplier" method="post">
 											<label>필터 
 												<select name="filter" aria-controls="datatable"
 													class="custom-select custom-select-sm form-control form-control-sm">
-													<option value="10">전체</option>
-													<option value="25">거래처 명</option>
-													<option value="50">거래처 주소</option>
-													<option value="100">거래처 번호</option>
+													<option value="supplier">전체</option>
+													<option value="supplierName">거래처 명</option>
+													<option value="supplierAddress">거래처 주소</option>
+													<option value="supplierNo">거래처 번호</option>
 												</select>
 											</label>
 											
-												<label>Search:<input type="search" name="searchSupplier"
-													class="form-control form-control-sm"
-													placeholder="검색어를 입력하세요."
-													aria-controls="datatable">
-												</label>
-												<button type="submit"></button>
+											<label>Search:<input type="search" name="searchSupplier"
+												class="form-control form-control-sm"
+												placeholder="검색어를 입력하세요."
+												aria-controls="datatable">
+											</label>
+											<button type="submit" class="btn btn-outline-dark waves-effect waves-light">검색</button>
 											
 										</form>
 										</div>
-									</div> -->
-									
+										<!-- <span class="float-right">
+											<button id="but_add" class="btn btn-sm btn-danger">새로 만들기</button>
+										</span> -->
+									</div>
+									<span class="float-right">
+										<button id="but_add" class="btn btn-sm btn-danger">새로 만들기</button>
+									</span>
 									<!-- <th:block layout:fragment="search">
 										<form action="#" name="searchSupplier" class="searchform js__toggle active pull-right">
 											<input type="search" name="searchSupplier" placeholder="Search..." class="input-search">
@@ -736,38 +742,38 @@ to {
 													<th class="sorting" style="width: 300px;">거래처 주소</th>
 													<th class="sorting" style="width: 80px;">거래처 번호</th>
 													<th class="sorting" style="width: 120px;">등록/수정일</th>
-													<th name="buttons" class="sorting" style="width: 80px;">버튼</th>
+													<!-- <th name="buttons" class="sorting" style="width: 80px;">버튼</th> -->
 												</tr>
 											</thead>
 											<tbody>
-													<tr id="editing"   style="display: none;">
+													<!-- <tr id="editing" style="display: none;">
 														<td>
 															<div style="display: none;"></div>
-															<!-- <input class="form-control input-sm" value="" type="text" > -->
+															<input class="form-control input-sm" value="" type="text" >
 														</td>
 														<td>
 															<div style="display: none;"></div>
-															<input class="form-control input-sm" value="">
+															<input class="form-control input-sm" value="2" placeholder="2">
 														</td>
 														<td>
 															<div style="display: none;"></div>
-															<input class="form-control input-sm" value="">
+															<input class="form-control input-sm" value="3" placeholder="3">
 														</td>
 														<td>
 															<div style="display: none;"></div>
-															<input class="form-control input-sm" value="">
+															<input class="form-control input-sm" value="4" placeholder="4">
 														</td>
 														<td>
 															<div style="display: none;"></div>
-															<input class="form-control input-sm" value="" readonly="readonly">
-														</td>
+															<input class="form-control input-sm" value="5"  placeholder="5">
+														</td>readonly="readonly"
 														<td name="buttons">
 															<div class=" pull-right">
-																<button id="bEdit" type="button" style="display: none;" onclick="rowEdit(this);"
+																<button id="bEdit" type="button" style="display:none;" onclick="rowEdit(this);"
 																	class="btn btn-success waves-effect waves-light">수정
 																	<i></i></button>
 															
-																<button id="bElim" type="button" style="display: none;" onclick="rowElim(this);"
+																<button id="bElim" type="button" style="display:none;" onclick="rowElim(this);"
 																	class="btn btn-danger waves-effect waves-light">삭제
 																	<i aria-hidden="true"></i></button>
 																
@@ -778,34 +784,9 @@ to {
 																<button id="bCanc" type="button" onclick="rowCancel(this);"
 																	class="btn btn-outline-danger waves-effect waves-light">취소
 																	<i aria-hidden="true"></i></button>
-															
-																<!-- <button id="bEdit" type="button"
-																	class="btn btn-sm btn-soft-success btn-circle mr-2"
-																	style="display: none;" onclick="rowEdit(this);">
-																	<i class="dripicons-pencil"></i>
-																</button>
-																<button id="bElim" type="button"
-																	class="btn btn-sm btn-soft-danger btn-circle"
-																	style="display: none;" onclick="rowElim(this);">
-																	<i class="dripicons-trash" aria-hidden="true"></i>
-																</button>
-																<button id="bAcep" type="button"
-																	class="btn btn-sm btn-soft-purple mr-2 btn-circle"
-																	onclick="rowAcep(this);">
-																	<i class="dripicons-checkmark">::before
-																	</i>
-																</button>
-																<button id="bCanc" type="button"
-																	class="btn btn-sm btn-soft-info btn-circle"
-																	onclick="rowCancel(this);">
-																	<i class="dripicons-cross" aria-hidden="true">
-																		::before
-																	</i>
-																</button> -->
-																
 															</div>
 														</td>
-													</tr>
+													</tr> -->
 											
 												
 												<tr th:each="supplier : ${supplier}" role="row" class="odd">
@@ -814,7 +795,8 @@ to {
 													<td th:text="${supplier.supplierAddress}"></td>
 													<td th:text="${supplier.supplierTel}"></td>
 													<td th:text="${supplier.supplierDate}"></td>
-													<td name="buttons">
+												</tr>
+													<!-- <td name="buttons">
 														<div class="pull-right">
 															<button id="bEdit" type="button" onclick="rowEdit(this);"
 															class="btn btn-success waves-effect waves-light">수정
@@ -824,40 +806,21 @@ to {
 															class="btn btn-danger waves-effect waves-light">삭제
 															<i aria-hidden="true"></i></button>
 															
-															<button id="bAcep" type="button" style="display: none;" onclick="rowAcep(this);"
+															<button id="bAcep" type="button" style="display:none;" onclick="rowAcep(this);"
 															class="btn btn-outline-success waves-effect waves-light">확인</button>
 															
-															<button id="bCanc" type="button" style="display: none;" onclick="rowCancel(this);"
+															<button id="bCanc" type="button" style="display:none;" onclick="rowCancel(this);"
 															class="btn btn-outline-danger waves-effect waves-light" >취소
 															<i aria-hidden="true"></i></button>
-															
-															
-															<!-- <button id="bEdit" type="button" class="btn btn-sm btn-soft-success btn-circle mr-2" onclick="rowEdit(this);">
-																<i class="dripicons-pencil">
-																	::before
-																</i>
-															</button>
-															<button  type="button" class="btn btn-sm btn-soft-danger btn-circle" onclick="rowElim(this);">
-																<i class="dripicons-trash" aria-hidden="true">
-																	::before
-																</i>
-															</button>
-															<button id="bAcep" type="button" class="btn btn-sm btn-soft-purple mr-2 btn-circle" style="display: none;" onclick="rowAcep(this);">
-																<i class="dripicons-checkmark"></i>
-															</button>
-															<button id="bCanc" type="button" class="btn btn-sm btn-soft-info btn-circle" style="display: none;" onclick="rowCancel(this);">
-																<i class="dripicons-cross" aria-hidden="true"></i>
-															</button> -->																	
+																															
 														</div>
-													</td>
-												</tr>
+													</td> -->
+												
 												
 											</tbody>
 										</table>
 									</div>
-									<span class="float-right">
-										<button id="but_add" class="btn btn-sm btn-danger">새로 만들기</button>
-									</span>
+									
 								</div>
 								<div class="row">
 									<div class="col-sm-12 col-md-5"></div>

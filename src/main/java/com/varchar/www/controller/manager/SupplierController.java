@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.varchar.www.model.dao.SupplierDAO;
@@ -26,12 +27,12 @@ public class SupplierController {
 	@GetMapping("/insertSupplier")
 	public String insertSupplier() {
 		
-		return "manager/supplier";
+		return "manager/supplier3";
 	}
 	
-	@GetMapping("/searchSupplier")
+	@PostMapping("/searchSupplier")
 	public String searchSupplier(@RequestParam(value="searchSupplier") String filter, String searchSupplier, Model model) {
-		List<Supplier> supplierList = supplierDAO.searchSupplier(searchSupplier);
+		List<Supplier> supplierList = supplierDAO.searchSupplier(filter, searchSupplier);
 		model.addAttribute("supplierList", supplierList);
 				
 		return "/manager/supplier3";
@@ -46,12 +47,12 @@ public class SupplierController {
 	@GetMapping("/updateSupplier")
 	public String updateSupplier() {
 		
-		return "manager/supplier";
+		return "manager/supplier3";
 	}
 	
 	@GetMapping("/deleteSupplier")
 	public String deleteSupplier() {
 		
-		return "manager/supplier";
+		return "manager/supplier3";
 	}
 }

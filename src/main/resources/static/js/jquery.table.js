@@ -12,37 +12,37 @@ Bootstable
   //Global variables
   var params = null;  		//Parameters
   var colsEdi =null;
-  var newColHtml = '<div class=" pull-right">'+
-'<button id="bEdit" type="button" class="btn btn-sm btn-soft-success btn-circle mr-2"  onclick="rowEdit(this);">' +
-'<i class="dripicons-pencil"></i>'+
+  var newColHtml = '<div class="pull-right">'+
+'<button id="bEdit" type="button" class="btn btn-success waves-effect waves-light"  onclick="rowEdit(this);">' +
+'<i></i>'+
 '</button>'+
-'<button id="bElim" type="button" class="btn btn-sm btn-soft-danger btn-circle"  onclick="rowElim(this);">' +
-'<i class="dripicons-trash" aria-hidden="true"></i>'+
+'<button id="bElim" type="button" class="btn btn-danger waves-effect waves-light"  onclick="rowElim(this);">' +
+'<i aria-hidden="true"></i>'+
 '</button>'+
-'<button id="bAcep" type="button" class="btn btn-sm btn-soft-purple mr-2 btn-circle"  style="display:none;" onclick="rowAcep(this);">' + 
-'<i class="dripicons-checkmark"></i>'+
+'<button id="bAcep" type="button" class="btn btn-outline-success waves-effect waves-light"  style="display:none;" onclick="rowAcep(this);">' + 
+'<i></i>'+
 '</button>'+
-'<button id="bCanc" type="button" class="btn btn-sm btn-soft-info btn-circle" style="display:none;"  onclick="rowCancel(this);">' + 
-'<i class="dripicons-cross" aria-hidden="true"></i>'+
+'<button id="bCanc" type="button" class="btn btn-outline-danger waves-effect waves-light" style="display:none;"  onclick="rowCancel(this);">' + 
+'<i aria-hidden="true"></i>'+
 '</button>'+
     '</div>';
 
-     var saveColHtml = '<div class=" pull-right">'+
-'<button id="bEdit" type="button" class="btn btn-sm btn-soft-success btn-circle mr-2" style="display:none;" onclick="rowEdit(this);">' +
-'<i class="dripicons-pencil"></i>'+
+var saveColHtml = '<div class="pull-right">'+
+'<button id="bEdit" type="button" class="btn btn-success waves-effect waves-light" style="display:none;" onclick="rowEdit(this);">' +
+'<i></i>'+
 '</button>'+
-'<button id="bElim" type="button" class="btn btn-sm btn-soft-danger btn-circle" style="display:none;" onclick="rowElim(this);">' +
-'<i class="dripicons-trash" aria-hidden="true"></i>'+
+'<button id="bElim" type="button" class="btn btn-danger waves-effect waves-light" style="display:none;" onclick="rowElim(this);">' +
+'<i aria-hidden="true"></i>'+
 '</button>'+
-'<button id="bAcep" type="button" class="btn btn-sm btn-soft-purple mr-2 btn-circle"   onclick="rowAcep(this);">' + 
-'<i class="dripicons-checkmark"></i>'+
+'<button id="bAcep" type="button" class="btn btn-outline-success waves-effect waves-light" onclick="rowAcep(this);">' + 
+'<i></i>'+
 '</button>'+
-'<button id="bCanc" type="button" class="btn btn-sm btn-soft-info btn-circle"  onclick="rowCancel(this);">' + 
-'<i class="dripicons-cross" aria-hidden="true"></i>'+
+'<button id="bCanc" type="button" class="btn btn-outline-danger waves-effect waves-light" onclick="rowCancel(this);">' + 
+'<i aria-hidden="true"></i>'+
 '</button>'+
     '</div>';
-  var colEdicHtml = '<td name="buttons">'+newColHtml+'</td>'; 
-var colSaveHtml = '<td name="buttons">'+saveColHtml+'</td>';
+var colEdicHtml = '<td name="buttons">'+ newColHtml +'</td>'; 
+var colSaveHtml = '<td name="buttons">'+ saveColHtml +'</td>';
     
   $.fn.SetEditable = function (options) {
     var defaults = {
@@ -54,7 +54,7 @@ var colSaveHtml = '<td name="buttons">'+saveColHtml+'</td>';
         onAdd: function() {}     //Called when added a new row
     };
     params = $.extend(defaults, options);
-    this.find('thead tr').append('<th name="buttons"></th>');  //encabezado vacío
+    this.find('thead tr').append('<th name="buttons" class="sorting" style="width: 80px;">버튼</th>');  //encabezado vacío
     this.find('tbody tr').append(colEdicHtml);
 	var $tabedi = this;   //Read reference to the current table, to resolve "this" here.
     //Process "addButton" parameter
