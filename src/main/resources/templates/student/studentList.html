@@ -5,16 +5,17 @@
 <head>
 <link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/js/page/page.js"></script>
 <script language="javascript">
-  function studentRegistPopup() { window.open("/teacher/studentRegist", "학생추가", "width=800, height=800, left=100, top=50"); }
-  </script>
+	function studentRegistPopup() {
+		window.open("/teacher/studentRegist", "학생추가",
+				"width=800, height=800, left=100, top=50");
+	}
+</script>
 </head>
 <body>
-
 	<div layout:fragment="content">
-
 		<div class="page-wrapper">
 			<!-- Page Content-->
 			<div class="page-content-tab">
@@ -34,7 +35,7 @@
 
 											<div class="row">
 												<h4 class="header-title mt-0 mb-3 col-lg-11">학생 목록</h4>
-													<button type="button"
+												<button type="button"
 													class="btn btn-primary waves-effect waves-light float-right mb-3"
 													data-toggle="modal" data-animation="bounce"
 													data-target=".bs-example-modal-lg"
@@ -45,23 +46,29 @@
 														<div class="row">
 															<div class="col-sm-12 col-md-6">
 																<div class="dataTables_length" id="datatable_length">
+																<form id='serachForm' action="/teacher/search"
+															method='post'>
 																	<label>필터 <select name="filter"
 																		aria-controls="datatable"
 																		class="custom-select custom-select-sm form-control form-control-sm">
-																			<option value="1">학생번호 검색</option>
-																			<option value="2">이름 검색</option>
-																			<option value="3">학교 검색</option>
+																			<option value="1" th:if="${map.search_option == 'user_id'}">학생번호 검색</option>
+																			<option value="2" th:if="${map.search_option == 'user_name'}">이름 검색</option>
+																			<option value="3" th:if="${map.search_option == 'school_name'}">학교 검색</option>
 																	</select>
 																	</label>
+																	
+																	
 																</div>
 															</div>
 															<div class="col-sm-12 col-md-6">
 																<div id="datatable_filter" class="dataTables_filter">
 																	<label>Search:<input type="text" id="keyword"
 																		class="form-control form-control-sm"
-																		placeholder="학생번호 / 이름 / 학교"
-																		aria-controls="datatable"></label>
+																		placeholder="학생번호 / 이름 / 학교" aria-controls="datatable"></label>
 																</div>
+																<input name="keyword" th:value="${map.keyword}">
+																<input type="submit" value="조회">
+																</form>
 															</div>
 														</div>
 														<div class="row">
@@ -80,7 +87,7 @@
 																		</tr>
 																		<!--end tr-->
 																	</thead>
-																	
+
 																	<tbody>
 																		<tr th:each="student : ${studentList}">
 																			<td th:text="${student.userId}"></td>
@@ -102,33 +109,39 @@
 															<div class="col-sm-12 col-md-7">
 																<div class="dataTables_paginate paging_simple_numbers"
 																	id="datatable_paginate">
-																	<ul class="pagination">
-																		<li
-																			class="paginate_button page-item previous disabled"
-																			id="datatable_previous" th:if="${pageMaker.prev}"><a
-																			th:href="${pageMaker.endPage -1}"><a href="#"
-																			aria-controls="datatable" data-dt-idx="0"
-																			tabindex="0" class="page-link">이전</a></li>
-																		<li class="paginate_button page-item active"><a
-																			href="#" aria-controls="datatable" data-dt-idx="1"
-																			tabindex="0" class="page-link">1</a></li>
-																		<li class="paginate_button page-item"><a href="#"
-																			aria-controls="datatable" data-dt-idx="1"
-																			tabindex="0" class="page-link">2</a></li>
-																		<li class="paginate_button page-item"><a href="#"
-																			aria-controls="datatable" data-dt-idx="1"
-																			tabindex="0" class="page-link">3</a></li>
-																		<li class="paginate_button page-item"><a href="#"
-																			aria-controls="datatable" data-dt-idx="1"
-																			tabindex="0" class="page-link">4</a></li>
+																	<ul class="pagination justify-content-end">
+																		<li class="paginate_button page-item previous"
+																			id="dataTable_previous" th:if="${pageMaker.prev}"><a
+																			th:href="${pageMaker.endPage -1}"
+																			aria-controls="dataTable" data-dt-idx="0"
+																			tabindex="0" class="page-link">Prev</a></li>
+																		<th:block
+																			th:each="number: ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
+																			<li class="paginate_button page-item"
+																				th:classappend="${pageMaker.cri.pageNum eq number} ? active : ''">
+																				<a th:href="${number}" aria-controls="dataTable"
+																				data-dt-idx="1" tabindex="0" class="page-link"
+																				th:text="${number}">1</a>
+																			</li>
+																		</th:block>
+
 																		<li class="paginate_button page-item next"
-																			id="datatable_next"><a href="#"
-																			aria-controls="datatable" data-dt-idx="2"
-																			tabindex="0" class="page-link">다음</a></li>
+																			id="dataTable_next" th:if="${pageMaker.next}"><a
+																			th:href="${pageMaker.endPage +1}"
+																			aria-controls="dataTable" data-dt-idx="7"
+																			tabindex="0" class="page-link">Next</a></li>
 																	</ul>
 																</div>
 															</div>
 														</div>
+														<!--  paging end -->
+														<form id='actionForm' action="/teacher/getStudentList"
+															method='get'>
+															<input type='hidden' name='pageNum'
+																th:value="${pageMaker.cri.pageNum}"> <input
+																type='hidden' name='amount'
+																th:value="${pageMaker.cri.amount}">
+														</form>
 													</div>
 												</div>
 											</div>

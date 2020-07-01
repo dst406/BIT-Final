@@ -17,11 +17,15 @@
 			from academy_user a
 					inner join academic_type b
 					on a.academic_type_code = b.academic_type_code
-			where authority_code = #{authority_code} 
+			where authority_code = '3'
 			and rownum <= #{cri.pageNum} * #{cri.amount}
 			)
-	WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount} 
+	where rn > (#{cri.pageNum} - 1) * #{cri.amount} 
 	]]>
+	</select>
+	
+	<select id="getStudentAccount" parameterType="String" resultType="int">
+		select count(*) from academy_user where authority_code = #{authorityCode}
 	</select>
 	
 	<insert id="insertStudent" parameterType="com.varchar.www.model.domain.student.Student">

@@ -31,6 +31,10 @@
 
 	</select>
 	
+	<select id="getRecordAccount" resultType="int">
+		select count(*) from record
+	</select>
+	
 	<insert id="insertRecord" parameterType="com.varchar.www.model.domain.record.Record">
 		insert into record(record_no, user_id, age, test_no, korean_language, english, math, social, science, korean_history, sum) 
 		values (recordSeq.nextval, #{userId}, #{age}, #{testNo}, #{koreanLanguage}, #{english}, #{math}, #{social}, #{science}, #{koreanHistory}, #{koreanLanguage}+#{english}+#{math}+#{social}+#{science}+#{koreanHistory})

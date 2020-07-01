@@ -14,4 +14,5 @@ public interface StudentService {
 	void modifyStudent(Student student);
 	void deleteStudent(String userId);
 	void uploadStudentImage(MultipartFile imgFile);
+	int getStudentAccount(String authorityCode);
 }
