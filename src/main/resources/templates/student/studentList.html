@@ -46,14 +46,13 @@
 														<div class="row">
 															<div class="col-sm-12 col-md-6">
 																<div class="dataTables_length" id="datatable_length">
-																<form id='serachForm' action="/teacher/search"
-															method='post'>
+														
 																	<label>필터 <select name="filter"
 																		aria-controls="datatable"
 																		class="custom-select custom-select-sm form-control form-control-sm">
-																			<option value="1" th:if="${map.search_option == 'user_id'}">학생번호 검색</option>
-																			<option value="2" th:if="${map.search_option == 'user_name'}">이름 검색</option>
-																			<option value="3" th:if="${map.search_option == 'school_name'}">학교 검색</option>
+																			<option value="1">학생번호 검색</option>
+																			<option value="2">이름 검색</option>
+																			<option value="3">학교 검색</option>
 																	</select>
 																	</label>
 																	
@@ -66,9 +65,6 @@
 																		class="form-control form-control-sm"
 																		placeholder="학생번호 / 이름 / 학교" aria-controls="datatable"></label>
 																</div>
-																<input name="keyword" th:value="${map.keyword}">
-																<input type="submit" value="조회">
-																</form>
 															</div>
 														</div>
 														<div class="row">
@@ -97,7 +93,7 @@
 																			<td th:text="${student.userBirth}"></td>
 																			<td th:text="${student.userTel}"></td>
 																			<td>고등영어 단기 1반</td>
-																			<td><span class="badge badge-soft-danger">지각</span></td>
+																			<td th:text="${student.attendanceStateName}"></td>
 																			<td th:text="${student.schoolName}"></td>
 																		</tr>
 																	</tbody>

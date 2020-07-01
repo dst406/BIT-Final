@@ -13,10 +13,14 @@
 	<![CDATA[
 	select *
 	from (
-			select rownum rn, a.*, b.academic_type_name 
+			select rownum rn, a.*, b.academic_type_name, ats.attendance_state_name
 			from academy_user a
 					inner join academic_type b
 					on a.academic_type_code = b.academic_type_code
+					inner join attendance att
+					on a.user_id = att.user_id
+					inner join attendance_state ats
+					on att.attendance_state_code = ats.attendance_state_code
 			where authority_code = '3'
 			and rownum <= #{cri.pageNum} * #{cri.amount}
 			)

@@ -21,5 +21,6 @@ public class Student {
 	private Date userRegistration;
 	private String userRemark;
 	private String schoolName;
+	private String attendanceStateName;
 
 }
