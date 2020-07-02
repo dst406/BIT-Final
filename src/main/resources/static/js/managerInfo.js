@@ -50,7 +50,7 @@ function imgUpload(){
 			data: JSON.stringify(obj)
 		}).done(function(){
 			alert('정보수정완료')
-			//location.reload();
+			location.reload();
 		}).fail(function(){
 			alert('manager update fail')
 		})

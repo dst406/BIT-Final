@@ -33,6 +33,27 @@
 		SELECT * FROM career WHERE user_id = #{userId}	
 	</select>
 	
+	<!--  원장 메인  최근 6개월 수입 통계 -->
+	<select id="">
+	
+	SELECT TO_CHAR( academy_payment.payment_date,'yy-MM' ) ,
+	DECODE(lecture.user_id , NULL, '합계',lecture.user_id), SUM(lecture.lecture_cost)   from academy_payment
+	INNER JOIN LECTURE ON academy_payment.lecture_code = lecture.lecture_code
+	WHERE academy_payment.payment_date > ADD_MONTHS(TO_CHAR(SYSDATE,'YY-MM-DD') , -6)
+	GROUP BY ROLLUP ( TO_CHAR( academy_payment.payment_date,'yy-MM') ,lecture.user_id  ) 
+	
+	</select>
+	
+	
+<!-- select TO_CHAR( academy_payment.payment_date,'YY-MM-DD' ) ,
+DECODE(lecture.user_id , NULL, '합계',lecture.user_id), SUM(lecture.lecture_cost)   from academy_payment
+INNER JOIN LECTURE ON academy_payment.lecture_code = lecture.lecture_code
+WHERE academy_payment.payment_date < ADD_MONTHS(TO_CHAR(SYSDATE,'YY-MM-DD') , -7)
+group by ROLLUP ( TO_CHAR( academy_payment.payment_date,'YY-MM-DD') ,lecture.user_id  ) ;
+ -->	
+	
+	
+	
 	<!-- 원장이 자신의 정보를 수정 -->
 	<update id="updateManagerInfo" parameterType="com.varchar.www.model.domain.teacher.TeacherVO">
 		UPDATE 
@@ -49,6 +70,7 @@
 		WHERE
 			user_id = #{userId}
 	</update>
+	
 	
 	
 </mapper>

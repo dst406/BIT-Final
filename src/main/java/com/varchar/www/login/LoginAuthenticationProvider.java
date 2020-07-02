@@ -29,6 +29,7 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
 	        if(! user.isEnabled()) 
 	            throw new BadCredentialsException("잘못된 아이디이거나 비밀번호가 일치하지 않습니다.");
 
+	        user.setUserPassword(null);
 	        
 	        return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 	}

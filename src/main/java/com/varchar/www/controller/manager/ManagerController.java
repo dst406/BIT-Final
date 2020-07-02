@@ -33,7 +33,7 @@ public class ManagerController {
 	
 	//원장이 자신의 정보를 조회하는 페이지
 	@GetMapping("/manager/getManagerInfo")
-	public String getManagerInfo(Model model, @PathVariable String userId) {
+	public String getManagerInfo(Model model) {
 		model.addAttribute("manager", managerService.getManagerInfo("1"));
 		model.addAttribute("getManagerCareer", managerService.getManagerCareer("kojae1234"));
 		return"manager/getManagerInfo";

@@ -153,11 +153,12 @@
 											<input id="lectureCode" type="hidden"
 												th:value="${lecture.lectureCode}">
 
-											<button type="button" id="lecture-updatecancel-btn"
+											<a id="lecture-updatecancel-btn"
+												th:href="${#authentication.Principal.authorityCode} == 1 ? @{/manager/getManagerLectureList} : @{/teacher/getLectureList}" 
 												class="btn btn-primary waves-effect waves-light float-right mb-3"
 												data-toggle="modal" data-animation="bounce"
 												data-target=".bs-example-modal-lg"
-												style="margin-right: 10px;">취소하기</button>
+												style="margin-right: 10px; color: white;">취소하기</a>
 											<!-- <input type="button" value="취소하기" onclick="/getManagerLectureList"> -->
 
 										</div>

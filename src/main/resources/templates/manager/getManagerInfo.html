@@ -115,7 +115,7 @@
 
 					<!-- 경력 리스트 끝 -->
 
-					<button type="button" id="info-update-btn"
+					<button type="button" id="info-update-btn" th:if="${#authentication.Principal.authorityCode == '1'}"
 						class="btn btn-primary waves-effect waves-light float-right mb-3"
 						data-toggle="modal" data-animation="bounce"
 						data-target=".bs-example-modal-lg">수정하기</button>

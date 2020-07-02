@@ -37,6 +37,7 @@ public class TeacherController {
 		model.addAttribute("approvalList", approvalService.getApprovalWaitList(user.getUserId()));
 		return "main/teacherIndex";
 	}
+	
 	//원장이 보는 강사목록페이지
 	@GetMapping("/manager/getManagerTeacherList")
 	public String getManagerTeacherList(Criteria cri, Model model) {
@@ -67,14 +68,14 @@ public class TeacherController {
 		//System.err.println(teacher);
 		//teacher.setUserPw(new  teacher.getUserPw());
 		teacherService.insertTeacher(teacher);
-		return "redirect:/getTeacherList";
+		return "redirect:/manager/getManagerTeacherList";
 	}
 	
 	//원장이 강사를 삭제
 	@GetMapping("/manager/deleteTeacher/{userId}")
 	public String deleteTeacher(@PathVariable String userId) {
 		teacherService.deleteTeacher(userId);
-		return "redirect:/getManagerTeacherList";
+		return "redirect:/manager/getManagerTeacherList";
 	}
 	
 	//원장이 강사의 상세정보를 조회하는 페이지
@@ -138,6 +139,13 @@ public class TeacherController {
 	public String teacherGo(@AuthenticationPrincipal AcademyUser user) {
 		teacherService.insertTeacherGoTime(user.getUserId());
 		return "redirect:/getTeacherTimeCard/" + user.getUserId();
+	}
+	
+	@GetMapping("/teacher/getManagerInfo")
+	public String getManagerInfo(Model model) {
+		model.addAttribute("manager", managerService.getManagerInfo("1"));
+		model.addAttribute("getManagerCareer", managerService.getManagerCareer("kojae1234"));
+		return"teacher/getTeacherManagerInfo";
 	}
 	
 	@ModelAttribute("attendanceStateList")

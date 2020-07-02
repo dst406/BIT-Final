@@ -39,7 +39,7 @@
 														th:text="${manager.userRemark} + ' ' + ${manager.userName}"
 														class="m-0 font-25 font-weight-semibold">원장 진보형</h5>
 													<br>
-													<a href="/getManagerInfo">내정보보기</a>
+													<a href="/teacher/getManagerInfo">내정보보기</a>
 												</div>
 												<!-- 원장정보 끝 -->
 
@@ -114,7 +114,7 @@
 							</div>
 							<!-- paging end-->
 
-							<form id='actionForm' action="/getTeacherList" method='get'>
+							<form id='actionForm' action="/teacher/getTeacherList" method='get'>
 								<input type='hidden' name='pageNum'
 									th:value="${pageMaker.cri.pageNum}"> <input
 									type='hidden' name='amount' th:value="${pageMaker.cri.amount}">

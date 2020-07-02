@@ -13,15 +13,23 @@
 	<![CDATA[
 	select *
 	from (
-			select rownum rn, a.*, b.academic_type_name 
+			select rownum rn, a.*, b.academic_type_name, ats.attendance_state_name
 			from academy_user a
-					inner join academic_type b
+					left outer join academic_type b
 					on a.academic_type_code = b.academic_type_code
-			where authority_code = #{authority_code} 
+					left outer join attendance att
+					on a.user_id = att.user_id
+					left outer join attendance_state ats
+					on att.attendance_state_code = ats.attendance_state_code
+			where authority_code = '3'
 			and rownum <= #{cri.pageNum} * #{cri.amount}
 			)
-	WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount} 
+	where rn > (#{cri.pageNum} - 1) * #{cri.amount} 
 	]]>
+	</select>
+	
+	<select id="getStudentAccount" parameterType="String" resultType="int">
+		select count(*) from academy_user where authority_code = #{authorityCode}
 	</select>
 	
 	<insert id="insertStudent" parameterType="com.varchar.www.model.domain.student.Student">

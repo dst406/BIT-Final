@@ -77,7 +77,7 @@ public class LectureController {
 	@GetMapping("/manager/deleteLecture/{lectureCode}")
 	public String deleteLecture(@PathVariable String lectureCode) {
 		lectureService.deleteLecture(lectureCode);
-		return"redirect:/getManagerLectureList";
+		return"redirect:/manager/getManagerLectureList";
 	}
 	
 	//원장이조희할 수 있는 강의실 목록 페이지

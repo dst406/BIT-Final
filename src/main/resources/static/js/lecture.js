@@ -3,9 +3,10 @@ $(function(){
 	lectureDelete();
 	lectureMember();
 	updateLecture();
-	$('#lecture-updatecancel-btn').on('click',function(){
+	
+	/*$('#lecture-updatecancel-btn').on('click',function(){
 		location.href="/manager/getManagerLectureList"
-	})
+	})*/
 })
 
 function updateLecture(){

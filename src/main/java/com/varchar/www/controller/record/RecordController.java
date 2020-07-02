@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.varchar.www.model.domain.page.Criteria;
+import com.varchar.www.model.domain.page.PageDTO;
 import com.varchar.www.model.domain.record.Record;
 import com.varchar.www.model.service.RecordService;
 
@@ -46,9 +48,9 @@ public class RecordController {
 	}
 	
 	@GetMapping("/teacher/deleteRecord/{recordNo}")
-	public String rdeleteRecord(@PathVariable String recordNo, Model model) {
+	public String deleteRecord(@PathVariable String recordNo) {
 		recordService.deleteRecord(recordNo);
 		
-		return "record/recordManagement";
+		return "redirect:/teacher/getRecordList";
 	}
 }

@@ -56,7 +56,7 @@ function approvalType() {
 				var approvalType = $(this).val()
 				// ajax
 				$.ajax({
-					url : '/manager/approval/search/' + $('#user-id').val(),
+					url : '/teacher/approval/search/' + $('#user-id').val(),
 					type : 'GET',
 					data : {
 						approvalType : approvalType

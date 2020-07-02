@@ -69,14 +69,14 @@ public class BoardController {
 	@PostMapping("/insertBoardGroup")
 	public String insertBoardGroup( @ModelAttribute String userId, String content, String lectureCode) {
 		boardService.insertBoardGroup(content, lectureCode);
-		return "redirect:/getNavbar/"+userId;
+		return "redirect:/board/getNavbar";
 	}
 	
 	//게시판 등록
 	@PostMapping("/insertBoard")
 	public String insertBoard ( @ModelAttribute String userId, String content, int boardGroupNo) {
 		boardService.insertBoard(content, boardGroupNo);
-		return "redirect:/getNavbar/"+userId;
+		return "redirect:/board/getNavbar";
 	}
 	
 	/* 게시글 */

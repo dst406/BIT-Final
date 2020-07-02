@@ -56,7 +56,7 @@ function approvalModal(target) {
 function approvalType() {
 	$('#approval-type').on('change', function() {
 			var approvalType = $(this).val()
-			if(approvalType == "전체") location.href = "/getManagerApprovalList";
+			if(approvalType == "전체") location.href = "/manager/getManagerApprovalList";
 			// ajax
 			$.ajax({
 				url : '/manager/approval/search/',
