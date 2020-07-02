@@ -7,6 +7,9 @@ function lecturePay(){
 	$('body').on('click','.buyLectureButton',function(event){
 		console.log($(event.target).closest('tr').find('td:nth-child(2)').text());
 		IMP.init('imp89102236');
+		console.log( $(event.target).closest('tr') );
+		console.log( $(event.target).closest('tr').find('.lectureCode') );
+		console.log($.trim($(event.target).closest('tr').find('.lectureCode').val()));
 		
 		IMP.request_pay({
 		    pg : 'html5_inicis', // version 1.1.0부터 지원.
@@ -32,11 +35,12 @@ function lecturePay(){
 		        	method: "POST",
 		        	data:{
 		        		paymentMethodNo:2,
-		        		lectureCode : $(event.target).closest('tr').find('.lectureCode').value
+		        		lectureCode : $.trim($(event.target).closest('tr').find('.lectureCode').val())
 		        	}
 		        }).done(function(result){
-		        	alert(result);
+		        	//내가 수강중인 강의로 이동
 		        })
+		        
 		        
 		    } else {
 		        var msg = '결제에 실패하였습니다.';

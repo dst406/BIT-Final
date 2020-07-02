@@ -26,21 +26,28 @@
 					 $.each(userArray , function(key, value){ 
 						 if($.inArray(value, resultArr) === -1) 
 							 resultArr.push(value); 
-						 })
+						 }) 
 					var chartData = google.visualization.arrayToDataTable([
 						resultArr
 					]);
+					 console.log( resultArr);
+					console.log( chartArray );
+//					$.each(chartArray,function(index,item){
+//						chartData.addRow(item);
+//					})
+					 chartData.addRows(chartArray);
 					
-					$.each(chartArray,function(index,item){
-						chartData.addRow(item);
-					})
-					
-				      
-					
+				    if (chartData.getNumberOfRows() == 0) {
+					        data.addRows([
+					            [0]
+					        ])
+				    };  
+										
 					
 				      var options = {
 				        width: 1100,
 				        height: 400,
+				        colors: ['#4FC1E9','#5D9CEC','#48CFAD','#A0D468','#FFCE54','#FC6E51'],
 //				        legend: { position: 'top', maxLines: 3},
 				        bar: { groupWidth: '75%' },
 				        isStacked: true,

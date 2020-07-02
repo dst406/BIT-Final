@@ -41,6 +41,7 @@
 		<id property="commentNo" column="comment_no"/>
 		<result property="commentLevel" column="comment_level"/>
 		<result property="userId" column="user_id"/>
+		<result property="userName" column="user_name"/>
 		<result property="commentContent" column="comment_content"/>
 		<result property="commentDate" column="comment_date"/>
 		<result property="commentImage" column="comment_image"/>
@@ -51,6 +52,7 @@
 	<resultMap type="replyComment" id="replyComment_resultMap">
 		<id property="commentNo" column="comment_no"/>
 		<result property="userId" column="user_id"/>
+		<result property="userName" column="user_name"/>
 		<result property="commentContent" column="comment_content"/>
 		<result property="commentDate" column="comment_date"/>
 		<result property="commentImage" column="comment_image"/>
@@ -272,14 +274,16 @@
 	</select>
 	
 	<select id="getCommentList" resultMap="commentList_resultMap">
-		SELECT * FROM board_comment 
+		SELECT board_comment.*,academy_user.user_name FROM board_comment 
+		INNER JOIN academy_user ON board_comment.user_id = academy_user.user_id
 		WHERE post_no = #{postNo} AND comment_re_parent IS NULL
 		ORDER BY comment_date
 	</select>
 	
 	<select id="getReplyList" resultMap="replyComment_resultMap">
-		SELECT LEVEL comment_level, board_comment.*
-		from board_comment 
+		SELECT LEVEL comment_level, academy_user.user_name, board_comment.*
+		from board_comment
+		INNER JOIN academy_user ON board_comment.user_id = academy_user.user_id 
 		WHERE LEVEL = 1
 		START WITH comment_re_parent = #{replyNo}
 		CONNECT BY PRIOR comment_no = comment_re_parent 
@@ -287,8 +291,9 @@
 	</select>
 	
 	<select id="getReplyInReply" resultMap="replyComment_resultMap">
-		SELECT LEVEL comment_level, board_comment.*
-		from board_comment 
+		SELECT LEVEL comment_level, academy_user.user_name, board_comment.*
+		from board_comment
+		INNER JOIN academy_user ON board_comment.user_id = academy_user.user_id 
 		START WITH comment_re_parent = #{replyNo}
 		CONNECT BY PRIOR comment_no = comment_re_parent
 	</select>

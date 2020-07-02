@@ -16,7 +16,7 @@ $(function(){
 
 function getModalFormEditPage(){
 
-	$('.editBoardGroup-popup-link').on('click',function(event){
+	$('body').on('click','.editBoardGroup-popup-link',function(event){
 		var target = $(event.target).closest('.nav-item').find('.edit-able');
 		var title = target.text();
 		var boardGroupNo = target.attr('data');
@@ -25,9 +25,7 @@ function getModalFormEditPage(){
 		$('.deleteBoardGroup').attr("href","/board/deleteBoardGroup/"+boardGroupNo);
 //		$('#originalTitle').val(title);
 //		$('#changeTitle').val("");
-		
 	})
-		
 	getModalForm(".editBoardGroup-popup-link",".boardGroupPanelHeaderClose, .actionsSecondary");
 	
 }	
@@ -48,7 +46,7 @@ function getModalForm(openTarget, closeTarget){
 function getModalFormAddBoardGroup(){
 	
 
-	$('.insert-board-group').on('click',function(event){
+	$('body').on('click','.insert-board-group',function(event){
 		$('.itemCardBodyContent').val('');
 		lectureCode = $(event.target).closest('.main-icon-menu-pane').find('.hidden-lectureCode').val();
 	})
@@ -79,7 +77,6 @@ function getModalFormAddBoard(){
 	$('body').on('click','.insert-board',function(event){
 		$('.itemCardBodyContent').val('');
 		boardGroupNo = $(event.target).closest('.nav-item').find('.board-group').attr("data");
-		console.log(boardGroupNo);
 	})
 	getModalForm(".insert-board",".itemCloseButton");
 	
@@ -117,13 +114,29 @@ function getModalFormAddBoard(){
 }
 
 function editAbleBoard(){
-	$("body").on("mouseenter mouseleave",".nav-item",function(event){
+	 /*$(".nav-item").hover(function(event){
 			$(event.target).closest('li').find('.group_icon').css("display","block");
 		},
 		function(){
 			$(event.target).closest('li').find('.group_icon').css("display","none");
 		}
-	)
+	)*/
+	
+	
+	$("body").on({
+			mouseover: function(event){
+				$(event.target).closest('li').find('.group_icon').css("display","block");
+			},
+			mouseout: function(event){
+				$(event.target).closest('li').find('.group_icon').css("display","none");
+			}
+		},".nav-item")
+		
+	/*,
+		function(){
+			$(event.target).closest('li').find('.group_icon').css("display","none");
+		}
+	)*/
 	
 	
 }
@@ -167,7 +180,7 @@ function editBoardGroupTitle(){
 
 // 강의이름 클릭했을 때 
 function selectBoardGroup(){
-	$('.menu-title').on('click',function(event){
+	$('body').on('click','.menu-title',function(event){
 		//moveActive('.menu-body','ul',target(event));
 		
 		var $target = $(event.target);
@@ -188,7 +201,7 @@ function target(event){
 
 //그룹 클릭 시 게시판 목록 뜨기
 function groupItemActive(){
-	$('.board-group').on('click',function(event){
+	$('body').on('click','.board-group',function(event){
 		var target = $(event.target); 
 		var hasActive = target.closest('li').find('ul');
 		$icon = target.closest('li').find('.nav-link-more-group > i');
@@ -202,7 +215,6 @@ function groupItemActive(){
 		}
 		
 		if(hasActive.find('li').length != 0){
-			console.log(hasActive.find('li').length);
 			target.addClass('active');
 			hasActive.addClass('active');
 			$icon.attr('class','fas fa-chevron-down');
@@ -226,7 +238,7 @@ function groupItemActive(){
 
 //좌측 내비게이션바 아이콘 이동
 function selectNavBar(){
-	$('.leftbar-tab-icon').on('click',function(event){
+	$('body').on('click','.leftbar-tab-icon',function(event){
 		moveActive('.nav','a',target(event));
 	})
 }

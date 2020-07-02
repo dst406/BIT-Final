@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+
+
 .mg-top-m10 {
 	margin-top: -1.5rem;
 }
@@ -301,15 +303,12 @@
 
 .comment_read_domain .comment_read_header .comment_profile .comment_info .username
 	{
-	font-size: 1rem;
 	font-weight: bold;
 	color: rgb(52, 58, 64);
 }
 
-.comment_read_domain .comment_read_header .comment_profile .comment_info .username a
-	{
+.comment_read_domain .comment_read_header .comment_profile .comment_info .username a{
 	color: inherit;
-	text-decoration: none;
 	cursor: pointer;
 }
 

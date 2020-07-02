@@ -10,6 +10,7 @@ import lombok.ToString;
 public class Comment {
 	private int commentNo;
 	private String userId;
+	private String userName;
 	private String commentContent;
 	private String commentDate;
 	private String commentImage;

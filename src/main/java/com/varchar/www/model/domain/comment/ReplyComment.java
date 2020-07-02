@@ -11,6 +11,7 @@ public class ReplyComment {
 	private int commentNo;
 	private int commentLevel;
 	private String userId;
+	private String userName;
 	private String commentContent;
 	private String commentDate;
 	private String commentImage;

@@ -1,6 +1,38 @@
 .container {
 	max-width: 1200px;
 }
+
+.post-list-info , .editorDIV div{
+	font-family: 'Noto Sans KR', sans-serif !important;
+	font-weight: 400;
+	font-size: 14px;
+}
+
+.table td, .table .thead-light th{
+	font-family: 'Noto Sans KR', sans-serif !important;
+	font-weight: 400;
+}
+H1, H2, H3, H4, H5, H6{
+	font-family: 'Noto Sans KR', sans-serif !important;
+	font-weight: 600;
+}
+p{
+	font-family: 'Noto Sans KR', sans-serif !important;
+	font-weight: 300;
+}
+
+text {
+	font-family: 'Noto Sans KR', sans-serif !important;
+	font-weight: 400;
+}
+
+a, button{
+	font-family: 'Noto Sans KR', sans-serif !important;
+	font-weight: 400;
+}
+
+
+
 .row a{
 	cursor: pointer;
 }

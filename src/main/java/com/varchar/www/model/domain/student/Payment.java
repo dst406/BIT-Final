@@ -9,6 +9,6 @@ import lombok.ToString;
 public class Payment {
 	private int paymentMethodNo;
 	private String userId;
-	private int lectureCode;
+	private String lectureCode;
 	
 }
