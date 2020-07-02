@@ -86,10 +86,9 @@
 						
 						
 				<div class="dropdown-menu dropdown-menu-right" style="">
-						<a class="dropdown-item" th:href=" ${#authentication.Principal.authorityCode} == 1 ? 
-															@{/getManagerInfo} : 
+						<a class="dropdown-item" th:href=" ${#authentication.Principal.authorityCode} == 1 ? @{/manager/getManagerInfo} :
 															( ${#authentication.Principal.authorityCode} == 2 ?
-															@{/getTeacherInfo/{userId}(userId = ${#authentication.Principal.userId} )} :
+															@{/teacher/getTeacherMyInfo} :
 															@{/teacher/getStudentInfo/{userId}(userId = ${#authentication.Principal.userId} )} ) "><i
 							class="dripicons-user text-muted mr-2"></i> 내 정보</a> <a
 							class="dropdown-item" href=""><i

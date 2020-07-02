@@ -7,12 +7,12 @@
 		SELECT count(*) FROM academy_user WHERE authority_code = #{authorityCode}
 	</select>
 
-	<!-- 원장의 강사등록 -->
-	
+	<!-- 원장의 강사등록(개인정보부분) -->
 	<insert id="insertTeacher" parameterType="com.varchar.www.model.domain.teacher.Teacher">
 		INSERT INTO academy_user(user_image,user_id,authority_code,user_password, user_name, user_tel, user_birth, user_email, user_address, user_registration, user_remark)
 		VALUES(#{userImage},#{userId}, '2', '111111', #{userName}, #{userTel}, #{userBirth}, #{userEmail}, #{userAddress}, (select sysdate from dual), #{userRemark})
 	</insert>
+	<!-- 원장의 강사등록(경력부분) -->
 	<insert id="insertCareer" parameterType="com.varchar.www.model.domain.teacher.Teacher">
 		INSERT INTO career(career_no, user_id, career_period, career_location, career_content, academic_background) 
 		VALUES(SEQ_ID.NEXTVAL,#{userId},#{careerPeriod},#{careerLocation},#{careerContent},#{academicBackGround})
@@ -20,7 +20,7 @@
 	
 	<!-- 원장의 강사조회 (경력제외한 다른부분)-->
 	<select id="getTeacherInfo" parameterType="String" resultType="com.varchar.www.model.domain.teacher.TeacherVO">
-		SELECT * FROM academy_user WHERE user_id = #{userId}
+		SELECT au.*, to_char(au.user_birth, 'yyyy-MM-dd') AS user_birth_enco FROM academy_user au WHERE user_id = #{userId}
 	</select>
 	<!-- 원장의 강사조회(경력부분) -->
 	<!-- 경력은 여러 행 나올 수 있어 따로 가져와서 나열합니다. -->
@@ -29,18 +29,13 @@
 	</select>
 	
 	<!-- 원장의 강사 출퇴근기록부 조회 -->
-	
 	<select id="getManagerTeacherTimeCard" resultType="com.varchar.www.model.domain.manager.Attendance">
 		
 		<![CDATA[
 		SELECT *
 		FROM(SELECT
-			rownum rn, 
-			a.attendance_no AS attendance_no,
-			a.user_id AS user_id,
-			a.attendance_state_code AS attendance_state_code,
-			to_char(a.attendance_come_time, 'yyyy-MM-dd hh:mi:ss') AS attendance_come_time_enco,
-			to_char(a.attendance_go_time, 'yyyy-MM-dd hh:mi:ss') AS attendance_go_time_enco,
+			rownum rn,
+			a.*,
 			atts.attendance_state_name AS attendance_state_name,
 			ac.user_name AS user_name,
 			ac.user_tel AS user_tel
@@ -72,8 +67,6 @@
 			(SELECT 
 				rownum rn,
 				a.*,
-				to_char(a.attendance_come_time, 'yyyy-MM-dd hh:mi:ss') as attendance_come_time_enco,
-				to_char(a.attendance_go_time, 'yyyy-MM-dd hh:mi:ss') as attendance_go_time_enco,
 				atts.attendance_state_name AS attendance_state_name,
 				ac.user_name AS user_name,
 				ac.user_tel AS user_tel
@@ -101,15 +94,15 @@
 				(SELECT 
 					rownum rn,
 					a.*,
-					to_char(a.attendance_come_time, 'yyyy-MM-dd hh:mi:ss') as attendance_come_time_enco,
-					to_char(a.attendance_go_time, 'yyyy-MM-dd hh:mi:ss') as attendance_go_time_enco,
 					atts.attendance_state_name AS attendance_state_name,
 					ac.user_name AS user_name,
 					ac.user_tel AS user_tel
 				FROM attendance a
 				INNER JOIN attendance_state atts ON a.attendance_state_code = atts.attendance_state_code
 				INNER JOIN academy_user ac ON ac.user_id=a.user_id
-				WHERE authority_code = '2' AND a.attendance_go_time >= TO_DATE(#{attendanceGoTime}, 'YY/MM/DD') AND a.attendance_go_time < TO_DATE(#{attendanceGoTime}, 'YY/MM/DD') + 1
+				WHERE authority_code = '2' 
+					AND TO_DATE(a.attendance_come_time, 'YY/MM/DD') >= TO_DATE(#{attendanceGoTime}, 'YY/MM/DD') 
+					AND TO_DATE(a.attendance_come_time, 'YY/MM/DD') < TO_DATE(#{attendanceGoTime}, 'YY/MM/DD') + 1
 					AND rownum <= #{cri.pageNum} * #{cri.amount}
 				ORDER BY attendance_go_time DESC)
 			WHERE
@@ -124,8 +117,6 @@
 			(SELECT 
 				rownum rn,
 				a.*,
-				to_char(a.attendance_come_time, 'yyyy-MM-dd hh:mi:ss') as attendance_come_time_enco,
-				to_char(a.attendance_go_time, 'yyyy-MM-dd hh:mi:ss') as attendance_go_time_enco,
 				atts.attendance_state_name AS attendance_state_name,
 				ac.user_name AS user_name,
 				ac.user_tel AS user_tel
@@ -146,8 +137,6 @@
 			(SELECT 
 				rownum rn,
 				a.*,
-				to_char(a.attendance_come_time, 'yyyy-MM-dd hh:mi:ss') as attendance_come_time_enco,
-				to_char(a.attendance_go_time, 'yyyy-MM-dd hh:mi:ss') as attendance_go_time_enco, 
 				atts.attendance_state_name AS attendance_state_name,
 				ac.user_name AS user_name,
 				ac.user_tel AS user_tel
@@ -204,4 +193,43 @@
 			INNER JOIN academy_user ac ON ac.user_id = a.user_id
 		WHERE a.user_id = #{userId}
 	</select>
+	
+	<select id="getTeacherListAll" resultType="com.varchar.www.model.domain.teacher.Teacher">
+	
+	SELECT * FROM academy_user WHERE authority_code='2'
+	
+	</select>
+	
+	<insert id="insertTeacherComeTime" parameterType="String">
+		INSERT INTO attendance(attendance_no, user_id, attendance_state_code, attendance_come_time)
+		VALUES(SEQ_ID.NEXTVAL, #{userId}, 'ATTENDANCE_INTIME' ,(SELECT sysdate FROM dual))
+	</insert>
+	
+	<update id="insertTeacherGoTime" parameterType="String">
+		<![CDATA[
+			UPDATE 
+				attendance
+			SET 
+			    attendance_go_time = (select sysdate from dual)
+			WHERE
+				attendance_no = (select attendance_no from attendance where attendance_come_time >= to_date((select sysdate from dual), 'yy/mm/dd') 
+			AND attendance_come_time < to_date((select sysdate from dual), 'yy/mm/dd') +1)
+			AND user_id = #{userId}
+		]]>
+	</update>
+	
+	<select id="teacherGoTimeAccount" resultType="int">
+		<![CDATA[
+			SELECT 
+				count(*)
+			FROM 
+				attendance
+			WHERE
+				user_id = #{userId}
+			AND attendance_no = (select attendance_no from attendance where attendance_come_time >= to_date((select sysdate from dual), 'yy/mm/dd') 
+			AND attendance_come_time < to_date((select sysdate from dual), 'yy/mm/dd') +1)
+		]]>
+	</select>
+	
+	
 </mapper>

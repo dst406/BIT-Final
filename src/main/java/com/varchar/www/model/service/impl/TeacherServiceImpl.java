@@ -108,7 +108,6 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	public int getTeacherAccount(String authorityCode) {
-		// TODO Auto-generated method stub
 		return teacherdao.getTeacherAccount(authorityCode);
 	}
 
@@ -127,7 +126,6 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	public List<AttendanceState> getAttendanceState() {
-		// TODO Auto-generated method stub
 		List<AttendanceState> list = teacherdao.getAttendanceState();
 		//System.err.println(list);
 		return list;
@@ -137,6 +135,23 @@ public class TeacherServiceImpl implements TeacherService{
 	public int getTeacherTimeCardAccount(String userId) {
 		// TODO Auto-generated method stub
 		return teacherdao.getTeacherTimeCardAccount(userId);
+	}
+
+	@Override
+	public List<Teacher> getTeacherListAll() {
+		return teacherdao.getTeacherListAll();
+	}
+
+	@Override
+	public void insertTeacherComeTime(String userId) {
+		teacherdao.insertTeacherComeTime(userId);
+		
+	}
+
+	@Override
+	public void insertTeacherGoTime(String userId) {
+		teacherdao.insertTeacherGoTime(userId);
+		
 	}
 
 	

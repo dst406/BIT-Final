@@ -4,8 +4,7 @@
 	layout:decorator="layout/managerLayout">
 <head>
 <link href="/css/lecture.css" rel="stylesheet" type="text/css">
-	<script src="https://canvasjs.com/asssets/script/canvasjs.min.js"></script>
-	<script src="/js/lecture.js"></script>
+<script src="https://canvasjs.com/asssets/script/canvasjs.min.js"></script>
 </head>
 <body>
 
@@ -20,119 +19,103 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="page-title-box">
-								<h2 class="page-title">강의목록</h2>
+								<h2 class="page-title">강의등록</h2>
+								<hr>
 							</div>
-						<!--end page-title-box-->
-					</div>
-					<!--end col-->
-				</div>
-
-				<!-- 강의정보입력 시작  -->
-				<div class="row">
-					<div class="met-profile-main-pic col-lg-4"
-						style="display: list-itemflex; margin: auto;">
-						<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
-							<div class="met-profile-main-pic"></div>
+							<!--end page-title-box-->
 						</div>
+						<!--end col-->
 					</div>
-					<div class="align-self-center  col-lg-12" style="">
-						<div class="met-profile-main">
 
-							<div class="met-profile_user-detail"></div>
-							<div class="col-lg-4" style="margin: auto;">
-							
-								<form class="form-horizontal form-material mb-0" th:action="@{/insertLecture}" 
-									th:object="${lectureVO}" th:method="POST">
-									<div class="form-group">
-										강의명<input type="text" th:field="*{lectureName}" placeholder="강의명" class="form-control">
-										<p></p>
+					<!-- 강의정보입력 시작  -->
+					<div class="row">
+						<div class="met-profile-main-pic col-lg-4"
+							style="display: list-itemflex; margin: auto;">
+							<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
+								<div class="met-profile-main-pic"></div>
+							</div>
+						</div>
+						<div class="align-self-center  col-lg-12" style="">
+							<div class="met-profile-main">
+
+								<div class="met-profile_user-detail"></div>
+								<div class="col-lg-4" style="margin: auto;">
+
+									<form class="form-horizontal form-material mb-0"
+										th:action="@{/insertLecture}" th:object="${lectureVO}"
+										th:method="POST">
+										<div class="form-group">
 										
-											강의과목명 <select name="language" th:field="*{lectureSubjectCode}"class="form-control">
+											<h5>강의명</h5>
+											<input type="text" th:field="*{lectureName}"
+												placeholder="강의명" class="form-control">
+											<br>
+
+											<h5>강의과목명</h5>
+											<select name="language" th:field="*{lectureSubjectCode}"
+												class="form-control">
 												<option value="">강의과목명</option>
-												<option th:each="lectureSubject : ${lectureSubjectList}" th:value="${lectureSubject.lectureSubjectCode}"
-												 th:text="${lectureSubject.lectureSubjectName}"></option>
+												<option th:each="lectureSubject : ${lectureSubjectList}"
+													th:value="${lectureSubject.lectureSubjectCode}"
+													th:text="${lectureSubject.lectureSubjectName}"></option>
 											</select>
-										
-										<p></p>
-										강의료(원)<input id="inputPrice" type="text" th:field="*{lectureCost}" placeholder="강의료"
-											class="form-control">
-										<p></p>
-										
-											담당강사명 <select name="language" th:field="*{userId}"class="form-control">
-												<option value="">담당강사명</option>
-												<option th:each="teacher : ${teacherList}" th:value="${teacher.userId}"
-												 th:text="${teacher.userName}"></option>
-											</select>
-										
-										<p></p>
-										
-											강의시즌 <select id="season" name="language" th:field="*{seasonId}"class="form-control">
-												<option value="" selected>강의시즌</option>
-												<option th:each="season : ${seasonList}" th:value="${season.seasonId}"
-												th:text="${season.seasonName}"></option>
-												
-											</select>
-											<p></p>
+											<br>
 											
-											<!-- 할당 시간
-											<input class="form-control" type="number"> -->
-											
-											<!-- <p></p>
-											<div class="lecture-day-div">
-												요일<p></p>
-												<input id="mon" type="checkbox"/><label for="mon">월요일</label>
-												<input id="tue" type="checkbox"/><label for="tue">화요일</label>
-												<input id="wed" type="checkbox"/><label for="wed">수요일</label>
-												<input id="thu" type="checkbox"/><label for="thu">목요일</label>
-												<input id="fri" type="checkbox"/><label for="fri">금요일</label>
-											</div>
-											
-											<div id="lecture-time-div">
-												시간<p></p>
-											</div>
-									 -->
-										<p></p>
-										
-											강의실 <select name="language" th:field="*{lectureRoomNo}" class="form-control">
-												<option value="0" selected>강의실</option>
-												<option th:each="lectureRoom : ${lectureRoomList}" th:value="${lectureRoom.lectureRoomNo}"
-												th:text="${lectureRoom.lectureRoomNo} +'('+${lectureRoom.studentGrade}+')'"></option>
-											</select>
-										
+											<h5>강의료(원)</h5>
+											<input id="inputPrice" type="text" th:field="*{lectureCost}"
+												placeholder="강의료" class="form-control">
+											<br>
 
-									</div>
-									<div class="form-group">
-										<textarea rows="5" placeholder="강의내용" class="form-control" th:field="*{lectureContent}"></textarea>
-										
-									<p></p>
-									
-									<!-- 	강의상태 <select name="language" th:field="*{lectureStateCode}"class="form-control">
-											<option value="" selected>강의상태</option>
-											<option th:each="lectureState : ${lectureStateList}" th:value="${lectureState.lectureStateCode}"
-											th:text="${lectureState.lectureStateName}"></option>
-											
-										</select> -->
-											
-											
-										<input type="submit" value="등록"
-											class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
-											id="lecture-update-btn"
-											style="margin-left: 10px;">
-										<button
-											class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
-											onclick="location.href='/getManagerLectureList'">취소</button>
-									</div>
-								</form>
+											<h5>담당강사명</h5>
+											<select name="language" th:field="*{userId}"
+												class="form-control">
+												<option value="">담당강사명</option>
+												<option th:each="teacher : ${teacherList}"
+													th:value="${teacher.userId}" th:text="${teacher.userName}"></option>
+											</select> 
+											<br>
+
+											<h5>강의시즌</h5>
+											<select id="season" name="language" th:field="*{seasonId}"
+												class="form-control">
+												<option value="" selected>강의시즌</option>
+												<option th:each="season : ${seasonList}"
+													th:value="${season.seasonId}"
+													th:text="${season.seasonName}"></option>
+											</select>
+											<br>
+
+											<h5>강의실</h5>
+											<select name="language" th:field="*{lectureRoomNo}"
+												class="form-control">
+												<option value="0" selected>강의실</option>
+												<option th:each="lectureRoom : ${lectureRoomList}"
+													th:value="${lectureRoom.lectureRoomNo}"
+													th:text="${lectureRoom.lectureRoomNo} +'('+${lectureRoom.studentGrade}+')'"></option>
+											</select>
+										</div>
+										<div class="form-group">
+											<h5>강의내용</h5>
+											<textarea rows="5" placeholder="강의내용" class="form-control"
+												th:field="*{lectureContent}"></textarea>
+											<br> <input type="submit" value="등록"
+												class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
+												id="lecture-update-btn" style="margin-left: 10px;">
+											<button
+												class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
+												onclick="location.href='/getManagerLectureList'">취소</button>
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<!--  강의등록칸 종료 -->
+					<!--  강의등록칸 종료 -->
 
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 </body>
 </html>

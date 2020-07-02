@@ -26,28 +26,39 @@
 											<div class="card-body">
 
 												<h5>사진</h5>
-												<input id="manager-file" type="file"> <br> <img
+												<img
 													class="rounded-circle thumb-lg" id="manager-img"
 													th:data-img="${manager.userImage}"
 													th:src="'/img/' + ${manager.userImage}"
-													style="width: 200px; height: 200px; margin-top: 10px;">
+													style="width: 200px; height: 200px; margin-top: 10px;"
+													text-align="center">
+													<p></p><input id="manager-file" type="file"> <br> 
+
 												<h5>ID</h5>
-												<input id="manager-id" th:value="${manager.userId}"></input>
+												<input class="form-control" id="manager-id"
+													th:value="${manager.userId}" readOnly></input>
 												<h5>이름</h5>
-												<input id="manager-name" th:value="${manager.userName}"></input>
+
+												<input class="form-control" id="manager-name"
+													th:value="${manager.userName}"></input>
 												<h5>전화번호</h5>
-												<input id="manager-tel" th:value="${manager.userTel}"></input>
+												<input class="form-control" id="manager-tel"
+													th:value="${manager.userTel}"></input>
 												<h5>생년월일</h5>
-												<input id="manager-birth" th:value="${manager.userBirthEnco}"></input>
+												<input class="form-control" id="manager-birth"
+													th:value="${manager.userBirthEnco}"></input>
 												<h5>이메일</h5>
-												<input id="manager-email" th:value="${manager.userEmail}"></input>
+												<input class="form-control" id="manager-email"
+													th:value="${manager.userEmail}"></input>
 												<h5>주소</h5>
-												<input id="manager-address"
+												<input class="form-control" id="manager-address"
 													th:value="${manager.userAddress}"></input>
 												<h5>입사일</h5>
-												<input id="manager-registration" th:value="${manager.userRegistration}"></input>
+												<input class="form-control" id="manager-registration"
+													th:value="${manager.userRegistration}" readOnly></input>
 												<h5>비고</h5>
-												<input id="manager-remark" th:value="${manager.userRemark}"></input>
+												<input class="form-control" id="manager-remark"
+													th:value="${manager.userRemark}"></input>
 
 											</div>
 										</div>
@@ -58,7 +69,7 @@
 					</div>
 
 					<!-- 경력 리스트 시작  -->
-					
+
 					<div class="row">
 						<div class="col-sm-12">
 							<table id="datatable" class="table dataTable no-footer"
@@ -104,7 +115,7 @@
 
 					<!-- 경력 리스트 끝 -->
 
-					<button type="button" id="info-update-btn"
+					<button type="button" id="info-update-btn" th:if="${#authentication.Principal.authorityCode == '1'}"
 						class="btn btn-primary waves-effect waves-light float-right mb-3"
 						data-toggle="modal" data-animation="bounce"
 						data-target=".bs-example-modal-lg">수정하기</button>

@@ -108,7 +108,7 @@
 							</div>
 							<!-- paging end-->
 
-							<form id='actionForm' th:action="'/getTeacherTimeCard/' + ${#authentication.Principal.userId}"
+							<form id='actionForm' th:action="'/teacher/getTeacherTimeCard/' + ${#authentication.Principal.userId}"
 								method='get'>
 								<input type='hidden' name='pageNum'
 									th:value="${pageMaker.cri.pageNum}"> <input

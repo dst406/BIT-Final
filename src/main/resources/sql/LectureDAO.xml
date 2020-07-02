@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.varchar.www.model.dao.LectureDAO">
 	
-	<!-- 원장이 보는 강의리스트를 띄워주는 쿼리 -->
+	<!-- 원장이 보는 강의리스트 -->
 	<select id="getManagerLectureList" resultType="lecture">
 		SELECT 
 			lec.lecture_code AS lecture_code,
@@ -22,7 +22,7 @@
 			INNER JOIN lectureroom lr on lec.lectureroom_no = lr.lectureroom_no
 	</select>
 	
-	<!-- 강사가 보는 강의리스트를 띄워주는 쿼리 -->
+	<!-- 강사가 보는 강의리스트 -->
 	<select id="getTeacherLectureList" resultType="lecture">
 		SELECT 
 			lec.lecture_code AS lecture_code,
@@ -59,11 +59,12 @@
 		SELECT * FROM lecturestate
 	</select>
 	
-	<!-- 강의 상세정보를 보여주는 쿼리 -->
+	<!-- 강의 상세정보 -->
 	<select id="getLectureInfo" parameterType="String" resultType="com.varchar.www.model.domain.lecture.Lecture">
 		SELECT 
 			lec.lecture_code AS lecture_code,
 			lec.lecture_name AS lecture_name,
+			lec.lecture_content AS lecture_content,
 			lecs.season_name AS season_name,
 			lecs.season_start_date AS season_start_date,
 			lecs.season_end_date AS season_end_date,
@@ -81,7 +82,7 @@
 			lec.lecture_code = #{lectureCode}
 	</select>
 	
-	<!-- 강의등록을 위한 쿼리 -->
+	<!-- 강의등록 -->
 	<insert id="insertLecture" parameterType="com.varchar.www.model.domain.lecture.LectureVO">
 		INSERT INTO lecture 
 		VALUES('bit'||seq_id.nextval,#{userId},#{seasonId},#{lectureSubjectCode},#{lectureRoomNo},'LECTURE_YET',#{lectureName},#{lectureContent},(select sysdate from dual),#{lectureCost})
@@ -111,6 +112,7 @@
 			INNER JOIN lectureRoom lr ON l.lectureroom_no = lr.lectureroom_no
 	</select>
 	
+	<!-- 강의 인원 파악 -->
 	<select id="getStudentNoLecture" resultType="com.varchar.www.model.domain.student.Student">
 		<![CDATA[
 			SELECT 
@@ -219,5 +221,39 @@
 			INNER JOIN season s ON l.season_id  = s.season_id
 		WHERE ls.lecture_state_name = #{lectureState}
 		ORDER BY l.lectureroom_no
+	</select>
+	
+	<!-- 원장이 강의정보를 수정 -->
+	<update id="putLecture" parameterType="com.varchar.www.model.domain.lecture.Lecture">
+	
+	UPDATE 
+		lecture
+	SET
+		lecture_name=#{lectureName},
+		season_id=#{seasonId},
+		user_id=#{userName},
+		lecture_cost=#{lectureCost},
+		lecture_content=#{lectureContent}
+	WHERE
+		lecture_code=#{lectureCode}
+		
+	</update>
+	
+	<select id="getLectureListNoFull" resultType="com.varchar.www.model.domain.lecture.Lecture">
+		<![CDATA[
+			select l.*,
+				(select count(*) from academy_payment ap where ap.lecture_code = l.lecture_code) as studentCount,
+				ls.lecture_subject_name as lecture_subject_name,
+				au.user_name as user_name,
+				lr.capacity as capacity
+			from lecture l
+				inner join lectureroom lr on l.lectureroom_no = lr.lectureroom_no
+				inner join lecture_subject ls on l.lecture_subject_code = ls.lecture_subject_code
+				inner join academy_user au on au.user_id = l.user_id
+			where 
+				(select count(*) from academy_payment ap where ap.lecture_code = l.lecture_code) <  lr.capacity
+
+		]]>
+		
 	</select>
 </mapper>

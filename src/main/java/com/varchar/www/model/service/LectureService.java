@@ -37,4 +37,7 @@ public interface LectureService {
 	List<Lecture> getMyLectureList(String userId);
 	List<Lecture> getLectureListByState(String lectureState);
 	
+	void putLecture(Lecture lecture);
+	List<Lecture> getLectureListNoFull();
+	
 }
