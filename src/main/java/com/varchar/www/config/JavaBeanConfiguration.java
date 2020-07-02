@@ -18,6 +18,7 @@ import com.varchar.www.model.domain.board.Posts;
 import com.varchar.www.model.domain.board.PostsDetailList;
 import com.varchar.www.model.domain.board.PostsList;
 import com.varchar.www.model.domain.comment.ReplyComment;
+import com.varchar.www.model.domain.manager.MonthlyIncome;
 import com.varchar.www.model.domain.student.Payment;
 
 @Configuration
@@ -48,6 +49,9 @@ public class JavaBeanConfiguration {
 	 
 	 //Student 
 	 @Bean public Payment payment(){ return new Payment();}
+	 
+	 // Manager
+	 @Bean public MonthlyIncome monthlyIncome() { return new MonthlyIncome();}
 	 
 	 @Bean
 	 public MultipartResolver multipartResolver() {
