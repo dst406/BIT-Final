@@ -70,13 +70,11 @@ public class LectureServiceImpl implements LectureService{
 
 	@Override
 	public List<Student> getStudentNoLecture() {
-		// TODO Auto-generated method stub
 		return lecturedao.getStudentNoLecture();
 	}
 
 	@Override
 	public List<Student> getStudentLecture(String lectureCode) {
-		// TODO Auto-generated method stub
 		return lecturedao.getStudentLecture(lectureCode);
 	}
 
@@ -94,13 +92,11 @@ public class LectureServiceImpl implements LectureService{
 
 	@Override
 	public List<LectureStatus> getLectureStatusChart() {
-		// TODO Auto-generated method stub
 		return lecturedao.getLectureStatusChart();
 	}
 
 	@Override
 	public List<Lecture> getLectureList() {
-		// TODO Auto-generated method stub
 		return lecturedao.getLectureList();
 	}
 
@@ -112,13 +108,23 @@ public class LectureServiceImpl implements LectureService{
 
 	@Override
 	public List<Lecture> getMyLectureList(String userId) {
-		// TODO Auto-generated method stub
 		return lecturedao.getMyLectureList(userId);
 	}
 
 	@Override
 	public List<Lecture> getLectureListByState(String lectureState) {
 		return lecturedao.getLectureListByState(lectureState);
+	}
+
+	@Override
+	public void putLecture(Lecture lecture) {
+		lecturedao.putLecture(lecture);
+		
+	}
+
+	@Override
+	public List<Lecture> getLectureListNoFull() {
+		return lecturedao.getLectureListNoFull();
 	}
 
 	

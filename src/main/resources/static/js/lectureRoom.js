@@ -20,7 +20,7 @@ function insertLectureRoom(){
 		
 		console.log(obj);
 		$.ajax({
-			url : '/lecture/room/add',
+			url : '/manager/lecture/room/add',
 			type : 'post',
 			data : JSON.stringify(obj),
 			contentType : 'application/json'

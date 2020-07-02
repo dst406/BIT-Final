@@ -53,46 +53,52 @@
 												th:data-img="${teacher.userImage}"
 												th:src="'/img/' + ${teacher.userImage}"
 												style="width: 100px; height: 100px; margin-top: 10px;"><br>
-											<p></p>
-											강사명<input type="text" th:field="*{userName}"
+											<br>
+											<h5>강사명</h5><input type="text" th:field="*{userName}"
 												placeholder="강사명" class="form-control">
-											<p></p>
-											<p></p>
-											ID<input id="id" type="text" th:field="*{userId}"
+											<br>
+											<h5>아이디</h5>
+											<input id="id" type="text" th:field="*{userId}"
 												placeholder="ID" class="form-control">
 										
-											<p></p>
-											생년월일<input id="" type="date" th:field="*{userBirth}"
+											<br>
+											<h5>생년월일</h5>
+											<input id="" type="date" th:field="*{userBirth}"
 												placeholder="YYYY-MM-DD" class="form-control">
-											<p></p>
-											연락처<input id="tel" type="tel" th:field="*{userTel}"
+											<br>
+											<h5>연락처</h5>
+											<input id="tel" type="tel" th:field="*{userTel}"
 												placeholder="전화번호" class="form-control">
-											<p></p>
-											이메일<input id="email" type="email" th:field="*{userEmail}"
+											<br>
+											<h5>이메일</h5>
+											<input id="email" type="email" th:field="*{userEmail}"
 												placeholder="이메일주소" class="form-control">
-											<p></p>
-											주소<input id="address" type="text" th:field="*{userAddress}"
+											<br>
+											<h5>주소</h5>
+											<input id="address" type="text" th:field="*{userAddress}"
 												placeholder="주소" class="form-control">
-
-											<p></p>
-
-											담당과목 <input id="id" type="text" th:field="*{userRemark}"
+											<br>
+											<h5>담당과목</h5> 
+											<input id="id" type="text" th:field="*{userRemark}"
 												placeholder="담당과목" class="form-control">
 
-											<p></p>
-											최종학력<input id="id" type="text"
+											<br>
+											<h5>최종학력</h5>
+											<input id="id" type="text"
 												th:field="*{academicBackGround}" placeholder="최종학력"
 												class="form-control">
 
-											<p></p>
-											경력기간<input id="id" type="text" th:field="*{careerPeriod}"
+											<br>
+											<h5>경력기간</h5>
+											<input id="id" type="text" th:field="*{careerPeriod}"
 												placeholder="YYYY-MM~YYYY-MM" class="form-control">
 											
-											<p></p>
-											근무처<input id="id" type="text" th:field="*{careerLocation}"
+											<br>
+											<h5>근무처</h5>
+											<input id="id" type="text" th:field="*{careerLocation}"
 												placeholder="근무처" class="form-control">
-											<p></p>
-											근무내용
+											<br>
+											<h5>근무내용</h5>
 											<textarea rows="5" placeholder="근무내용" class="form-control"
 												th:field="*{careerContent}"></textarea>
 
@@ -110,7 +116,7 @@
 												style="margin-left: 10px;">
 											<button type="button"
 												class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
-												onclick="location.href='/getTeacherList'">취소</button>
+												onclick="location.href='/getManagerTeacherList'">취소</button>
 										</div>
 									</form>
 

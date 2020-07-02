@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.varchar.www.model.domain.approval.ApprovalVO;
-import com.varchar.www.model.domain.manager.Attendance;
 import com.varchar.www.model.domain.page.Criteria;
 import com.varchar.www.model.domain.teacher.TeacherVO;
 import com.varchar.www.model.service.ApprovalService;
@@ -39,7 +38,7 @@ public class ResponseManagerController {
 		System.err.println(approvalType);
 		return approvalService.getApprovalTeacherType(cri, approvalType, userId);
 	}
-		
+	
 	@GetMapping("/approval/search")
 	public List<ApprovalVO> getApprovalListByType(Criteria cri, String approvalType){
 		System.err.println(approvalType);
@@ -57,6 +56,12 @@ public class ResponseManagerController {
 	public void updateManagerInfo(@RequestBody TeacherVO manager) {
 		System.err.println(manager);
 		managerService.updateManagerInfo(manager);
+	}
+	
+	//원장이 강사등록시 이미지를 업로드
+	@PostMapping("/teacherImage/upload")
+	public void putManagerTeacherImage(MultipartFile imgFile) {
+		teacherService.uploadTeacherImage(imgFile);
 	}
 
 }

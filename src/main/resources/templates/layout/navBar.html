@@ -87,7 +87,7 @@
 						
 				<div class="dropdown-menu dropdown-menu-right" style="">
 						<a class="dropdown-item" th:href=" ${#authentication.Principal.authorityCode} == 1 ? 
-															@{/getManagerInfo} : @{/getTeacherInfo/{userId}(userId = ${#authentication.Principal.userId} )} "><i
+															@{/getManagerInfo} : @{/getTeacherMyInfo} "><i
 							class="dripicons-user text-muted mr-2"></i> 내 정보</a> <a
 							class="dropdown-item" href=""><i
 							class="dripicons-wallet text-muted mr-2"></i> 내 강의</a> <a

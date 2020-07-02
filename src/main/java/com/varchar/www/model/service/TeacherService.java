@@ -26,9 +26,14 @@ public interface TeacherService {
 	void uploadTeacherImage(MultipartFile imgFile);
 	void insertTeacher(Teacher teacher);
 	void deleteTeacher(String userId);
+	void insertTeacherComeTime(String userId);
+	void insertTeacherGoTime(String userId);
 	
 	int getTeacherAccount(String authorityCode);
 	int getManagerTeacherTimdCardAccount(String authorityCode);
 	int getAttendanceTypeAccount(String attendanceStateName,String attendanceGoTime);
 	int getTeacherTimeCardAccount(String userId);
+	
+	List<Teacher> getTeacherListAll();
+	
 }

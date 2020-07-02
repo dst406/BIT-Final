@@ -2,7 +2,42 @@ $(function(){
 	lectureTime();
 	lectureDelete();
 	lectureMember();
+	updateLecture();
+	$('#lecture-updatecancel-btn').on('click',function(){
+		location.href="/manager/getManagerLectureList"
+	})
 })
+
+function updateLecture(){
+	$('#lecture-update-btn').on('click',function(){
+		if(confirm('수정하시겠습니까?')){
+			var obj = new Object();
+			var lectureContent = $('#lectureContent').val();
+			if(lectureContent == null || lectureContent == '') lectureContent = "내용 없음";
+			
+			obj.lectureCode = $('#lectureCode').val();
+			obj.lectureName = $('#lectureName').val();
+			obj.seasonId = $('#lectureSeason').val();
+			obj.userName = $('#userName').val();
+			obj.userTel = $('#userTel').val();
+			obj.lectureCost = $('#lectureCost').val();
+			obj.lectureContent = lectureContent;
+			console.log(obj);
+			
+			$.ajax({
+				url : '/manager/lecture/update/',
+				type : 'PUT',
+				data : JSON.stringify(obj),
+				contentType : 'application/json'
+			}).done(function(){
+				location.reload();
+			}).fail(function(){
+				alert('manager lecture update fail')
+			})
+		}
+		
+	})
+}
 
 function lectureMember(){
 	$('#lecture-memeber-btn').on('click', function(){
@@ -13,7 +48,7 @@ function lectureMember(){
 function lectureDelete(){
 	$('#lecture-delete-btn').on('click', function(){
 		if(confirm('삭제하시겠습니까?')){
-			location.href = "/deleteLecture/" + $('#lecture-code').val();
+			location.href = "/manager/deleteLecture/" + $('#lecture-code').val();
 		}		
 	})
 }

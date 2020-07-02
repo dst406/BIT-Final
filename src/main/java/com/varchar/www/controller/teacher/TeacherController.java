@@ -30,15 +30,15 @@ public class TeacherController {
 	@Autowired	private LectureService lectureService;
 	@Autowired  private ApprovalService approvalService;
 	
-	//강사의 메인페이지 입니다.
-	@GetMapping("/teacherIndex")
+	//강사의 메인페이지
+	@GetMapping("/teacher/teacherIndex")
 	public String teacherIndex(@AuthenticationPrincipal AcademyUser user ,Model model) {
 		model.addAttribute("lectureList", lectureService.getMyLectureList(user.getUserId()));
 		model.addAttribute("approvalList", approvalService.getApprovalWaitList(user.getUserId()));
 		return "main/teacherIndex";
 	}
-	//원장이 보는 강사목록페이지 입니다.
-	@GetMapping("/getManagerTeacherList")
+	//원장이 보는 강사목록페이지
+	@GetMapping("/manager/getManagerTeacherList")
 	public String getManagerTeacherList(Criteria cri, Model model) {
 		model.addAttribute("teacherList", managerService.getManagerTeacherList(cri, "2"));
 		model.addAttribute("managerList", managerService.getManagerInfo("1"));
@@ -46,8 +46,8 @@ public class TeacherController {
 		return "teacher/getManagerTeacherList";
 	}
 	
-	//강사가 보는 강사목록 페이지 입니다.
-	@GetMapping("/getTeacherList")
+	//강사가 보는 강사목록 페이지
+	@GetMapping("/teacher/getTeacherList")
 	public String getTeacherList(Criteria cri, Model model) {
 		model.addAttribute("teacherList", managerService.getManagerTeacherList(cri, "2"));
 		model.addAttribute("manager", managerService.getManagerInfo("1"));
@@ -55,8 +55,8 @@ public class TeacherController {
 		return "teacher/getTeacherList";
 	}
 	
-	//원장이 강사를 등록하는 페이지 입니다.
-	@GetMapping ("/goInsertTeacher")
+	//원장이 강사를 등록하는 페이지
+	@GetMapping ("/manager/goInsertTeacher")
 	public String goInsertTeacher(@ModelAttribute Teacher teacher) {
 		return "teacher/insertTeacher";
 	}
@@ -65,27 +65,28 @@ public class TeacherController {
 	@PostMapping("/insertTeacher")
 	public String insertTeacher(Teacher teacher) {
 		//System.err.println(teacher);
+		//teacher.setUserPw(new  teacher.getUserPw());
 		teacherService.insertTeacher(teacher);
 		return "redirect:/getTeacherList";
 	}
 	
 	//원장이 강사를 삭제
-	@GetMapping("/deleteTeacher/{userId}")
+	@GetMapping("/manager/deleteTeacher/{userId}")
 	public String deleteTeacher(@PathVariable String userId) {
 		teacherService.deleteTeacher(userId);
 		return "redirect:/getManagerTeacherList";
 	}
 	
-	//원장이 강사의 상세정보를 조회하는 페이지 입니다.
-	@GetMapping ("/getManagerTeacherInfo/{userId}")
+	//원장이 강사의 상세정보를 조회하는 페이지
+	@GetMapping ("/manager/getManagerTeacherInfo/{userId}")
 	public String getManagerTeacherInfo(@PathVariable String userId, Model model) {
 		model.addAttribute("teacherInfo",teacherService.getTeacherInfo(userId));
 		model.addAttribute("careerList",teacherService.getTeacherCareer(userId));
 		return "teacher/getManagerTeacherInfo";
 	}
 	
-	//원장이 보는 강사 출퇴근 기록부 입니다.
-	@GetMapping("/getManagerTeacherTimeCard")
+	//원장이 보는 강사 출퇴근 기록부 페이지
+	@GetMapping("/manager/getManagerTeacherTimeCard")
 	public String getManagerTeacherTimeCard(Criteria cri, Model model) {
 		model.addAttribute("getTeacherTimeCard",teacherService.getManagerTeacherTimeCard(cri,"2"));
 		model.addAttribute("pageMaker",new PageDTO(cri, teacherService.getManagerTeacherTimdCardAccount("2")));
@@ -105,7 +106,7 @@ public class TeacherController {
 	}
 	
 	//강사가 보는 자신의 출퇴근 기록부 페이지 입니다.
-	@GetMapping("/getTeacherTimeCard/{userId}")
+	@GetMapping("/teacher/getTeacherTimeCard/{userId}")
 	public String getTeacherTimeCard(@PathVariable String userId,Criteria cri, Model model) {
 		model.addAttribute("getTeacherTimeCard", teacherService.getTeacherTimeCard(cri, userId));
 		model.addAttribute("pageMaker", new PageDTO(cri, teacherService.getTeacherTimeCardAccount(userId)));
@@ -113,31 +114,30 @@ public class TeacherController {
 	}
 	
 	//강사가 강사의 상세정보를 조회하는 페이지 입니다.
-	@GetMapping ("/getTeacherInfo/{userId}")
+	@GetMapping ("/teacher/getTeacherInfo/{userId}")
 	public String getTeacherInfo(@PathVariable String userId, Model model) {
 		model.addAttribute("teacherInfo",teacherService.getTeacherInfo(userId));
 		model.addAttribute("careerList",teacherService.getTeacherCareer(userId));
 		return "teacher/getTeacherInfo";
 	}
-		
-
 	
-	//teacherView Test
-	@GetMapping("/teacherView")
-	public String teacherView() {
-		return"teacher/teacherView";
+	@GetMapping("/teacher/getTeacherMyInfo")
+	public String getTeacherMyInfo(Model model, @AuthenticationPrincipal AcademyUser user) {
+		model.addAttribute("teacher",teacherService.getTeacherInfo(user.getUserId()));
+		model.addAttribute("careerList",teacherService.getTeacherCareer(user.getUserId()));
+		return "teacher/getTeacherMyInfo";
 	}
 	
-	//teacherInfo Test
-	@GetMapping("/teacherInfo")
-	public String teacherInfo() {
-		return"/teacher/teacherInfo";
+	@GetMapping("/teacher/come")
+	public String teacherCome(@AuthenticationPrincipal AcademyUser user) {
+		teacherService.insertTeacherComeTime(user.getUserId());
+		return "redirect:/getTeacherTimeCard/" + user.getUserId();
 	}
 	
-	//teacherInfo Test2
-	@GetMapping("/teacherInfo2")
-	public String teacherInfo2() {
-		return"/teacher/teacherInfo2";
+	@GetMapping("/teacher/go")
+	public String teacherGo(@AuthenticationPrincipal AcademyUser user) {
+		teacherService.insertTeacherGoTime(user.getUserId());
+		return "redirect:/getTeacherTimeCard/" + user.getUserId();
 	}
 	
 	@ModelAttribute("attendanceStateList")

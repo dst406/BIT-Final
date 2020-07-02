@@ -22,6 +22,7 @@
 						<div class="col-sm-12">
 							<div class="page-title-box">
 								<h2 class="page-title">강의실 현황</h2>
+								<hr>
 							</div>
 							<!-- 201호 -->
 							<div class="row">
@@ -47,21 +48,21 @@
 												
 												</div>
 											</div>
-											
+											<!-- 강의실배정을 위한 모달창 시작 -->
 											<div id="lectureRoom-add-modal" class="white-popup mfp-hide">
 												<h4>강의실 배정</h4>
 												<hr>
 												
 												<div class="detail-input">
 													<h5>강의 선택</h5>
-													<select id="lecture">
+													<select id="lecture" class="form-control">
 														<option value="">전체</option>
 														<option th:each="lecture : ${lectureList}" th:value="${lecture.lectureCode}"
 														th:text="${lecture.lectureName}"></option>
 													</select>
 													
 													<h5>강의실 선택</h5>
-													<select id="lectureRoom" class="room-list">
+													<select  id="lectureRoom" class="form-control">
 														<option value="all">전체</option>
 														<option th:each="lectureRoom : ${lectureRoomList}"
 															th:value="${lectureRoom.lectureRoomNo}"
@@ -69,7 +70,7 @@
 													</select>
 													
 													<h5>요일 선택</h5>
-													<select id="lecture-day">
+													<select id="lecture-day" class="form-control">
 														<option value="월">월</option>
 														<option value="화">화</option>
 														<option value="수">수</option>
@@ -78,10 +79,10 @@
 													</select>
 													
 													<h5>할당시간</h5>
-													<input id="lecture-allocation-time" type="number">
+													<input id="lecture-allocation-time" type="number" class="form-control">
 													
 													<h5>시간 선택</h5>
-													<select id="lecture-time">
+													<select id="lecture-time" class="form-control">
 														<option value="18:00">18:00</option>
 														<option value="19:00">19:00</option>
 														<option value="20:00">20:00</option>
@@ -95,6 +96,7 @@
 														data-target=".bs-example-modal-lg">등록</button>
 												
 											</div>
+											<!-- 강의실배정 모달창 끝 -->
 
 											<div class="row">
 												<div class="col-sm-12">

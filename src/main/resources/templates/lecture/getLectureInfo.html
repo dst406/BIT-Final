@@ -21,12 +21,17 @@
 						<div class="col-sm-12">
 							<div class="page-title-box">
 								<h2 class="page-title" th:text="${lecture.lectureName}"></h2>
-								<input id="lecture-code" type="hidden" th:value="${lecture.lectureCode}">
+								
 							</div>
 							<!--end page-title-box-->
+							
+
+							<hr>
 						</div>
+						
 						<!--end col-->
 					</div>
+					
 					<div class="row">
 						<div class="met-profile-main-pic col-lg-4"
 							style="display: list-itemflex; margin: auto;">
@@ -40,101 +45,119 @@
 								<div class="met-profile_user-detail"></div>
 								<div class="col-lg-4" style="margin: auto;">
 
-									<button type="button" id="lecture-delete-btn"
+									<button th:if="${#authentication.Principal.authorityCode} == '1'" 
+										type="button" id="lecture-delete-btn"
 										class="btn btn-primary waves-effect waves-light float-right mb-3"
 										data-toggle="modal" data-animation="bounce"
-										data-target=".bs-example-modal-lg">강의삭제</button>
-									
+										data-target=".bs-example-modal-lg" style="margin-left: 10px;">강의삭제</button>
+
 									<button type="button" id="lecture-memeber-btn"
 										class="btn btn-primary waves-effect waves-light float-right mb-3"
 										data-toggle="modal" data-animation="bounce"
 										data-target=".bs-example-modal-lg">강의학생</button>
-										
-									<input id="lecture-code" type="hidden" th:value="${lecture.lectureCode}">
 
+									<input id="lecture-code" type="hidden"
+										th:value="${lecture.lectureCode}">
 									<form class="form-horizontal form-material mb-0">
 										<div class="form-group">
-											<p>강의명</p>
-											<input type="text" th:value="${lecture.lectureName}"
-												style="width: 35%;">
-											<p></p>
+											<br>
 
-											<!-- 드롭다운이어야하는것들 강의시즌, 강의실, 강의대상, 강의시작일,종료일 -->
-											<p>강의시즌</p>
-											<input type="text" placeholder="강의시즌명"
-												th:value="${lecture.seasonName}" style="width: 35%;">
-											<p></p>
+											<h5>강의명</h5>
+											<input class="form-control" id="lectureName" type="text"
+												th:value="${lecture.lectureName}"> <br>
 
-											<p>강의실</p>
-											<input type="text" placeholder="강의명"
-												th:value="${lecture.lectureroomNo}" style="width: 35%;">
-											<p></p>
+											<h5>강의시즌</h5>
+											<select id="lectureSeason" class="form-control">
+												<option th:each="season : ${seasonList}"
+													th:value="${season.seasonId}"
+													th:text="${season.seasonName}"
+													th:selected="${lecture.seasonId}==${season.seasonId}">
+												</option>
+											</select> 
+											<br>
 
-											<p>강의시작일</p>
-											<input type="text" placeholder="강의시작일"
-												th:value="${lecture.seasonStartDate}" style="width: 35%;">
-											<p></p>
+											<h5>강의실</h5>
+											<input class="form-control" id="lectureRoom" type="text"
+												placeholder="강의명" th:value="${lecture.lectureroomNo}"
+												readOnly> 
+											<br>
 
-											<p>강의종료일</p>
-											<input type="text" placeholder="강의종료일"
-												th:value="${lecture.seasonEndDate}" style="width: 35%;">
-											<p></p>
+											<h5>강의시작일</h5>
+											<input class="form-control" id="lectureStartDate" type="text"
+												placeholder="강의시작일" th:value="${lecture.seasonStartDate}"
+												readOnly> 
+											<br>
 
-											<p>요일</p>
-											<input type="text" placeholder="요일"
-												th:value="${lecture.lectureDay}" style="width: 35%;">
-											<p></p>
+											<h5>강의종료일</h5>
+											<input class="form-control" id="lectureEndDate" type="text"
+												placeholder="강의종료일" th:value="${lecture.seasonEndDate}"
+												readOnly> 
+											<br>
 
-											<p>시작시간</p>
-											<input type="text" placeholder="시작시간"
-												th:value="${lecture.lectureStartTime}" style="width: 35%;">
-											<p></p>
+											<h5>요일</h5>
+											<input class="form-control" id="lectureDay" type="text"
+												placeholder="요일" th:value="${lecture.lectureDay}" readOnly>
+											<br>
 
-											<p>종료시간</p>
-											<input type="text" placeholder="종료시간"
-												th:value="${lecture.lectureEndTime}" style="width: 35%;">
-											<p></p>
+											<h5>시작시간</h5>
+											<input class="form-control" id="lectureStartTime" type="text"
+												placeholder="시작시간" th:value="${lecture.lectureStartTime}"
+												readOnly> 
+											<br>
 
-											<p>담당강사명</p>
-											<input type="text" placeholder="담당강사명"
-												th:value="${lecture.userName}" style="width: 35%;">
-											<p></p>
+											<h5>종료시간</h5>
+											<input class="form-control" id="lectureEndTime" type="text"
+												placeholder="종료시간" th:value="${lecture.lectureEndTime}"
+												readOnly> 
+											<br>
 
-											<p>연락처</p>
-											<input type="text" placeholder="연락처"
-												th:value="${lecture.userTel}" style="width: 35%;">
-											<p></p>
+											<h5>담당강사명</h5>
+											<select id="userName" class="form-control">
+												<option th:each="teacher : ${teacherList}"
+													th:value="${teacher.userId}" th:text="${teacher.userName}"
+													th:selected="${lecture.userId}==${teacher.userId}"></option>
+											</select> 
+											<br>
 
-											<p>강의료</p>
-											<input type="text" placeholder="강의료"
-												th:value="${lecture.lectureCost}" style="width: 35%;">
-											<p></p>
+											<h5>연락처</h5>
+											<input class="form-control" id="userTel" type="text"
+												placeholder="연락처" th:value="${lecture.userTel}" readOnly>
+											<br>
 
-											<p>정원</p>
-											<input type="text" placeholder="강의명"
-												th:value="${lecture.capacity}" style="width: 35%;">
-											<p></p>
+											<h5>강의료</h5>
+											<input class="form-control" id="lectureCost" type="text"
+												placeholder="강의료" th:value="${lecture.lectureCost}">
+											<br>
+
+											<h5>정원</h5>
+											<input class="form-control" id="capacity" type="text"
+												placeholder="강의명" th:value="${lecture.capacity}" readOnly>
+											<br>
 
 
-											<p>강의내용</p>
-											<input type="text" placeholder="강의내용"
-												th:value="${lecture.lectureContent}" style="width: 35%;">
-											<p></p>
+											<h5>강의내용</h5>
+											<textarea class="form-control" id="lectureContent" placeholder="강의내용"
+												th:text="${lecture.lectureContent}"></textarea>
+											<br>
 
 										</div>
 										<div class="form-group">
 
-											<!-- <input type="submit" value="수정하기" onclick="#">  -->
-											<button type="button" id="lecture-update-btn"
-												class="btn btn-primary waves-effect waves-light float-left mb-3"
+
+											<button th:if="${#authentication.Principal.authorityCode} == '1'"
+												 type="button" id="lecture-update-btn"
+												class="btn btn-primary waves-effect waves-light float-right mb-3"
 												data-toggle="modal" data-animation="bounce"
 												data-target=".bs-example-modal-lg">수정하기</button>
 
+											<input id="lectureCode" type="hidden"
+												th:value="${lecture.lectureCode}">
+
 											<button type="button" id="lecture-updatecancel-btn"
-												class="btn btn-primary waves-effect waves-light float-left mb-3"
+												class="btn btn-primary waves-effect waves-light float-right mb-3"
 												data-toggle="modal" data-animation="bounce"
 												data-target=".bs-example-modal-lg"
-												href="/getManagerLectureList" style="margin-left: 10px;">취소하기</button>
+												style="margin-right: 10px;">취소하기</button>
 											<!-- <input type="button" value="취소하기" onclick="/getManagerLectureList"> -->
 
 										</div>

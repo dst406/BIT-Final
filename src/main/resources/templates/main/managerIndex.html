@@ -26,9 +26,7 @@
 							<div class="row">
 								<div class="col-12">
 									<div class="card">
-										<div class="card-body">
-										<hr>
-										</div>
+										<div class="card-body"></div>
 									</div>
 								</div>
 							</div>
@@ -38,8 +36,54 @@
 							<div class="row">
 								<div class="col-12">
 									<div class="card">
-										<div class="card-body"></div>
-										<hr>
+										<div class="card-body">
+											<h5 class="page-title">정원이 남은 강의</h5>
+											<hr>
+											<table id="datatable" class="table dataTable no-footer"
+												role="grid" aria-describedby="datatable_info">
+												<thead class="thead-light">
+													<tr role="row">
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">번호</th>
+														<!-- <th>결재번호</th> -->
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">강의명</th>
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">강사명</th>
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">강의과목</th>
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">학생수</th>
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">정원</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="lecture : ${lectureList}">
+														<td th:text="${lectureStat.count}"></td>
+														<td><a th:href="'/getLectureInfo/' + ${lecture.lectureCode}" 
+															th:text="${lecture.lectureName}"></a></td>
+														<td th:text="${lecture.userName}"></td>
+														<td th:text="${lecture.lectureSubjectName}"></td>
+														<td th:text="${lecture.studentCount}"></td>
+														<td th:text="${lecture.capacity}"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+
 									</div>
 								</div>
 							</div>
@@ -52,9 +96,10 @@
 									<div class="card">
 										<div class="card-body">
 											<h5 class="page-title">
-												결재목록<a th:href="@{/getManagerApprovalList}"
+												결재목록<a th:href="@{/manager/getManagerApprovalList}"
 													style="float: right;"> 더보기</a>
-											</h5><hr>
+											</h5>
+											<hr>
 											<table id="datatable" class="table dataTable no-footer"
 												role="grid" aria-describedby="datatable_info">
 												<thead class="thead-light">

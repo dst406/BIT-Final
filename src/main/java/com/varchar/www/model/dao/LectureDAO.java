@@ -31,10 +31,10 @@ public interface LectureDAO {
 	void postLectureStudent(@Param("userId") String userId,@Param("lectureCode") String lectureCode);
 	void deleteLectureStudent(@Param("userId") String userId,@Param("lectureCode") String lectureCode);
 	void postLectureTimeTable(LectureTimeTable lectureTimeTable);
-	
 	List<LectureStatus> getLectureStatusChart();
 	List<Lecture> getLectureList();
-
 	List<Lecture> getMyLectureList(String userId);
 	List<Lecture> getLectureListByState(String lectureState);
+	void putLecture(Lecture lecture);
+	List<Lecture> getLectureListNoFull();
 }

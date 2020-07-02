@@ -14,6 +14,7 @@ public class TeacherVO {
 	private String userPw;
 	private String userTel; 
 	private Date userBirth;
+	private String userBirthEnco;
 	private String userEmail;
 	private String userAddress;
 	private Date userRegistration; //입사일

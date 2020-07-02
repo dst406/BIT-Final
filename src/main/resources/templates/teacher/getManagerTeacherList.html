@@ -21,6 +21,7 @@
 						<div class="col-sm-12">
 							<div class="page-title-box">
 								<h2 class="page-title">강사 목록</h2>
+								<hr>
 							</div>
 
 							<div class="row">
@@ -51,7 +52,7 @@
 										class="btn btn-primary waves-effect waves-light float-right mb-3"
 										data-toggle="modal" data-animation="bounce"
 										data-target=".bs-example-modal-lg"
-										onclick="location.href='/goInsertTeacher'">+ 강사등록</button>
+										onclick="location.href='/manager/goInsertTeacher'">+ 강사등록</button>
 								</div>
 							</div>
 
@@ -64,7 +65,7 @@
 												>
 											<h5 th:text="${teacher.userName}" class="client-name"></h5>
 											<span th:text="${teacher.userRemark}" class="text-muted mr-3"></span>
-											<a th:href="'/getManagerTeacherInfo/'+${teacher.userId}">정보보기</a>
+											<a th:href="'/manager/getManagerTeacherInfo/'+${teacher.userId}">정보보기</a>
 										</div>
 										<!--end card-body-->
 									</div>

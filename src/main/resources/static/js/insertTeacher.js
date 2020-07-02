@@ -13,7 +13,7 @@ function teacherImgUpload(){
 		var formData = new FormData();
 		formData.append("imgFile", file);
 		$.ajax({
-			url: '/teacher/image/upload',
+			url: '/manager/teacherImage/upload',
 			type: 'post',
 			data: formData,
 			enctype: 'multipart/form-data',
@@ -24,7 +24,7 @@ function teacherImgUpload(){
 			alert('이미지 업로드 성공')
 			//location.reload();
 		}).fail(function(){
-			alert('teacher img upload fail')
+			alert('manager -> teacher img upload fail')
 		})
 	})
 }

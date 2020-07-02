@@ -12,7 +12,7 @@ function approvalAllow(){
 		var ele =  $('#' + approvalNo);
 		$(ele.find('.approval-allow-btn')).on('click', function(e){
 			$.ajax({
-				url: '/approval/allow',
+				url: '/manager/approval/allow',
 				type: 'PUT',
 				data: approvalNo
 			}).done(function(){
@@ -32,7 +32,7 @@ function approvalReject(){
 		var ele =  $('#' + approvalNo);
 		$(ele.find('.approval-reject-btn')).on('click', function(e){
 			$.ajax({
-				url: '/approval/reject',
+				url: '/manager/approval/reject',
 				type: 'PUT',
 				data: approvalNo
 			}).done(function(){
