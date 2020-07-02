@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.varchar.www.model.dao.StudentDAO;
+import com.varchar.www.model.domain.lecture.Lecture;
 import com.varchar.www.model.domain.page.Criteria;
 import com.varchar.www.model.domain.student.Payment;
 import com.varchar.www.model.domain.student.Student;
@@ -84,6 +85,11 @@ public class StudentServiceImpl implements StudentService {
 	public void insertLectureForPayment(Payment payment) {
 			studentDAO.insertLectureForPayment(payment);
 		
+	}
+
+	@Override
+	public List<Lecture> getStudentLectureList() {
+		return studentDAO.getStudentLectureList();
 	}
 
 }

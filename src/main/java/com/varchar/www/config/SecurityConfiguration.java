@@ -37,14 +37,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				// /manager으로 시작하는 경로는 MANABER롤을 가진 사용자만 접근 가능
 				.antMatchers("/manager/**").hasRole("MANAGER")
 				// /teacher으로 시작하는 경로는 TEACHER롤을 가진 사용자만 접근 가능
-				.antMatchers("/teacher/**").hasRole("TEACHER")
+				.antMatchers("/teacher/**").hasAnyRole("TEACHER","MANAGER")
+				.antMatchers("/student/**").hasAnyRole("STUDENT")
 				.antMatchers("/board/**").hasAnyRole("MANAGER","TEACHER","STUDENT")
 				.and() // 로그인 설정
 				.formLogin().loginPage("/login")
 				// 로그인 성공할 경우 기본페이지
 				.successHandler(new VarcharLoginSuccessHandler())
 				// 로그인 실패할 경우
-				.permitAll()
 			.and()
 				.exceptionHandling().accessDeniedPage("/denied")
 				// 로그인 시 파라미터로 id, password를 받음

@@ -93,19 +93,11 @@ function imgUploadDragAndDrop() {
 			
 			preview(file, size - 1, e); // 미리보기 만들기
 		}
+		uploadFiles =  [];
+		$("#drag_drop_img")[0].reset();
 		
 	});
 }
-
-//
-//var formData = new FormData($('#image_form')[0]);
-//var files = $("#files")[0].files;
-//
-//for(var i = 0 ; i<files.length; i++){
-//	formData.append("fileObj", files[i]);
-//}
-//// Ajax call for file uploaling
-//uploadImage(formData);
 
 
 function preview(file, idx, event) {
@@ -115,44 +107,9 @@ function preview(file, idx, event) {
 	$.each(uploadFiles, function(i, file) {
 		formData.append('files', file);
 	});
-	//formData.append('upload-file', uploadFiles);
 	imgUpload( formData );
-
-//	 function preview(index, item) {
-//		 	console.log(index);
-//		 	console.log(item)
-//		 	
-//			var div = '<div> '+'<img src="/uploadImg/'+$('#boardNo').val()+"/" + item
-//					+ '" title="' + item[index] + '"/> \ </div>';
-//			$(event.target).closest('div').append(div);
-//			$(event.target).closest('div').append('<br><br>');
-//		};
-	
-	
 }
 
-
-//
-//function preview(file, idx, event) {
-//	var reader = new FileReader();
-//	reader.onload = (function(f, idx) {
-//		return function(e) {
-//			var div = '<div> \
-//	<div class="close" data-idx="'+ idx + '">X</div> \
-//	<img src="' + e.target.result
-//					+ '" title="' + escape(f.name) + '"/> \
-//	</div>';
-//			$(event.target).closest('div').append(div);
-//			$(event.target).closest('div').append('<br><br>');
-//		};
-//	})(file, idx);
-//	reader.readAsDataURL(file);
-//	var formData = new FormData();
-//	$.each(file, function(i, file) {
-//			formData.append('upload-file', files[i]);
-//	});
-//	uploadImage(formData);
-//}
 
 
 var imgUpload = function uploadImage(formData){

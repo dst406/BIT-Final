@@ -50,7 +50,7 @@ public class LectureController {
 	public String getLectureList(Model model) {
 		model.addAttribute("lectureList",lectureService.getLectureList());
 		model.addAttribute("lectureState", "전체");
-		return"/lecture/getLectureList";
+		return "/lecture/getLectureList";
 	}
 	
 	//원장이 강의를 등록하는 페이지 (강사는 불가능)
@@ -104,14 +104,14 @@ public class LectureController {
 	}
 	
 	//선생 -> 강의 상태별 검색
-	@GetMapping("/getLectureListByState/{lectureState}")
+	@GetMapping("/teacher/getLectureListByState/{lectureState}")
 	public String getLectureListByState(@PathVariable String lectureState, Model model) {
 		if(!lectureState.equals("전체")) {
 			model.addAttribute("lectureList", lectureService.getLectureListByState(lectureState));
 			model.addAttribute("lectureState", lectureState);
 			return "lecture/getLectureList";			
 		}else {
-			return "redirect:/getLectureList";
+			return "redirect:/teacher/getLectureList";
 		}
 		
 	}

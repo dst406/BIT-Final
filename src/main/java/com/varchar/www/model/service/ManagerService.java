@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.varchar.www.model.domain.manager.CareerVO;
+import com.varchar.www.model.domain.manager.MonthlyIncome;
 import com.varchar.www.model.domain.manager.Season;
 import com.varchar.www.model.domain.page.Criteria;
 import com.varchar.www.model.domain.teacher.Teacher;
@@ -18,4 +19,6 @@ public interface ManagerService {
 	List<Season> getSeasonList();
 	void uploadManagerImage(MultipartFile imgFile);
 	void updateManagerInfo(TeacherVO manager);
+	
+	List<MonthlyIncome> getMonthlyIncome();
 }

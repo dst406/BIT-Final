@@ -30,7 +30,7 @@ public class ResponseStudentController {
 		public String insertLectureForPayment(@AuthenticationPrincipal AcademyUser user, Payment payment) {
 			payment.setUserId(user.getUserId());
 			studentService.insertLectureForPayment(payment);
-			return "성공공";
+			return "성공";
 		}
 		
 }

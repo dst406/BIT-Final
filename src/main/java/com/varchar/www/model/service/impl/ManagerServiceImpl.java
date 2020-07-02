@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.varchar.www.model.dao.ManagerDAO;
 import com.varchar.www.model.domain.manager.CareerVO;
+import com.varchar.www.model.domain.manager.MonthlyIncome;
 import com.varchar.www.model.domain.manager.Season;
 import com.varchar.www.model.domain.page.Criteria;
 import com.varchar.www.model.domain.teacher.Teacher;
@@ -67,6 +68,11 @@ public class ManagerServiceImpl implements ManagerService {
 	public void updateManagerInfo(TeacherVO manager) {
 		managerDAO.updateManagerInfo(manager);
 		
+	}
+
+	@Override
+	public List<MonthlyIncome> getMonthlyIncome() {
+		return managerDAO.getMonthlyIncome();
 	}
 
 }

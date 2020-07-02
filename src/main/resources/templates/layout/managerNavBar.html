@@ -175,7 +175,10 @@
 					<img th:src="@{/img/logo-img.png}"  alt="logo-small" class="logo-sm"></span></a>
 
 				<nav class="nav">
-					<a href="javascript:void(0)" class="nav-link leftbar-tab-icon active" >
+					<a href="javascript:void(0)" 
+					 th:with="auth = ${#authentication.Principal.authorityCode}"
+					 th:id="${auth} == 1 ? manager : ( ${auth} == 2 ? teacher : student )" 
+					class="nav-link leftbar-tab-icon active" >
 					<i class="fas fa-book"></i></a>
 				
 				<!--end MetricaCRM-->
@@ -220,8 +223,7 @@
 							</div>
 							<ul class="nav in mm-show" id="student-ul">
 								<li class="nav-item"><a class="nav-link" href="/teacher/getStudentList">학생목록</a></li>
-								<li class="nav-item"><a class="nav-link"
-									href="/getManagerStudentTimeCard">등하원기록부</a></li>
+								
 								<li class="nav-item"><a class="nav-link" href="/teacher/getRecordList">성적관리</a></li>
 							</ul>
 
@@ -256,6 +258,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </body>
 </html>

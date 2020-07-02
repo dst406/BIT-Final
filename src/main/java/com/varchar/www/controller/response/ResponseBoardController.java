@@ -2,6 +2,7 @@ package com.varchar.www.controller.response;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,12 +48,16 @@ public class ResponseBoardController {
 	}
 
 	//게시판 수정
-	@GetMapping("/board/updateBoard/{boardNo}/{boardName}/{boardIntro}")
-	public void updateBoard(@PathVariable int boardNo, @PathVariable String boardName ,@PathVariable String boardIntro) {
-		boardDAO.updateBoard(boardNo,boardName, boardIntro);
+	@GetMapping({"/board/updateBoard/{boardNo}/{boardName}/", "/board/updateBoard/{boardNo}/{boardName}/{boardIntro}"})
+	public void updateBoard(@PathVariable int boardNo, @PathVariable String boardName , 
+							@PathVariable(name="boardIntro",required = false) Optional<String> boardIntro) {
+		if(! boardIntro.isPresent()) 
+			boardIntro = Optional.of("");
+		
+		boardDAO.updateBoard(boardNo,boardName, boardIntro.get());
 	}
 	
-	
+
 }
 
 

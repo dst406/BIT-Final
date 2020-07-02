@@ -2,7 +2,6 @@ $(function(){
 	updateBoardInfo();
 	getMyPostList();
 	searchPosts();
-	searchPostsChange();
 	searchDateText();
 	searchDatePicker();
 	searchDateLatelyPost();
@@ -21,7 +20,7 @@ function updateBoardInfo(){
 			var boardName = $('#boardName').val();
 			var boardIntro = $('textarea#boardIntro').val() ; 
 			$.ajax({
-				url: "/board/updateBoard/"+boardNo+"/"+boardName+"/"+boardIntro
+				url: "/board/updateBoard/"+boardNo+"/"+boardName+"/"+boardIntro != null ? boardIntro : null 
 			}).done(function(){
 				$('.nav-second-level').find('a').each(function(index,item){
 					console.log(item);
@@ -298,7 +297,7 @@ function rimitDate(checkDate, rimitDate, minOrMax ){
 
 
 function searchPosts(){
-	$('.searchPost').on('keyup',function(event){
+	$('.searchPost').on('keyup , search',function(event){
 		$searchVal = $(this).val();
 		$searchText = searchPostsSelect($searchVal) ;
 		searchTarget( $searchText, $searchVal);
@@ -306,15 +305,7 @@ function searchPosts(){
 	})
 }
 
-function searchPostsChange(){
-	$('.searchPost').on('search',function(event){
-		$searchVal = $(this).val();
-		$searchText = searchPostsSelect($searchVal) ;
-		searchTarget( $searchText, $searchVal) ;
-		visiblePostPagingNumbers();
-		//defaultPostPagingNumbers();
-	})
-}
+
 
 function searchPostsSelect($searchVal){
 	$('strong, div, a').unmark();

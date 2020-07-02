@@ -65,8 +65,6 @@ public class TeacherController {
 	//원장이 강사를 등록
 	@PostMapping("/insertTeacher")
 	public String insertTeacher(Teacher teacher) {
-		//System.err.println(teacher);
-		//teacher.setUserPw(new  teacher.getUserPw());
 		teacherService.insertTeacher(teacher);
 		return "redirect:/manager/getManagerTeacherList";
 	}

@@ -1,5 +1,5 @@
 $(function(){
-	$('.teacher-nav-1').on('click', function(){
+	$('body').on('click','.teacher-nav-1', function(){
 		$('#teacher-ul').slideToggle('fast');
 	})
 	

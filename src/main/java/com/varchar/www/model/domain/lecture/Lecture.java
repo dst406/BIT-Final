@@ -17,7 +17,7 @@ public class Lecture {
 	private String studentGrade; //학년
 	private String userName; 
 	private String userId;
-	private int lectureCost; //강의료
+	private String lectureCost; //강의료
 	private int lectureroomNo; //강의실 번호
 	private String lectureContent; //강의를 간단하게 설명합니다.
 	private String userTel; // 담당강사 전화번호

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.varchar.www.model.domain.approval.ApprovalVO;
+import com.varchar.www.model.domain.manager.MonthlyIncome;
 import com.varchar.www.model.domain.page.Criteria;
 import com.varchar.www.model.domain.teacher.TeacherVO;
 import com.varchar.www.model.service.ApprovalService;
@@ -63,5 +64,11 @@ public class ResponseManagerController {
 	public void putManagerTeacherImage(MultipartFile imgFile) {
 		teacherService.uploadTeacherImage(imgFile);
 	}
-
+	
+	
+	@GetMapping("/getMonthlyIncome")
+	public List<MonthlyIncome> getMonthlyIncome(){
+		return managerService.getMonthlyIncome();
+	}
+	
 }

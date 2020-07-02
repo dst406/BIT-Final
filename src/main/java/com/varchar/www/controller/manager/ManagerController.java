@@ -26,6 +26,7 @@ public class ManagerController {
 	//원장의 메인페이지
 	@GetMapping("/manager/managerIndex")
 	public String managerIndex(Criteria cri, Model model) {
+		
 		model.addAttribute("lectureList", lectureService.getLectureListNoFull());
 		model.addAttribute("approvalList", approvalService.getApprovalType(cri, "결재대기"));
 		return"main/managerIndex";

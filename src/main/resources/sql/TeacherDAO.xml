@@ -210,7 +210,8 @@
 			UPDATE 
 				attendance
 			SET 
-			    attendance_go_time = (select sysdate from dual)
+			    attendance_go_time = (select sysdate from dual),
+			    ATTENDANCE_STATE_CODE = 'ATTENDANCE_GO_TIME'
 			WHERE
 				attendance_no = (select attendance_no from attendance where attendance_come_time >= to_date((select sysdate from dual), 'yy/mm/dd') 
 			AND attendance_come_time < to_date((select sysdate from dual), 'yy/mm/dd') +1)

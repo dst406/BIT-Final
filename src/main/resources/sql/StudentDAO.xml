@@ -32,6 +32,30 @@
 		select count(*) from academy_user where authority_code = #{authorityCode}
 	</select>
 	
+	
+	<select id="getStudentLectureList" resultType="lecture">
+		SELECT 
+			l.lecture_code AS lecture_code,
+			ls.lecture_state_name AS lecture_state_name,
+			l.lecture_name AS lecture_name,
+			l.lectureroom_no AS lectureroom_no,
+            REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(l.lecture_cost)), '([0-9]{3})','\1,')), '^,','') AS lecture_cost,
+			lr.capacity AS capacity,
+			lr.student_grade AS student_grade,
+			(SELECT au.user_name FROM academy_user au WHERE au.user_id = l.user_id) AS user_name,
+			lsub.lecture_subject_name AS lecture_subject_name,
+			s.season_start_date AS lecture_start_date,
+			s.season_end_date As lecture_finish_date,
+			s.season_name AS season_name
+		FROM 
+			lecture l
+			INNER JOIN lectureroom lr ON l.lectureroom_no = lr.lectureroom_no
+			INNER JOIN lecturestate ls ON l.lecture_state_code = ls.lecture_state_code AND ls.lecture_state_code != 'LECTURE_END'
+			INNER JOIN lecture_subject lsub ON l.lecture_subject_code = lsub.lecture_subject_code
+			INNER JOIN season s ON l.season_id  = s.season_id
+		ORDER BY  ls.lecture_state_name desc
+	</select>
+	
 	<insert id="insertStudent" parameterType="com.varchar.www.model.domain.student.Student">
 		insert into academy_user(user_id, user_password, user_name, authority_code, academic_type_code, user_birth, user_tel, user_parent_tel, school_name, user_address, user_remark, user_registration, user_image) 
 		values ('187-'||userSeq.nextval, #{userPassword}, #{userName}, '3',#{academicTypeCode},#{userBirth}, #{userTel}, #{userParentTel}, #{schoolName}, #{userAddress}, #{userRemark}, (select sysdate from dual), #{userImage})

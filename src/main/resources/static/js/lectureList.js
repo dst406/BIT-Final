@@ -1,5 +1,5 @@
 $(function(){
 	$('#lecture-state-type').on('change', function(){
-		location.href = '/getLectureListByState/' + $(this).val();
+		location.href = '/teacher/getLectureListByState/' + $(this).val();
 	})
 })
