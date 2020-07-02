@@ -15,8 +15,8 @@ public interface ApprovalDAO {
 	List<ApprovalVO> getMyApprovalList(String userId);
 	List<ApprovalVO> getApprovalType(@Param("cri") Criteria cri,@Param("approvalType") String approvalType);
 	List<ApprovalVO> getApprovalTypeTeacher(@Param("cri") Criteria cri, @Param("approvalType") String approvalType, @Param("userId") String userId);
-	void updateApprovalAllow(String approvalNo); //원장의  결재승인
-	void updateApprovalReject(String approvalNo); //원장의 결재반려
+	void updateApprovalAllow(String approvalNo);
+	void updateApprovalReject(String approvalNo);
 	int getApprovalAccount();
 	void insertApproval(ApprovalVO approvalVO);
 	List<ApprovalVO> getApprovalWaitList(String userId);

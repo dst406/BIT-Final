@@ -69,35 +69,30 @@
 						 
 						  <th:block th:if=" ${#authentication.Principal.authorityCode} == 1">
 								<span th:text="${#authentication.Principal.userName} + '원장님'"
-								class="ml-1 nav-user-name hidden-sm">Robert 
+								class="ml-1 nav-user-name hidden-sm">Robert</span> 
 						</th:block>
 						 
 						 <th:block th:if=" ${#authentication.Principal.authorityCode} == 2">
 								<span th:text="${#authentication.Principal.userName} + '&nbsp; 강사님'"
-								class="ml-1 nav-user-name hidden-sm">Robert 
+								class="ml-1 nav-user-name hidden-sm">Robert </span>
 						</th:block>
 						
 							 <th:block th:if=" ${#authentication.Principal.authorityCode} == 3">
 								<span th:text="${#authentication.Principal.userName} + '님'"
-								class="ml-1 nav-user-name hidden-sm">Robert 
+								class="ml-1 nav-user-name hidden-sm">Robert </span>
 						</th:block>
-						
+						</a>
 						
 						
 						
 				<div class="dropdown-menu dropdown-menu-right" style="">
-						<a class="dropdown-item" th:href=" ${#authentication.Principal.authorityCode} == 1 ? 
-															@{/getManagerInfo} : 
+						<a class="dropdown-item" th:href=" ${#authentication.Principal.authorityCode} == 1 ? @{/manager/getManagerInfo} :
 															( ${#authentication.Principal.authorityCode} == 2 ?
-															@{/getTeacherInfo/{userId}(userId = ${#authentication.Principal.userId} )} :
+															@{/teacher/getTeacherMyInfo} :
 															@{/teacher/getStudentInfo/{userId}(userId = ${#authentication.Principal.userId} )} ) "><i
 							class="dripicons-user text-muted mr-2"></i> 내 정보</a> <a
 							class="dropdown-item" href=""><i
-							class="dripicons-wallet text-muted mr-2"></i> 내 강의</a> <a
-							class="dropdown-item" href=""><i
-							class="dripicons-gear text-muted mr-2"></i> Settings</a> <a
-							class="dropdown-item" href="javascript:void(0)"><i
-							class="dripicons-lock text-muted mr-2"></i> Lock screen</a>
+							class="dripicons-wallet text-muted mr-2"></i> 내 강의</a> 
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item bg-light" th:href="@{/logout}"><i
 							class="dripicons-exit text-muted mr-2"></i> 로그아웃</a>
@@ -131,11 +126,14 @@
 		<div class="main-icon-menu in mm-show">
 			<a th:with="auth = ${#authentication.Principal.authorityCode}" 
 			   th:href="${auth} == 1 ? @{/manager/managerIndex} :
-						( ${auth} == 2 ? @{/teachar/teacharIndex} : @{/board/postList/ } ) "
+						( ${auth} == 2 ? @{/teacher/teacherIndex} : @{/board/postList/ } ) "
 				class="logo logo-metrica d-block text-center"><span><img
 					th:src="@{/img/logo-img.png}" alt="logo-small" class="logo-sm"></span></a>
 			<nav class="nav">
-				<a href="javascript:void(0)" class="nav-link leftbar-tab-icon" >
+				<a th:with="auth = ${#authentication.Principal.authorityCode}" 
+				   th:id="${auth} == 1 ? manager :
+						( ${auth} == 2 ? teacher : student )" 
+					href="javascript:void(0)"  class="nav-link leftbar-tab-icon" >
 				<i class="fas fa-book"></i></a>
 				
 				<!--end MetricaCRM-->
@@ -155,7 +153,9 @@
 		<div class="main-menu-inner active">
 			<!-- LOGO -->
 			<div class="topbar-left">
-				<a href="/board/getNavbar" class="logo">
+				<a  th:with="auth = ${#authentication.Principal.authorityCode}" 
+			   		th:href="${auth} == 1 ? @{/manager/managerIndex} :
+							( ${auth} == 2 ? @{/teacher/teacherIndex} : @{/board/postList/ } ) " class="logo">
 				<span><img th:src="@{/img/logo-signature.png}" alt="logo-large" class="logo-lg logo-dark"> </span></a>
 			</div>
 			<!--end logo-->

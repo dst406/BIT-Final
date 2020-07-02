@@ -2,7 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.varchar.www.model.dao.ManagerDAO">
 
-<!-- 강사 목록을 불러오는 쿼리문 입니다. -->
+	<resultMap type="monthlyIncome" id="monthlyIncome_resultMap">
+		<id column="payment_date" property="paymentDate"/>
+		<collection property="income" ofType="income" column="paymentDate = payment_date"
+					javaType="List" select="getIncomeList"/>	
+	</resultMap>
+
+	<!-- 강사 목록 -->
 	<select id="getManagerTeacherList" resultType="com.varchar.www.model.domain.teacher.Teacher">
 		<![CDATA[
 			SELECT 
@@ -13,7 +19,8 @@
 			WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount} 
 		]]>
 	</select>
-<!-- 시즌을 불러오는 쿼리문 입니다. -->
+	
+	<!-- 시즌리스트 -->
 	<select id="getSeasonList" resultType="com.varchar.www.model.domain.manager.Season">
 		SELECT * FROM season
 	</select>
@@ -25,6 +32,7 @@
 			to_char(academy_user.user_birth, 'yyyy-MM-dd') AS user_birth_enco
 		FROM academy_user WHERE authority_code = #{authorityCode}
 	</select>
+	
 	<!-- 원장의 강사조회(경력부분) -->
 	<!-- 경력은 여러 행 나올 수 있어 따로 가져와서 나열합니다. -->
 	<select id="getManagerCareer" parameterType="String" resultType="com.varchar.www.model.domain.manager.CareerVO">
@@ -32,12 +40,22 @@
 	</select>
 	
 	<!--  원장 메인  최근 6개월 수입 통계 -->
-	<select id="getMonthlyinCome">
-	SELECT TO_CHAR( academy_payment.payment_date,'YY-MM-DD' ) ,
-	lecture.user_id, SUM(lecture.lecture_cost)   from academy_payment
-	INNER JOIN LECTURE ON academy_payment.lecture_code = lecture.lecture_code
-	WHERE academy_payment.payment_date <= TO_DATE( ADD_MONTHS(SYSDATE, -6),  'YY-MM-DD')
-	GROUP BY CUBE ( TO_CHAR( academy_payment.payment_date,'YY-MM-DD') ,lecture.user_id  )
+
+	<select id="getMonthlyIncome" resultMap="monthlyIncome_resultMap">
+		SELECT TO_CHAR( academy_payment.payment_date,'yy-MM' ) payment_date FROM academy_payment 
+	    WHERE TO_CHAR(academy_payment.payment_date,'YY-MM-DD') > ADD_MONTHS(TO_CHAR(SYSDATE,'YY-MM-DD') , -6)
+	    GROUP BY TO_CHAR( academy_payment.payment_date,'yy-MM' ) 
+	    ORDER BY payment_date 
+	</select>
+	
+	<select id="getIncomeList" resultType="income">
+	    SELECT TO_CHAR( academy_payment.payment_date,'yy-MM' ) academy_payment ,
+		DECODE(lecture.user_id , NULL, '합계',lecture.user_id) user_id, SUM(lecture.lecture_cost) cost , academy_user.user_name
+	    from academy_payment
+		INNER JOIN LECTURE ON academy_payment.lecture_code = lecture.lecture_code
+	    INNER JOIN ACADEMY_USER ON academy_user.user_id = lecture.user_id
+		WHERE TO_CHAR(academy_payment.payment_date,'YY-MM') = #{paymentDate}
+	    GROUP BY ( TO_CHAR( academy_payment.payment_date,'yy-MM') ,lecture.user_id  , academy_user.user_name) 
 	</select>
 	
 	<!--  원장 메인  최근 6개월 수입 통계   끝-->
@@ -47,7 +65,7 @@
 DECODE(lecture.user_id , NULL, '합계',lecture.user_id), SUM(lecture.lecture_cost)   from academy_payment
 INNER JOIN LECTURE ON academy_payment.lecture_code = lecture.lecture_code
 WHERE academy_payment.payment_date < ADD_MONTHS(TO_CHAR(SYSDATE,'YY-MM-DD') , -7)
-group by ROLLUP ( TO_CHAR( academy_payment.payment_date,'YY-MM-DD') ,lecture.user_id  ) ;
+group by ROLLUP ( TO_CHAR( academy_payment.payment_date,'YY-MM-DD') ,lecture.user_id  ) 
  -->	
 	
 	

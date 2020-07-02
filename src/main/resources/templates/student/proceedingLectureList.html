@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	layout:decorator="layout/managerLayout">
-<title>원장-강의목록</title>
+	layout:decorator="layout/studentLayout">
+<title>강사-전체강의목록</title>
 <head>
 <link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript" src="/js/lectureList.js"></script>
 </head>
 <body>
 
@@ -20,8 +21,7 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="page-title-box">
-								<h2 class="page-title">강의목록</h2>
-								<hr>
+								<h2 class="page-title">진행중인 강의목록</h2>
 							</div>
 
 							<div class="row">
@@ -29,14 +29,14 @@
 									<div class="card">
 										<div class="card-body">
 
-											<div style="margin-bottom: 50px;">
+											<!-- <div style="margin-bottom: 50px;">
 												<button type="button"
 													class="btn btn-primary waves-effect waves-light float-right mb-3"
 													data-toggle="modal" data-animation="bounce"
 													data-target=".bs-example-modal-lg"
-													onclick="location.href='/manager/goInsertLecture'">+ 강의등록</button>
+													onclick="location.href='/goInsertLecture'">+ 강의등록</button>
 											</div>
-
+ -->
 
 											<div class="table-responsive dash-social">
 												<div id="datatable_wrapper"
@@ -45,22 +45,16 @@
 													<div class="row">
 														<div class="col-sm-12 col-md-6">
 															<div class="dataTables_length" id="datatable_length">
-																<select name="lectureList" id="lecture-state-type"
-																	style="width: 85px; font-size: 15px;">
-																	<option value="전체" selected="selected">전체</option>
-																	<option value="강의예정">강의예정</option>
-																	<option value="강의진행중">강의진행중</option>
-																	<option value="강의종료">강의종료</option>
-																</select>
+																
 															</div>
 														</div>
-														<div class="col-sm-12 col-md-6">
+														<!-- <div class="col-sm-12 col-md-6">
 															<div id="datatable_filter" class="dataTables_filter">
 																<label>검색:<input type="search"
 																	class="form-control form-control-sm"
 																	placeholder="검색어를입력하세요"></label>
 															</div>
-														</div>
+														</div> -->
 													</div>
 
 													<div class="row">
@@ -74,58 +68,62 @@
 																			aria-label="Lead: activate to sort column descending"
 																			style="width: 40px;">번호</th>
 																		<th class="" tabindex="0" aria-controls="datatable"
-																			rowspan="1" colspan="1" aria-sort="ascending"
-																			aria-label="Lead: activate to sort column descending"
-																			style="width: 100px;">강의코드</th>
-																		<th class="" tabindex="0" aria-controls="datatable"
 																			rowspan="1" colspan="1"
 																			aria-label="Email: activate to sort column ascending"
-																			style="width: 160px;">강의명</th>
+																			style="width: 220px;">강의명</th>
 																		<th class="" tabindex="0" aria-controls="datatable"
 																			rowspan="1" colspan="1" aria-sort="ascending"
 																			aria-label="Lead: activate to sort column descending"
-																			style="width: 80px;">개설일</th>
+																			style="width: 90px;">시작일</th>
 																		<th class="" tabindex="0" aria-controls="datatable"
 																			rowspan="1" colspan="1"
 																			aria-label="Phone No: activate to sort column ascending"
-																			style="width: 80px;">종료일</th>
-																		<th class="" tabindex="0" aria-controls="datatable"
-																			rowspan="1" colspan="1"
-																			aria-label="Company: activate to sort column ascending"
-																			style="width: 95px;">강의상태</th>
+																			style="width: 90px;">종료일</th>
 																		<th class="" tabindex="0" aria-controls="datatable"
 																			rowspan="1" colspan="1"
 																			aria-label="Status: activate to sort column ascending"
-																			style="width: 90px;">수강인원</th>
+																			style="width: 50px;">정원</th>
 																		<th class="" tabindex="0" aria-controls="datatable"
 																			rowspan="1" colspan="1"
 																			aria-label="Action: activate to sort column ascending"
-																			style="width: 90px;">강의대상</th>
+																			style="width: 70px;">강의대상</th>
 																		<th class="" tabindex="0" aria-controls="datatable"
 																			rowspan="1" colspan="1" aria-sort="ascending"
 																			aria-label="Lead: activate to sort column descending"
-																			style="width: 90px;">담당강사</th>
+																			style="width: 70px;">담당강사</th>
 																		<th class="" tabindex="0" aria-controls="datatable"
 																			rowspan="1" colspan="1" aria-sort="ascending"
 																			aria-label="Lead: activate to sort column descending"
-																			style="width: 100px;">강의실(호)</th>
+																			style="width: 70px;">강의실</th>
 																		<th class="" tabindex="0" aria-controls="datatable"
 																			rowspan="1" colspan="1" aria-sort="ascending"
 																			aria-label="Lead: activate to sort column descending"
 																			style="width: 125px;">강의시즌</th>
+																		<th class="" tabindex="0" aria-controls="datatable"
+																			rowspan="1" colspan="1" aria-sort="ascending"
+																			aria-label="Lead: activate to sort column descending"
+																			style="width: 90px;">강의상태</th>
+																		<th class="" tabindex="0" aria-controls="datatable"
+																			rowspan="1" colspan="1" aria-sort="ascending"
+																			aria-label="Lead: activate to sort column descending"
+																			style="width: 80px;">금액</th>
+																		<th class="" tabindex="0" aria-controls="datatable"
+																			rowspan="1" colspan="1" aria-sort="ascending"
+																			aria-label="Lead: activate to sort column descending"
+																			style="width: 70px;">구매하기</th>	
 																	</tr>
 																	<!-- end tr -->
 																</thead>
 																<tbody>
 																	<tr th:each="lecture : ${lectureList}">
 																		<td th:text="${lectureStat.count}"></td>
-																		<td th:text="${lecture.lectureCode}"></td>
-																		<td><a
-																			th:href="'/getLectureInfo/'+${lecture.lectureCode}"
-																			th:text="${lecture.lectureName}"></a></td>
-																		<td th:text="${lecture.seasonStartDate}"></td>
-																		<td th:text="${lecture.seasonEndDate}"></td>
-																		<td th:text="${lecture.lectureStateName}"></td>
+																		
+																		<td><a th:with="auth = ${#authentication.Principal.authorityCode}" 
+																			th:href="(${auth} == 1 ? '/getLectureInfo/'+${lecture.lectureCode} : 'javascript(0)')"
+																			th:text="${lecture.lectureName}"></a>
+																			<input type="hidden" class="lectureCode" th:value="${lecture.lectureCode}"></td>
+																		<td th:text="${lecture.lectureStartDate}"></td>
+																		<td th:text="${lecture.lectureFinishDate}"></td>
 																		<td th:text="${lecture.capacity}"></td>
 																		<td th:text="${lecture.studentGrade}"></td>
 																		<td><a
@@ -133,6 +131,9 @@
 																			th:text="${lecture.userName}"></a></td>
 																		<td th:text="${lecture.lectureroomNo}"></td>
 																		<td th:text="${lecture.seasonName}"></td>
+																		<td th:text="${lecture.lectureStateName}"></td>
+																		<td th:text="${lecture.lectureCost}+'원'">200,000원</td>
+																		<td><button type="button" class="btn btn-gradient-purple waves-effect waves-light buyLectureButton">구매</button></td>
 																	</tr>
 																</tbody>
 															</table>
@@ -152,31 +153,15 @@
 						</div>
 
 
-						<!-- <div class="float-right">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="javascript:void(0);">Metrica</a></li>
-								<li class="breadcrumb-item"><a href="javascript:void(0);">CRM</a></li>
-								<li class="breadcrumb-item active">Leads</li>
-							</ol>
-						</div> -->
-
 					</div>
 					<!-- end page-title-box -->
 				</div>
 				<!-- end col -->
 			</div>
-
-
-
-			<footer class="footer text-center text-sm-left">
-				© 2020 Metrica <span
-					class="text-muted d-none d-sm-inline-block float-right">Crafted
-					with <i class="mdi mdi-heart text-danger"></i> by Mannatthemes
-				</span>
-			</footer>
+			
 			<!-- end footer -->
 		</div>
-		<!-- end page content -->
+		<script th:src="@{/js/student.js}"></script>
 	</div>
 	<!-- 공간  end -->
 </body>

@@ -109,6 +109,7 @@
 		
 	</insert>
 	
+	<!-- 원장이 결재대기만을 조회 -->
 	<select id="getApprovalWaitList" parameterType="String" resultType="com.varchar.www.model.domain.approval.ApprovalVO">
 		SELECT
 			 a.*,

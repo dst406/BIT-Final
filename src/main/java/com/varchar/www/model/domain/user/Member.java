@@ -37,26 +37,5 @@ public class Member {
 	private @Column(name= "USER_REGISTRATION") Date registration;
 	private @Column(name= "USER_REMARK") String remark;
 	private @Column(name= "SCHOOL_NAME") String schoolName;
-	
-	
-//	public Member(String id, String authorityCode, String academyCode, String pw, String name, String tel, String parentTel, String birth, String email, String address,
-//			String image, Date registration, String remark, String schoolName) {
-//		this.id = id;
-//		this.authorityCode = authorityCode;
-//		this.academyCode = academyCode;
-//		this.pw = pw;
-//		this.name = name;
-//		this.tel = tel;
-//		this.parentTel = parentTel;
-//		this.birth = birth;
-//		this.email = email;
-//		this.address = address;
-//		this.image = image;
-//		this.registration = registration;
-//		this.remark = remark;
-//		this.schoolName = schoolName;
-//	}
-//	public void setPw(String pw) {
-//		this.pw = pw;
-//	}
+
 }

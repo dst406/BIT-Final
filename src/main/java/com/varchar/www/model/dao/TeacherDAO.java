@@ -16,9 +16,12 @@ import com.varchar.www.model.domain.teacher.TeacherVO;
 @Mapper
 public interface TeacherDAO {
 	
-	void insertTeacher(Teacher teacher); //원장의 강사등록 - user테이블 들어갈부분
-	void insertCareer(Teacher teacher); //원장의 강사등록 - career테이블 들어갈부분
-	void deleteTeacher(String userId);//원장이 강사를 삭제
+	void insertTeacher(Teacher teacher);
+	void insertCareer(Teacher teacher); 
+	void deleteTeacher(String userId);
+	void insertTeacherComeTime(String userId);
+	void insertTeacherGoTime(String userId);
+	
 	List<Teacher> getTeacherList(String authority_code);
 	TeacherVO getTeacherInfo(String userId);
 	List<CareerVO> getTeacherCareer(String userId);
@@ -40,4 +43,6 @@ public interface TeacherDAO {
 	int getAttendanceSearchAccount(@Param("attendanceStateName") String attendanceStateName,
 			@Param("attendanceGoTime") String attendanceGoTime);
 	int getTeacherTimeCardAccount(String userId);
+	
+	List<Teacher> getTeacherListAll();
 }

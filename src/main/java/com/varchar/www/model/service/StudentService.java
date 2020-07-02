@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.varchar.www.model.domain.lecture.Lecture;
 import com.varchar.www.model.domain.page.Criteria;
 import com.varchar.www.model.domain.student.Payment;
 import com.varchar.www.model.domain.student.Student;
@@ -20,5 +21,7 @@ public interface StudentService {
 	
 	// 학생이 강의 결제
 		void insertLectureForPayment(Payment payment);
+	// !종료 인 강의리스트 	
+		List<Lecture> getStudentLectureList();	
 	
 }

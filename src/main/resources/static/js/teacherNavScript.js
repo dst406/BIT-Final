@@ -3,30 +3,29 @@ $(function(){
 })
 
 /* 보형 NavBar Slide */
-
 function navBarSlide(){
-	$('#teacher-manage').on('click', function(){
+	$('body').on('click','#teacher-manage', function(){
 		var teacher = $('#teacher-ul');
 		teacher.slideToggle('fast');
 	})
 	
-	$('#lecture-manage').on('click', function(){
+	$('body').on('click','#lecture-manage', function(){
 		$('#lecture-ul').slideToggle('fast');
 	})
 	
-	$('#student-manage').on('click', function(){
+	$('body').on('click','#student-manage', function(){
 		$('#student-ul').slideToggle('fast');
 	})
 	
-	$('#schedule-manage').on('click',function(){
+	$('body').on('click','#schedule-manage',function(){
 		$('#schedule-ul').slideToggle('fast');
 	})
 	
-	$('#approval-manage').on('click',function(){
+	$('body').on('click','#approval-manage',function(){
 		$('#approval-ul').slideToggle('fast');
 	})
 	
-	$('#account-manage').on('click',function(){
+	$('body').on('click','#account-manage',function(){
 		$('#account-ul').slideToggle('fast');
 	})
 }

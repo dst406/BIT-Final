@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.varchar.www.model.domain.lecture.Lecture;
 import com.varchar.www.model.domain.page.Criteria;
 import com.varchar.www.model.domain.student.Payment;
 import com.varchar.www.model.domain.student.Student;
@@ -23,5 +24,6 @@ public interface StudentDAO {
 	
 	// 학생이 강의 결제
 	void insertLectureForPayment(Payment payment);
-	
+	// !종료 인 강의리스트 	
+	List<Lecture> getStudentLectureList();
 }

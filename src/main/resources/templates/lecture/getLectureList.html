@@ -1,13 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>강사-전체강의목록</title>
-</head>
-<body>
-<h1>강사의 전체강의목록페이지 입니다.</h1>
-</body>
-</html> -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
@@ -131,8 +121,8 @@
 																	<tr th:each="lecture : ${lectureList}">
 																		<td th:text="${lectureStat.count}"></td>
 																		<td th:text="${lecture.lectureCode}"></td>
-																		<td><a
-																			th:href="'/getLectureInfo/'+${lecture.lectureCode}"
+																		<td><a th:with="auth = ${#authentication.Principal.authorityCode}" 
+																			th:href="(${auth} == 1 ? '/getLectureInfo/'+${lecture.lectureCode} : 'javascript(0)')"
 																			th:text="${lecture.lectureName}"></a></td>
 																		<td th:text="${lecture.lectureStartDate}"></td>
 																		<td th:text="${lecture.lectureFinishDate}"></td>

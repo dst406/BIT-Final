@@ -31,40 +31,40 @@ public class LectureController {
 	@Autowired private ManagerService managerService;
 	@Autowired private TeacherService teacherService;
 	
-	// 원장이 보는 강의목록
-	@GetMapping("/getManagerLectureList")
+	// 원장이 보는 강의목록 페이지
+	@GetMapping("/manager/getManagerLectureList")
 	public String getManagerLectureList(Model model) {
 		model.addAttribute("lectureList", lectureService.getManagerLectureList());
 		return "lecture/getManagerLectureList";
 	}
 	
 	//강사가 자신이 강의중인 강의목록을 보는 페이지
-	@GetMapping("/getTeacherLectureList")
+	@GetMapping("/teacher/getTeacherLectureList")
 	public String getTeacherLectureList(Model model, @AuthenticationPrincipal AcademyUser user) {
 		model.addAttribute("lectureList",lectureService.getTeacherLectureList(user.getUserId()));
 		return "/lecture/getTeacherLectureList";
 	}
 	
-	//강사가 보는 모든 강의목록
-	@GetMapping("/getLectureList")
+	//강사가 보는 모든 강의목록 페이지
+	@GetMapping("/teacher/getLectureList")
 	public String getLectureList(Model model) {
 		model.addAttribute("lectureList",lectureService.getLectureList());
 		model.addAttribute("lectureState", "전체");
-		return"/lecture/getLectureList";
+		return "/lecture/getLectureList";
 	}
 	
-	// 원장이 하는 강의등록페이지(강사는 불가능합니다.)
-	@GetMapping("/goInsertLecture")
+	//원장이 강의를 등록하는 페이지 (강사는 불가능)
+	@GetMapping("/manager/goInsertLecture")
 	public String goInsertLecture(@ModelAttribute LectureVO lectureVO) {
 		return "lecture/insertLecture";
 	}
 	
 	//원장이 하는 강의등록
-		@PostMapping("/insertLecture")
-		public String insertLecture(LectureVO lectureVO) {
-			lectureService.insertLecture(lectureVO);
-			return "redirect:/getManagerLectureList";
-		}
+	@PostMapping("/insertLecture")
+	public String insertLecture(LectureVO lectureVO) {
+		lectureService.insertLecture(lectureVO);
+		return "redirect:/manager/getManagerLectureList";
+	}
 	
 	//강의 조회 페이지 입니다.
 	@GetMapping("/getLectureInfo/{lecture_code}")
@@ -74,34 +74,28 @@ public class LectureController {
 	}
 	
 	//원장이 강의를 삭제
-	@GetMapping("/deleteLecture/{lectureCode}")
+	@GetMapping("/manager/deleteLecture/{lectureCode}")
 	public String deleteLecture(@PathVariable String lectureCode) {
 		lectureService.deleteLecture(lectureCode);
-		return"redirect:/getManagerLectureList";
+		return"redirect:/manager/getManagerLectureList";
 	}
 	
-	//원장이조희할 수 있는 강의실 목록
-	@GetMapping("/getManagerLectureRoomList")
+	//원장이조희할 수 있는 강의실 목록 페이지
+	@GetMapping("/manager/getManagerLectureRoomList")
 	public String getManagerLectureRoomList(Model model) {
 		model.addAttribute("getTimeTableList",lectureService.getMangerTimeTableList());
 		model.addAttribute("lectureList", lectureService.getLectureList());
 		return "lecture/getManagerLectureRoomList";
 	}
 	
-	//강사가 조희할 수 있는 강의실 목록
-	@GetMapping("/getTeacherLectureRoomList")
+	//강사가 조희할 수 있는 강의실 목록 페이지
+	@GetMapping("/teacher/getTeacherLectureRoomList")
 	public String getTeacherLectureRoomList(Model model) {
 		model.addAttribute("getTimeTableList",lectureService.getMangerTimeTableList());
 		return "lecture/getTeacherLectureRoomList";
 	}
 	
-	//렉쳐뷰 테스트
-	@GetMapping("/lectureView")
-	public String lectureView() {
-		return "teacher/lectureView";
-	}
-	
-	// 강의 학생
+	//강의 학생
 	@GetMapping("/goLectureMember/{lectureCode}")
 	public String goLectureMember(@PathVariable String lectureCode, Model model) {
 		model.addAttribute("lectureStudent", lectureService.getStudentLecture(lectureCode));
@@ -109,27 +103,23 @@ public class LectureController {
 		return "lecture/goLectureMember";
 	}
 	
-	// 선생 -> 강의 상태별 검색
-	@GetMapping("/getLectureListByState/{lectureState}")
+	//선생 -> 강의 상태별 검색
+	@GetMapping("/teacher/getLectureListByState/{lectureState}")
 	public String getLectureListByState(@PathVariable String lectureState, Model model) {
 		if(!lectureState.equals("전체")) {
 			model.addAttribute("lectureList", lectureService.getLectureListByState(lectureState));
 			model.addAttribute("lectureState", lectureState);
 			return "lecture/getLectureList";			
 		}else {
-			return "redirect:/getLectureList";
+			return "redirect:/teacher/getLectureList";
 		}
 		
 	}
-	
-	
-	
 	
 	@ModelAttribute("studentNoLecture")
 	public List<Student> getStudentNoLecture(){
 		return lectureService.getStudentNoLecture();
 	}
-	
 	
 	@ModelAttribute("teacherList")
 	public List<Teacher> getTeacherName(Criteria cri){
@@ -157,4 +147,9 @@ public class LectureController {
 		return lectureService.getLectureStateList();
 	}
 	
+	
+	@ModelAttribute("teacherList")
+	public List<Teacher> getTeacherListAll(){
+		return teacherService.getTeacherListAll();
+	}
 }

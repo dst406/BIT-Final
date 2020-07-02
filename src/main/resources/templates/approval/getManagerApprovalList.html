@@ -22,6 +22,7 @@
 						<div class="col-sm-12">
 							<div class="page-title-box">
 								<h2 class="page-title">원장의 결재목록</h2>
+								<hr>
 							</div>
 
 							<div class="row">
@@ -93,7 +94,7 @@
 														<!-- 결재를 위한 모달창 시작 -->
 														<div th:id="${approval.approvalNo}" class="white-popup mfp-hide">
 															<h5>결재종류</h5>
-															<span class="approval-type" th:text="${approval.approvalTypeName}"></span>
+															<span class="approval-type" th:text="${approval.approvalTypeName}" ></span>
 
 															<h5>결재상태</h5>
 															<span th:text="${approval.approvalStateName}"></span>

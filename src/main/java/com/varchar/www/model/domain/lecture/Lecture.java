@@ -16,7 +16,8 @@ public class Lecture {
 	private String capacity; //강의실과 강의를 들을 수 있는 학생의 정원
 	private String studentGrade; //학년
 	private String userName; 
-	private int lectureCost; //강의료
+	private String userId;
+	private String lectureCost; //강의료
 	private int lectureroomNo; //강의실 번호
 	private String lectureContent; //강의를 간단하게 설명합니다.
 	private String userTel; // 담당강사 전화번호
@@ -27,6 +28,7 @@ public class Lecture {
 	private String lectureSubjectName;
 	private Date lectureStartDate;
 	private Date lectureFinishDate;
+	private int studentCount;
 	
 
 }

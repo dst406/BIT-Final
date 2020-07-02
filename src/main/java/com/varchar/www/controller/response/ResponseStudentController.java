@@ -1,10 +1,9 @@
 package com.varchar.www.controller.response;
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +30,7 @@ public class ResponseStudentController {
 		public String insertLectureForPayment(@AuthenticationPrincipal AcademyUser user, Payment payment) {
 			payment.setUserId(user.getUserId());
 			studentService.insertLectureForPayment(payment);
-			return "성공공";
+			return "성공";
 		}
 		
 }

@@ -18,6 +18,7 @@ import com.varchar.www.login.AcademyUser;
 import com.varchar.www.model.domain.page.Criteria;
 import com.varchar.www.model.domain.page.PageDTO;
 import com.varchar.www.model.domain.student.Student;
+import com.varchar.www.model.service.LectureService;
 import com.varchar.www.model.service.RecordService;
 import com.varchar.www.model.service.StudentService;
 
@@ -30,6 +31,7 @@ public class StudentController {
 	
 	@Autowired
 	private RecordService recordService;
+	
 	
 	//student
 	
@@ -112,4 +114,11 @@ public class StudentController {
 		public String getTeacherStudentTimeCard() {
 			return "student/getTeacherStudentTimeCard";
 		}
+		
+		@GetMapping("/student/getLectureList")
+		public String getLectureList(Model model) {
+			model.addAttribute("lectureList",studentService.getStudentLectureList());
+			return "/student/proceedingLectureList";
+		}
+		
 }

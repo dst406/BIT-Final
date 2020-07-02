@@ -1,5 +1,6 @@
 $(function(){
 	imgUpload();
+	attendance();
 })
 
 function imgUpload(){
@@ -16,7 +17,7 @@ function imgUpload(){
 		if(file != null){
 			console.log('들어옴?')
 			$.ajax({
-				url: '/manager/image/upload',
+				url: '/teacher/image/upload',
 				type: 'POST',
 				data: formData,
 				enctype: 'multipart/form-data',
@@ -44,7 +45,7 @@ function imgUpload(){
 		formData.append("manager", obj);
 		
 		$.ajax({
-			url: '/manager/update',
+			url: '/teacher/update',
 			type: 'PUT',
 			contentType: 'application/json',
 			data: JSON.stringify(obj)
@@ -52,7 +53,18 @@ function imgUpload(){
 			alert('정보수정완료')
 			location.reload();
 		}).fail(function(){
-			alert('manager update fail')
+			alert('teacher update fail')
 		})
 	})
+}
+
+function attendance(){
+	$('#come-btn').on('click', function(){
+		location.href = "/teacher/come";
+	})
+	
+	$('#go-btn').on('click', function(){
+		location.href = "/teacher/go";
+	})
+	
 }

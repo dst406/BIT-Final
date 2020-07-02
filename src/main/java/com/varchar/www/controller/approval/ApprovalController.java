@@ -21,33 +21,35 @@ public class ApprovalController {
 	@Autowired
 	private ApprovalService approvalService;
 	
-	//원장이 조회하는 결재목록
-	@GetMapping("/getManagerApprovalList")
+	//원장이 조회하는 결재목록 페이지
+	@GetMapping("/manager/getManagerApprovalList")
 	public String getManagerApprovalList(Criteria cri, Model model) {
 		model.addAttribute("approvalList", approvalService.getApprovalList(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, approvalService.getApprovalAccount()));
 		return "approval/getManagerApprovalList";
 	}
 	
-    //강사가 조회하는 결재목록
-    @GetMapping("/getTeacherApprovalList/{userId}")
+    //강사가 조회하는 결재목록 페이지
+    @GetMapping("/teacher/getTeacherApprovalList/{userId}")
 	public String getTeacherApprovalList(@ModelAttribute ApprovalVO approvalVO, Model model,@PathVariable String userId) {
     	model.addAttribute("approvalList",approvalService.getMyApprovalList(userId));
 		return "approval/getTeacherApprovalList";
 	}
     
-    //강사의 결재신청 페이지
-    @GetMapping("/goInsertApproval")
-    public String goInsertApproval(@ModelAttribute ApprovalVO approvalVO) {
-    	return "approval/insertApproval";
-    }
+	/*
+	 * //강사의 결재신청 페이지
+	 * 
+	 * @GetMapping("/goInsertApproval") public String
+	 * goInsertApproval(@ModelAttribute ApprovalVO approvalVO) { return
+	 * "approval/insertApproval"; }
+	 */
     
     //강사의 결재신청
     @PostMapping("/insertApproval")
     public String insertApproval(ApprovalVO approvalVO,@AuthenticationPrincipal AcademyUser user) {
     	approvalVO.setUserId(user.getUserId());
     	approvalService.insertApproval(approvalVO);
-    	return "redirect:/getTeacherApprovalList/" + user.getUserId();
+    	return "redirect:/teacher/getTeacherApprovalList/" + user.getUserId();
     }
     
     

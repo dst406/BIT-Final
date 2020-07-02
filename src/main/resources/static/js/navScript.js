@@ -117,7 +117,7 @@ function getModalFormAddBoard(){
 }
 
 function editAbleBoard(){
-	$(".nav-item").hover(function(event){
+	$("body").on("mouseenter mouseleave",".nav-item",function(event){
 			$(event.target).closest('li').find('.group_icon').css("display","block");
 		},
 		function(){

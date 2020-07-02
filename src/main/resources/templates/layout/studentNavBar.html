@@ -6,15 +6,19 @@
 </head>
 <body>
 
+	
 	<div class="topbar" th:fragment="topNavBar">
+
+	
+				
+	
 		<!-- Navbar -->
 		<nav class="navbar-custom">
-			<ul class="list-unstyled topbar-nav float-right mb-0">
-				<li class="dropdown notification-list"><a
+			<ul class="list-unstyled topbar-nav float-right mb-0 profile-area">
+				<li class="dropdown notification-list"><a 
 					class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown"
-					href="#" role="button" aria-haspopup="false" aria-expanded="false"><i
-						class="ti-bell noti-icon"></i> <span
-						class="badge badge-danger badge-pill noti-icon-badge">2</span></a>
+					href="#" role="button" aria-haspopup="false" aria-expanded="false">
+					<i class="far fa-bell fa-2x noti-icon"></i></a>
 				<div class="dropdown-menu dropdown-menu-right dropdown-lg py-0">
 						<h6
 							class="dropdown-item-text font-15 m-0 py-3 bg-light text-dark d-flex justify-content-between align-items-center">
@@ -40,75 +44,8 @@
 										<!--end media-body-->
 									</div>
 									<!--end media--> </a>
-								<!--end-item-->
-								<!-- item-->
-								<a href="#" class="dropdown-item py-3"><small
-									class="float-right text-muted pl-2">10 min ago</small>
-								<div class="media">
-										<div class="avatar-md bg-soft-success">
-											<i class="la la-group"></i>
-										</div>
-										<div class="media-body align-self-center ml-2 text-truncate">
-											<h6 class="my-0 font-weight-normal text-dark">Meeting
-												with designers</h6>
-											<small class="text-muted mb-0">It is a long
-												established fact that a reader.</small>
-										</div>
-										<!--end media-body-->
-									</div>
-									<!--end media--> </a>
-								<!--end-item-->
-								<!-- item-->
-								<a href="#" class="dropdown-item py-3"><small
-									class="float-right text-muted pl-2">40 min ago</small>
-								<div class="media">
-										<div class="avatar-md bg-soft-pink">
-											<i class="la la-list-alt"></i>
-										</div>
-										<div class="media-body align-self-center ml-2 text-truncate">
-											<h6 class="my-0 font-weight-normal text-dark">UX 3 Task
-												complete.</h6>
-											<small class="text-muted mb-0">Dummy text of the
-												printing.</small>
-										</div>
-										<!--end media-body-->
-									</div>
-									<!--end media--> </a>
-								<!--end-item-->
-								<!-- item-->
-								<a href="#" class="dropdown-item py-3"><small
-									class="float-right text-muted pl-2">1 hr ago</small>
-								<div class="media">
-										<div class="avatar-md bg-soft-warning">
-											<i class="la la-truck"></i>
-										</div>
-										<div class="media-body align-self-center ml-2 text-truncate">
-											<h6 class="my-0 font-weight-normal text-dark">Your order
-												is placed</h6>
-											<small class="text-muted mb-0">It is a long
-												established fact that a reader.</small>
-										</div>
-										<!--end media-body-->
-									</div>
-									<!--end media--> </a>
-								<!--end-item-->
-								<!-- item-->
-								<a href="#" class="dropdown-item py-3"><small
-									class="float-right text-muted pl-2">2 hrs ago</small>
-								<div class="media">
-										<div class="avatar-md bg-soft-info">
-											<i class="la la-check-circle"></i>
-										</div>
-										<div class="media-body align-self-center ml-2 text-truncate">
-											<h6 class="my-0 font-weight-normal text-dark">Payment
-												Successfull</h6>
-											<small class="text-muted mb-0">Dummy text of the
-												printing.</small>
-										</div>
-										<!--end media-body-->
-									</div>
-									<!--end media--></a>
-								<!--end-item-->
+							
+							
 							</div>
 							<div class="slimScrollBar"
 								style="background: rgba(162, 177, 208, 0.13); width: 7px; position: absolute; top: 0px; opacity: 1; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div>
@@ -121,25 +58,48 @@
 							all <i class="fi-arrow-right"></i>
 						</a>
 					</div></li>
+					
+					
 				<li class="dropdown"><a
 					class="nav-link dropdown-toggle nav-user" data-toggle="dropdown"
-					href="#" role="button" aria-haspopup="false" aria-expanded="false"><img
-						src="../assets/images/users/user-1.jpg" alt="profile-user"
-						class="rounded-circle"> <span
-						class="ml-1 nav-user-name hidden-sm">Robert <i
-							class="mdi mdi-chevron-down"></i></span></a>
+					href="javascript:void(0)" role="button" aria-haspopup="false" aria-expanded="false"><img
+						src="/img/human.png" alt="profile-user"
+						class="rounded-circle">
+						 
+						 
+						  <th:block th:if=" ${#authentication.Principal.authorityCode} == 1">
+								<span th:text="${#authentication.Principal.userName} + '원장님'"
+								class="ml-1 nav-user-name hidden-sm">Robert </span>
+						</th:block>
+						 
+						 <th:block th:if=" ${#authentication.Principal.authorityCode} == 2">
+								<span th:text="${#authentication.Principal.userName} + '&nbsp; 강사님'"
+								class="ml-1 nav-user-name hidden-sm">Robert </span>
+						</th:block>
+						
+							 <th:block th:if=" ${#authentication.Principal.authorityCode} == 3">
+								<span th:text="${#authentication.Principal.userName} + '님'"
+								class="ml-1 nav-user-name hidden-sm">Robert </span>
+						</th:block>
+						
+						
+						</a>
+						
 				<div class="dropdown-menu dropdown-menu-right" style="">
-						<a class="dropdown-item" href="#"><i
-							class="dripicons-user text-muted mr-2"></i> Profile</a> <a
-							class="dropdown-item" href="#"><i
-							class="dripicons-wallet text-muted mr-2"></i> My Wallet</a> <a
-							class="dropdown-item" href="#"><i
+						<a class="dropdown-item" th:href=" ${#authentication.Principal.authorityCode} == 1 ? @{/manager/getManagerInfo} :
+															( ${#authentication.Principal.authorityCode} == 2 ?
+															@{/teacher/getTeacherMyInfo} :
+															@{/teacher/getStudentInfo/{userId}(userId = ${#authentication.Principal.userId} )} ) "><i
+							class="dripicons-user text-muted mr-2"></i> 내 정보</a> <a
+							class="dropdown-item" href=""><i
+							class="dripicons-wallet text-muted mr-2"></i> 내 강의</a> <a
+							class="dropdown-item" href=""><i
 							class="dripicons-gear text-muted mr-2"></i> Settings</a> <a
-							class="dropdown-item" href="#"><i
+							class="dropdown-item" href="javascript:void(0)"><i
 							class="dripicons-lock text-muted mr-2"></i> Lock screen</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item bg-light" href="#"><i
-							class="dripicons-exit text-muted mr-2"></i> Logout</a>
+						<a class="dropdown-item bg-light" th:href="@{/logout}"><i
+							class="dripicons-exit text-muted mr-2"></i> 로그아웃</a>
 					</div></li>
 			</ul>
 			<!--end topbar-nav-->
@@ -153,6 +113,7 @@
 			</ul>
 		</nav>
 		<!-- end navbar-->
+	
 	</div>
 
 
@@ -166,81 +127,29 @@
 
 	<div class="leftbar-tab-menu mm-active active" th:fragment="leftNavBar">
 		<div class="main-icon-menu in mm-show">
-			<a href="../crm/crm-index.html"
+			<a th:with="auth = ${#authentication.Principal.authorityCode}" 
+			   th:href="${auth} == 1 ? @{/manager/managerIndex} :
+						( ${auth} == 2 ? @{/teacher/teacherIndex} : @{/board/postList/ } ) "
 				class="logo logo-metrica d-block text-center"><span><img
-					src="../assets/images/logo-sm.png" alt="logo-small" class="logo-sm"></span></a>
+					th:src="@{/img/logo-img.png}" alt="logo-small" class="logo-sm"></span></a>
 			<nav class="nav">
-				<a href="#MetricaCRM" class="nav-link leftbar-tab-icon active"
-					data-toggle="tooltip-custom" data-placement="right" title=""
-					data-original-title="CRM" data-trigger="hover"><svg
-						xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-						viewBox="0 0 24 24" fill="none" stroke="currentColor"
-						stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-						class="feather feather-pie-chart align-self-center menu-icon icon-dual">
-						<path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
-						<path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg> </a>
+				<a th:with="auth = ${#authentication.Principal.authorityCode}" 
+				   th:id="${auth} == 1 ? manager :
+						( ${auth} == 2 ? teacher : student )" 
+					href="javascript:void(0)"  class="nav-link leftbar-tab-icon active" >
+				<i class="fas fa-book"></i></a>
+				
 				<!--end MetricaCRM-->
-				<a href="#MetricaApps" class="nav-link leftbar-tab-icon" data-toggle="tooltip-custom"
-					data-placement="right" title="" data-original-title="Apps"
-					data-trigger="hover"><svg xmlns="http://www.w3.org/2000/svg"
-						width="24" height="24" viewBox="0 0 24 24" fill="none"
-						stroke="currentColor" stroke-width="2" stroke-linecap="round"
-						stroke-linejoin="round"
-						class="feather feather-grid align-self-center menu-icon icon-dual">
-						<rect x="3" y="3" width="7" height="7"></rect>
-						<rect x="14" y="3" width="7" height="7"></rect>
-						<rect x="14" y="14" width="7" height="7"></rect>
-						<rect x="3" y="14" width="7" height="7"></rect></svg> </a>
-				<!--end MetricaApps-->
-				<a href="#MetricaUikit" class="nav-link leftbar-tab-icon"
-					data-toggle="tooltip-custom" data-placement="right" title=""
-					data-original-title="UI Kit" data-trigger="hover"><svg
-						xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-						viewBox="0 0 24 24" fill="none" stroke="currentColor"
-						stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-						class="feather feather-package align-self-center menu-icon icon-dual">
-						<line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
-						<path
-							d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-						<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-						<line x1="12" y1="22.08" x2="12" y2="12"></line></svg> </a>
-				<!--end MetricaUikit-->
-				<a href="#MetricaPages" class="nav-link leftbar-tab-icon"
-					data-toggle="tooltip-custom" data-placement="right" title=""
-					data-original-title="Pages" data-trigger="hover"><svg
-						xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-						viewBox="0 0 24 24" fill="none" stroke="currentColor"
-						stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-						class="feather feather-copy align-self-center menu-icon icon-dual">
-						<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-						<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-				</a>
+				<a href="javascript:void(0)" class="nav-link leftbar-tab-icon" >
+				<i class="fas fa-tasks"></i></a>
+				
+				
 				<!--end MetricaPages-->
-				<a href="#MetricaAuthentication" class="nav-link leftbar-tab-icon"
-					data-toggle="tooltip-custom" data-placement="right" title=""
-					data-original-title="Authentication" data-trigger="hover"><svg
-						xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-						viewBox="0 0 24 24" fill="none" stroke="currentColor"
-						stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-						class="feather feather-lock align-self-center menu-icon icon-dual">
-						<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-						<path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></a>
+				<a href="javascript:void(0)" id ="board" class="nav-link leftbar-tab-icon">
+				<i class="fas fa-chalkboard-teacher"></i></a>
 				<!--end MetricaAuthentication-->
 			</nav>
-			<!--end nav-->
-			<div class="pro-metrica-end active">
-				<a href="" class="help active" data-toggle="tooltip-custom"
-					data-placement="right" title="" data-original-title="Chat"><svg
-						xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-						viewBox="0 0 24 24" fill="none" stroke="currentColor"
-						stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-						class="feather feather-message-circle align-self-center menu-icon icon-md icon-dual mb-4">
-						<path
-							d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-				</a><a href="" class="profile active"><img
-					src="../assets/images/users/user-1.jpg" alt="profile-user"
-					class="rounded-circle thumb-sm"></a>
-			</div>
+			
 		</div>
 		<!--end main-icon-menu-->
 		<div class="main-menu-inner active">
@@ -255,25 +164,14 @@
 				<div class="menu-body slimscroll mm-show"
 					style="overflow: hidden; width: auto; height: 969px;">
 					<div id="MetricaCRM" class="main-icon-menu-pane mm-active active">
-						<div id="lecture-view" class="title-box active">
+						<div id="student-lecture-view" class="title-box active">
 									<h6 class="menu-title">강의조회</h6>
 						</div>
-						<ul id="lecture-ul" class="nav in mm-show">
+						<ul id="student-lecture-ul" class="nav in mm-show active">
 							<li class="nav-item"><a class="nav-link"
-								href="../crm/crm-index.html">강의목록</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="../crm/crm-contacts.html">수강목록</a></li>
-						</ul>
-					</div>
-					<div id="MetricaCRM" class="main-icon-menu-pane mm-active active">
-						<div id="schedule-manage" class="title-box active">
-							<h6 class="menu-title">일정관리</h6>
-						</div>
-						<ul id="schedule-ul" class="nav in mm-show">
-							<li class="nav-item"><a class="nav-link"
-								href="/student/calendar">일정조회</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="/student/schedule">시간표관리</a></li>
+								href="/student/getLectureList">강의목록</a></li>
+								<li class="nav-item"><a class="nav-link"
+								href="../crm/crm-index.html">내가 수강중인 강의</a></li>
 						</ul>
 					</div>
 					<!-- end CRM -->
@@ -287,6 +185,7 @@
 			<!--end menu-body-->
 		</div>
 		<!-- end main-menu-inner-->
+		<script th:src="@{/js/studentNavScript.js}" ></script>
 	</div>
 
 
