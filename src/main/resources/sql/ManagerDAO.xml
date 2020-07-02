@@ -32,15 +32,15 @@
 	</select>
 	
 	<!--  원장 메인  최근 6개월 수입 통계 -->
-	<select id="">
-	
-	SELECT TO_CHAR( academy_payment.payment_date,'yy-MM' ) ,
-	DECODE(lecture.user_id , NULL, '합계',lecture.user_id), SUM(lecture.lecture_cost)   from academy_payment
+	<select id="getMonthlyinCome">
+	SELECT TO_CHAR( academy_payment.payment_date,'YY-MM-DD' ) ,
+	lecture.user_id, SUM(lecture.lecture_cost)   from academy_payment
 	INNER JOIN LECTURE ON academy_payment.lecture_code = lecture.lecture_code
-	WHERE academy_payment.payment_date > ADD_MONTHS(TO_CHAR(SYSDATE,'YY-MM-DD') , -6)
-	GROUP BY ROLLUP ( TO_CHAR( academy_payment.payment_date,'yy-MM') ,lecture.user_id  ) 
-	
+	WHERE academy_payment.payment_date <= TO_DATE( ADD_MONTHS(SYSDATE, -6),  'YY-MM-DD')
+	GROUP BY CUBE ( TO_CHAR( academy_payment.payment_date,'YY-MM-DD') ,lecture.user_id  )
 	</select>
+	
+	<!--  원장 메인  최근 6개월 수입 통계   끝-->
 	
 	
 <!-- select TO_CHAR( academy_payment.payment_date,'YY-MM-DD' ) ,
