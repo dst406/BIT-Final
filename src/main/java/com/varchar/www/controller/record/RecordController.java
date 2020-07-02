@@ -37,7 +37,7 @@ public class RecordController {
 	@PostMapping("/teacher/insertRecord")
 	public String insertStudent(@ModelAttribute Record record) {
 		 recordService.insertRecord(record);
-		return "redirect:/registComplete";
+		return "redirect:/teacher/registComplete";
 	}
 	
 	@GetMapping("/teacher/recordModify/{userId}")
