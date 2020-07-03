@@ -202,8 +202,6 @@
 			LEFT OUTER JOIN board ON board_group.board_group_no = board.board_group_no    
 			WHERE ROWNUM = 1 AND academy_payment.user_id = #{userId} 
 			)
-					
-					
 			</when>
 			
 			<otherwise>

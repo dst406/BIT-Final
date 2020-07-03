@@ -335,7 +335,7 @@ Thymeleaf Layout lib 를 사용하여 layout 지정.
 
 07-03
 
-학생 -> 내가 수강중인 강의
+학생 -> 내가 수강중인 강의   / 완료
 출근 퇴근 ajax처리
 전체적으로 그래프
 CSS - 레이아웃 손보기 (버튼 튀어나온거, border등 )
@@ -352,4 +352,7 @@ CSS - 레이아웃 손보기 (버튼 튀어나온거, border등 )
 
 /teacher/getLectureList -> 크기 / 완료
 /teacher/getLectureList -> 진행중, 예정중, 만료  테이블 따로  / 미완
+
+경력  : 유저당 하나 
+강사이미지,  출퇴근 기록부  데이터 
 

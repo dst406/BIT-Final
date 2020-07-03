@@ -115,10 +115,18 @@ public class StudentController {
 			return "student/getTeacherStudentTimeCard";
 		}
 		
-		@GetMapping("/student/getLectureList")
-		public String getLectureList(Model model) {
+		@GetMapping("/student/getStudentLectureList")
+		public String getStudentLectureList(Model model) {
 			model.addAttribute("lectureList",studentService.getStudentLectureList());
 			return "/student/proceedingLectureList";
+		}
+		
+		
+		@GetMapping("/student/getStudentMyLectureList")
+		public String getStudentMyLectureList(Model model, @AuthenticationPrincipal AcademyUser user) {
+			model.addAttribute("lectureList", studentService.getStudentMyLectureList());
+			
+			return "/student/getStudentLectureList";
 		}
 		
 }

@@ -92,4 +92,9 @@ public class StudentServiceImpl implements StudentService {
 		return studentDAO.getStudentLectureList();
 	}
 
+	@Override
+	public List<Lecture> getStudentMyLectureList() {
+		return studentDAO.getStudentMyLectureList();
+	}
+
 }

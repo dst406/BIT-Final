@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.varchar.www.model.dao.StudentDAO">
+
+
+
 	<select id="getStudentInfo" parameterType="String" resultType="com.varchar.www.model.domain.student.Student">
 		select u.user_id, u.user_name, u.school_name, 	u.user_tel, u.user_parent_tel, u.user_birth, u.user_email, u.user_address, u.user_image, u.user_remark,
 		          a.academic_type_name
@@ -46,7 +49,9 @@
 			lsub.lecture_subject_name AS lecture_subject_name,
 			s.season_start_date AS lecture_start_date,
 			s.season_end_date As lecture_finish_date,
-			s.season_name AS season_name
+			s.season_name AS season_name,
+			s.season_start_time AS lectureStartTime,
+            s.season_end_time AS lectureEndTime
 		FROM 
 			lecture l
 			INNER JOIN lectureroom lr ON l.lectureroom_no = lr.lectureroom_no
@@ -55,6 +60,37 @@
 			INNER JOIN season s ON l.season_id  = s.season_id
 		ORDER BY  ls.lecture_state_name desc
 	</select>
+	
+	
+	<select id="getStudentMyLectureList" resultType="lecture">
+		select * from getStudentMyLectureList
+	</select>
+	
+	  <!--       CREATE OR REPLACE VIEW getStudentMyLectureList AS
+        SELECT
+            l.lecture_code AS lecture_code,
+			ls.lecture_state_name AS lecture_state_name,
+			l.lecture_name AS lecture_name,
+			l.lectureroom_no AS lectureroom_no,
+            REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(l.lecture_cost)), '([0-9]{3})','\1,')), '^,','') AS lecture_cost,
+			lr.capacity AS capacity,
+			lr.student_grade AS student_grade,
+			(SELECT au.user_name FROM academy_user au WHERE au.user_id = l.user_id) AS user_name,
+			lsub.lecture_subject_name AS lecture_subject_name,
+			s.season_start_date AS lecture_start_date,
+			s.season_end_date As lecture_finish_date,
+			s.season_name AS season_name,
+            s.season_start_time AS lectureStartTime,
+            s.season_end_time AS lectureEndTime
+        from academy_payment
+        INNER JOIN lecture l ON l.lecture_code = academy_payment.lecture_code
+        INNER JOIN lectureroom lr ON l.lectureroom_no = lr.lectureroom_no
+        INNER JOIN lecturestate ls ON l.lecture_state_code = ls.lecture_state_code AND ls.lecture_state_code != 'LECTURE_END'
+        INNER JOIN lecture_subject lsub ON l.lecture_subject_code = lsub.lecture_subject_code
+        INNER JOIN season s ON s.season_id = l.season_id
+        WHERE academy_payment.user_id = 'stu'  
+        ORDER BY l.lecture_state_code , s.season_start_date  -->
+	
 	
 	<insert id="insertStudent" parameterType="com.varchar.www.model.domain.student.Student">
 		insert into academy_user(user_id, user_password, user_name, authority_code, academic_type_code, user_birth, user_tel, user_parent_tel, school_name, user_address, user_remark, user_registration, user_image) 

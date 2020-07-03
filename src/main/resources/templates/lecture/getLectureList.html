@@ -123,7 +123,7 @@
 																		<td th:text="${lectureStat.count}"></td>
 																		<td th:text="${lecture.lectureCode}"></td>
 																		<td><a th:with="auth = ${#authentication.Principal.authorityCode}" 
-																			th:href="(${auth} == 1 ? '/getLectureInfo/'+${lecture.lectureCode} : 'javascript(0)')"
+																			th:href="(${auth} == 1 ? '/getLectureInfo/'+${lecture.lectureCode} : 'javascript:void(0)')"
 																			th:text="${lecture.lectureName}"></a></td>
 																		<td th:text="${lecture.lectureStartDate}"></td>
 																		<td th:text="${lecture.lectureFinishDate}"></td>

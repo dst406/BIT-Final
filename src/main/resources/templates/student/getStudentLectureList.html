@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout/studentLayout">
-<title>강사-전체강의목록</title>
+<title>varchar - 학생 내가 수강중인 강의</title>
 <head>
 <link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
@@ -21,23 +21,13 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="page-title-box">
-								<h2 class="page-title">진행중인 강의목록</h2>
+								<h2 class="page-title">내가 수강중인 강의</h2>
 							</div>
 
 							<div class="row">
 								<div class="col-12">
 									<div class="card">
 										<div class="card-body">
-
-											<!-- <div style="margin-bottom: 50px;">
-												<button type="button"
-													class="btn btn-primary waves-effect waves-light float-right mb-3"
-													data-toggle="modal" data-animation="bounce"
-													data-target=".bs-example-modal-lg"
-													onclick="location.href='/goInsertLecture'">+ 강의등록</button>
-											</div>
- -->
-
 											<div class="table-responsive dash-social">
 												<div id="datatable_wrapper"
 													class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -45,7 +35,15 @@
 													<div class="row">
 														<div class="col-sm-12 col-md-6">
 															<div class="dataTables_length" id="datatable_length">
-																
+																<select class="custom-select custom-select-sm form-control form-control-sm" 
+																name="lectureList" id="lecture-state-type"
+																	style="font-size: 15px; margin-bottom: 20px;">
+																	<option value="전체">전체</option>
+																	<option th:each="state : ${lectureStateList}"
+																		th:value="${state.lectureStateName}"
+																		th:text="${state.lectureStateName}"
+																		th:selected="${state.lectureStateName} == ${lectureState}"></option>
+																</select>
 															</div>
 														</div>
 														<!-- <div class="col-sm-12 col-md-6">
@@ -116,10 +114,6 @@
 																			rowspan="1" colspan="1" aria-sort="ascending"
 																			aria-label="Lead: activate to sort column descending"
 																			style="width: 70px;">금액</th>
-																		<th class="" tabindex="0" aria-controls="datatable"
-																			rowspan="1" colspan="1" aria-sort="ascending"
-																			aria-label="Lead: activate to sort column descending"
-																			style="width: 70px;">구매하기</th>	
 																	</tr>
 																	<!-- end tr -->
 																</thead>
@@ -144,7 +138,6 @@
 																		<td th:text="${lecture.seasonName}"></td>
 																		<td th:text="${lecture.lectureStateName}"></td>
 																		<td th:text="${lecture.lectureCost}+'원'">200,000원</td>
-																		<td><button type="button" class="btn btn-gradient-purple waves-effect waves-light buyLectureButton">구매</button></td>
 																	</tr>
 																</tbody>
 															</table>
@@ -169,10 +162,18 @@
 				</div>
 				<!-- end col -->
 			</div>
-			
+
+
+
+			<footer class="footer text-center text-sm-left">
+				© 2020 Metrica <span
+					class="text-muted d-none d-sm-inline-block float-right">Crafted
+					with <i class="mdi mdi-heart text-danger"></i> by Mannatthemes
+				</span>
+			</footer>
 			<!-- end footer -->
 		</div>
-		<script th:src="@{/js/student.js}"></script>
+		<!-- end page content -->
 	</div>
 	<!-- 공간  end -->
 </body>
