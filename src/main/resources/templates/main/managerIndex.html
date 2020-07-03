@@ -60,7 +60,7 @@
 														<th class="" tabindex="0" aria-controls="datatable"
 															rowspan="1" colspan="1" aria-sort="ascending"
 															aria-label="Lead: activate to sort column descending"
-															style="width: 40px;">강의명</th>
+															style="width: 80px;">강의명</th>
 														<th class="" tabindex="0" aria-controls="datatable"
 															rowspan="1" colspan="1" aria-sort="ascending"
 															aria-label="Lead: activate to sort column descending"
@@ -72,11 +72,20 @@
 														<th class="" tabindex="0" aria-controls="datatable"
 															rowspan="1" colspan="1" aria-sort="ascending"
 															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">강의시작일</th>	
+															
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
 															style="width: 40px;">학생수</th>
 														<th class="" tabindex="0" aria-controls="datatable"
 															rowspan="1" colspan="1" aria-sort="ascending"
 															aria-label="Lead: activate to sort column descending"
 															style="width: 40px;">정원</th>
+														<th class="" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" aria-sort="ascending"
+															aria-label="Lead: activate to sort column descending"
+															style="width: 40px;">금액</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -86,8 +95,10 @@
 															th:text="${lecture.lectureName}"></a></td>
 														<td th:text="${lecture.userName}"></td>
 														<td th:text="${lecture.lectureSubjectName}"></td>
+														<td th:text="${lecture.lectureStartTime}"></td>
 														<td th:text="${lecture.studentCount}"></td>
 														<td th:text="${lecture.capacity}"></td>
+														<td th:text="${lecture.lectureCost}+'원'"></td>
 													</tr>
 												</tbody>
 											</table>
@@ -148,6 +159,7 @@
 														<td class="approval-state"
 															th:text="${approval.approvalStateName}"></td>
 														<td th:text="${approval.userName}"></td>
+														
 														<td><a class="approval-modal"
 															th:data-no="${approval.approvalNo}"
 															th:data-mfp-src="'#' + ${approval.approvalNo}"

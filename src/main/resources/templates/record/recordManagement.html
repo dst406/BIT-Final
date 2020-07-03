@@ -22,30 +22,29 @@
 			<!-- Page Content-->
 			<div class="page-content-tab">
 				<div class="container">
+				<!-- 공간   -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box"></div>
+						</div>
+					</div>
+					<!-- 공간  끝 -->
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="page-title-box">
 
 								<h4 class="page-title">성적관리</h4>
 							</div>
-							<!--end page-title-box-->
 						</div>
-						<!--end col-->
 					</div>
+					
+					
 					<div class="row">
 						<div class="col-12">
 							<div class="card">
 								<div class="card-body">
-									<button type="button"
-										class="btn btn-primary waves-effect waves-light float-right mb-3"
-										data-toggle="modal" data-animation="bounce"
-										data-target=".bs-example-modal-lg" style="margin-left: 10px;"
-										onclick="recordRegist()">성적 등록</button>
-								<!-- 	<button type="button"
-										class="btn btn-primary waves-effect waves-light float-right mb-3"
-										data-toggle="modal" data-animation="bounce"
-										data-target=".bs-example-modal-lg">액셀로 추가</button> -->
-									<h4 class="header-title mt-0 mb-3">학교</h4>
+									
+									<h4 class="header-title mt-0 mb-3">학교 시험 성적</h4>
 									<div class="table-responsive dash-social">
 										<div id="datatable_wrapper"
 											class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -77,6 +76,11 @@
 
 												</div>
 												<div class="col-sm-12 col-md-6">
+												<button type="button"
+													class="btn btn-primary waves-effect waves-light float-right mb-3"
+													data-toggle="modal" data-animation="bounce"
+													data-target=".bs-example-modal-lg" style="margin-left: 10px;"
+													onclick="recordRegist()">성적 등록</button>
 													<div id="datatable_filter" class="dataTables_filter">
 														<label>Search:<input type="search"
 															class="form-control form-control-sm"
@@ -91,20 +95,20 @@
 														role="grid" aria-describedby="datatable_info">
 														<thead class="thead-light">
 															<tr role="row">
-																<th class="sorting_asc" style="width: 50px;">학생번호</th>
-																<th class="sorting" style="width: 50px;">이름</th>
+																<th class="sorting_asc" style="width: 90px;">학생번호</th>
+																<th class="sorting" style="width: 60px;">이름</th>
 																<th class="sorting" style="width: 40px;">학년</th>
-																<th class="sorting" style="width: 80px;">학교</th>
-																<th class="sorting" style="width: 130px;">시험명</th>
-																<th class="sorting" style="width: 60px;">국어</th>
-																<th class="sorting" style="width: 60px;">영어</th>
-																<th class="sorting" style="width: 60px;">수학</th>
-																<th class="sorting" style="width: 60px;">사회</th>
-																<th class="sorting" style="width: 60px;">과학</th>
-																<th class="sorting" style="width: 70px;">한국사</th>
-																<th class="sorting" style="width: 60px;">총점</th>
-																<th class="sorting" style="width: 60px;">평균</th>
-																<th class="sorting" style="width: 60px;">석차</th>
+																<th class="sorting" style="width: 100px;">학교</th>
+																<th class="sorting" style="width: 220px;">시험명</th>
+																<th class="sorting" style="width: 35px;">국어</th>
+																<th class="sorting" style="width: 35px;">영어</th>
+																<th class="sorting" style="width: 35px;">수학</th>
+																<th class="sorting" style="width: 35px;">사회</th>
+																<th class="sorting" style="width: 35px;">과학</th>
+																<th class="sorting" style="width: 55px;">한국사</th>
+																<th class="sorting" style="width: 35px;">총점</th>
+																<th class="sorting" style="width: 35px;">평균</th>
+																<th class="sorting" style="width: 35px;">석차</th>
 															</tr>
 															<!--end tr-->
 														</thead>
@@ -159,19 +163,11 @@
 													</div>
 												</div>
 											</div>
-											<!--  paging end -->
-					<!-- 						<form id='actionForm' action="/teacher/getStudentList"
-															method='get'>
-															<input type='hidden' name='pageNum'
-																th:value="${pageMaker.cri.pageNum}"> <input
-																type='hidden' name='amount'
-																th:value="${pageMaker.cri.amount}">
-											</form> -->
 										</div>
 									</div>
 								</div>
 								<!--end card-body-->
-							</div>
+							</div> 
 							<!--end card-->
 						</div>
 						<!--end col-->
@@ -181,17 +177,7 @@
 						<div class="col-12">
 							<div class="card">
 								<div class="card-body">
-									<button type="button"
-										class="btn btn-primary waves-effect waves-light float-right mb-3"
-										data-toggle="modal" data-animation="bounce"
-										data-target=".bs-example-modal-lg" style="margin-left: 10px;"
-										onclick="recordRegist()">성적 등록</button>
-
-								<!-- 	<button type="button"
-										class="btn btn-primary waves-effect waves-light float-right mb-3"
-										data-toggle="modal" data-animation="bounce"
-										data-target=".bs-example-modal-lg">액셀로 추가</button> -->
-									<h4 class="header-title mt-0 mb-3">학원</h4>
+									<h4 class="header-title mt-0 mb-3">학원 시험 성적</h4>
 
 									<div class="table-responsive dash-social">
 										<div id="datatable_wrapper"
@@ -222,6 +208,11 @@
 													</div>
 												</div>
 												<div class="col-sm-12 col-md-6">
+												<button type="button"
+													class="btn btn-primary waves-effect waves-light float-right mb-3"
+													data-toggle="modal" data-animation="bounce"
+													data-target=".bs-example-modal-lg" style="margin-left: 10px;"
+													onclick="recordRegist()">성적 등록</button>
 													<div id="datatable_filter" class="dataTables_filter">
 														<label style="width: 300px;">Search:<input
 															type="search" class="form-control form-control-sm"
@@ -236,20 +227,20 @@
 														role="grid" aria-describedby="datatable_info">
 														<thead class="thead-light">
 															<tr role="row">
-																<th class="sorting_asc" style="width: 50px;">학생번호</th>
-																<th class="sorting" style="width: 50px;">이름</th>
+																<th class="sorting_asc" style="width: 90px;">학생번호</th>
+																<th class="sorting" style="width: 60px;">이름</th>
 																<th class="sorting" style="width: 40px;">학년</th>
-																<th class="sorting" style="width: 80px;">학교</th>
-																<th class="sorting" style="width: 130px;">시험명</th>
-																<th class="sorting" style="width: 60px;">국어</th>
-																<th class="sorting" style="width: 60px;">영어</th>
-																<th class="sorting" style="width: 60px;">수학</th>
-																<th class="sorting" style="width: 60px;">사회</th>
-																<th class="sorting" style="width: 60px;">과학</th>
-																<th class="sorting" style="width: 70px;">한국사</th>
-																<th class="sorting" style="width: 60px;">총점</th>
-																<th class="sorting" style="width: 60px;">평균</th>
-																<th class="sorting" style="width: 60px;">석차</th>
+																<th class="sorting" style="width: 100px;">학교</th>
+																<th class="sorting" style="width: 220px;">시험명</th>
+																<th class="sorting" style="width: 35px;">국어</th>
+																<th class="sorting" style="width: 35px;">영어</th>
+																<th class="sorting" style="width: 35px;">수학</th>
+																<th class="sorting" style="width: 35px;">사회</th>
+																<th class="sorting" style="width: 35px;">과학</th>
+																<th class="sorting" style="width: 55px;">한국사</th>
+																<th class="sorting" style="width: 35px;">총점</th>
+																<th class="sorting" style="width: 35px;">평균</th>
+																<th class="sorting" style="width: 35px;">석차</th>
 															</tr>
 															<!--end tr-->
 														</thead>

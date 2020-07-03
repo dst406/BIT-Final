@@ -68,7 +68,7 @@
 						 
 						 
 						  <th:block th:if=" ${#authentication.Principal.authorityCode} == 1">
-								<span th:text="${#authentication.Principal.userName} + '원장님'"
+								<span th:text="${#authentication.Principal.userName} + '&nbsp; 원장님'"
 								class="ml-1 nav-user-name hidden-sm">Robert </span>
 						</th:block>
 						 
@@ -78,7 +78,7 @@
 						</th:block>
 						
 							 <th:block th:if=" ${#authentication.Principal.authorityCode} == 3">
-								<span th:text="${#authentication.Principal.userName} + '님'"
+								<span th:text="${#authentication.Principal.userName} "
 								class="ml-1 nav-user-name hidden-sm">Robert </span>
 						</th:block>
 						

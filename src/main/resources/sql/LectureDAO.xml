@@ -241,7 +241,9 @@
 	
 	<select id="getLectureListNoFull" resultType="com.varchar.www.model.domain.lecture.Lecture">
 		<![CDATA[
-			select l.*,
+			select l.lecture_code, l.user_id, l.lecture_name, 
+			REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(l.lecture_cost)), '([0-9]{3})','\1,')), '^,','') AS lecture_cost,
+			TO_CHAR(season_start_date, 'YYYY-MM-DD') lectureStartTime,
 				(select count(*) from academy_payment ap where ap.lecture_code = l.lecture_code) as studentCount,
 				ls.lecture_subject_name as lecture_subject_name,
 				au.user_name as user_name,
@@ -250,8 +252,10 @@
 				inner join lectureroom lr on l.lectureroom_no = lr.lectureroom_no
 				inner join lecture_subject ls on l.lecture_subject_code = ls.lecture_subject_code
 				inner join academy_user au on au.user_id = l.user_id
+				 INNER JOIN season ON l.season_id = season.season_id
 			where 
 				(select count(*) from academy_payment ap where ap.lecture_code = l.lecture_code) <  lr.capacity
+				 AND l.lecture_state_code != 'LECTURE_END'
 
 		]]>
 		

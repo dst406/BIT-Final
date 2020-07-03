@@ -45,8 +45,9 @@
 													<div class="row">
 														<div class="col-sm-12 col-md-6">
 															<div class="dataTables_length" id="datatable_length">
-																<select name="lectureList" id="lecture-state-type"
-																	style="width: 85px; font-size: 15px; margin-bottom: 20px;">
+																<select class="custom-select custom-select-sm form-control form-control-sm" 
+																name="lectureList" id="lecture-state-type"
+																	style="font-size: 15px; margin-bottom: 20px;">
 																	<option value="전체">전체</option>
 																	<option th:each="state : ${lectureStateList}"
 																		th:value="${state.lectureStateName}"
@@ -77,11 +78,11 @@
 																		<th class="" tabindex="0" aria-controls="datatable"
 																			rowspan="1" colspan="1" aria-sort="ascending"
 																			aria-label="Lead: activate to sort column descending"
-																			style="width: 100px;">강의코드</th>
+																			style="width: 70px;">강의코드</th>
 																		<th class="" tabindex="0" aria-controls="datatable"
 																			rowspan="1" colspan="1"
 																			aria-label="Email: activate to sort column ascending"
-																			style="width: 160px;">강의명</th>
+																			style="width: 180px;">강의명</th>
 																		<th class="" tabindex="0" aria-controls="datatable"
 																			rowspan="1" colspan="1" aria-sort="ascending"
 																			aria-label="Lead: activate to sort column descending"
@@ -97,11 +98,11 @@
 																		<th class="" tabindex="0" aria-controls="datatable"
 																			rowspan="1" colspan="1"
 																			aria-label="Status: activate to sort column ascending"
-																			style="width: 90px;">수강인원</th>
+																			style="width: 70px;">수강인원</th>
 																		<th class="" tabindex="0" aria-controls="datatable"
 																			rowspan="1" colspan="1"
 																			aria-label="Action: activate to sort column ascending"
-																			style="width: 90px;">강의대상</th>
+																			style="width: 70px;">강의대상</th>
 																		<th class="" tabindex="0" aria-controls="datatable"
 																			rowspan="1" colspan="1" aria-sort="ascending"
 																			aria-label="Lead: activate to sort column descending"

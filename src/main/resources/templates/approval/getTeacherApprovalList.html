@@ -20,16 +20,17 @@
 						<div class="col-sm-12">
 							<div class="page-title-box">
 								<h2 class="page-title">강사의 결재목록</h2>
-								<hr>
 								<input id="user-id" type="hidden" th:value="${#authentication.Principal.userId}">
 							</div>
 
 							<div class="row">
 								<div class="col-12">
+									
 									<div class="card">
 										<div class="card-body">
-											<select name="approval" id="approval-type"
-												style="width: 85px; font-size: 15px;">
+										<h4 class="header-title mt-0 mb-3">요청한 결재목록</h4>
+											<select  class="custom-select custom-select-sm form-control form-control-sm" name="approval" id="approval-type"
+												style="width: 120px; font-size: 15px;">
 												<option value="all" selected="selected">전체</option>
 												<option value="결재대기">결재대기</option>
 												<option value="결재승인">결재승인</option>
