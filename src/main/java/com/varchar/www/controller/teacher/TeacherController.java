@@ -30,6 +30,13 @@ public class TeacherController {
 	@Autowired	private LectureService lectureService;
 	@Autowired  private ApprovalService approvalService;
 	
+	@ModelAttribute
+	public void isAttendance(@AuthenticationPrincipal AcademyUser user,Model model) {
+		//String으로 리턴  , ATTENDANCE_INTIME 이냐, GO_TIME이냐
+		
+		model.addAttribute("attendanceState", teacherService.isAttendance(user.getUserId()));
+	}
+	
 	//강사의 메인페이지
 	@GetMapping("/teacher/teacherIndex")
 	public String teacherIndex(@AuthenticationPrincipal AcademyUser user ,Model model) {
@@ -141,5 +148,21 @@ public class TeacherController {
 		return teacherService.getAttendanceState();
 	}
 
-		
+	
+	// 출근
+	@GetMapping("/teacher/come")
+	public String teacherCome(@AuthenticationPrincipal AcademyUser user,Model model) {
+		teacherService.insertTeacherComeTime(user.getUserId());
+		model.addAttribute("attendanceState", teacherService.isAttendance(user.getUserId()));
+		return "layout/navBar :: topNavBar";
+	}
+	
+	// 퇴근
+	@GetMapping("/teacher/go")
+	public String teacherGo(@AuthenticationPrincipal AcademyUser user,Model model) {
+		teacherService.insertTeacherGoTime(user.getUserId());
+		model.addAttribute("attendanceState", teacherService.isAttendance(user.getUserId()));
+		return "layout/navBar :: topNavBar";
+	}
+	
 }

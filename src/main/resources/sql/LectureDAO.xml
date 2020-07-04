@@ -20,6 +20,7 @@
 		FROM lecture lec
 			INNER JOIN season lecs on lec.season_id = lecs.season_id
 			INNER JOIN lectureroom lr on lec.lectureroom_no = lr.lectureroom_no
+		  ORDER BY lec.lecture_state_code desc, lecs.season_start_date     	
 	</select>
 	
 	<!-- 강사가 보는 강의리스트 -->

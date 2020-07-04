@@ -35,5 +35,7 @@ public interface TeacherService {
 	int getTeacherTimeCardAccount(String userId);
 	
 	List<Teacher> getTeacherListAll();
+	// 출퇴근 유무
+	String isAttendance(String userId);
 	
 }

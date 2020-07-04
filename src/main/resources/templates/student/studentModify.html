@@ -71,8 +71,8 @@
 											<p></p>
 											문/이과 <select class="form-control" name="academicTypeCode">
 												<option value="0">선택</option>
-												<option value="1">문과</option>
-												<option value="2">이과</option>
+												<option th:selected="${studentInfo.academicTypeName == '문과'}" value="1">문과</option>
+												<option th:selected="${studentInfo.academicTypeName == '이과'}" value="2">이과</option>
 											</select> 주소 <input type="text" th:value="${studentInfo.userAddress}"
 												name="userAddress" class="form-control">
 											<p></p>

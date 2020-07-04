@@ -23,7 +23,9 @@ public class ManagerServiceImpl implements ManagerService {
 	@Autowired
 	private ManagerDAO managerDAO;
 	
-	private static final String uploadDirectory = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
+	//private static final String uploadDirectory = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
+	private static final String uploadDirectory ="C:/varchar/userImg/";
+	
 	
 	@Override
 	public List<Teacher> getManagerTeacherList(Criteria cri, String authority_code) {		

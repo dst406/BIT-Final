@@ -8,13 +8,11 @@ function imgUpload(){
 		var fileName = '';
 		if(file != null) fileName = file.name;
 		else if(file == null) fileName = $('#manager-img').data('img');
-		console.log(fileName);
 		
 		var formData = new FormData();
 		formData.append("imgFile", file);
 		
 		if(file != null){
-			console.log('들어옴?')
 			$.ajax({
 				url: '/teacher/image/upload',
 				type: 'POST',
@@ -24,10 +22,8 @@ function imgUpload(){
 				processData: false,
 				cache: false
 			}).done(function(){
-				alert('이미지 업로드 성공')
-				//location.reload();
 			}).fail(function(){
-				alert('manager img upload fail')
+				console.log('manager img upload fail')
 			})			
 		}
 		
@@ -49,10 +45,9 @@ function imgUpload(){
 			contentType: 'application/json',
 			data: JSON.stringify(obj)
 		}).done(function(){
-			alert('정보수정완료')
 			location.reload();
 		}).fail(function(){
-			alert('teacher update fail')
+			console.log('teacher update fail')
 		})
 	})
 }

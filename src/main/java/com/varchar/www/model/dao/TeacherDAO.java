@@ -45,4 +45,9 @@ public interface TeacherDAO {
 	int getTeacherTimeCardAccount(String userId);
 	
 	List<Teacher> getTeacherListAll();
+	
+	// 출근 유무
+	String isAttendance(String userId);
+	
+	
 }

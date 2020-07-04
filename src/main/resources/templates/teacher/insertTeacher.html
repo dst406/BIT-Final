@@ -49,19 +49,22 @@
 										<div class="form-group">
 											<h5>사진</h5>
 											<input id="teacher-file" th:field="*{userImage}" type="file"> <br> 
-											<img class="rounded-circle thumb-lg" id="teacher-img"
-												th:data-img="${teacher.userImage}"
-												th:src="'/img/' + ${teacher.userImage}"
-												style="width: 100px; height: 100px; margin-top: 10px;"><br>
+											<br>
 											<br>
 											<h5>강사명</h5><input type="text" th:field="*{userName}"
 												placeholder="강사명" class="form-control">
 											<br>
 											<h5>아이디</h5>
 											<input id="id" type="text" th:field="*{userId}"
-												placeholder="ID" class="form-control">
+												placeholder="ID를 입력해주세요" class="form-control">
 										
 											<br>
+											<h5>비밀번호</h5>
+											<input id="userPassword" type="password" th:field="*{userPassword}"
+												placeholder="비밀번호를 입력해주세요" class="form-control">
+										
+											<br>
+											
 											<h5>생년월일</h5>
 											<input id="" type="date" th:field="*{userBirth}"
 												placeholder="YYYY-MM-DD" class="form-control">

@@ -18,15 +18,15 @@
 						<div class="col-sm-12">
 							<div class="page-title-box">
 								<h2 class="page-title">출퇴근 기록</h2>
-								<hr>
 							</div>
 							<div class="row">
 								<div class="col-12">
 									<div class="card">
 										<div class="card-body">
-											<input id="time-card-date" type="date" th:value="${timeDate}">
-											<select name="attendance" id="attendance-type"
-												style="width: 85px; font-size: 15px;">
+											<input id="time-card-date" class="custom-select custom-select-sm form-control form-control-sm" 
+											type="date" th:value="${timeDate}" style="width: 170px; ">
+											<select name="attendance" id="attendance-type" class="custom-select custom-select-sm form-control form-control-sm"
+												style="font-size: 15px;">
 												<option value="전체">전체</option>
 												<option th:each="attendanceState : ${attendanceStateList}"
 													th:value="${attendanceState.attendanceStateCode}"

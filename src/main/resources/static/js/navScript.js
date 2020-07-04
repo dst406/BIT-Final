@@ -25,8 +25,9 @@ function getModalFormEditPage(){
 		$('.deleteBoardGroup').attr("href","/board/deleteBoardGroup/"+boardGroupNo);
 //		$('#originalTitle').val(title);
 //		$('#changeTitle').val("");
+		getModalForm(".editBoardGroup-popup-link",".boardGroupPanelHeaderClose, .actionsSecondary");
 	})
-	getModalForm(".editBoardGroup-popup-link",".boardGroupPanelHeaderClose, .actionsSecondary");
+	
 	
 }	
 	
@@ -35,7 +36,7 @@ function getModalForm(openTarget, closeTarget){
 		type:'inline',
 		midClick:true,
 		showCloseBtn:false
-	});
+	}).magnificPopup('open');
 	
 	$(closeTarget).on('click',function(){
 		$.magnificPopup.close();
@@ -47,11 +48,11 @@ function getModalFormAddBoardGroup(){
 	
 
 	$('body').on('click','.insert-board-group',function(event){
+		console.log('boardGroup 클릭 이벤트');
 		$('.itemCardBodyContent').val('');
 		lectureCode = $(event.target).closest('.main-icon-menu-pane').find('.hidden-lectureCode').val();
+		getModalForm($(this),".itemCloseButton");
 	})
-	
-		getModalForm(".insert-board-group",".itemCloseButton");
 	
 	
 	$("body").on('click','.insertBoardGroupContainer .itemSaveButton',function(){
@@ -75,10 +76,12 @@ function getModalFormAddBoardGroup(){
 
 function getModalFormAddBoard(){
 	$('body').on('click','.insert-board',function(event){
+		console.log('board 클릭 이벤트');
 		$('.itemCardBodyContent').val('');
 		boardGroupNo = $(event.target).closest('.nav-item').find('.board-group').attr("data");
+		getModalForm($(this),".itemCloseButton");
 	})
-	getModalForm(".insert-board",".itemCloseButton");
+	
 	
 	$("body").on('click','.insertBoardContainer .itemSaveButton',function(){
 		
@@ -91,13 +94,10 @@ function getModalFormAddBoard(){
 				content : $('.itemCardBodyContent').val(),
 				boardGroupNo: boardGroupNo
 			}
-				
 				// 변수 var , 없이 : https://hue9010.github.io/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C/JavaScript-var/
 				//    L Scope 체인
 				// $변수 , 변수   : https://seras.tistory.com/45
 				//    L Jqeury 변수, javascript변수
-				
-				//$('.main-icon-menu-pane:first-child .metismenu').addClass('active');
 				
 			}).done(function(data){
 				$.magnificPopup.close();
@@ -114,14 +114,6 @@ function getModalFormAddBoard(){
 }
 
 function editAbleBoard(){
-	 /*$(".nav-item").hover(function(event){
-			$(event.target).closest('li').find('.group_icon').css("display","block");
-		},
-		function(){
-			$(event.target).closest('li').find('.group_icon').css("display","none");
-		}
-	)*/
-	
 	
 	$("body").on({
 			mouseover: function(event){
@@ -132,12 +124,6 @@ function editAbleBoard(){
 			}
 		},".nav-item")
 		
-	/*,
-		function(){
-			$(event.target).closest('li').find('.group_icon').css("display","none");
-		}
-	)*/
-	
 	
 }
 
@@ -148,7 +134,7 @@ function editBoardGroupTitle(){
       
       const boardGroupNo = $('.metismenu .nav-link:contains('+boardGroupName+')').attr("data");
       
-      if(changeTitle.length == 0){
+      if(changeName.length == 0){
     	  $('#changeTitle').closest('.formGroupElement').append(
     			 '<p class="error">바꿀 이름을 정해주세요</p>'
     	  );

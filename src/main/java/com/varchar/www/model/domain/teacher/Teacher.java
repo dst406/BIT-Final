@@ -13,7 +13,7 @@ public class Teacher {
 	private String authorityName;
 	private String userName;
 	private String userId;
-	private String userPw;
+	private String userPassword;
 	private String userBirth;
 	private String userBirthEnco;
 	private String userTel;

@@ -62,9 +62,9 @@
 								<div th:each="teacher : ${teacherList}" class="col-lg-3">
 									<div class="card client-card">
 										<div class="card-body text-center">
-											<img th:src="'/img/' + ${teacher.userImage}"
-												class="rounded-circle thumb-lg" style="margin-bottom: 10px;">
-
+											<img th:src="'/userImg/' + ${teacher.userImage}"
+												class="thumb-lg" style="margin-bottom: 10px;"
+												>
 											<h5 th:text="${teacher.userName}" class="client-name"></h5>
 											<span th:text="${teacher.userRemark}" class="text-muted mr-3"></span>
 											<a th:href="'/teacher/getTeacherInfo/'+${teacher.userId}">정보보기</a>

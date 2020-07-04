@@ -34,8 +34,8 @@
 											<!-- 원장정보시작 -->
 											<div th:each="manager : ${managerList}" class="media p-1 align-items-center">
 												<div class="media-body ml-3 align-self-center">
-													<img th:src="'/img/' + ${manager.userImage}"
-														class="rounded-circle thumb-lg">
+													<img th:src="'/userImg/' + ${manager.userImage}"
+														class="thumb-lg userThumbImg">
 													<h5
 														th:text="${manager.userRemark} + ' ' + ${manager.userName}"
 														class="m-0 font-25 font-weight-semibold">원장 진보형</h5>
@@ -56,13 +56,12 @@
 								</div>
 							</div>
 
-							<div class="row">
+							<div class="row">	
 								<div th:each="teacher : ${teacherList}" class="col-lg-3">
 									<div class="card client-card">
 										<div class="card-body text-center">
-											<img th:src="'/img/' + ${teacher.userImage}"
-												class="rounded-circle thumb-lg" style="margin-bottom: 10px;"
-												>
+											<img th:src="'/userImg/' + ${teacher.userImage}"
+												class="thumb-lg userThumbImg" style="margin-bottom: 10px;">
 											<h5 th:text="${teacher.userName}" class="client-name"></h5>
 											<span th:text="${teacher.userRemark}" class="text-muted mr-3"></span>
 											<a th:href="'/manager/getManagerTeacherInfo/'+${teacher.userId}">정보보기</a>

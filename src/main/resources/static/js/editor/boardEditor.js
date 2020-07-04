@@ -56,7 +56,7 @@ function addPostSubmit(){
 
 //임시저장
 function addTemporaryPostSubmit(){
-	$('.temporarySaveButton').on('click',function(){
+	$('body').on('click','.temporarySaveButton',function(){
 		addContentsAsTextarea();
 		$('#postTitle').val( $('textarea#postTitleArea').val() );
 		$.ajax({
@@ -147,31 +147,3 @@ function qlHeadercursor(){
 
 
 
-// ------------------------text event 샘플 ----------------------------------
-
-
-function ql_header(){
-	$('.ql_header').on('click',function(event){
-		var target_header = '<h'+$(event.target).closest('button').val()+'/>';
-		
-		 /*var stringHeader = $(target_header, {
-		        'text': document.getSelection()
-		    }).prop('outerHTML');
-		    */
-		 var stringHeader = $(target_header, {
-		        'text': document.getSelection()
-		    }).prop('outerHTML');
-		    
-	    document.execCommand('insertHTML', false, stringHeader);
-	})
-}
-
-
-var execH3Element = function () {
-	//getSelection = 드래그 한 영역
-	//드래그 안하고 H 태그 눌렀을때 나와야하는 로직이 생성되야함., IF문같은거
-    var spanString = $('<h3/>', {
-        'text': document.getSelection()
-    }).prop('outerHTML');
-    document.execCommand('insertHTML', false, spanString);
-}

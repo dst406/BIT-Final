@@ -44,6 +44,7 @@ public class ResponseTeacherController {
 	// 강사가 본인 이미지를 업로드
 	@PostMapping("/image/upload")
 	public void putTeacherImage(MultipartFile imgFile) {
+		System.out.println("왔냠 ;;");
 		managerService.uploadManagerImage(imgFile);
 	}
 
@@ -60,19 +61,6 @@ public class ResponseTeacherController {
 		System.err.println(approvalType);
 		return approvalService.getApprovalTeacherType(cri, approvalType, userId);
 	}
-	
-	// 출근
-	@GetMapping("/come")
-	public String teacherCome(@AuthenticationPrincipal AcademyUser user) {
-		teacherService.insertTeacherComeTime(user.getUserId());
-		return "redirect:/getTeacherTimeCard/" + user.getUserId();
-	}
-	
-	// 퇴근
-	@GetMapping("/go")
-	public String teacherGo(@AuthenticationPrincipal AcademyUser user) {
-		teacherService.insertTeacherGoTime(user.getUserId());
-		return "redirect:/getTeacherTimeCard/" + user.getUserId();
-	}
+
 	
 }

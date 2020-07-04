@@ -17,7 +17,7 @@
 		user_name, user_tel, user_birth, user_email, user_address,
 		user_registration, user_remark)
 		VALUES(#{userImage},#{userId}, '2',
-		'111111', #{userName}, #{userTel}, #{userBirth}, #{userEmail},
+		#{userPassword}, #{userName}, #{userTel}, #{userBirth}, #{userEmail},
 		#{userAddress}, (select sysdate from dual), #{userRemark})
 	</insert>
 	<!-- 원장의 강사등록(경력부분) -->
@@ -266,6 +266,10 @@
 			AND attendance_come_time < to_date((select sysdate from dual), 'yy/mm/dd') +1)
 		]]>
 	</select>
-
+	
+	<select id="isAttendance" resultType="String">
+		    SELECT attendance_state_code FROM attendance  WHERE user_id = 'teach' 
+		    AND TO_CHAR( attendance_come_time, 'yy/mm/dd') =  TO_CHAR( (select sysdate from dual), 'yy/mm/dd') 
+	</select>
 
 </mapper>

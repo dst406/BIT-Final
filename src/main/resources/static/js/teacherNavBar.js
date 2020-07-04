@@ -14,7 +14,8 @@ function attendance(){
 		event.preventDefault();
 		$.ajax({
 			url:"/teacher/come"
-		}).done(function(){
+		}).done(function(data){
+			$('.navbar-custom').html(data);
 			nowTime("출근");
 			
 		})
@@ -24,7 +25,8 @@ function attendance(){
 		event.preventDefault();
 		$.ajax({
 			url:"/teacher/go"
-		}).done(function(){
+		}).done(function(data){
+			$('.navbar-custom').html(data);
 			nowTime("퇴근");
 		})
 	})
@@ -33,20 +35,22 @@ function attendance(){
 	function nowTime(attendance){
 		var now = new Date();
 		var nowTime = now.getFullYear();
-		var nowMonth = (now.getMonth() + 1 );
-			nowMonth = nowMonth < 10 ? "0"+nowMonth : nowMonth; 
-		var nowDate = ( now.getDate() < 10 ? "0"+now.getDate() : now.getDate() );
-			
-		nowTime += '-' + nowMonth;
-		nowTime += '-' + nowDate;
-		nowTime += ' ' + now.getHours();
-		nowTime += ':' + now.getMinutes();
-		nowTime += ':' + now.getSeconds();
+	
+		nowTime += '-' + isLowTime((now.getMonth() + 1 ));
+		nowTime += '-' + isLowTime( now.getDate()) ;
+		nowTime += ' ' + isLowTime( now.getHours() );
+		nowTime += ':' + isLowTime( now.getMinutes() );
+		nowTime += ':' + isLowTime( now.getSeconds() );
 		$('#attendanceTime').text(nowTime+" "+attendance+"완료");
 		
 		setInterval(function(){
 			$("#attendanceTime").text("");
 		},5000);
+	}
+	
+	function isLowTime(time){
+		time = time < 10 ? "0"+time : time;
+		return time;
 	}
 	
 }

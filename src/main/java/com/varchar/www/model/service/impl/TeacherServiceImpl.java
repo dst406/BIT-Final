@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,12 +24,13 @@ public class TeacherServiceImpl implements TeacherService{
 	@Autowired
 	private TeacherDAO teacherdao;
 	
-	private static final String uploadDirectory = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
+	//private static final String uploadDirectory = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
+	private static final String uploadDirectory ="C:/varchar/userImg/";
 	
 	//강사 등록
 	@Override
 	public void insertTeacher(Teacher teacher) {
-		System.err.println(teacher);
+		teacher.setUserPassword(new BCryptPasswordEncoder().encode(teacher.getUserPassword()));
 		teacherdao.insertTeacher(teacher);
 		teacherdao.insertCareer(teacher);
 	}
@@ -66,11 +68,6 @@ public class TeacherServiceImpl implements TeacherService{
 	}
 
 	
-	/*
-	 * @Override public List<Attendance> getTeacherTimeCardByDate(String
-	 * attendanceGoTime) { return
-	 * teacherdao.getTeacherTimeCardByDate(attendanceGoTime); }
-	 */
 
 
 	@Override
@@ -91,7 +88,10 @@ public class TeacherServiceImpl implements TeacherService{
 		}
 		
 		try {
+			System.out.println("여기왔음 ? ");
 			file = new File(uploadDirectory + imgFile.getOriginalFilename());
+			
+			System.out.println(imgFile.getOriginalFilename());
 			imgFile.transferTo(file);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
@@ -127,13 +127,11 @@ public class TeacherServiceImpl implements TeacherService{
 	@Override
 	public List<AttendanceState> getAttendanceState() {
 		List<AttendanceState> list = teacherdao.getAttendanceState();
-		//System.err.println(list);
 		return list;
 	}
 
 	@Override
 	public int getTeacherTimeCardAccount(String userId) {
-		// TODO Auto-generated method stub
 		return teacherdao.getTeacherTimeCardAccount(userId);
 	}
 
@@ -152,6 +150,11 @@ public class TeacherServiceImpl implements TeacherService{
 	public void insertTeacherGoTime(String userId) {
 		teacherdao.insertTeacherGoTime(userId);
 		
+	}
+
+	@Override
+	public String isAttendance(String userId) {
+		return teacherdao.isAttendance(userId);
 	}
 
 	
