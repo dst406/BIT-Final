@@ -12,7 +12,7 @@
 				
 	
 		<!-- Navbar -->
-		<nav class="navbar-custom">
+		<nav class="navbar-custom" th:with="auth= ${#authentication.Principal }">
 			<ul class="list-unstyled topbar-nav float-right mb-0 profile-area">
 				<li class="dropdown notification-list"><a 
 					class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown"
@@ -58,6 +58,11 @@
 						</a>
 					</div></li>
 					
+				<li class="dropdown">
+						<a class="nav-link dropdown-toggle nav-user" href="">
+							<span class="ml-1 nav-user-name hidden-sm" id="attendanceTime" style="font-size:.5rem"></span>
+						</a>
+					</li>
 					
 				<li class="dropdown"><a
 					class="nav-link dropdown-toggle nav-user" data-toggle="dropdown"
@@ -66,18 +71,18 @@
 						class="rounded-circle">
 						 
 						 
-						  <th:block th:if=" ${#authentication.Principal.authorityCode} == 1">
-								<span th:text="${#authentication.Principal.userName} + '&nbsp; 원장님'"
+						  <th:block th:if=" ${auth.authorityCode} == 1">
+								<span th:text="${auth.userName} + '&nbsp; 원장님'"
 								class="ml-1 nav-user-name hidden-sm">Robert</span> 
 						</th:block>
 						 
-						 <th:block th:if=" ${#authentication.Principal.authorityCode} == 2">
-								<span th:text="${#authentication.Principal.userName} + '&nbsp; 강사님'"
+						 <th:block th:if=" ${auth.authorityCode} == 2">
+								<span th:text="${auth.userName} + '&nbsp; 강사님'"
 								class="ml-1 nav-user-name hidden-sm">Robert </span>
 						</th:block>
 						
-							 <th:block th:if=" ${#authentication.Principal.authorityCode} == 3">
-								<span th:text="${#authentication.Principal.userName} "
+							 <th:block th:if=" ${auth.authorityCode} == 3">
+								<span th:text="${auth.userName} "
 								class="ml-1 nav-user-name hidden-sm">Robert </span>
 						</th:block>
 						</a>
@@ -100,8 +105,31 @@
 				  		<path d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2z"/>
 					    <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2zM1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
 					</svg>  내 강의</a> 
+						
+						
+						<th:block th:if=" ${auth.authorityCode} != 3">
+							
+					<a class="dropdown-item" href="" id="come-btn">
+					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-journals" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  		<path d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2z"/>
+					    <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2zM1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+					</svg>  출근 </a> 
+					
+					
+					<a class="dropdown-item" href="" id="go-btn">
+					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-journals" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  		<path d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2z"/>
+					    <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2zM1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+					</svg>  퇴근 </a> 
 						<div class="dropdown-divider"></div>
+							
+						</th:block>
+							
+						<div class="dropdown-divider"></div>
+						
 						<a class="dropdown-item bg-light" th:href="@{/logout}">
+							
+							
 										
 						
 						<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-door-open" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -111,7 +139,9 @@
 						</svg>
 						
 						 로그아웃</a>
-					</div></li>
+					</div>
+					</li>
+					
 			</ul>
 			<!--end topbar-nav-->
 			<ul class="list-unstyled topbar-nav mb-0">
@@ -121,6 +151,7 @@
 							class="form-control ui-autocomplete-input" autocomplete="off">
 						<a href=""><i class="fas fa-search"></i></a>
 					</div></li>
+					
 			</ul>
 		</nav>
 		<!-- end navbar-->

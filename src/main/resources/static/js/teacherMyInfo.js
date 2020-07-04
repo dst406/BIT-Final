@@ -1,6 +1,5 @@
 $(function(){
 	imgUpload();
-	attendance();
 })
 
 function imgUpload(){
@@ -56,15 +55,4 @@ function imgUpload(){
 			alert('teacher update fail')
 		})
 	})
-}
-
-function attendance(){
-	$('#come-btn').on('click', function(){
-		location.href = "/teacher/come";
-	})
-	
-	$('#go-btn').on('click', function(){
-		location.href = "/teacher/go";
-	})
-	
 }

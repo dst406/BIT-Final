@@ -3,6 +3,7 @@ package com.varchar.www.controller.response;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,18 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.varchar.www.login.AcademyUser;
 import com.varchar.www.model.domain.approval.ApprovalVO;
 import com.varchar.www.model.domain.page.Criteria;
 import com.varchar.www.model.domain.teacher.TeacherVO;
 import com.varchar.www.model.service.ApprovalService;
 import com.varchar.www.model.service.ManagerService;
+import com.varchar.www.model.service.TeacherService;
 
 @RestController
 @RequestMapping("/teacher")
 public class ResponseTeacherController {
 
-	@Autowired
-	private ManagerService managerService;
+	@Autowired private ManagerService managerService;
+	
+	@Autowired	private TeacherService teacherService;
 	
 	@Autowired private ApprovalService approvalService;
 
@@ -56,5 +60,19 @@ public class ResponseTeacherController {
 		System.err.println(approvalType);
 		return approvalService.getApprovalTeacherType(cri, approvalType, userId);
 	}
-
+	
+	// 출근
+	@GetMapping("/come")
+	public String teacherCome(@AuthenticationPrincipal AcademyUser user) {
+		teacherService.insertTeacherComeTime(user.getUserId());
+		return "redirect:/getTeacherTimeCard/" + user.getUserId();
+	}
+	
+	// 퇴근
+	@GetMapping("/go")
+	public String teacherGo(@AuthenticationPrincipal AcademyUser user) {
+		teacherService.insertTeacherGoTime(user.getUserId());
+		return "redirect:/getTeacherTimeCard/" + user.getUserId();
+	}
+	
 }

@@ -3,33 +3,47 @@
 <mapper namespace="com.varchar.www.model.dao.TeacherDAO">
 
 	<!-- 유저 갯수 -->
-	<select id="getTeacherAccount" parameterType="String" resultType="int">
-		SELECT count(*) FROM academy_user WHERE authority_code = #{authorityCode}
+	<select id="getTeacherAccount" parameterType="String"
+		resultType="int">
+		SELECT count(*) FROM academy_user WHERE authority_code =
+		#{authorityCode}
 	</select>
 
 	<!-- 원장의 강사등록(개인정보부분) -->
-	<insert id="insertTeacher" parameterType="com.varchar.www.model.domain.teacher.Teacher">
-		INSERT INTO academy_user(user_image,user_id,authority_code,user_password, user_name, user_tel, user_birth, user_email, user_address, user_registration, user_remark)
-		VALUES(#{userImage},#{userId}, '2', '111111', #{userName}, #{userTel}, #{userBirth}, #{userEmail}, #{userAddress}, (select sysdate from dual), #{userRemark})
+	<insert id="insertTeacher"
+		parameterType="com.varchar.www.model.domain.teacher.Teacher">
+		INSERT INTO
+		academy_user(user_image,user_id,authority_code,user_password,
+		user_name, user_tel, user_birth, user_email, user_address,
+		user_registration, user_remark)
+		VALUES(#{userImage},#{userId}, '2',
+		'111111', #{userName}, #{userTel}, #{userBirth}, #{userEmail},
+		#{userAddress}, (select sysdate from dual), #{userRemark})
 	</insert>
 	<!-- 원장의 강사등록(경력부분) -->
-	<insert id="insertCareer" parameterType="com.varchar.www.model.domain.teacher.Teacher">
-		INSERT INTO career(career_no, user_id, career_period, career_location, career_content, academic_background) 
+	<insert id="insertCareer"
+		parameterType="com.varchar.www.model.domain.teacher.Teacher">
+		INSERT INTO career(career_no, user_id, career_period,
+		career_location, career_content, academic_background)
 		VALUES(SEQ_ID.NEXTVAL,#{userId},#{careerPeriod},#{careerLocation},#{careerContent},#{academicBackGround})
 	</insert>
-	
-	<!-- 원장의 강사조회 (경력제외한 다른부분)-->
-	<select id="getTeacherInfo" parameterType="String" resultType="com.varchar.www.model.domain.teacher.TeacherVO">
-		SELECT au.*, to_char(au.user_birth, 'yyyy-MM-dd') AS user_birth_enco FROM academy_user au WHERE user_id = #{userId}
+
+	<!-- 원장의 강사조회 (경력제외한 다른부분) -->
+	<select id="getTeacherInfo" parameterType="String"
+		resultType="com.varchar.www.model.domain.teacher.TeacherVO">
+		SELECT au.*, to_char(au.user_birth, 'yyyy-MM-dd') AS
+		user_birth_enco FROM academy_user au WHERE user_id = #{userId}
 	</select>
 	<!-- 원장의 강사조회(경력부분) -->
 	<!-- 경력은 여러 행 나올 수 있어 따로 가져와서 나열합니다. -->
-	<select id="getTeacherCareer" parameterType="String" resultType="com.varchar.www.model.domain.manager.CareerVO">
-		SELECT * FROM career WHERE user_id = #{userId}	
+	<select id="getTeacherCareer" parameterType="String"
+		resultType="com.varchar.www.model.domain.manager.CareerVO">
+		SELECT * FROM career WHERE user_id = #{userId}
 	</select>
-	
+
 	<!-- 원장의 강사 출퇴근기록부 조회 -->
-	<select id="getManagerTeacherTimeCard" resultType="com.varchar.www.model.domain.manager.Attendance">
+	<select id="getManagerTeacherTimeCard"
+		resultType="com.varchar.www.model.domain.manager.Attendance">
 		
 		<![CDATA[
 		SELECT *
@@ -46,21 +60,25 @@
 		ORDER BY attendance_go_time DESC)
 		WHERE rn > (#{cri.pageNum} -1)*#{cri.amount}
 		]]>
-		
+
 	</select>
-	
-	<select id="getManagerTeacherTimdCardAccount" parameterType="String" resultType="int">
-	
+
+	<select id="getManagerTeacherTimdCardAccount"
+		parameterType="String" resultType="int">
+
 		SELECT
 		COUNT(*)
 		FROM attendance a
-		INNER JOIN attendance_state atts ON a.attendance_state_code = atts.attendance_state_code
-		INNER JOIN academy_user ac ON ac.user_id=a.user_id
-	
+		INNER JOIN attendance_state atts ON
+		a.attendance_state_code = atts.attendance_state_code
+		INNER JOIN
+		academy_user ac ON ac.user_id=a.user_id
+
 	</select>
-	
+
 	<!-- 강사의 본인 출퇴근 기록부 조회 -->
-	<select id="getTeacherTimeCard" resultType="com.varchar.www.model.domain.manager.Attendance">
+	<select id="getTeacherTimeCard"
+		resultType="com.varchar.www.model.domain.manager.Attendance">
 	<![CDATA[
 		SELECT * 
 		FROM
@@ -79,15 +97,17 @@
 			rn > (#{cri.pageNum} - 1) * #{cri.amount}
 	]]>
 	</select>
-	
+
 	<!-- 원장이 강사를 삭제 -->
-	
+
 	<delete id="deleteTeacher" parameterType="String">
-		DELETE FROM academy_user WHERE user_id=#{userId}
+		DELETE FROM
+		academy_user WHERE user_id=#{userId}
 	</delete>
-	
+
 	<!-- 원장이 강사의 출퇴근부를 날짜, 상태별로 조회 -->
-	<select id="getTeacherTimeCardByDate" resultType="com.varchar.www.model.domain.manager.Attendance">
+	<select id="getTeacherTimeCardByDate"
+		resultType="com.varchar.www.model.domain.manager.Attendance">
 		<![CDATA[
 			SELECT *
 			FROM
@@ -109,8 +129,9 @@
 				rn > (#{cri.pageNum} - 1) * #{cri.amount}
 		]]>
 	</select>
-	
-	<select id="getAttendanceType" resultType="com.varchar.www.model.domain.manager.Attendance">
+
+	<select id="getAttendanceType"
+		resultType="com.varchar.www.model.domain.manager.Attendance">
 	<![CDATA[
 		SELECT *
 		FROM
@@ -129,8 +150,9 @@
 			rn > (#{cri.pageNum} - 1) * #{cri.amount}
 	]]>
 	</select>
-	
-	<select id="getAttendanceSearch" resultType="com.varchar.www.model.domain.manager.Attendance">
+
+	<select id="getAttendanceSearch"
+		resultType="com.varchar.www.model.domain.manager.Attendance">
 	<![CDATA[
 		SELECT *
 		FROM
@@ -149,17 +171,22 @@
 			rn > (#{cri.pageNum} - 1) * #{cri.amount}
 	]]>
 	</select>
-	
-	<select id="getAttendanceTypeAccount" parameterType="String" resultType="int">
-		SELECT 
-			count(*)
+
+	<select id="getAttendanceTypeAccount" parameterType="String"
+		resultType="int">
+		SELECT
+		count(*)
 		FROM attendance a
-		INNER JOIN attendance_state atts ON a.attendance_state_code = atts.attendance_state_code
-		INNER JOIN academy_user ac ON ac.user_id=a.user_id
-		WHERE authority_code = '2' AND a.attendance_state_code = #{attendanceStateName}
+		INNER JOIN attendance_state atts ON
+		a.attendance_state_code = atts.attendance_state_code
+		INNER JOIN
+		academy_user ac ON ac.user_id=a.user_id
+		WHERE authority_code = '2' AND
+		a.attendance_state_code = #{attendanceStateName}
 	</select>
-	
-	<select id="getTeacherTimeCardByDateAccount" parameterType="String" resultType="int">
+
+	<select id="getTeacherTimeCardByDateAccount"
+		parameterType="String" resultType="int">
 		<![CDATA[
 			SELECT 
 				count(*)
@@ -169,7 +196,7 @@
 			WHERE authority_code = '2' AND a.attendance_go_time >= TO_DATE(#{attendanceGoTime}, 'YY/MM/DD') AND a.attendance_go_time < TO_DATE(#{attendanceGoTime}, 'YY/MM/DD') + 1
 		]]>
 	</select>
-	
+
 	<select id="getAttendanceSearchAccount" resultType="int">
 		<![CDATA[
 			SELECT 
@@ -180,31 +207,39 @@
 			WHERE authority_code = '2' AND a.attendance_state_code = #{attendanceStateName} AND a.attendance_go_time >= TO_DATE(#{attendanceGoTime}, 'YY/MM/DD') AND a.attendance_go_time < TO_DATE(#{attendanceGoTime}, 'YY/MM/DD') + 1
 		]]>
 	</select>
-	
-	<select id="getAttendanceState" resultType="com.varchar.www.model.domain.teacher.AttendanceState">
+
+	<select id="getAttendanceState"
+		resultType="com.varchar.www.model.domain.teacher.AttendanceState">
 		SELECT * FROM attendance_state
 	</select>
-	
-	<select id="getTeacherTimeCardAccount" parameterType="String" resultType="int">
-		SELECT 
-			count(*)
+
+	<select id="getTeacherTimeCardAccount" parameterType="String"
+		resultType="int">
+		SELECT
+		count(*)
 		FROM attendance a
-			INNER JOIN attendance_state atts ON a.attendance_state_code = atts.attendance_state_code
-			INNER JOIN academy_user ac ON ac.user_id = a.user_id
-		WHERE a.user_id = #{userId}
+		INNER JOIN attendance_state atts ON a.attendance_state_code =
+		atts.attendance_state_code
+		INNER JOIN academy_user ac ON ac.user_id = a.user_id
+		WHERE a.user_id =
+		#{userId}
 	</select>
-	
-	<select id="getTeacherListAll" resultType="com.varchar.www.model.domain.teacher.Teacher">
-	
-	SELECT * FROM academy_user WHERE authority_code='2'
-	
+
+	<select id="getTeacherListAll"
+		resultType="com.varchar.www.model.domain.teacher.Teacher">
+
+		SELECT * FROM academy_user WHERE authority_code='2'
+
 	</select>
-	
+
 	<insert id="insertTeacherComeTime" parameterType="String">
-		INSERT INTO attendance(attendance_no, user_id, attendance_state_code, attendance_come_time)
-		VALUES(SEQ_ID.NEXTVAL, #{userId}, 'ATTENDANCE_INTIME' ,(SELECT sysdate FROM dual))
+		INSERT INTO
+		attendance(attendance_no, user_id, attendance_state_code,
+		attendance_come_time)
+		VALUES(SEQ_ID.NEXTVAL, #{userId},
+		'ATTENDANCE_INTIME' ,(SELECT sysdate FROM dual))
 	</insert>
-	
+
 	<update id="insertTeacherGoTime" parameterType="String">
 		<![CDATA[
 			UPDATE 
@@ -218,7 +253,7 @@
 			AND user_id = #{userId}
 		]]>
 	</update>
-	
+
 	<select id="teacherGoTimeAccount" resultType="int">
 		<![CDATA[
 			SELECT 
@@ -231,6 +266,6 @@
 			AND attendance_come_time < to_date((select sysdate from dual), 'yy/mm/dd') +1)
 		]]>
 	</select>
-	
-	
+
+
 </mapper>

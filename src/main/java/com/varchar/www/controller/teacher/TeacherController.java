@@ -127,17 +127,7 @@ public class TeacherController {
 		return "teacher/getTeacherMyInfo";
 	}
 	
-	@GetMapping("/teacher/come")
-	public String teacherCome(@AuthenticationPrincipal AcademyUser user) {
-		teacherService.insertTeacherComeTime(user.getUserId());
-		return "redirect:/getTeacherTimeCard/" + user.getUserId();
-	}
-	
-	@GetMapping("/teacher/go")
-	public String teacherGo(@AuthenticationPrincipal AcademyUser user) {
-		teacherService.insertTeacherGoTime(user.getUserId());
-		return "redirect:/getTeacherTimeCard/" + user.getUserId();
-	}
+
 	
 	@GetMapping("/teacher/getManagerInfo")
 	public String getManagerInfo(Model model) {
