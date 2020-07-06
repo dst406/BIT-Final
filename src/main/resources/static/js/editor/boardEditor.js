@@ -26,7 +26,7 @@ function deleteTemporaryPost(){
 		event.preventDefault();
 		var $target = $(this).find('i');
 		$.ajax({
-			url:"/deleteTemporaryPost",
+			url:"/board/deleteTemporaryPost",
 			data : {
 				temporaryNo:$target.attr('temporaryno')
 			}
@@ -36,25 +36,10 @@ function deleteTemporaryPost(){
 	})
 }
 
-//function editorScroll(){
-//	 console.log( $('.editorDIV').height());
-//	$('.editorDIV *').on('change',function(){
-//		console.log('edit change');
-//		if( $('.editorDIV').height() > 552 ){
-//			console.log('min !!');	
-//			$('.editorDIV').attr('style','overflow-y:scroll');
-//		}else{
-//			console.log('maX !!');	
-//			$('.editorDIV').attr('style','overflow-y:hidden');
-//		}
-//	})
-//	
-//}
-
-
 //게시글 등록
 function addPostSubmit(){
-	$('.saveButton').on('click',function(){
+	$('body').on('click','#saveButton , #updateButton',function(){
+		console.log('왔얼');
 		addContentsAsTextarea();
 		$('#postTitle').val( $('textarea#postTitleArea').val() );
 		var previewText = $('.editorDIV *').text();
@@ -71,12 +56,12 @@ function addPostSubmit(){
 
 //임시저장
 function addTemporaryPostSubmit(){
-	$('.temporarySaveButton').on('click',function(){
+	$('body').on('click','.temporarySaveButton',function(){
 		addContentsAsTextarea();
 		$('#postTitle').val( $('textarea#postTitleArea').val() );
 		$.ajax({
 			type:'POST',
-			url:'/insertTemporaryPost',
+			url:'/board/insertTemporaryPost',
 			data:{
 				boardNo : $('#boardNo').val(),
 				temporaryTitle: $('#postTitle').val(),
@@ -113,7 +98,6 @@ function qlHeadercursor(){
 	
 	//H1, H2, H3, H4
 	$('.ql_header').on('click',function(event){
-		console.log(window.getSelection());
 		document.execCommand("formatBlock",null,'H'+$(event.target).closest('button').val());
 	})
 	
@@ -122,11 +106,20 @@ function qlHeadercursor(){
 		document.execCommand($(this).val(),null,document.getSelection());
 	})
 	
+	
+	//algin
+	$('.ql_text_align').on('click',function(){
+		document.execCommand($(this).val());
+	})
 
 	// BlackQuote
 	$('.ql_quote').on('click',function(event){
 		document.execCommand("formatBlock",null,"BLOCKQUOTE");
 	})
+	
+	
+	
+	
 	
 	//link ql_link
 	$('.ql_link').on('click',function(event){
@@ -154,31 +147,3 @@ function qlHeadercursor(){
 
 
 
-// ------------------------text event 샘플 ----------------------------------
-
-
-function ql_header(){
-	$('.ql_header').on('click',function(event){
-		var target_header = '<h'+$(event.target).closest('button').val()+'/>';
-		
-		 /*var stringHeader = $(target_header, {
-		        'text': document.getSelection()
-		    }).prop('outerHTML');
-		    */
-		 var stringHeader = $(target_header, {
-		        'text': document.getSelection()
-		    }).prop('outerHTML');
-		    
-	    document.execCommand('insertHTML', false, stringHeader);
-	})
-}
-
-
-var execH3Element = function () {
-	//getSelection = 드래그 한 영역
-	//드래그 안하고 H 태그 눌렀을때 나와야하는 로직이 생성되야함., IF문같은거
-    var spanString = $('<h3/>', {
-        'text': document.getSelection()
-    }).prop('outerHTML');
-    document.execCommand('insertHTML', false, spanString);
-}

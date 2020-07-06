@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/managerLayout">
+<title>원장-강의목록</title>
+<head>
+<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript" src="/js/lectureStudent.js"></script>
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="page-wrapper">
+			<!-- Page Content-->
+			<div class="page-content-tab">
+				<div class="container">
+
+					<!-- 공간   -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box">
+								<h2 class="page-title">강의학생</h2>
+							</div>
+
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+											<h4 class="page-title">학생리스트</h4>
+											<hr>
+											<input id="lecture-code" type="hidden"
+												th:value="${lectureCode}">
+											<div class="row">
+												<div class="col-sm-12">
+													<table id="datatable" class="table dataTable no-footer"
+														role="grid" aria-describedby="datatable_info">
+														<thead class="thead-light">
+															<tr role="row">
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">번호</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 100px;">아이디</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Email: activate to sort column ascending"
+																	style="width: 100px;">이름</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 120px;">학생 전화번호</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Phone No: activate to sort column ascending"
+																	style="width: 120px;">학생 부모님 전화번호</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Company: activate to sort column ascending"
+																	style="width: 95px;">주소</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Status: activate to sort column ascending"
+																	style="width: 90px;">생년월일</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Status: activate to sort column ascending"
+																	style="width: 50px;">체크</th>
+
+															</tr>
+															<!-- end tr -->
+														</thead>
+														<tbody>
+															<tr th:each="student : ${studentNoLecture}">
+																<td th:text="${studentStat.count}"></td>
+																<td th:text="${student.userId}"></td>
+																<td th:text="${student.userName}"></td>
+																<td th:text="${student.userTel}"></td>
+																<td th:text="${student.userParentTel}"></td>
+																<td th:text="${student.userAddress}"></td>
+																<td th:text="${student.userBirth}"></td>
+																<td><input class="student-check" type="checkbox"
+																	th:value="${student.userId}"></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+											<button type="button" id="student-add-btn"
+												class="btn btn-primary waves-effect waves-light float-right mb-3"
+												data-toggle="modal" data-animation="bounce"
+												data-target=".bs-example-modal-lg">추가</button>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+											<h4 class="page-title">현 강의 학생</h4>
+											<hr>
+
+											<div class="row">
+												<div class="col-sm-12">
+													<table id="datatable" class="table dataTable no-footer"
+														role="grid" aria-describedby="datatable_info">
+														<thead class="thead-light">
+															<tr role="row">
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">번호</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 100px;">아이디</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Email: activate to sort column ascending"
+																	style="width: 100px;">이름</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 120px;">학생 전화번호</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Phone No: activate to sort column ascending"
+																	style="width: 120px;">학생 부모님 전화번호</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Company: activate to sort column ascending"
+																	style="width: 95px;">주소</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Status: activate to sort column ascending"
+																	style="width: 90px;">생년월일</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1"
+																	aria-label="Status: activate to sort column ascending"
+																	style="width: 50px;">체크</th>
+
+															</tr>
+															<!-- end tr -->
+														</thead>
+														<tbody>
+															<tr th:each="student : ${lectureStudent}">
+																<td th:text="${studentStat.count}"></td>
+																<td th:text="${student.userId}"></td>
+																<td th:text="${student.userName}"></td>
+																<td th:text="${student.userTel}"></td>
+																<td th:text="${student.userParentTel}"></td>
+																<td th:text="${student.userAddress}"></td>
+																<td th:text="${student.userBirth}"></td>
+																<td><input class="student-delete-check"
+																	type="checkbox" th:value="${student.userId}"></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											
+											<button type="button" id="student-delete-btn"
+												class="btn btn-primary waves-effect waves-light float-right mb-3"
+												data-toggle="modal" data-animation="bounce"
+												data-target=".bs-example-modal-lg">삭제</button>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

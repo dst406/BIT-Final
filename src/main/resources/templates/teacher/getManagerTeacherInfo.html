@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/managerLayout">
+<head>
+<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="/js/teacher.js"></script>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="page-wrapper">
+			<div class="page-content-tab">
+				<div class="container">
+					<!-- 강사정보  -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box">
+								<h4 class="page-title">강사정보</h4>
+							</div>
+							<!--end page-title-box-->
+						</div>
+						<!--end col-->
+					</div>
+
+					<div class="row">
+						<div class="col-12">
+							<div class="card h-100">
+								<div class="card-body">
+									<div class="met-profile h-100">
+										<div class="row align-items-center h-100">
+											<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
+												<div class="met-profile-main">
+													<div class="met-profile-main-pic">
+														<img th:src="'/userImg/' + ${teacherInfo.userImage}" alt=""
+															height="100" class="userInfoImg">
+													</div>
+													
+												</div>
+											</div>
+											<!--end col-->
+											<div class="col-lg-8 ml-auto" style="font-size: 18px;">
+												<ul class="list-unstyled personal-detail">
+													<li>
+														<div class="col-lg-6" style="display: inline-block;">
+															<i class="fas fa-file-signature" aria-hidden="true"></i>
+															<b>이름 </b>: <span th:text="${teacherInfo.userName}"></span>
+														</div>
+														<div class="col-lg-5" style="display: inline-block;">
+															<i class="fas fa-school" aria-hidden="true"></i> <b>이메일</b>:
+															<span th:text="${teacherInfo.userEmail}">28세</span>
+														</div>
+
+													</li>
+													<li>
+														<div class="col-lg-6" style="display: inline-block;">
+															<i class="fas fa-birthday-cake" aria-hidden="true"></i> <b>생년월일
+															</b>: <span th:text="${teacherInfo.userBirth}">1995-06-23</span>
+														</div>
+														<div class="col-lg-5" style="display: inline-block;">
+															<i class="fas fa-home" aria-hidden="true"></i> <b>담당강의
+															</b>: <span th:text="${teacherInfo.userRemark}">고등영어
+																종합A</span>
+														</div>
+													</li>
+													<li>
+														<div class="col-lg-6" style="display: inline-block;">
+															<i class="fas fa-phone" aria-hidden="true"></i> <b>연락처
+															</b>: <span th:text="${teacherInfo.userTel}">010-1234-5678</span>
+														</div>
+														<div class="col-lg-5" style="display: inline-block;">
+															<i class="fas fa-user-friends" aria-hidden="true"></i> <b>입사일</b>:
+															<span th:text="${teacherInfo.userRegistration}">2020-01-20</span>
+														</div>
+													</li>
+
+
+													<li>
+														<div class="col-lg-6" style="display: inline-block;">
+															<i class="fas fa-calendar-day" aria-hidden="true"></i> <b>주소</b>:
+															<span th:text="${teacherInfo.userAddress}">서울시 서초구
+																방배동</span>
+														</div>
+
+													</li>
+
+
+												</ul>
+											</div>
+											<!--end col-->
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+										<h4 class="header-title mt-0 mb-3 col-lg-11">강사 이력 내역</h4>
+											<!-- 경력 리스트 -->
+											<div class="row">
+												<div class="col-sm-12">
+													<table id="datatable" class="table dataTable no-footer"
+														role="grid" aria-describedby="datatable_info">
+														<thead class="thead-light">
+															<tr role="row">
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">번호</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">최종학력</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">경력기간</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">근무처</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">근무내용</th>
+															<tr>
+														</thead>
+														<tbody>
+															<tr th:each="career : ${careerList}">
+																<td th:text="${careerStat.count}"></td>
+																<td th:text="${career.academicBackGround}"></td>
+																<td th:text="${career.careerPeriod}"></td>
+																<td th:text="${career.careerLocation}"></td>
+																<td th:text="${career.careerContent}"></td>
+															</tr>
+
+
+														</tbody>
+													</table>
+
+												</div>
+											</div>
+											<!-- 경력 리스트 -->
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<button type="button" id="teacher-delete-btn"
+								class="btn btn-primary waves-effect waves-light float-right mb-3"
+								data-toggle="modal" data-animation="bounce"
+								data-target=".bs-example-modal-lg">강사삭제</button>
+							<input id="user-id" type="hidden" th:value="${teacherInfo.userId}">
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

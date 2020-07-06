@@ -12,7 +12,8 @@ spring:
      url: jdbc:log4jdbc:oracle:thin:@localhost:1521:root
      username: root
      password: 1234
-     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy  servlet:    multipart:      max-file-size:        10MB
+      max-request-size:        10MB
 
 #data-source-properties:
 #           cachePrepStmts: true
@@ -27,7 +28,6 @@ mybatis:
     cache-enabled: false
   mapper-locations: classpath:/sql/**/*.xml
   type-aliases-package: com.varchar.www.model.domain
-
 
 
 

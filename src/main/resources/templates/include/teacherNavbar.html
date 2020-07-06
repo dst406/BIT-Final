@@ -106,22 +106,10 @@
 						<li class="nav-item"><a class="nav-link"
 							href="/teacherStudentList">학생목록</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="/teacherStudentTimeCard">등하원기록부</a></li>
+							href="/getStudentTimeCard">등하원기록부</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="../jinbohyeong">성적관리</a></li>
 
-					</ul>
-					
-					<div class="title-box active">
-						<h6 class="menu-title">일정관리</h6>
-					</div>
-					<ul class="nav in mm-show">
-						<li class="nav-item"><a class="nav-link"
-							href="/jinbohyeong">학원일정</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="/jinbohyeong">강의일정</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="/jinbohyeong">나의일정</a></li>
 					</ul>
 					
 					<div class="title-box active">
@@ -131,7 +119,7 @@
 						<li class="nav-item"><a class="nav-link"
 							href="/jinbohyeong">결재신청</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="/teacherApprovalList">나의 결재목록</a></li>
+							th:href="'/getTeacherApprovalList/' + ${#authentication.Principal.userId}">나의 결재목록</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="/jinbohyeong">미정</a></li>
 					</ul>

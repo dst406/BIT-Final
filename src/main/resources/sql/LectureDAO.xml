@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.varchar.www.model.dao.LectureDAO">
 	
-	<!-- 원장이 보는 강의리스트를 띄워주는 쿼리 -->
+	<!-- 원장이 보는 강의리스트 -->
 	<select id="getManagerLectureList" resultType="lecture">
 		SELECT 
 			lec.lecture_code AS lecture_code,
@@ -20,9 +20,10 @@
 		FROM lecture lec
 			INNER JOIN season lecs on lec.season_id = lecs.season_id
 			INNER JOIN lectureroom lr on lec.lectureroom_no = lr.lectureroom_no
+		  ORDER BY lec.lecture_state_code desc, lecs.season_start_date     	
 	</select>
 	
-	<!-- 강사가 보는 강의리스트를 띄워주는 쿼리 -->
+	<!-- 강사가 보는 강의리스트 -->
 	<select id="getTeacherLectureList" resultType="lecture">
 		SELECT 
 			lec.lecture_code AS lecture_code,
@@ -40,6 +41,8 @@
 		FROM lecture lec
 			INNER JOIN season lecs on lec.season_id = lecs.season_id
 			INNER JOIN lectureroom lr on lec.lectureroom_no = lr.lectureroom_no
+		WHERE
+			lec.user_id = #{userId}
 	</select>
 	
 	<!-- 강의실 -->
@@ -57,11 +60,12 @@
 		SELECT * FROM lecturestate
 	</select>
 	
-	<!-- 강의 상세정보를 보여주는 쿼리 -->
+	<!-- 강의 상세정보 -->
 	<select id="getLectureInfo" parameterType="String" resultType="com.varchar.www.model.domain.lecture.Lecture">
 		SELECT 
 			lec.lecture_code AS lecture_code,
 			lec.lecture_name AS lecture_name,
+			lec.lecture_content AS lecture_content,
 			lecs.season_name AS season_name,
 			lecs.season_start_date AS season_start_date,
 			lecs.season_end_date AS season_end_date,
@@ -79,15 +83,182 @@
 			lec.lecture_code = #{lectureCode}
 	</select>
 	
-	<!-- 강의등록을 위한 쿼리 -->
+	<!-- 강의등록 -->
 	<insert id="insertLecture" parameterType="com.varchar.www.model.domain.lecture.LectureVO">
 		INSERT INTO lecture 
-		VALUES('bit'||seq_id.nextval,#{userId},#{seasonId},#{lectureSubjectCode},#{lectureRoomNo},#{lectureStateCode},#{lectureName},#{lectureContent},(select sysdate from dual),#{lectureCost})
+		VALUES('bit'||seq_id.nextval,#{userId},#{seasonId},#{lectureSubjectCode},#{lectureRoomNo},'LECTURE_YET',#{lectureName},#{lectureContent},(select sysdate from dual),#{lectureCost})
 	</insert>
 	
 	<!-- 원장이 강의를 삭제 -->
 	<delete id="deleteLecture" parameterType="String">
 	DELETE FROM lecture WHERE lecture_code=#{lectureCode}
 	</delete>
+	
+	<!-- 원장이 강의등록 후 강의실 배정을 위한 강의실리스트 조회 -->
+	
+	<select id="getMangerTimeTableList" resultType="com.varchar.www.model.domain.lecture.LectureTimeTable">
+		SELECT
+			lt.lecture_day AS lecture_day,
+			lt.lecture_code AS lecture_code,
+			lt.lecture_season_id AS lecture_season_id,
+			lt.lecture_allocation_time AS lecture_allocation_time,
+			lt.lecture_start_time AS lecture_start_time_enco,
+			lt.lecture_end_time AS lecture_end_time_enco,
+			lt.lecture_timetable_no AS lecture_timetable_no,
+			l.lectureroom_no AS lectureroom_no,
+			l.lecture_name as lecture_name,
+			lr.student_grade as student_grade
+		FROM lecture_timetable lt
+			INNER JOIN lecture l ON l.lecture_code = lt.lecture_code
+			INNER JOIN lectureRoom lr ON l.lectureroom_no = lr.lectureroom_no
+	</select>
+	
+	<!-- 강의 인원 파악 -->
+	<select id="getStudentNoLecture" resultType="com.varchar.www.model.domain.student.Student">
+		<![CDATA[
+			SELECT 
+				au.* 
+			FROM 
+				academy_user au 
+			WHERE 
+				(SELECT count(*) FROM academy_payment ap WHERE au.user_id = ap.user_id) <= 0 
+			AND
+				au.authority_code = '3'
+		]]>
+	</select>
+	
+	<select id="getStudentLecture" parameterType="String" resultType="com.varchar.www.model.domain.student.Student">
+		SELECT
+			 au.*
+		FROM academy_user au 
+			INNER JOIN academy_payment ap ON au.user_id = ap.user_id 
+			INNER JOIN lecture l on ap.lecture_code = l.lecture_code
+		WHERE authority_code = '3' AND ap.lecture_code = #{lectureCode}
+	</select>
+	
+	<insert id="postLectureStudent">
+		INSERT INTO academy_payment
+		VALUES(SEQ_ID.NEXTVAL, '4', #{userId}, #{lectureCode}, (SELECT sysdate FROM dual))
+	</insert>
+	
+	<delete id="deleteLectureStudent">
+		DELETE FROM academy_payment WHERE user_id = #{userId} AND lecture_code = #{lectureCode}
+	</delete>
+	
+	<select id="getLectureStatusChart" resultType="com.varchar.www.model.domain.lecture.LectureStatus">
+		SELECT
+			 ls.lecture_state_name AS status_name,
+			 count(ls.lecture_state_name) AS status_account
+		FROM lecture l
+		inner join lecturestate ls on l.lecture_state_code = ls.lecture_state_code
+		group by (ls.lecture_state_name)
+	</select>
+	
+	<select id="getLectureList" resultType="com.varchar.www.model.domain.lecture.Lecture">
+		SELECT 
+			l.lecture_code AS lecture_code,
+			ls.lecture_state_name AS lecture_state_name,
+			l.lecture_name AS lecture_name,
+			l.lectureroom_no AS lectureroom_no,
+			lr.capacity AS capacity,
+			lr.student_grade AS student_grade,
+			(SELECT au.user_name FROM academy_user au WHERE au.user_id = l.user_id) AS user_name,
+			lsub.lecture_subject_name AS lecture_subject_name,
+			s.season_start_date AS lecture_start_date,
+			s.season_end_date As lecture_finish_date,
+			s.season_name AS season_name
+		FROM 
+			lecture l
+			INNER JOIN lectureroom lr ON l.lectureroom_no = lr.lectureroom_no
+			INNER JOIN lecturestate ls ON l.lecture_state_code = ls.lecture_state_code
+			INNER JOIN lecture_subject lsub ON l.lecture_subject_code = lsub.lecture_subject_code
+			INNER JOIN season s ON l.season_id  = s.season_id
+		ORDER BY l.lectureroom_no
+	</select>
+	
+	<select id="getMyLectureList" parameterType="String" resultType="com.varchar.www.model.domain.lecture.Lecture">
+		SELECT 
+			l.lecture_code AS lecture_code,
+			ls.lecture_state_name AS lecture_state_name,
+			l.lecture_name AS lecture_name,
+			l.lectureroom_no AS lectureroom_no,
+			lsub.lecture_subject_name AS lecture_subject_name,
+			s.season_start_date AS lecture_start_date,
+			s.season_end_date As lecture_finish_date
+		FROM 
+			lecture l
+			INNER JOIN lectureroom lr ON l.lectureroom_no = lr.lectureroom_no
+			INNER JOIN lecturestate ls ON l.lecture_state_code = ls.lecture_state_code
+			INNER JOIN lecture_subject lsub ON l.lecture_subject_code = lsub.lecture_subject_code
+			INNER JOIN season s ON l.season_id  = s.season_id
+		WHERE l.user_id = #{userId}
+		ORDER BY l.lectureroom_no
+	</select>
+	
+	<insert id="postLectureTimeTable" parameterType="com.varchar.www.model.domain.lecture.LectureTimeTable">
+		INSERT INTO lecture_timetable
+		VALUES(#{lectureDay}, #{lectureCode}, (SELECT season_id FROM lecture WHERE lecture_code = #{lectureCode}), #{lectureAllocationTime},
+		TO_CHAR(#{lectureStartTime})||':00', TO_CHAR(#{lectureStartTime} + #{lectureAllocationTime})||':00', SEQ_ID.NEXTVAL)
+	</insert>
+	
+	<select id="getLectureListByState" parameterType="String" resultType="com.varchar.www.model.domain.lecture.Lecture">
+		SELECT 
+			l.lecture_code AS lecture_code,
+			ls.lecture_state_name AS lecture_state_name,
+			l.lecture_name AS lecture_name,
+			l.lectureroom_no AS lectureroom_no,
+			lr.capacity AS capacity,
+			lr.student_grade AS student_grade,
+			(SELECT au.user_name FROM academy_user au WHERE au.user_id = l.user_id) AS user_name,
+			lsub.lecture_subject_name AS lecture_subject_name,
+			s.season_start_date AS lecture_start_date,
+			s.season_end_date As lecture_finish_date,
+			s.season_name AS season_name
+		FROM 
+			lecture l
+			INNER JOIN lectureroom lr ON l.lectureroom_no = lr.lectureroom_no
+			INNER JOIN lecturestate ls ON l.lecture_state_code = ls.lecture_state_code
+			INNER JOIN lecture_subject lsub ON l.lecture_subject_code = lsub.lecture_subject_code
+			INNER JOIN season s ON l.season_id  = s.season_id
+		WHERE ls.lecture_state_name = #{lectureState}
+		ORDER BY l.lectureroom_no
+	</select>
+	
+	<!-- 원장이 강의정보를 수정 -->
+	<update id="putLecture" parameterType="com.varchar.www.model.domain.lecture.Lecture">
+	
+	UPDATE 
+		lecture
+	SET
+		lecture_name=#{lectureName},
+		season_id=#{seasonId},
+		user_id=#{userName},
+		lecture_cost=#{lectureCost},
+		lecture_content=#{lectureContent}
+	WHERE
+		lecture_code=#{lectureCode}
+		
+	</update>
+	
+	<select id="getLectureListNoFull" resultType="com.varchar.www.model.domain.lecture.Lecture">
+		<![CDATA[
+			select l.lecture_code, l.user_id, l.lecture_name, 
+			REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(l.lecture_cost)), '([0-9]{3})','\1,')), '^,','') AS lecture_cost,
+			TO_CHAR(season_start_date, 'YYYY-MM-DD') lectureStartTime,
+				(select count(*) from academy_payment ap where ap.lecture_code = l.lecture_code) as studentCount,
+				ls.lecture_subject_name as lecture_subject_name,
+				au.user_name as user_name,
+				lr.capacity as capacity
+			from lecture l
+				inner join lectureroom lr on l.lectureroom_no = lr.lectureroom_no
+				inner join lecture_subject ls on l.lecture_subject_code = ls.lecture_subject_code
+				inner join academy_user au on au.user_id = l.user_id
+				 INNER JOIN season ON l.season_id = season.season_id
+			where 
+				(select count(*) from academy_payment ap where ap.lecture_code = l.lecture_code) <  lr.capacity
+				 AND l.lecture_state_code != 'LECTURE_END'
 
+		]]>
+		
+	</select>
 </mapper>

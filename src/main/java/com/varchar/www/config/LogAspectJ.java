@@ -24,6 +24,7 @@ public class LogAspectJ {
 			obj = joinPoint.proceed();
 		}catch (Exception e) {
 			System.out.println("[Log] error : "+ joinPoint.getTarget()+"에서 오류남 !");
+			e.printStackTrace();
 		}
 
 		System.out.println("[Log] Bean Mapping  : "+obj);

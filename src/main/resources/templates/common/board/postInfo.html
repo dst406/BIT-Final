@@ -31,8 +31,8 @@
 							<div class="postForm_header_board">
 								
 								<a th:href="@{/board/postList/{boardNo}(boardNo=${posts.boardNo})}">
-									<input type="hidden" th:value="${postNo}" name="postNo"
-									id="postNo"> <b th:data-board-no="*{boardNo}" id="boardNo" th:text="*{boardName}"> [엄쌤] 일석이조 :
+									<input type="hidden" th:value="${postNo}" name="postNo" id="postNo"> 
+									<b th:data-board-no="*{boardNo}" id="boardNo" th:text="*{boardName}"> [엄쌤] 일석이조 :
 										SQLD 스터디룸</b>
 								</a>
 							</div>
@@ -46,11 +46,15 @@
 							</textarea>
 								<div class="row">
 									<div class="post-list-contents-bottom col-lg-11">
-											<a th:text="*{userId}">고재현</a>
+											<a th:text="*{userName}">고재현</a>
 											<p th:text="*{postsDate}">2020.05.18</p>
 											<p th:text="'댓글 '+*{countComment}" class="countComment">댓글 2</p>
-											<!-- <a th:if="${session['userId'] == posts.userId}" style="float: right;">삭제</a> -->
+										
+										<th:block th:if = "${#authentication.Principal.userId} == *{userId} "  >
 											<a th:data-post-no=*{postNo} class="deletePost">삭제</a>
+											<a th:href="@{/board/updatePostForm/{postNo}(postNo=${postNo})}" th:data-post-no=*{postNo} class="updatePost">수정 </a>
+											</th:block>
+											
 									</div>
 
 								</div>
@@ -82,7 +86,7 @@
 										th:data-post-no="${postList.postNo}"
 										th:data-number="${postList.postRowNum}" aria-current="page"
 										class=""
-										th:href="@{/getPost/{boardNo}/{postNo}(boardNo=${posts.boardNo},postNo=${postList.postNo})}">시리즈1</a>
+										th:href="@{/board/getPost/{boardNo}/{postNo}(boardNo=${posts.boardNo},postNo=${postList.postNo})}">시리즈1</a>
 										
 										</li>
 									
@@ -99,7 +103,8 @@
 									<div class="postListGuidePagingWrapper">
 										<div class="postNumber">
 											<span id="thisPostNumber"></span> / <span
-												th:text="*{postsDetailList[0].postListCount / 10 +1}">2</span>
+												th:text="*{postsDetailList[0].postListCount % 10 != 0 
+												? postsDetailList[0].postListCount / 10 +1 : postsDetailList[0].postListCount / 10}">2</span>
 
 										</div>
 										<div class="postListNavButton">

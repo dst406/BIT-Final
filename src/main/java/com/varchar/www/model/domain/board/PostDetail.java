@@ -13,6 +13,7 @@ public class PostDetail {
 	private int postNo;
 	private int boardNo;
 	private String userId;
+	private String userName;
 	private String boardName;
 	private String postTitle;	
 	private String postContents;

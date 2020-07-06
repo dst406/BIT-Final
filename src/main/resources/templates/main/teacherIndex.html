@@ -1,29 +1,175 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/teacherLayout">
 <head>
-<meta charset="UTF-8">
-<title>강사메인</title>
+<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="/js/teacherIndex.js"></script>
 </head>
 <body>
-<h4>강의관리</h4>
-<a href="/getTeacherLectureList">강의목록</a><br>
+	<div layout:fragment="content">
 
-<h4>학생관리</h4>
-<a href="#">학생목록</a><br>
-<a href="#">등하원기록부</a><br>
-<a href="#">성적관리</a><br>
+		<div class="page-wrapper">
+			<!-- Page Content-->
+			<div class="page-content-tab">
+				<div class="container">
 
-<h4>일정관리</h4>
-<a href="#">학원일정</a><br>
-<a href="#">강의일정</a><br>
-<a href="#">나의일정</a><br>
+					<!-- 공간   -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box">
+								<h2 class="page-title">강사의 메인</h2>
+							</div>
 
-<h4>결재관리</h4>
-<a href="/insertApproval">결재신청</a><br>
-<a href="/getTeacherApprovalList">나의결재목록</a><br>
-<a href="/getTeacherTimeCard">나의출퇴근목록</a><br>
+							<!-- row -->
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+											<h5 class="page-title">
+												전체 강의 현황 <a href="/teacher/getLectureList" style="float: right;">
+													더보기</a></h5>
+											<div id="lectureStatusChart"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- row -->
+
+							<!-- row -->
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+											<h5 class="page-title">내 강의 목록 <a href="/teacher/getTeacherLectureList" style="float: right;">
+													더보기</a></h5>
+											<div class="row">
+												<div class="col-sm-12">
+													<table id="datatable" class="table dataTable no-footer"
+														role="grid" aria-describedby="datatable_info">
+														<thead class="thead-light">
+															<tr role="row">
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">번호</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">강의명</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">강의상태</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">강의실</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">강의과목</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">강의시작일</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">강의종료일</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr th:each="lecture : ${lectureList}">
+																<td th:text="${lectureStat.count}"></td>
+																<td><a
+																	th:href="'/getLectureInfo/' + ${lecture.lectureCode}"
+																	th:text="${lecture.lectureName}"></a></td>
+																<td th:text="${lecture.lectureStateName}"></td>
+																<td th:text="${lecture.lectureroomNo}"></td>
+																<td th:text="${lecture.lectureSubjectName}"></td>
+																<td th:text="${lecture.lectureStartDate}"></td>
+																<td th:text="${lecture.lectureFinishDate}"></td>
+															</tr>
+														</tbody>
+													</table>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- row -->
+
+									<!-- row -->
+
+									<!-- row -->
+
+								</div>
+								<!-- col -->
+							</div>
+							<!-- 공간 끝 -->
+
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-body">
+											<h5 class="page-title">대기중인 내 결재 <a th:href="'/teacher/getTeacherApprovalList/' + ${#authentication.Principal.userId}" style="float: right;">
+													더보기</a></h5>
+											<div class="row">
+												<div class="col-sm-12">
+													<table id="datatable" class="table dataTable no-footer"
+														role="grid" aria-describedby="datatable_info">
+														<thead class="thead-light">
+															<tr role="row">
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 10px;">번호</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 100px;">결재내용</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">결재유형</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">신청일</th>
+																<th class="" tabindex="0" aria-controls="datatable"
+																	rowspan="1" colspan="1" aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">결재상태</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr th:each="approval : ${approvalList}">
+																<td th:text="${approvalStat.count}"></td>
+																<td th:text="${approval.approvalContent}"></td>
+																<td th:text="${approval.approvalTypeName}"></td>
+																<td th:text="${approval.approvalRegisterDate}"></td>
+																<td th:text="${approval.approvalStateName}"></td>
+															</tr>
+														</tbody>
+													</table>
+
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
 
 
-
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- content End -->
+		</div>
+	</div>
 </body>
 </html>

@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript" src="/js/managerInfo.js"></script>
 <title>원장-내정보조회</title>
 </head>
 <body>
 	<div layout:fragment="content">
 		<div class="page-wrapper">
-			Page Content
 			<div class="page-content-tab">
 				<div class="container">
 
@@ -19,64 +19,80 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="page-title-box">
-								<h2>원장의 강사상세조회 페이지 입니다.</h2>
+								<h2 th:text="${manager.userName} + '님의 정보'"></h2>
 								<div class="row">
 									<div class="col-12">
 										<div class="card">
 											<div class="card-body">
-												<p>사진</p>
-												<img class="rounded-circle thumb-lg" src="/img/user.png">
-												<p th:text="${manager.userImage}"></p>
-												<p>ID</p>
-												<p th:text="${manager.userId}"></p>
-												<p>이름</p>
-												<p th:text="${manager.userName}"></p>
-												<p>전화번호</p>
-												<p th:text="${manager.userTel}"></p>
-												<p>생년월일</p>
-												<p th:text="${manager.userBirth}"></p>
-												<p>이메일</p>
-												<p th:text="${manager.userEmail}"></p>
-												<p>주소</p>
-												<p th:text="${manager.userAddress}"></p>
-												<p>입사일</p>
-												<p th:text="${manager.userRegistration}"></p>
-												<p>비고</p>
-												<p th:text="${manager.userRemark}"></p>
+
+												<h5>사진</h5>
+												<img
+													class="rounded-circle thumb-lg" id="manager-img"
+													th:data-img="${manager.userImage}"
+													th:src="'/img/' + ${manager.userImage}"
+													style="width: 200px; height: 200px; margin-top: 10px;"
+													text-align="center">
+													<p></p><input id="manager-file" type="file"> <br> 
+
+												<h5>ID</h5>
+												<input class="form-control" id="manager-id"
+													th:value="${manager.userId}" readOnly></input>
+												<h5>이름</h5>
+
+												<input class="form-control" id="manager-name"
+													th:value="${manager.userName}"></input>
+												<h5>전화번호</h5>
+												<input class="form-control" id="manager-tel"
+													th:value="${manager.userTel}"></input>
+												<h5>생년월일</h5>
+												<input class="form-control" id="manager-birth"
+													th:value="${manager.userBirthEnco}"></input>
+												<h5>이메일</h5>
+												<input class="form-control" id="manager-email"
+													th:value="${manager.userEmail}"></input>
+												<h5>주소</h5>
+												<input class="form-control" id="manager-address"
+													th:value="${manager.userAddress}"></input>
+												<h5>입사일</h5>
+												<input class="form-control" id="manager-registration"
+													th:value="${manager.userRegistration}" readOnly></input>
+												<h5>비고</h5>
+												<input class="form-control" id="manager-remark"
+													th:value="${manager.userRemark}"></input>
 
 											</div>
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
 
-					<!-- 경력 리스트 -->
+					<!-- 경력 리스트 시작  -->
+
 					<div class="row">
 						<div class="col-sm-12">
 							<table id="datatable" class="table dataTable no-footer"
 								role="grid" aria-describedby="datatable_info">
 								<thead class="thead-light">
 									<tr role="row">
-										<th class="sorting_asc" tabindex="0" aria-controls="datatable"
+										<th class="" tabindex="0" aria-controls="datatable"
 											rowspan="1" colspan="1" aria-sort="ascending"
 											aria-label="Lead: activate to sort column descending"
 											style="width: 40px;">번호</th>
-										<th class="sorting_asc" tabindex="0" aria-controls="datatable"
+										<th class="" tabindex="0" aria-controls="datatable"
 											rowspan="1" colspan="1" aria-sort="ascending"
 											aria-label="Lead: activate to sort column descending"
 											style="width: 40px;">최종학력</th>
-										<th class="sorting_asc" tabindex="0" aria-controls="datatable"
+										<th class="" tabindex="0" aria-controls="datatable"
 											rowspan="1" colspan="1" aria-sort="ascending"
 											aria-label="Lead: activate to sort column descending"
 											style="width: 40px;">경력기간</th>
-										<th class="sorting_asc" tabindex="0" aria-controls="datatable"
+										<th class="" tabindex="0" aria-controls="datatable"
 											rowspan="1" colspan="1" aria-sort="ascending"
 											aria-label="Lead: activate to sort column descending"
 											style="width: 40px;">근무처</th>
-										<th class="sorting_asc" tabindex="0" aria-controls="datatable"
+										<th class="" tabindex="0" aria-controls="datatable"
 											rowspan="1" colspan="1" aria-sort="ascending"
 											aria-label="Lead: activate to sort column descending"
 											style="width: 40px;">근무내용</th>
@@ -94,68 +110,18 @@
 
 								</tbody>
 							</table>
-
-
-
 						</div>
 					</div>
-					<!-- 경력 리스트 -->
+
+					<!-- 경력 리스트 끝 -->
+
+					<button type="button" id="info-update-btn" th:if="${#authentication.Principal.authorityCode == '1'}"
+						class="btn btn-primary waves-effect waves-light float-right mb-3"
+						data-toggle="modal" data-animation="bounce"
+						data-target=".bs-example-modal-lg">수정하기</button>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<!-- 	<table border="1">
-		<thead>
-			<tr>
-				<th>사진</th>
-				<th>ID</th>
-				<th>이름</th>
-				<th>비밀번호</th>
-				<th>전화번호</th>
-				<th>생년월일</th>
-				<th>이메일</th>
-				<th>주소</th>
-				<th>입사일</th>
-				<th>비고</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="manager : ${getManagerInfo}">
-				<td th:text="${manager.userImage}"></td>
-				<td th:text="${manager.userId}"></td>
-				<td th:text="${manager.userName}"></td>
-				<td th:text="${manager.userPw}"></td>
-				<td th:text="${manager.userTel}"></td>
-				<td th:text="${manager.userBirth}"></td>
-				<td th:text="${manager.userEmail}"></td>
-				<td th:text="${manager.userAddress}"></td>
-				<td th:text="${manager.userRegistration}"></td>
-				<td th:text="${manager.userRemark}"></td>
-			</tr>
-		</tbody>
-	</table>
-	<p></p>
-	<table border="1">
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>최종학력</th>
-				<th>경력기간</th>
-				<th>근무처</th>
-				<th>근무내용</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="manager : ${getManagerCareer}">
-				<td th:text="${managerStat.count}"></td>
-				<td th:text="${manager.academicBackGround}"></td>
-				<td th:text="${manager.careerPeriod}"></td>
-				<td th:text="${manager.careerLocation}"></td>
-				<td th:text="${manager.careerContent}"></td>
-			</tr>
-		</tbody>
-	</table> -->
-
 </body>
 </html>

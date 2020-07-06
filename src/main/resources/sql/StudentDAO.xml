@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.varchar.www.model.dao.StudentDAO">
-	<select id="getStudentList" parameterType="String" resultType="com.varchar.www.model.domain.student.Student">
-		select * from academy_user where authority_code = #{authorityCode}
-	</select>
-	
+
+
+
 	<select id="getStudentInfo" parameterType="String" resultType="com.varchar.www.model.domain.student.Student">
 		select u.user_id, u.user_name, u.school_name, 	u.user_tel, u.user_parent_tel, u.user_birth, u.user_email, u.user_address, u.user_image, u.user_remark,
 		          a.academic_type_name
@@ -13,9 +12,89 @@
 		and u.academic_type_code = a.academic_type_code
 	</select>
 	
+	<select id="getStudentList" resultType="com.varchar.www.model.domain.student.Student">
+	<![CDATA[
+	select *
+	from (
+			select rownum rn, a.*, b.academic_type_name, ats.attendance_state_name
+			from academy_user a
+					left outer join academic_type b
+					on a.academic_type_code = b.academic_type_code
+					left outer join attendance att
+					on a.user_id = att.user_id
+					left outer join attendance_state ats
+					on att.attendance_state_code = ats.attendance_state_code
+			where authority_code = '3'
+			and rownum <= #{cri.pageNum} * #{cri.amount}
+			)
+	where rn > (#{cri.pageNum} - 1) * #{cri.amount} 
+	]]>
+	</select>
+	
+	<select id="getStudentAccount" parameterType="String" resultType="int">
+		select count(*) from academy_user where authority_code = #{authorityCode}
+	</select>
+	
+	
+	<select id="getStudentLectureList" resultType="lecture">
+		SELECT 
+			l.lecture_code AS lecture_code,
+			ls.lecture_state_name AS lecture_state_name,
+			l.lecture_name AS lecture_name,
+			l.lectureroom_no AS lectureroom_no,
+            REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(l.lecture_cost)), '([0-9]{3})','\1,')), '^,','') AS lecture_cost,
+			lr.capacity AS capacity,
+			lr.student_grade AS student_grade,
+			(SELECT au.user_name FROM academy_user au WHERE au.user_id = l.user_id) AS user_name,
+			lsub.lecture_subject_name AS lecture_subject_name,
+			s.season_start_date AS lecture_start_date,
+			s.season_end_date As lecture_finish_date,
+			s.season_name AS season_name,
+			s.season_start_time AS lectureStartTime,
+            s.season_end_time AS lectureEndTime
+		FROM 
+			lecture l
+			INNER JOIN lectureroom lr ON l.lectureroom_no = lr.lectureroom_no
+			INNER JOIN lecturestate ls ON l.lecture_state_code = ls.lecture_state_code AND ls.lecture_state_code != 'LECTURE_END'
+			INNER JOIN lecture_subject lsub ON l.lecture_subject_code = lsub.lecture_subject_code
+			INNER JOIN season s ON l.season_id  = s.season_id
+		ORDER BY  ls.lecture_state_name desc
+	</select>
+	
+	
+	<select id="getStudentMyLectureList" resultType="lecture">
+		select * from getStudentMyLectureList
+	</select>
+	
+	  <!--       CREATE OR REPLACE VIEW getStudentMyLectureList AS
+        SELECT
+            l.lecture_code AS lecture_code,
+			ls.lecture_state_name AS lecture_state_name,
+			l.lecture_name AS lecture_name,
+			l.lectureroom_no AS lectureroom_no,
+            REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(l.lecture_cost)), '([0-9]{3})','\1,')), '^,','') AS lecture_cost,
+			lr.capacity AS capacity,
+			lr.student_grade AS student_grade,
+			(SELECT au.user_name FROM academy_user au WHERE au.user_id = l.user_id) AS user_name,
+			lsub.lecture_subject_name AS lecture_subject_name,
+			s.season_start_date AS lecture_start_date,
+			s.season_end_date As lecture_finish_date,
+			s.season_name AS season_name,
+            s.season_start_time AS lectureStartTime,
+            s.season_end_time AS lectureEndTime
+        from academy_payment
+        INNER JOIN lecture l ON l.lecture_code = academy_payment.lecture_code
+        INNER JOIN lectureroom lr ON l.lectureroom_no = lr.lectureroom_no
+        INNER JOIN lecturestate ls ON l.lecture_state_code = ls.lecture_state_code AND ls.lecture_state_code != 'LECTURE_END'
+        INNER JOIN lecture_subject lsub ON l.lecture_subject_code = lsub.lecture_subject_code
+        INNER JOIN season s ON s.season_id = l.season_id
+        WHERE academy_payment.user_id = 'stu'  
+        ORDER BY l.lecture_state_code , s.season_start_date  -->
+	
+	
 	<insert id="insertStudent" parameterType="com.varchar.www.model.domain.student.Student">
-		insert into academy_user(user_id, user_name, authority_code, academic_type_code, user_birth, user_tel, user_parent_tel, school_name, user_address, user_remark, user_registration, user_image) 
-		values ('187-'||userSeq.nextval, #{userName}, '3',#{academicTypeCode},#{userBirth}, #{userTel}, #{userParentTel}, #{schoolName}, #{userAddress}, #{userRemark}, (select sysdate from dual), #{userImage})
+		insert into academy_user(user_id, user_password, user_name, authority_code, academic_type_code, user_birth, user_tel, user_parent_tel, school_name, user_address, user_remark, user_registration, user_image) 
+		values ('187-'||userSeq.nextval, #{userPassword}, #{userName}, '3',#{academicTypeCode},#{userBirth}, #{userTel}, #{userParentTel}, #{schoolName}, #{userAddress}, #{userRemark}, (select sysdate from dual), #{userImage})
 
 	</insert>
 	
@@ -28,4 +107,13 @@
 	<delete id="deleteStudent" parameterType="String">
 		delete from academy_user where user_id = #{userId}
 	</delete>
+	
+	
+	<insert id="insertLectureForPayment">
+		INSERT INTO ACADEMY_PAYMENT VALUES(
+			SEQ_ACADEMY_PAYMENT.nextval, #{paymentMethodNo}, #{userId}, #{lectureCode},
+			TO_DATE( SYSDATE , 'YYYY-MM-DD HH24:MI:SS' )
+		)
+	</insert>
+	
 </mapper>

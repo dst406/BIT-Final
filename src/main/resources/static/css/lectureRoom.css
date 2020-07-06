@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 580px;
+  height: 550px;
+  margin: 20px auto;
+}
+
+.room-list {
+	width: 50%;
+	height: 10%;
+}
+
+.detail-input select{
+	width: 50%;
+}

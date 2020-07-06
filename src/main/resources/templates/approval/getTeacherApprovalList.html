@@ -1,37 +1,134 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/teacherLayout">
 <head>
-<meta charset="UTF-8">
-<title>강사-결재목록</title>
+<link href="/css/approval.css" rel="stylesheet" type="text/css">
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="/js/approval.js" type="text/javascript"></script>
 </head>
 <body>
-	<h1>강사의 결재목록 입니다.</h1>
-	
-	<a href="/insertApproval">결재신청</a>
-	
-	<table border="1">
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>신청인</th>
-				<th>신청일</th>
-				<th>결재내용</th>
-				<th>결재상태</th>
-				
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="approval : ${approvalList}">
-				<td th:text="${approvalStat.count}"></td>
-				<td th:text="${approval.userId}"></td>
-				<td th:text="${approval.approvalRegisterDate}"></td>
-				<td th:text="${approval.approvalContent}"></td>
-				<td th:text="${approval.approvalStateName}"></td>
-				
-				
-			</tr>
-		</tbody>
-	</table>
+
+	<div layout:fragment="content">
+		<div class="page-wrapper">
+			<!-- Page Content-->
+			<div class="page-content-tab">
+				<div class="container">
+
+					<!-- 공간   -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-title-box">
+								<h2 class="page-title">강사의 결재목록</h2>
+								<input id="user-id" type="hidden" th:value="${#authentication.Principal.userId}">
+							</div>
+
+							<div class="row">
+								<div class="col-12">
+									
+									<div class="card">
+										<div class="card-body">
+										<h4 class="header-title mt-0 mb-3">요청한 결재목록</h4>
+											<select  class="custom-select custom-select-sm form-control form-control-sm" name="approval" id="approval-type"
+												style="width: 120px; font-size: 15px;">
+												<option value="all" selected="selected">전체</option>
+												<option value="결재대기">결재대기</option>
+												<option value="결재승인">결재승인</option>
+												<option value="결재반려">결재반려</option>
+											</select>
+											<p></p>
+
+											<a class="approval-insert-modal" data-mfp-src="#approval-insert" style="cursor: pointer;">결재신청</a>
+											<div id="approval-insert" class="white-popup mfp-hide">
+												<form th:action="@{/insertApproval}"
+													th:object="${approvalVO}" method="POST">
+
+													결재종류 <select name="approval-type"
+														th:field="*{approvalTypeCode}" class="form-control">
+														<option value="">결재종류</option>
+														<option value="APPROVAL_VACATION">휴가신청</option>
+														<option value="APPROVAL_EQUIPMENT">비품신청</option>
+														<option value="APPROVAL_SUGGESTION">건의사항</option>
+														<!-- <option th:each=" : ${lectureSubjectList}"
+														th:value="${lectureSubject.lectureSubjectCode}"
+														th:text="${lectureSubject.lectureSubjectName}"></option> -->
+													</select>
+
+													<p></p>
+													결재내용
+													<textarea th:field="*{approvalContent}"
+														placeholder="결재내용" class="form-control"
+														style="resize: none;"></textarea>
+													<p></p>
+
+													<input type="submit" value="등록"
+														class="btn btn-primary btn-sm px-4 mt-3 float-right mb-0"
+														id="approval-insert-btn" style="margin-left: 10px;">
+												</form>
+											</div>
+											
+											<div class="row">
+												<div class="col-sm-12">
+													<table id="datatable" class="table dataTable no-footer"
+														role="grid" aria-describedby="datatable_info">
+														<thead class="thead-light">
+															<tr role="row">
+																<th class="" tabindex="0"
+																	aria-controls="datatable" rowspan="1" colspan="1"
+																	aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 40px;">번호</th>
+																<th class="" tabindex="0"
+																	aria-controls="datatable" rowspan="1" colspan="1"
+																	aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 50px;">신청인</th>
+																<th class="" tabindex="0"
+																	aria-controls="datatable" rowspan="1" colspan="1"
+																	aria-label="Email: activate to sort column ascending"
+																	style="width: 100px;">신청일</th>
+																<th class="" tabindex="0"
+																	aria-controls="datatable" rowspan="1" colspan="1"
+																	aria-sort="ascending"
+																	aria-label="Lead: activate to sort column descending"
+																	style="width: 200px;">결재내용</th>
+																<th class="" tabindex="0"
+																	aria-controls="datatable" rowspan="1" colspan="1"
+																	aria-label="Phone No: activate to sort column ascending"
+																	style="width: 80px;">결재상태</th>
+															</tr>
+															<!-- end tr -->
+														</thead>
+														<tbody id="approval-list">
+															<tr th:each="approval : ${approvalList}">
+																<td th:text="${approvalStat.count}"></td>
+																<td th:text="${approval.userId}"></td>
+																<td th:text="${approval.approvalRegisterDate}"></td>
+																<td th:text="${approval.approvalContent}"></td>
+																<td th:text="${approval.approvalStateName}"></td>
+
+
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
 
 </body>
 </html>

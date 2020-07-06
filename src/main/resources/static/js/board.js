@@ -2,7 +2,6 @@ $(function(){
 	updateBoardInfo();
 	getMyPostList();
 	searchPosts();
-	searchPostsChange();
 	searchDateText();
 	searchDatePicker();
 	searchDateLatelyPost();
@@ -15,24 +14,45 @@ $(function(){
 })
 
 function updateBoardInfo(){
-	$(".container").on('focusout','.board_contents_text, .board_title_text',function(){
-		var boardNo = $('#boardName').attr('data-board-no') ;
-		var boardName = $('#boardName').val();
-		var boardIntro = $('textarea#boardIntro').val() ; 
-		$.ajax({
-			url: "/updateBoard/"+boardNo+"/"+boardName+"/"+boardIntro
+	if( ! $('.board_contents_text').attr('readonly') ){
+		$(".container").on('focusout','.board_contents_text, .board_title_text',function(){
+			var boardNo = $('#boardName').attr('data-board-no') ;
+			var boardName = $('#boardName').val();
+			var boardIntro = $('textarea#boardIntro').val() ; 
+			$.ajax({
+				url: "/board/updateBoard/"+boardNo+"/"+boardName+"/"+boardIntro != null ? boardIntro : null 
+			}).done(function(){
+				$('.nav-second-level').find('a').each(function(index,item){
+					console.log(item);
+					if( $(this).attr('data-board-no') == boardNo){
+						$(this).text(boardName);
+					}
+				})
+			})
+			
+			
 		})
-		
-		
-	})
+	}
 }
 
+// 페이징 하드코딩 안하고 .. 다시 짜기 
+function getPostListPaging(visiblePageCount){
+	 
+	var lastPageNumber = visiblePageCount + 10;
+	
+	 $('.article-post-list li').hide().slice(0,10).show();
+	 
+	 $('.next').on('click',function(event){
+		 
+	 })
+	 
+}
 
 function getMyPostList(){
 	$('.getPost').on('click',function(evnet){
 		$target = $(this);
 		$targetId = $target.attr('id');
-		var url = "/getSearchMyPostList/"+$('#boardName').attr('data-board-no');
+		var url = "/board/getSearchMyPostList/"+$('#boardName').attr('data-board-no');
 		
 		if( $targetId == 'getAllPost' ){
 			location.reload();
@@ -74,6 +94,8 @@ function pagingNumbers(target ){
 						parseInt( $('.page-item.active a').last().data('dt-idx') ) + 4 : 
 						paging;
 	
+	console.log(startCount);					
+						
 	viewPagingNumber(startCount, endCount, paging);
 	
 	
@@ -114,17 +136,18 @@ function nextPage(){
 
 
 function viewPagingNumber(startCount, endCount, maxCount){
-	var isFirst = startCount == 0 ? "disabled" : "";
+	var isFirst = parseInt(startCount) == 0 ? "disabled" : "";
+	console.log(isFirst);
 	maxCount = maxCount == 0 ? parseInt( $('#datatable_next a').attr('data-dt-max') ) : maxCount;
 	$('.pagination').html(
-			'<li class="paginate_button page-item previous " '+isFirst+' id="datatable_previous">'+
+			'<li class="paginate_button page-item previous '+isFirst+'" id="datatable_previous">'+
 			'<a href="javascript:void(0)"  data-dt-idx="'+startCount+'" class="page-link">이전</a></li>'
 			)
 	endCount = maxCount-startCount < 4 ? ( endCount = maxCount-endCount != 0 ? endCount : startCount+ 1 )  : endCount ;
 	for(var i = startCount ; i <= endCount; i++){
 		$('.pagination').append(	
 		'<li class="paginate_button page-item ">'+
-				'<a href="javascript:void(0)" a data-dt-idx="'+i+'" class="page-link">'+(i+1)+'</a></li>'
+				'<a href="javascript:void(0)" data-dt-idx="'+i+'" class="page-link">'+(i+1)+'</a></li>'
 				)
 		}
 	$('.page-item:nth-child(2)').addClass('active');
@@ -153,10 +176,6 @@ function limitPaging(pagingNum){
 	function preNextBtnControll(btn){
 		btn.removeClass("disabled");
 		btn.removeClass("active");
-		
-		console.log(  btn.children().attr('data-dt-idx')  == 0 && pagingNum == 0 ? true : false );
-		console.log(  (  btn.children().attr('data-dt-idx') == $('.isLast').children().attr('data-dt-max') )   );
-		
 				// 이전  버튼
 		if ( btn.children().attr('data-dt-idx')  == 0 && pagingNum == 0 ? true : false ||
 					// 마지막 버튼을 눌렀는지
@@ -278,7 +297,7 @@ function rimitDate(checkDate, rimitDate, minOrMax ){
 
 
 function searchPosts(){
-	$('.searchPost').on('keyup',function(event){
+	$('.searchPost').on('keyup , search',function(event){
 		$searchVal = $(this).val();
 		$searchText = searchPostsSelect($searchVal) ;
 		searchTarget( $searchText, $searchVal);
@@ -286,15 +305,7 @@ function searchPosts(){
 	})
 }
 
-function searchPostsChange(){
-	$('.searchPost').on('search',function(event){
-		$searchVal = $(this).val();
-		$searchText = searchPostsSelect($searchVal) ;
-		searchTarget( $searchText, $searchVal) ;
-		visiblePostPagingNumbers();
-		//defaultPostPagingNumbers();
-	})
-}
+
 
 function searchPostsSelect($searchVal){
 	$('strong, div, a').unmark();

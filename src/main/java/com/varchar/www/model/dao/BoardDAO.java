@@ -16,7 +16,7 @@ import com.varchar.www.model.domain.comment.ReplyComment;
 
 public interface BoardDAO {
 	// 게시판 내비게이션 바 조회
-	List<BoardGroupList> getNavbar(String userId);
+	List<BoardGroupList> getNavbar(@Param("userId") String userId,@Param("authorityCode") String authorityCode);
 	//게시판 그룹 등록
 	void insertBoardGroup(@Param("content")String content, @Param("lectureCode")String lectureCode);
 	//게시판 그룹 수정
@@ -32,12 +32,16 @@ public interface BoardDAO {
 	void updateBoard(@Param("boardNo") int boardNo,@Param("boardName") String boardName, @Param("boardIntro") String boardIntro); 
 	
 	// 게시글 리스트
-	PostsList getPostList(@Param("boardNo") int boardNo);
+	PostsList getPostList(@Param("boardNo") int boardNo,@Param("userId") String userId);
 	// 내 게시글 리스트
 	List<Posts> postList(@Param("boardNo") int boardNo,@Param("userId") String userId);
+	// 게시글 Detail - 수정, 게시글 정보 
+	Posts getPostUpdateForm( int postNo );
+	// 게시글 수정
+	void updatePost(Posts post);
 	
-	// 게시글 Detail
-	PostDetail getPost(@Param("boardNo") int boardNo,@Param("postNo") int postNo);
+	// 게시글 Detail - 조회, 게시글 정보 + 해당 게시판의 게시글 리스트 
+	PostDetail getPost(@Param("boardNo") int boardNo, @Param("postNo") int postNo);
 	// 게시글 삭제
 	void deletePost(int postNo);
 	// 게시글 조회수 증가

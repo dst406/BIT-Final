@@ -1,30 +1,54 @@
 $(function(){
-	// 게시판 그룹 불러오기
-//
-//			$('.menu-body').html(data);
-//			$('.nav-link').removeClass('active');
-//			$(event.target).closest('.nav-link').addClass('active');
-//			$('.main-icon-menu-pane:first-child .metismenu').addClass('active');
-//			
-//	
-	
-	
-	
-//		$('#board').on('click',function(event){
-	$('.nav-link').on('click',function(event){
+	getBoardLeftNavBar();
+	topbarDropdownToggle();
+	moveJobLeftNavBar();
+})
+
+function getBoardLeftNavBar(){
+	$('body').on('click','#board',function(event){
 		$.ajax({
-			url: "/getNavbar/jin2020"
+			url: "/board/getNavbar"
 		}).done(function(data){
 			$('.menu-body').html(data);
-			$('.nav-link').removeClass('active');
-			$(event.target).closest('.nav-link').addClass('active');
-			$('.main-icon-menu-pane:first-child .metismenu').addClass('active');
-			
-		//	var popupLink = document.querySelector('.editBoardGroup-popup-link');
-			
-		//	popupLink.addEventListener('click',getModalFormEditPage);
+			leftNavBarMoveActive(event);
 		})
-		
 	})
+}
+
+
+function moveJobLeftNavBar(){
+	$('body').on('click','#manager , #teacher , #student',function(event){
+		moveJobLeftNavBarAjax($(this).attr('id'));
+		leftNavBarMoveActive(event);
+	})
+}
+
+function leftNavBarMoveActive(event){
+	$('.nav-link').removeClass('active');
+	$(event.target).closest('.nav-link').addClass('active');
+	$('.main-icon-menu-pane:first-child .metismenu').addClass('active');
+}
+
+function moveJobLeftNavBarAjax(target){
+	$.ajax({
+		url : "/"+target+"/getNavbar",
+	}).done(function(data){
+		$('.menu-body').html(data);
+	})
+}
+
+
+function topbarDropdownToggle(){
+	$('.topbar').on('click','.dropdown-toggle',function(event){
+		$target = $(event.target).closest('li').find('.dropdown-menu');
+		
+		if($target.hasClass('active')){
+			$target.removeClass('active');
+			return;
+		}
+		$target.addClass('active');
+	})
+}
+
+
 	
-})

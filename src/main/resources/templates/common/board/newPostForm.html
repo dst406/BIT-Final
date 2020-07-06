@@ -51,11 +51,12 @@
 							th:replace="~{common/board/fragment/editToolbar :: editToolbar}"></div>
 				
 								
-				 <form th:action="@{/insertPosts}" method="post" id="postsForm">
+				 <form th:action="@{/board/insertPosts}" method="post" id="postsForm">
 				 		<input type="hidden" th:field="*{boardNo}" >
 				 		<input type="hidden" th:field="*{postTitle}" >
 				 		<input type="hidden" th:field="*{postPreview}" maxlength="190" >
-				 		<input type="hidden" th:field="*{postThumbnail}" > 	 								
+				 		<input type="hidden" th:field="*{postThumbnail}" > 	 	
+				 		<input type="hidden" th:value="${userId}">							
 						<textarea id="postContents" name="postContents"></textarea>
 							<div id="editorForm" class="editorDIV editorForm" contenteditable="true" >
 								<div class="first_editor_contents">내용을 입력해주세요</div>
@@ -80,7 +81,7 @@
 							
 							<div class="savingActions">
 								<button color="lightGray" class="temporarySaveButton">임시저장</button>
-								<button color="teal" class="saveButton" >등록하기</button>
+								<button color="teal" class="activeButton" id="saveButton">등록하기</button>
 							</div>
 							
 						</div>

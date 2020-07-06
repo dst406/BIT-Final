@@ -17,10 +17,11 @@
 							<div class="comment_profile">
 								<div class="comment_info">
 									<div class="username">
-										<a th:text="${replyComment.userId}" href="/@wassup_">wassup_</a>
-									</div>
-									<div th:text="${replyComment.commentDate}" class="date">2020년
+										<a th:text="${replyComment.userName}" href="/@wassup_">wassup_</a>
+										<div th:text="${replyComment.commentDate}" class="date">2020년
 										5월 15일</div>
+									</div>
+									
 								</div>
 							</div>
 						</div>
@@ -95,7 +96,7 @@
 					<button class="commnet_reply_write_content active">답글 작성하기</button>
 
 					<div class="comment_write_wrapper">
-						<textarea name="commentContent"  th:placeholder="${comment.userId}+'님에게 답글을 작성하세요'"
+						<textarea name="commentContent"  placeholder="답글을 작성하세요"
 							class="comment_content" style="height: 70px;"></textarea>
 						<div class="button_wrapper">
 							<button color="gray" class="cancel_comment">취소</button>

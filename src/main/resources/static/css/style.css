@@ -2,6 +2,51 @@
 	max-width: 1200px;
 }
 
+.userThumbImg{
+	width: 60px;
+	height: 78px;
+}
+.userInfoImg{
+	margin-left: 120px;
+    min-width: 120px;
+    min-height: 150px;
+}
+
+.post-list-info , .editorDIV div{
+	font-family: 'Noto Sans KR', sans-serif !important;
+	font-weight: 400;
+	font-size: 14px;
+}
+
+.table td, .table .thead-light th{
+	font-family: 'Noto Sans KR', sans-serif !important;
+	font-weight: 400;
+}
+H1, H2, H3, H4, H5, H6{
+	font-family: 'Noto Sans KR', sans-serif !important;
+	font-weight: 600;
+}
+p{
+	font-family: 'Noto Sans KR', sans-serif !important;
+	font-weight: 300;
+}
+
+text {
+	font-family: 'Noto Sans KR', sans-serif !important;
+	font-weight: 400;
+}
+
+a, button{
+	font-family: 'Noto Sans KR', sans-serif !important;
+	font-weight: 400;
+}
+
+
+
+.row a{
+	cursor: pointer;
+}
+
 .mg-top10 {
 	margin-top: 10px;
 }
@@ -119,4 +164,19 @@
 .title-box > .lecture{
 	display: block ;
 	padding:0 !important;
+}
+
+.profile-area{
+    position: relative;
+    right: 170px;
+}
+
+
+.nav-user-name{
+	font-size : 1rem;
+	margin-left: .75rem !important;
+}
+
+.buyLectureButton{
+	
 }

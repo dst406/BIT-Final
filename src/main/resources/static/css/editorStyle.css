@@ -92,7 +92,7 @@
 	overflow:hidden;
 	height : 66px;
 	display: block;
-    font-size: 2.75rem;
+    font-size: 2.5rem;
     width: 100%;
     resize: none;
     line-height: 1.5;
@@ -182,7 +182,7 @@ img { width:100%; }
     bottom: 0px;
     width:1000px;
     z-index: 10;
-    right:325px;
+    right:316px;
 }
 
 .editorFooter .footerWrapper{
@@ -254,7 +254,8 @@ img { width:100%; }
     border-radius: 4px;
 }
 
-.editorFooter .footerWrapper .savingActions .saveButton{
+
+.editorFooter .footerWrapper .savingActions .activeButton{
 	margin-left: 0.75rem;
 	height: 2.5rem;
     font-size: 1.125rem;
@@ -277,6 +278,7 @@ img { width:100%; }
     border-image: initial;
     background: #7680ff;
     border-radius: 4px;
+	
 }
 
 
@@ -324,6 +326,7 @@ img { width:100%; }
 .postListInPostContainer h2 a{
 	color: inherit;
     text-decoration: none;
+    font-weight: bold;
 }
 
 .postListInPostContainer .corner-ribbon{

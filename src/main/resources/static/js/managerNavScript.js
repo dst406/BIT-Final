@@ -1,6 +1,16 @@
 $(function(){
 	navBarSlide();
+	lectureList();
 })
+
+
+function lectureList(){
+	$('#lecture-state-type').on('change', function(){
+		location.href = '/teacher/getLectureListByState/' + $(this).val();
+	})
+	
+}
+
 
 /* 보형 NavBar Slide */
 

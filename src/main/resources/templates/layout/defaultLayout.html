@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
 
 <head>
 	<th:block th:replace="~{layout/header}"/>
@@ -11,12 +12,12 @@
 
 
 <th:block th:replace="~{layout/navBar :: topNavBar}"/>
-<th:block th:replace="~{layout/navBar :: leftNavBar}"/> 
+<th:block th:replace="~{layout/navBar :: leftNavBar( ${boardGroupList} ) } "/> 
 
 
 <div layout:fragment="content"></div>
 
-<footer th:replace="~{layout/footer :: footer}"/>
+<footer th:replace="~{layout/footer :: footer}" ></footer>
 
 
 </body>
