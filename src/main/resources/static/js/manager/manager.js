@@ -10,39 +10,39 @@
 		    	 var chartArray = new Array();
 		    	 var costArray = new Array();
 		    	 var userArray = new Array();
-		    	 	userArray.push("월별 통계");
+		    	 userArray.push("월별 통계");
 		    	 
 					 $.each(data,function(index,item){
 						 costArray.push(item.paymentDate);
 			        	 $.each( item.income,function(idx,value){
-			        		 costArray.push(value.cost.toString());
+			        		 costArray.push(value.cost);
 			        		 userArray.push(value.userName);
 			        	 })
 			        	 chartArray.push(costArray);
 			        	 costArray = [];
 			      })
 					 
-					 var resultArr = []; 
+					var resultArr = []; 
 					 $.each(userArray , function(key, value){ 
 						 if($.inArray(value, resultArr) === -1) 
 							 resultArr.push(value); 
 						 }) 
-					var chartData = google.visualization.arrayToDataTable([
-						resultArr
-					]);
-					 console.log( resultArr);
-					console.log( chartArray );
-//					$.each(chartArray,function(index,item){
-//						chartData.addRow(item);
-//					})
-					 chartData.addRows(chartArray);
 					
-				    if (chartData.getNumberOfRows() == 0) {
-					        data.addRows([
-					            [0]
-					        ])
-				    };  
-										
+						 
+					var chartData = new google.visualization.DataTable();
+					 chartData.addColumn('string','월별 통계');
+					 
+					 $.each(resultArr.slice(1,4) , function(key,index){
+						 chartData.addColumn('number',resultArr[key+1]);
+					 })
+					
+					 $.each(chartArray,function(key,index){
+						 chartArray[key].slice(1,3).unshift(resultArr[key+1]);
+						 chartData.addRows([
+							 chartArray[key]
+						 ])
+					 })
+
 					
 				      var options = {
 				        width: 1100,
@@ -51,6 +51,10 @@
 //				        legend: { position: 'top', maxLines: 3},
 				        bar: { groupWidth: '75%' },
 				        isStacked: true,
+				        vAxis:{
+					        format: '#,###,###원'
+				        }
+
 				      };
 
 

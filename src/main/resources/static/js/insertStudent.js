@@ -23,13 +23,10 @@ function studentImgUpload(){
 			processData: false,
 			cache: false
 		}).done(function(){
-			alert('이미지 업로드 성공');
 			//location.reload();
 			$('#insertStudentForm').submit();
 		}).fail(function(){
-			alert('student img upload fail');
 		}).always(function(){
-			alert("always 왔음");
 		})
 	})
 }

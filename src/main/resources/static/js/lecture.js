@@ -31,9 +31,8 @@ function updateLecture(){
 				data : JSON.stringify(obj),
 				contentType : 'application/json'
 			}).done(function(){
-				location.reload();
+				location.href="/manager/getManagerLectureList";
 			}).fail(function(){
-				alert('manager lecture update fail')
 			})
 		}
 		

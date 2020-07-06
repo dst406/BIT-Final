@@ -21,10 +21,8 @@ function teacherImgUpload(){
 			processData: false,
 			cache: false
 		}).done(function(){
-			alert('이미지 업로드 성공')
 			//location.reload();
 		}).fail(function(){
-			alert('manager -> teacher img upload fail')
 		})
 	})
 }

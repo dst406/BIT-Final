@@ -481,12 +481,11 @@ img { width:100%; }
 }
 
 #image_form input[type="file"] {
-    position: absolute;
-    /* width: 0;
-    height: 0; */
+    position: relative;
     padding: 0;
-    /* overflow: hidden; */
     border: 0;
+    top: 1px;
+    left: 8px;
 }
 
 

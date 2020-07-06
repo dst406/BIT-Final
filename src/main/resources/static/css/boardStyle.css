@@ -67,7 +67,7 @@
 .post-list-contents-header .row img {
 	float: right;
 	width: 120px;
-	height: 148px;
+	max-height: 148px;
 }
 
 .article-post-list li .post-list-contents .post-list-contents-bottom {

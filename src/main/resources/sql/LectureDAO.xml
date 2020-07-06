@@ -43,6 +43,7 @@
 			INNER JOIN lectureroom lr on lec.lectureroom_no = lr.lectureroom_no
 		WHERE
 			lec.user_id = #{userId}
+		ORDER BY lecture_state_name DESC
 	</select>
 	
 	<!-- 강의실 -->
@@ -86,7 +87,7 @@
 	<!-- 강의등록 -->
 	<insert id="insertLecture" parameterType="com.varchar.www.model.domain.lecture.LectureVO">
 		INSERT INTO lecture 
-		VALUES('bit'||seq_id.nextval,#{userId},#{seasonId},#{lectureSubjectCode},#{lectureRoomNo},'LECTURE_YET',#{lectureName},#{lectureContent},(select sysdate from dual),#{lectureCost})
+		VALUES('MAT-'||seq_id.nextval,#{userId},#{seasonId},#{lectureSubjectCode},#{lectureRoomNo},'LECTURE_YET',#{lectureName},#{lectureContent},(select sysdate from dual),#{lectureCost})
 	</insert>
 	
 	<!-- 원장이 강의를 삭제 -->

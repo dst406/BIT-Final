@@ -36,40 +36,22 @@
 		function drawTopX() {
 
 			var data = new google.visualization.DataTable();
-			data.addColumn('timeofday', '최근 3개월 성적');
+			data.addColumn('string', '최근 모의고사 성적');
 			data.addColumn('number', '등수');
 			data.addColumn('number', '평균');
 			data.addColumn('number', '총점');
 
-			data.addRows([ [ {
-				v : [ 8, 0, 0 ],
-				f : '9월 '
-			}, parseInt(rank1), parseInt(avg1), parseInt(sum1) ], [ {
-				v : [ 9, 0, 0 ],
-				f : '3월 '
-			}, parseInt(rank2), parseInt(avg2), parseInt(sum2) ], [ {
-				v : [ 10, 0, 0 ],
-				f : '6월'
-			}, parseInt(rank3), parseInt(avg3), parseInt(sum3) ], ]);
+			data.addRows([ [ "9월", parseInt(rank1), parseInt(avg1), parseInt(sum1) ], 
+				[ "3월", parseInt(rank2), parseInt(avg2), parseInt(sum2) ],
+				[ "6월", parseInt(rank3), parseInt(avg3), parseInt(sum3) ], ]);
 
 			var options = {
 				width : 500,
-				height : 250,
-				axes : {
-					x : {
-						0 : {
-							side : 'top'
-						}
-					}
-				},
-				hAxis : {
-					title : 'Time of Day',
-					format : 'h:mm a',
-					viewWindow : {
-						min : [ 7, 30, 0 ],
-						max : [ 17, 30, 0 ]
-					}
-				},
+				height : 320,
+				 vAxis:{
+				        format: 'none'
+			        },
+				label : '최근 모의고사 성적'
 			};
 
 			var materialChart = new google.charts.Bar(document
@@ -142,10 +124,7 @@
 											<div class="col-lg-4 align-self-center mb-3 mb-lg-0">
 												<div class="met-profile-main">
 													<div class="met-profile-main-pic">
-										
-														<img th:src="'/img/' + ${studentInfo.userImage}" alt="" height="100"
-															class="rounded-circle"> 
-															
+										<img th:src="'/userImg/' + ${studentInfo.userImage}" alt="" height="100" class="userInfoImg thumb-lg">
 													</div>
 												</div>
 											</div>
@@ -200,8 +179,8 @@
 
 													<li>
 														<div class="col-lg-6" style="display: inline-block;">
-															<i class="fas fa-book-open"></i> <b>수강중인 강의 </b>: 고등영어
-															종합A반
+															<i class="fas fa-book-open"></i> <b>수강중인 강의 </b>: 
+															<span th:if="${not #lists.isEmpty(studentLectureList)}" th:text="${studentLectureList[0].lectureName}"></span>
 														</div>
 														<div class="col-lg-5" style="display: inline-block;">
 															<i class="fas fa-money-check"></i> <b>문/이과 </b>: <span
@@ -261,50 +240,31 @@
 															<tr role="row">
 																<th class="sorting_asc" style="width: 35px;">번호</th>
 																<th class="sorting" style="width: 100px;">강의명</th>
+																<th class="sorting" style="width: 50px;">과목명</th>
 																<th class="sorting" style="width: 50px;">강사</th>
 																<th class="sorting" style="width: 75px;">강의 금액</th>
 																<th class="sorting" style="width: 75px;">강의 시작일</th>
 																<th class="sorting" style="width: 75px;">강의 종료일</th>
-																<th class="sorting" style="width: 65px;">추가</th>
-																<th class="sorting" style="width: 65px;">추가</th>
+																<th class="sorting" style="width: 65px;">시작시간</th>
+																<th class="sorting" style="width: 65px;">종료시간</th>
 
 															</tr>
 															<!--end tr-->
 														</thead>
 														<tbody>
-															<tr role="row" class="odd">
-																<td>1</td>
+															<tr role="row" class="odd" th:each="list : ${studentLectureList}">
+																<td th:text="${listStat.count}">1</td>
 
-																<td>고등영어 단기 1반</td>
-																<td>고재현</td>
-																<td>198,720원</td>
-																<td>2020-04-01</td>
-																<td>2020-06-30</td>
-																<td>추가</td>
-																<td>추가</td>
+																<td th:text="${list.lectureName}">고등영어 단기 1반</td>
+																<td th:text="${list.lectureSubjectName}">고등영어 단기 1반</td>
+																<td th:text="${list.userName}">고재현</td>
+																<td th:text="${list.lectureCost}">198,720원</td>
+																<td th:text="${list.lectureStartDate}">2020-04-01</td>
+																<td th:text="${list.lectureFinishDate}">2020-06-30</td>
+																<td th:text="${list.lectureStartTime}">추가</td>
+																<td th:text="${list.lectureEndTime}">추가</td>
 															</tr>
-															<tr role="row" class="even">
-																<td>2</td>
-
-																<td>고등영어 단기 2반</td>
-																<td>진보형</td>
-																<td>198,720원</td>
-																<td>2020-04-01</td>
-																<td>2020-06-30</td>
-																<td>추가</td>
-																<td>추가</td>
-															</tr>
-															<tr role="row" class="odd">
-																<td>3</td>
-
-																<td>고등영어 단기 3반</td>
-																<td>김강산</td>
-																<td>198,720원</td>
-																<td>2020-04-01</td>
-																<td>2020-06-30</td>
-																<td>추가</td>
-																<td>추가</td>
-															</tr>
+															
 														</tbody>
 													</table>
 												</div>
@@ -415,7 +375,7 @@
 					<div class="col-lg-6">
 						<div class="card">
 							<div class="card-body">
-								<h4 class="header-title mt-0 mb-4"></h4>
+								<h4 class="header-title mt-0 mb-4">최근 모의고사 성적</h4>
 								<div class="chart-demo" style="position: relative;">
 									<div class="apex-charts" style="min-height: 395px;">
 										<div
@@ -440,7 +400,7 @@
 									<div class="apex-charts" style="min-height: 395px;">
 										<div
 											class="apexcharts-canvas apexcharts6d8ff4 apexcharts-theme-light"
-											style="width: 580px; height: 380px;">
+											style="width: 540px; height: 380px;">
 											<canvas id="avgChart"
 												style="display: block; width: 1428px; height: 714px;"
 												width="1428" height="714" class="chartjs-render-monitor"></canvas>

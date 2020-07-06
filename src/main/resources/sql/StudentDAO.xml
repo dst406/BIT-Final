@@ -50,7 +50,7 @@
             where a.authority_code = '3'
             order by TO_NUMBER(substr( a.user_id ,5))
 			) users ,
-            (  select rownum rn, user_id  from academy_user  WHERE authority_code = '3' order by TO_NUMBER(substr( user_id ,5)) ) r
+            (  select row_number() over(order by  TO_NUMBER(substr( user_id ,5)) ) rn, user_id  from academy_user  WHERE authority_code = '3'  ) r
 	WHERE r.rn BETWEEN ( ( #{cri.pageNum} - 1 ) * #{cri.amount} )+1  AND  ( ( #{cri.pageNum}  ) * #{cri.amount} )
     AND users.user_id = r.user_id
 	
@@ -90,10 +90,12 @@
 	
 	<select id="getStudentMyLectureList" resultType="lecture">
 		select * from getStudentMyLectureList
+		 WHERE user_id = #{userId} 
 	</select>
 	
 	  <!--       CREATE OR REPLACE VIEW getStudentMyLectureList AS
         SELECT
+        	academy_payment.user_id AS user_id 
             l.lecture_code AS lecture_code,
 			ls.lecture_state_name AS lecture_state_name,
 			l.lecture_name AS lecture_name,
@@ -114,7 +116,6 @@
         INNER JOIN lecturestate ls ON l.lecture_state_code = ls.lecture_state_code AND ls.lecture_state_code != 'LECTURE_END'
         INNER JOIN lecture_subject lsub ON l.lecture_subject_code = lsub.lecture_subject_code
         INNER JOIN season s ON s.season_id = l.season_id
-        WHERE academy_payment.user_id = 'stu'  
         ORDER BY l.lecture_state_code , s.season_start_date  -->
 	
 	

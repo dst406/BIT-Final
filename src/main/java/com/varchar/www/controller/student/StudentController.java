@@ -73,6 +73,7 @@ public class StudentController {
 		@GetMapping("/teacher/studentModify/{userId}")
 		public String studentModify(@PathVariable String userId, Model model) {
 			model.addAttribute("studentInfo", studentService.getStudentInfo(userId) );
+			
 			return "student/studentModify";
 		}	
 		
@@ -98,6 +99,7 @@ public class StudentController {
 		public String getStudentInfo(@PathVariable String userId, Model model) {
 			model.addAttribute("studentInfo", studentService.getStudentInfo(userId));
 			model.addAttribute("recordInfo", recordService.getStudentRecord(userId));
+			model.addAttribute("studentLectureList", studentService.getStudentMyLectureList(userId));
 			return "student/studentInfo";
 		}
 		
@@ -124,7 +126,7 @@ public class StudentController {
 		
 		@GetMapping("/student/getStudentMyLectureList")
 		public String getStudentMyLectureList(Model model, @AuthenticationPrincipal AcademyUser user) {
-			model.addAttribute("lectureList", studentService.getStudentMyLectureList());
+			model.addAttribute("lectureList", studentService.getStudentMyLectureList(user.getUserId()));
 			
 			return "/student/getStudentLectureList";
 		}

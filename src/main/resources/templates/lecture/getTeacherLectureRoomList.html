@@ -52,7 +52,7 @@
 																<th class="" tabindex="0" aria-controls="datatable"
 																	rowspan="1" colspan="1"
 																	aria-label="Email: activate to sort column ascending"
-																	style="width: 160px;">시즌</th>
+																	style="width: 160px;">강의명</th>
 																<th class="" tabindex="0" aria-controls="datatable"
 																	rowspan="1" colspan="1" aria-sort="ascending"
 																	aria-label="Lead: activate to sort column descending"
@@ -68,7 +68,7 @@
 																<th class="" tabindex="0" aria-controls="datatable"
 																	rowspan="1" colspan="1"
 																	aria-label="Status: activate to sort column ascending"
-																	style="width: 90px;">강의명</th>
+																	style="width: 90px;">강의장명</th>
 																<th class="" tabindex="0" aria-controls="datatable"
 																	rowspan="1" colspan="1"
 																	aria-label="Action: activate to sort column ascending"
@@ -80,11 +80,11 @@
 															<tr th:each="lectureRoom : ${getTimeTableList}">
 																<td th:text="${lectureRoomStat.count}"></td>
 																<td th:text="${lectureRoom.lectureDay}"></td>
-																<td th:text="${lectureRoom.lectureSeasonId}"></td>
-																<td th:text="${lectureRoom.lectureAllocationTime}"></td>
-																<td th:text="${lectureRoom.lectureStartTime}"></td>
-																<td th:text="${lectureRoom.lectureEndTime}"></td>
 																<td th:text="${lectureRoom.lectureName}"></td>
+																<td th:text="${lectureRoom.lectureAllocationTime+'시간'}"></td>
+																<td th:text="${lectureRoom.lectureStartTimeEnco}"></td>
+																<td th:text="${lectureRoom.lectureEndTimeEnco}"></td>
+																<td th:text="${lectureRoom.lectureroomNo}"></td>
 																<td th:text="${lectureRoom.studentGrade}"></td>
 															</tr>
 														</tbody>

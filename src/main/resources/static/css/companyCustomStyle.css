@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+.main_img{
+	width: 300px !important;
+	display: block;
+	margin: auto;
+}

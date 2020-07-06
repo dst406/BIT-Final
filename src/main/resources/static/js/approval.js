@@ -11,10 +11,10 @@ function approvalAllow(){
 		var approvalNo = $(e.target).data('no');
 		var ele =  $('#' + approvalNo);
 		$(ele.find('.approval-allow-btn')).on('click', function(e){
+			console.log('여기옴 ? ');
+			console.log(approvalNo);
 			$.ajax({
-				url: '/manager/approval/allow',
-				type: 'PUT',
-				data: approvalNo
+				url: '/manager/approval/allow/'+approvalNo,
 			}).done(function(){
 				location.reload();
 			}).fail(function(){
