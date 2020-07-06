@@ -12,9 +12,11 @@
 		and u.academic_type_code = a.academic_type_code
 	</select>
 	
-	<select id="getStudentList" resultType="com.varchar.www.model.domain.student.Student">
-	<![CDATA[
-	select *
+	
+	
+	
+	<!-- getStudentList
+	 select *
 	from (
 			select rownum rn, a.*, b.academic_type_name, ats.attendance_state_name
 			from academy_user a
@@ -28,6 +30,30 @@
 			and rownum <= #{cri.pageNum} * #{cri.amount}
 			)
 	where rn > (#{cri.pageNum} - 1) * #{cri.amount} 
+	 -->
+	
+	<select id="getStudentList" resultType="com.varchar.www.model.domain.student.Student">
+	<![CDATA[
+	
+	
+	
+	SELECT  users.*
+	from (
+			select  a.*, b.academic_type_name, ats.attendance_state_name
+			from academy_user a
+					left outer join academic_type b
+					on a.academic_type_code = b.academic_type_code
+					left outer join attendance att
+					on a.user_id = att.user_id
+					left outer join attendance_state ats
+					on att.attendance_state_code = ats.attendance_state_code
+            where a.authority_code = '3'
+            order by TO_NUMBER(substr( a.user_id ,5))
+			) users ,
+            (  select rownum rn, user_id  from academy_user  WHERE authority_code = '3' order by TO_NUMBER(substr( user_id ,5)) ) r
+	WHERE r.rn BETWEEN ( ( #{cri.pageNum} - 1 ) * #{cri.amount} )+1  AND  ( ( #{cri.pageNum}  ) * #{cri.amount} )
+    AND users.user_id = r.user_id
+	
 	]]>
 	</select>
 	

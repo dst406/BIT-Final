@@ -268,7 +268,7 @@
 	</select>
 	
 	<select id="isAttendance" resultType="String">
-		    SELECT attendance_state_code FROM attendance  WHERE user_id = 'teach' 
+		    SELECT attendance_state_code FROM attendance  WHERE user_id = #{userId} 
 		    AND TO_CHAR( attendance_come_time, 'yy/mm/dd') =  TO_CHAR( (select sysdate from dual), 'yy/mm/dd') 
 	</select>
 

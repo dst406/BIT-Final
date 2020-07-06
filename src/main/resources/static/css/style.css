@@ -2,6 +2,9 @@
 	max-width: 1200px;
 }
 
+.page-link{
+	cursor:pointer;
+}
 .userThumbImg{
 	width: 60px;
 	height: 78px;

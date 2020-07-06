@@ -16,11 +16,16 @@ $(function(){
 function updateBoardInfo(){
 	if( ! $('.board_contents_text').attr('readonly') ){
 		$(".container").on('focusout','.board_contents_text, .board_title_text',function(){
+			
 			var boardNo = $('#boardName').attr('data-board-no') ;
 			var boardName = $('#boardName').val();
 			var boardIntro = $('textarea#boardIntro').val() ; 
+			console.log(boardNo);
+			console.log(boardName);
+			console.log(boardIntro);
+			
 			$.ajax({
-				url: "/board/updateBoard/"+boardNo+"/"+boardName+"/"+boardIntro != null ? boardIntro : null 
+				url: "/board/updateBoard/"+boardNo+"/"+boardName+"/"+boardIntro
 			}).done(function(){
 				$('.nav-second-level').find('a').each(function(index,item){
 					console.log(item);
