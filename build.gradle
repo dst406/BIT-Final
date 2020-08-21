@@ -87,15 +87,14 @@ dependencies {
 	//lombok은 이클립스에 직접적인 연관이기때문에 annotation 허용을 해주어야 한다.
 	annotationProcessor 'org.projectlombok:lombok'
 	//test unit : junit
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+	//testImplementation('org.springframework.boot:spring-boot-starter-test') {
+	//	exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	//}
 	//can security test
 	//testImplementation 'org.springframework.security:spring-security-test'
 	implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
 }
 
-test {
-
-	useJUnitPlatform()
-}
+//test {
+//	useJUnitPlatform()
+//}
