@@ -14,9 +14,6 @@ local.properties
 .loadpath
 .recommenders
 
-### my ignore ###
-src/main/resources/application.yml
-
 # External tool builders
 .externalToolBuilders/
 
