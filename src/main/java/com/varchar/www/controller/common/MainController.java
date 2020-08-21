@@ -12,6 +12,11 @@ public class MainController {
 		return "company/main/company";
 	}
 	
+	@GetMapping("/intro")
+	public String portfolio() {
+		return "portfolio/intro";
+	}
+	
 	@GetMapping("/{auth}/getNavbar")
 	public String moveJobLeftNavBar(@PathVariable String auth) {
 		return "layout/"+auth+"NavBar :: leftNavBar";
