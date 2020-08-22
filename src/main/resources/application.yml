@@ -9,12 +9,16 @@ spring:
      hikari:      pool-name: hikari-cp
       maximum-pool-size: 30
       minimum-idle: 2
-     url: jdbc:log4jdbc:oracle:thin:@localhost:1521:root
-     username: root
-     password: 1234
+     url: jdbc:log4jdbc:oracle:thin:@awsoraclekojae.cndpdcgedl9a.ap-northeast-2.rds.amazonaws.com:1521:ORCL
+     username: Kojae
+     password: dlxkcl15
      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy  servlet:    multipart:      max-file-size:        10MB
       max-request-size:        10MB
 
+
+#     url: jdbc:log4jdbc:oracle:thin:@localhost:1521:root
+#     username: root
+#     password: 1234
 #data-source-properties:
 #           cachePrepStmts: true
 #           prepStmtCacheSize: 250
