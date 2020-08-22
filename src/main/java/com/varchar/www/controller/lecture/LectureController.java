@@ -42,7 +42,7 @@ public class LectureController {
 	@GetMapping("/teacher/getTeacherLectureList")
 	public String getTeacherLectureList(Model model, @AuthenticationPrincipal AcademyUser user) {
 		model.addAttribute("lectureList",lectureService.getTeacherLectureList(user.getUserId()));
-		return "/lecture/getTeacherLectureList";
+		return "lecture/getTeacherLectureList";
 	}
 	
 	//강사가 보는 모든 강의목록 페이지
@@ -50,7 +50,7 @@ public class LectureController {
 	public String getLectureList(Model model) {
 		model.addAttribute("lectureList",lectureService.getLectureList());
 		model.addAttribute("lectureState", "전체");
-		return "/lecture/getLectureList";
+		return "lecture/getLectureList";
 	}
 	
 	//원장이 강의를 등록하는 페이지 (강사는 불가능)
