@@ -1942,3 +1942,13 @@ blockquote {
 .g-recaptcha {
 	margin-bottom: 20px
 }
+
+.portfolio_height{
+	 max-height: 332px;
+    overflow: hidden;
+}
+.portfolio_logo{
+	max-height: initial;
+	position: relative;
+    bottom: 130px;
+}

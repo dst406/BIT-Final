@@ -33,19 +33,19 @@
 				<!-- Main menu -->
 				<ul id="nav" class="site-main-menu">
 					<!-- About Me Subpage link -->
-					<li class="active"><a class="pt-trigger" href="#home"
-						data-animation="58" data-goto="1">Home</a>
+					<li class="active"><a class="pt-trigger" href="javascript:void(0)"
+						data-animation="58" data-goto="1">메인</a>
 					<!-- href value = data-id without # of .pt-page. Data-goto is the number of section -->
 					</li>
 					<!-- /About Me Subpage link -->
 					<!-- About Me Subpage link -->
-					<li class=""><a class="pt-trigger" href="#about_me"
-						data-animation="59" data-goto="2">About me</a></li>
+					<li class=""><a class="pt-trigger" href="javascript:void(0)"
+						data-animation="59" data-goto="2">자기소개</a></li>
 					<!-- /About Me Subpage link -->
-					<li class=""><a class="pt-trigger" href="#resume"
-						data-animation="60" data-goto="3">Resume</a></li>
-					<li class=""><a class="pt-trigger" href="#portfolio"
-						data-animation="61" data-goto="4">Portfolio</a></li>
+					<li class=""><a class="pt-trigger" href="javascript:void(0)"
+						data-animation="60" data-goto="3">경력 및 기술소개</a></li>
+					<li class=""><a class="pt-trigger" href="javascript:void(0)"
+						data-animation="61" data-goto="4">포트폴리오</a></li>
 				
 				</ul>
 				<!-- /Main menu -->
@@ -123,7 +123,7 @@
 					<!-- End of Home Subpage -->
 
 					<!-- About Me Subpage -->
-					<section class="pt-page pt-page-2 " data-id="about_me">
+					<section class="pt-page pt-page-2 pt-page-current " data-id="about_me">
 						<div class="section-title-block">
 							<h2 class="section-title">자기소개</h2>
 						</div>
@@ -131,9 +131,9 @@
 						<div class="row">
 							<div class="col-sm-6 col-md-6 subpage-block">
 								<div class="general-info">
-									<h3>I am Web Developer </h3>
-									<p>안녕하세요 </p>
-									<p>안녕하세요</p>
+									<h3>디자인, 퍼블리싱, 개발 모두 가능한 개발자입니다.</h3>
+									<p>저는 2014년 그래픽 디자이너로 앱,웹 기획과 마케팅 모두 담당했습니다.</p>
+									<p>개발자의 요청으로 인해 퍼블리싱을 공부하고 업무에 적용했는데</p>
 								</div>
 							</div>
 
@@ -209,7 +209,13 @@
 													<!-- Testimonial Content -->
 													<div class="testimonial-content">
 														<div class="testimonial-text">
-															<p>안녕하세요 반갑습니다</p>
+															<p>안녕하세요. 개발자를 희망하고 있는 고재현입니다.<br/>
+															저는 디자인과 기획 모두 해본적이 있어 소통에 문제가 없고 <br/>
+															일처리가 빠르기에 프로젝트때 마감을 항상 지켜왔습니다.<br/>
+															현재 Jquery, JAVA, Spring Boot를 다루고 있지만 
+															새로운 언어를 배움에 있어 <br/> 두려움이 없기에
+															필요하다면 새로운 언어를 공부하고 현업에 투입하겠습니다.
+															</p>
 														</div>
 													</div>
 													<!-- /Testimonial Content -->
@@ -330,7 +336,7 @@
 
 						<!-- Services block -->
 						<div class="block-title">
-							<h3> 가용 능력 </h3>
+							<h3> 능력 </h3>
 						</div>
 
 						<div class="row">
@@ -409,7 +415,7 @@
 					<!-- Resume Subpage -->
 					<section class="pt-page pt-page-3 " data-id="resume">
 						<div class="section-title-block">
-							<h2 class="section-title">경력</h2>
+							<h2 class="section-title">경력 및 기술소개</h2>
 						</div>
 
 						<div class="row">
@@ -530,9 +536,9 @@
 					
 
 					<!-- Blog Subpage -->
-					<section class="pt-page pt-page-4" data-id="blog">
+					<section class="pt-page pt-page-4" data-id="blog" style="min-height:1100px;">
 						<div class="section-title-block">
-							<h2 class="section-title">Portfolio</h2>
+							<h2 class="section-title">포트폴리오</h2>
 						</div>
 						<div class="blog-masonry" style="position: relative; height: 0px;">
 							<!-- Blog Post 1 -->
@@ -586,8 +592,66 @@
 								</div>
 							</div>
 							<!-- End of Blog Post 2 -->
+							
+							
+							
+							
+							
+							<!-- Blog Post 3 -->
+							<div class="item"
+								style="position: absolute; left: 0px; top: 460px; max-height: 332px;">
+								<div class="blog-card">
+									<div class="media-block portfolio_height">
+										<a href="#"> 
+										<img
+											class="post-image img-responsive "
+											src="/img/intro/portfolio2.jpg" alt="blog-post-1">
+											<div class="post-date" style="bottom: 0px;">
+												<span class="day">2014</span><span class="month">8월</span>
+												<!--<span class="year">2016</span>-->
+											</div>
+										</a>
+									</div>
+									<div class="post-info">
+										<ul class="category">
+											<li><a href="#">디자이너 포트폴리오</a></li>
+										</ul>
+										<a href="javascript:void(0)"><h4 class="blog-item-title">
+										디자이너 - 로고디자인 1</h4></a>
+									</div>
+								</div>
+							</div>
+							<!-- End of Blog Post 3 -->
+
+						<!-- Blog Post 4 -->
+							<div class="item"
+								style="position: absolute; left: 678px; top: 460px;">
+								<div class="blog-card">
+									<div class="media-block portfolio_height">
+										<a href="#"> 
+										<img
+											class="post-image img-responsive portfolio_logo"
+											src="/img/intro/portfolio1.jpg" alt="blog-post-1">
+											<div class="post-date" style="bottom: 0px;">
+												<span class="day">2015</span><span class="month">2월</span>
+												<!--<span class="year">2016</span>-->
+											</div>
+										</a>
+									</div>
+									<div class="post-info">
+										<ul class="category">
+											<li><a href="#">디자이너 포트폴리오</a></li>
+										</ul>
+										<a href="javascript:void(0)"><h4 class="blog-item-title">
+										디자이너 - 로고디자인 2</h4></a>
+									</div>
+								</div>
+							</div>
+							<!-- End of Blog Post 4 -->
+
 
 						</div>
+						
 					</section>
 					<!-- End Blog Subpage -->
 

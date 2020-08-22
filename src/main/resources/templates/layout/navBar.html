@@ -180,7 +180,7 @@
 			   th:href="${auth} == 1 ? @{/manager/managerIndex} :
 						( ${auth} == 2 ? @{/teacher/teacherIndex} : @{/board/postList/ } ) "
 				class="logo logo-metrica d-block text-center"><span><img
-					th:src="@{img/logo-img.png}" alt="logo-small" class="logo-sm"></span></a>
+					th:src="@{/img/logo-img.png}" alt="logo-small" class="logo-sm"></span></a>
 			<nav class="nav">
 				<a th:with="auth = ${#authentication.Principal.authorityCode}" 
 				   th:id="${auth} == 1 ? manager :
@@ -208,7 +208,7 @@
 				<a  th:with="auth = ${#authentication.Principal.authorityCode}" 
 			   		th:href="${auth} == 1 ? @{/manager/managerIndex} :
 							( ${auth} == 2 ? @{/teacher/teacherIndex} : @{/board/postList/ } ) " class="logo">
-				<span><img th:src="@{img/logo-signature.png}" alt="logo-large" class="logo-lg logo-dark"> </span></a>
+				<span><img th:src="@{/img/logo-signature.png}" alt="logo-large" class="logo-lg logo-dark"> </span></a>
 			</div>
 			<!--end logo-->
 			<div class="slimScrollDiv mm-active active"
