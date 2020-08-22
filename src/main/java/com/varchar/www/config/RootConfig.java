@@ -11,11 +11,11 @@ public class RootConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/uploadImg/**")
-                .addResourceLocations("file:C:/varchar/uploadImg/");
+                .addResourceLocations("classpath:/static/img/uploadImg/");
         registry.addResourceHandler("/userImg/**")
-        		.addResourceLocations("file:C:/varchar/userImg/");
+        		.addResourceLocations("classpath:/static/img/userImg/");
         registry.addResourceHandler("/mainImg/**")
-        		.addResourceLocations("file:C:/varchar/main/");
+        		.addResourceLocations("classpath:/static/img/mainImg/");
         registry.addResourceHandler("/css/**")
                 .addResourceLocations("classpath:/static/css/");
         registry.addResourceHandler("/js/**")
