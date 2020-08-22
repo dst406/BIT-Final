@@ -40,7 +40,7 @@ mybatis:
 
 #포트변경              
 server:
-  port: 80
+  port: 5000
   
   
   # SQL Log
