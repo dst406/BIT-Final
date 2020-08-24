@@ -120,7 +120,7 @@
 				<li class="dropdown"><a
 					class="nav-link dropdown-toggle nav-user" data-toggle="dropdown"
 					href="javascript:void(0)" role="button" aria-haspopup="false"
-					aria-expanded="false"><img src="/img/human.png"
+					aria-expanded="false"><img src="img/human.png"
 						alt="profile-user" class="rounded-circle"> 
 						<span
 						th:text="${#authentication.Principal.userName}+ '&nbsp; 원장님'" class="ml-1 nav-user-name hidden-sm">Robert
@@ -130,7 +130,7 @@
 
 
 					<div class="dropdown-menu dropdown-menu-right" style="">
-						<a class="dropdown-item" href="/manager/getManagerInfo">
+						<a class="dropdown-item" href="manager/getManagerInfo">
 						<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-lines-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 									 <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7 1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm2 9a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
 								</svg>
@@ -183,7 +183,7 @@
 
 		<div class="leftbar-tab-menu mm-active active">
 			<div class="main-icon-menu in mm-show">
-				<a href="/manager/managerIndex"
+				<a href="manager/managerIndex"
 					class="logo logo-metrica d-block text-center"><span>
 
 					<img th:src="@{/img/logo-img.png}"  alt="logo-small" class="logo-sm"></span></a>
@@ -212,7 +212,7 @@
 				<!-- LOGO -->
 				<div class="topbar-left">
 
-				<a href="/manager/managerIndex" class="logo">
+				<a href="manager/managerIndex" class="logo">
 				<span><img th:src="@{/img/logo-signature.png}" alt="logo-large" class="logo-lg logo-dark"> </span></a>
 
 				</div>
@@ -227,18 +227,18 @@
 							</div>
 							<ul id="teacher-ul" class="nav in mm-show">
 								<li class="nav-item"><a class="nav-link"
-									href="/manager/getManagerTeacherList">강사목록</a></li>
+									href="manager/getManagerTeacherList">강사목록</a></li>
 								<li class="nav-item"><a class="nav-link"
-									href="/manager/getManagerTeacherTimeCard">강사출퇴근부</a></li>
+									href="manager/getManagerTeacherTimeCard">강사출퇴근부</a></li>
 							</ul>
 
 							<div id="student-manage" class="title-box active">
 								<h6 class="menu-title">학생관리</h6>
 							</div>
 							<ul class="nav in mm-show" id="student-ul">
-								<li class="nav-item"><a class="nav-link" href="/teacher/getStudentList">학생목록</a></li>
+								<li class="nav-item"><a class="nav-link" href="teacher/getStudentList">학생목록</a></li>
 								
-								<li class="nav-item"><a class="nav-link" href="/teacher/getRecordList">성적관리</a></li>
+								<li class="nav-item"><a class="nav-link" href="teacher/getRecordList">성적관리</a></li>
 							</ul>
 
 							<div class="title-box active" id="lecture-manage">
@@ -246,9 +246,9 @@
 							</div>
 							<ul class="nav in mm-show" id="lecture-ul">
 								<li class="nav-item"><a class="nav-link"
-									href="/manager/getManagerLectureList">강의목록</a></li>
+									href="manager/getManagerLectureList">강의목록</a></li>
 								<li class="nav-item"><a class="nav-link"
-									href="/manager/getManagerLectureRoomList">강의실</a></li>
+									href="manager/getManagerLectureRoomList">강의실</a></li>
 							</ul>
 
 							
@@ -258,7 +258,7 @@
 							</div>
 							<ul class="nav in mm-show" id="approval-ul">
 								<li class="nav-item"><a class="nav-link"
-									href="/manager/getManagerApprovalList">결재목록</a></li>
+									href="manager/getManagerApprovalList">결재목록</a></li>
 							</ul>
 
 							<div class="slimScrollBar"
