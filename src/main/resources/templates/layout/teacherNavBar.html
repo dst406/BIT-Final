@@ -142,7 +142,7 @@
 				</ul>
 				<!--end topbar-nav-->
 				<ul class="list-unstyled topbar-nav mb-0">
-					<li><a href="teacher/teacherIndex"><span
+					<li><a href="/teacher/teacherIndex"><span
 							class="responsive-logo"><img
 								src="img/logo4.png" alt="logo-small"
 								class="logo-sm align-self-center" height="34"></span></a></li>
@@ -236,7 +236,7 @@
 
 		<div class="leftbar-tab-menu mm-active active">
 			<div class="main-icon-menu in mm-show">
-				<a href="teacher/teacherIndex"
+				<a href="/teacher/teacherIndex"
 				class="logo logo-metrica d-block text-center"><span><img
 					th:src="@{/img/logo-img.png}" alt="logo-small" class="logo-sm"></span></a>
 
@@ -265,7 +265,7 @@
 			<div class="main-menu-inner active">
 				<!-- LOGO -->
 				<div class="topbar-left">
-					<a href="teacher/teacherIndex" class="logo">
+					<a href="/teacher/teacherIndex" class="logo">
 				<span><img th:src="@{/img/logo-signature.png}" alt="logo-large" class="logo-lg logo-dark"> </span></a>
 				
 				</div>
@@ -280,7 +280,7 @@
 							</div>
 							<ul id="teacher-ul" class="nav in mm-show">
 								<li class="nav-item"><a class="nav-link"
-									href="teacher/getTeacherList">강사목록</a></li>
+									href="/teacher/getTeacherList">강사목록</a></li>
 								<li class="nav-item"><a class="nav-link"
 									th:href="'/teacher/getTeacherTimeCard/' + ${#authentication.Principal.userId}">출퇴근기록부</a></li>
 							</ul>
@@ -289,8 +289,8 @@
 								<h6 class="menu-title">학생관리</h6>
 							</div>
 							<ul class="nav in mm-show" id="student-ul">
-								<li class="nav-item"><a class="nav-link" href="teacher/getStudentList">학생목록</a></li>
-								<li class="nav-item"><a class="nav-link" href="teacher/getRecordList">성적관리</a></li>
+								<li class="nav-item"><a class="nav-link" href="/teacher/getStudentList">학생목록</a></li>
+								<li class="nav-item"><a class="nav-link" href="/teacher/getRecordList">성적관리</a></li>
 							</ul>
 
 							<div class="title-box active" id="lecture-manage">
@@ -298,11 +298,11 @@
 							</div>
 							<ul class="nav in mm-show" id="lecture-ul">
 							<li class="nav-item"><a class="nav-link"
-									href="teacher/getLectureList">전체강의목록</a></li>
+									href="/teacher/getLectureList">전체강의목록</a></li>
 								<li class="nav-item"><a class="nav-link"
-									href="teacher/getTeacherLectureList">나의강의목록</a></li>
+									href="/teacher/getTeacherLectureList">나의강의목록</a></li>
 								<li class="nav-item"><a class="nav-link"
-									href="teacher/getTeacherLectureRoomList">강의실</a></li>
+									href="/teacher/getTeacherLectureRoomList">강의실</a></li>
 							</ul>
 
 							<div class="title-box active" id="approval-manage">
